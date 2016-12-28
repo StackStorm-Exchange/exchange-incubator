@@ -1,0 +1,8 @@
+name: jinja
+description: Jinja template engine
+keywords:
+ - jinja
+ - template
+version: 0.1.0
+author: StackStorm dev
+email: support@stackstorm.com

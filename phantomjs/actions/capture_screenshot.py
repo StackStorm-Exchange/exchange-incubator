@@ -21,7 +21,7 @@ class CaptureScreenshotAction(Action):
             driver = webdriver.PhantomJS()
 
         if window_size:
-            self.logger.debug('Using window size %s' % (window_size))
+            self.logger.debug('Using window size %s' % (str(window_size)))
             driver.set_window_size(*tuple(window_size))
 
         driver.get(url)

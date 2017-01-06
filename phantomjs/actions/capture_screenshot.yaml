@@ -1,0 +1,25 @@
+---
+name: capture_screenshot
+runner_type: run-python
+description: Capture screenshot of a website and save it on disk.
+enabled: true
+entry_point: capture_screenshot.py
+parameters:
+  url:
+    type: string
+    description: URL of the website to capture the screenshot of.
+    required: true
+  window_size:
+    type: array
+    minItems: 2
+    maxItems: 2
+    items:
+      type: "integer"
+    description: Window and screenshot size in pixels.
+    required: false
+    default:
+      - 1024
+      - 768
+  screenshot_path:
+    description: Optional path where screenshot should be saved. If not provided it defaults to "/tmp".
+    required: false

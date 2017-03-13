@@ -1,0 +1,6 @@
+---
+  apikey:
+    description: "api key for pushbullet"
+    type: "string"
+    secret: true
+    required: true

@@ -1,0 +1,6 @@
+---
+  apikey:
+    description: "api token for telegram bot"
+    type: "string"
+    secret: true
+    required: true

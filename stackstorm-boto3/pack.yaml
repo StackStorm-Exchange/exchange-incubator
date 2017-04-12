@@ -1,0 +1,9 @@
+---
+ref: boto3
+name: boto3
+description: st2 boto3 wrapper
+keywords:
+  - boto3
+version: 0.1.0
+author: Dinesh Weerapurage
+email: xydinesh@gmail.com

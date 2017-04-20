@@ -1,0 +1,11 @@
+---
+name: kafka
+description: Integration pack for Apache Kafka message broker
+keywords:
+  - kafka
+  - queuing
+  - messaging
+  - message broker
+version: 0.1.0
+author: StackStorm
+email: support@stackstorm.com

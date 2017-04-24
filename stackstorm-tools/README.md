@@ -3,6 +3,6 @@
 ## Actions
 
 * `download_archive`
-* `unzip_arrchive`
+* `unzip_archive`
 
 Both actions currently support zip only

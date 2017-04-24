@@ -1,0 +1,26 @@
+---
+name: verify_vcs_fabric
+pack: vdx
+runner_type: run-python
+description: verify vcs fabric.
+enabled: true
+entry_point: verify_vcs_fabric.py
+parameters:
+  host:
+    type: string
+    description: Switch Management IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+  vcs_id:
+    type: string
+    description: vcs id
+  rbridge_ids:
+    type: string
+    description: rbridge id
+  nodes:
+    type: string
+    description: Nodes

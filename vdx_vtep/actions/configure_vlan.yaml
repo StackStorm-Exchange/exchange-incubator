@@ -1,0 +1,26 @@
+---
+name: configure_vlan
+pack: vdx
+runner_type: run-python
+description: Create interface VLANs on a device
+enabled: true
+entry_point: configure_vlan.py
+parameters:
+  host:
+    type: string
+    description: Device to get the NOS version
+  username:
+    type: string
+    description: login username
+    default: admin
+  password:
+    type: string
+    description: login password
+    default: password
+    secret: true
+  vlan:
+    type: string
+    description: single vlan or range of vlans
+  intf_desc:
+    type: string
+    description: Interface description name

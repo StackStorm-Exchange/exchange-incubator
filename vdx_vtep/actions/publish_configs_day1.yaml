@@ -1,0 +1,7 @@
+---
+name: publish_configs_day1
+pack: vdx
+runner_type: run-python
+description: Publish configurations present in config file.
+enabled: true
+entry_point: publish_configs_day1.py

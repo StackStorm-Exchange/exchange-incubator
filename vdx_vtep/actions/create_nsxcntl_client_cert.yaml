@@ -1,0 +1,17 @@
+---
+name: create_nsxcntl_client_cert
+pack: vdx
+runner_type: run-python
+description: Implements the logic to create and save switch certificate.
+enabled: true
+entry_point: create_nsxcntl_client_cert.py
+parameters:
+  host:
+    type: string
+    description: Switch Virtual IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password

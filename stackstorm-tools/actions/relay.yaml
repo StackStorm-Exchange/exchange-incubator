@@ -1,0 +1,14 @@
+---
+
+name: relay
+description: "Relays objects. May be used to route mistral direct Workflows."
+
+runner_type: python-script
+entry_point: relay.py
+
+parameters:
+  objects:
+    type: object
+    default: {}
+    description: "Objects to replay"
+

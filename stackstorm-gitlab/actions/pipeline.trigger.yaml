@@ -1,0 +1,30 @@
+---
+
+name: pipeline.trigger
+description: "Trigger a pipeline"
+
+runner_type: python-script
+entry_point: trigger_pipeline.py
+
+parameters:
+  url:
+    type: string
+  project_id:
+    type: string
+    required: true
+  ref:
+    type: string
+    required: true
+  token:
+    type: string
+    description: "Auth Token"
+  trigger_token:
+    type: string
+    required: true
+    description: "CI Trigger Token"
+  variables:
+    type: object
+    description: "Pass variables to pipeline"
+  verify_ssl:
+    type: boolean
+    default: False

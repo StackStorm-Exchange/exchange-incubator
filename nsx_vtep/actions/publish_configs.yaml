@@ -1,0 +1,7 @@
+---
+name: publish_configs
+pack: nsx
+runner_type: run-python
+description: Publish nsx pack configs for other actions in workflow.
+enabled: true
+entry_point: publish_configs.py

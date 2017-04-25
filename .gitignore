@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# ignore nsxraml files and folders
+*.idea/

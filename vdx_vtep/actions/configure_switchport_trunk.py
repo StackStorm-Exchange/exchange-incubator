@@ -1,3 +1,17 @@
+# Copyright 2017 Great Software Laboratory Pvt. Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+
 from st2actions.runners.pythonrunner import Action
 import pynos.device
 
@@ -66,38 +80,6 @@ class CreateSwitchPort(Action):
             self.logger.info("interface type or name invalid.")
         return False
 
-    def _check_requirements_switchport_exists(self, device, intf_type, intf_name, vlan):
-        """ Fail the task if switch port exists.
-        """
-
-        try:
-            return_code = device.interface.switchport(int_type=intf_type, name=intf_name,
-                                                      get='True')
-            parse_string = return_code.data.find('.//{*}switchport-basic')
-            if parse_string is not None:
-                result = device.interface.switchport_list
-                vlan_range = (list(self._validate_vlan(vlan)))
-                for intf in result:
-                    if intf['interface-name'] == intf_name:
-                        if intf['mode'] == 'trunk':
-                            if intf['vlan-id'] is not None:
-                                if len(intf['vlan-id']) > len(vlan_range):
-                                    return False
-                                ret = self._check_list(vlan_range, intf['vlan-id'])
-                                if ret:
-                                    if len(ret) == len(vlan_range):
-                                        return False
-                            else:
-                                return True
-                        else:
-                            self.logger.info("Access mode is configured on interface,\
-                                 Pls removed and re-configure")
-                            return False
-        except (ValueError):
-            self.logger.info("Fetching Switch port enable failed")
-            return False
-        return True
-
     def _check_list(self, input_list, switch_list):
         """ Check if the input list is in switch list """
         return_list = []
@@ -124,28 +106,6 @@ class CreateSwitchPort(Action):
 
         return True
 
-    def _disable_isl(self, device, intf_type, intf_name):
-        """Disable ISL on the interface.
-        """
-        conf = device.interface.fabric_isl(get=True, name=intf_name, int_type=intf_type)
-        conf = conf.data.find('.//{*}fabric-isl')
-        if conf is None:
-            return False
-        self.logger.info("disabling isl on %s %s", intf_type, intf_name)
-        device.interface.fabric_isl(enabled=False, name=intf_name, int_type=intf_type)
-        return True
-
-    def _disable_fabric_trunk(self, device, intf_type, intf_name):
-        """Disable ISL Fabric Trunk on the interface.
-        """
-        conf = device.interface.fabric_trunk(get=True, name=intf_name, int_type=intf_type)
-        conf = conf.data.find('.//{*}fabric-trunk')
-        if conf is None:
-            return False
-        self.logger.info("disabling fabric trunk on %s %s", intf_type, intf_name)
-        device.interface.fabric_trunk(enabled=False, name=intf_name, int_type=intf_type)
-        return True
-        
     def _tag_native_vlan(self, device, intf_type, intf_name):
         try:
             output = device.interface.tag_native_vlan(int_type = 'tengigabitethernet', name = intf_name, enabled = True)

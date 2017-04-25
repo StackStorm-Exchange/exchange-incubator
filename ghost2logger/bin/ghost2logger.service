@@ -4,7 +4,7 @@ Documentation=https://github.com/DavidJohnGee/ghost2logger
 
 [Service]
 Type=simple
-ExecStart=/opt/stackstorm/packs/ghost2logger/bin/ghost2logger-linux-x64-beta-service
+ExecStart=/opt/stackstorm/packs/ghost2logger/bin/ghost2logger-linux-x64-service-0.1
 StandardOutput=null
 Restart=on-failure
 

@@ -8,11 +8,11 @@
             on-success: "vdx_configs"
         -
             name: "vdx_configs"
-            ref: "vdx.publish_configs"
+            ref: "vdx_vtep.publish_configs"
             on-success: "nsx_configs"
         -
             name: "nsx_configs"
-            ref: "nsx.publish_configs"  
+            ref: "nsx_vtep.publish_configs"  
             on-success: "log_create_vcs"
         -
             name: "log_create_vcs"
@@ -22,7 +22,7 @@
             on-success: "configure_vcs_fabric_on_rbridge1"
         -
             name: "configure_vcs_fabric_on_rbridge1"
-            ref: "vdx.create_vcs_fabric"
+            ref: "vdx_vtep.create_vcs_fabric"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip1}}"
                 username: "{{vdx_configs.result.username}}"
@@ -35,7 +35,7 @@
             on-failure: "failed_log"
         -
             name: "configure_vcs_fabric_on_rbridge2"
-            ref: "vdx.create_vcs_fabric"
+            ref: "vdx_vtep.create_vcs_fabric"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip2}}"
                 username: "{{vdx_configs.result.username}}"
@@ -48,7 +48,7 @@
             on-failure: "failed_log"
         -
             name: "verify_vcs_ready"
-            ref: "vdx.verify_vcs_ready"
+            ref: "vdx_vtep.verify_vcs_ready"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip1}}"
                 username: "{{vdx_configs.result.username}}"
@@ -66,7 +66,7 @@
             on-success: "get_principle_node"
         -
             name: "get_principle_node"
-            ref: "vdx.get_principle_node"
+            ref: "vdx_vtep.get_principle_node"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip1}}"
                 username: "{{vdx_configs.result.username}}"
@@ -83,7 +83,7 @@
             on-success: "configure_vcs_vip"
         -
             name: "configure_vcs_vip"
-            ref: "vdx.configure_vcs_vip"
+            ref: "vdx_vtep.configure_vcs_vip"
             parameters:
                 host: "{{get_principle_node.result}}"
                 username: "{{vdx_configs.result.username}}"
@@ -101,7 +101,7 @@
             on-success: "verify_vcs_fabric"
         -
             name: "verify_vcs_fabric"
-            ref: "vdx.verify_vcs_fabric"
+            ref: "vdx_vtep.verify_vcs_fabric"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip1}}"
                 username: "{{vdx_configs.result.username}}"
@@ -121,7 +121,7 @@
             on-success: "configure_vlan"
         -
             name: "configure_vlan"
-            ref: "vdx.configure_vlan"
+            ref: "vdx_vtep.configure_vlan"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -139,7 +139,7 @@
             on-success: "configure_transport_vlan"
         -
             name: "configure_transport_vlan"
-            ref: "vdx.configure_vlan"
+            ref: "vdx_vtep.configure_vlan"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -157,7 +157,7 @@
             on-success: "configure_loopback_interface_on_rbridge1"
         -
             name: "configure_loopback_interface_on_rbridge1"
-            ref: "vdx.configure_interface"
+            ref: "vdx_vtep.configure_interface"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 mgmt_ip: "{{vdx_configs.result.mgmt_ip1}}"
@@ -179,7 +179,7 @@
             on-success: "configure_loopback_interface_on_rbridge2"
         -
             name: "configure_loopback_interface_on_rbridge2"
-            ref: "vdx.configure_interface"
+            ref: "vdx_vtep.configure_interface"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 mgmt_ip: "{{vdx_configs.result.mgmt_ip2}}"
@@ -201,7 +201,7 @@
             on-success: "configure_ve_interface_on_rbridge1"
         -
             name: "configure_ve_interface_on_rbridge1"
-            ref: "vdx.configure_ve_interface"
+            ref: "vdx_vtep.configure_ve_interface"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -221,7 +221,7 @@
             on-success: "configure_ve_interface_on_rbridge2"
         -
             name: "configure_ve_interface_on_rbridge2"
-            ref: "vdx.configure_ve_interface"
+            ref: "vdx_vtep.configure_ve_interface"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -241,7 +241,7 @@
             on-success: "configure_switchport_trunk"
         -
             name: "configure_switchport_trunk"
-            ref: "vdx.configure_switchport_trunk"
+            ref: "vdx_vtep.configure_switchport_trunk"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -260,7 +260,7 @@
             on-success: "configure_VXLAN_gateway"
         -
             name: "configure_VXLAN_gateway"
-            ref: "vdx.configure_VXLAN_gateway"
+            ref: "vdx_vtep.configure_VXLAN_gateway"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -281,7 +281,7 @@
             on-success: "attach_vlan_to_VXLAN_gateway"
         -
             name: "attach_vlan_to_VXLAN_gateway"
-            ref: "vdx.attach_vlan_to_gw"
+            ref: "vdx_vtep.attach_vlan_to_gw"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -300,7 +300,7 @@
             on-success: "configure_nsx_controller"
         -
             name: "configure_nsx_controller"
-            ref: "vdx.configure_nsx_controller"
+            ref: "vdx_vtep.configure_nsx_controller"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -319,7 +319,7 @@
             on-success: "get_nsxcntl_client_cert"
         -
             name: "get_nsxcntl_client_cert"
-            ref: "vdx.get_nsxcntl_client_cert"
+            ref: "vdx_vtep.get_nsxcntl_client_cert"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -336,7 +336,7 @@
             on-success: "add_hw_gw"
         -
             name: "add_hw_gw"
-            ref: "nsx.add_hw_gw"
+            ref: "nsx_vtep.add_hw_gw"
             parameters:
                 nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
                 nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"
@@ -355,7 +355,7 @@
             on-success: "configure_logical_switch"
         -
             name: "configure_logical_switch"
-            ref: "nsx.configure_logical_switch"
+            ref: "nsx_vtep.configure_logical_switch"
             parameters:
                 nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
                 nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"
@@ -377,7 +377,7 @@
             on-success: "configure_vcenter"
         -
             name: "configure_vcenter"
-            ref: "vdx.configure_vcenter"
+            ref: "vdx_vtep.configure_vcenter"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"

@@ -8,15 +8,15 @@
             on-success: "vdx_configs"
         -
             name: "vdx_configs"
-            ref: "vdx.publish_configs_day1"
+            ref: "vdx_vtep.publish_configs_day1"
             on-success: "nsx_configs"
         -
             name: "nsx_configs"
-            ref: "nsx.publish_configs_day1"  
+            ref: "nsx_vtep.publish_configs_day1"  
             on-success: "configure_vlan"
         -
             name: "configure_vlan"
-            ref: "vdx.configure_vlan"
+            ref: "vdx_vtep.configure_vlan"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -34,7 +34,7 @@
             on-success: "attach_vlan"
         -
             name: "attach_vlan"
-            ref: "vdx.attach_vlan_to_gw"
+            ref: "vdx_vtep.attach_vlan_to_gw"
             parameters:
                 host: "{{vdx_configs.result.vip}}"
                 username: "{{vdx_configs.result.username}}"
@@ -53,7 +53,7 @@
             on-success: "configure_logical_switch"
         -
             name: "configure_logical_switch"
-            ref: "nsx.configure_logical_switch"
+            ref: "nsx_vtep.configure_logical_switch"
             parameters:
                 nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
                 nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"

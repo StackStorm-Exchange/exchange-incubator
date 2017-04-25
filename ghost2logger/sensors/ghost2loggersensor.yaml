@@ -1,0 +1,27 @@
+---
+  class_name: "Ghost2loggerSensor"
+  entry_point: "ghost2loggersensor.py"
+  description: "Sensor for Ghost2 Logger"
+  trigger_types:
+    -
+      name: pattern_match
+      description: "Trigger indicates a Syslog pattern match."
+      payload_schema:
+        type: object
+        properties:
+          pattern:
+            description: "Pattern that was matched"
+            type: string
+          host:
+            description: "Host that transmitted the message"
+            type: string
+
+
+
+
+
+
+
+
+
+

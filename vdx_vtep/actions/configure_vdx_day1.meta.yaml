@@ -1,6 +1,6 @@
 ---
 name: attach_vlan_to_gw_workflow
-pack: vdx
+pack: vdx_vtep
 runner_type: action-chain
 description: trigger the workflow which will attach vlan to overlay gateway
 enabled: true

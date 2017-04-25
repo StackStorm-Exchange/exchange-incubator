@@ -1,6 +1,6 @@
 ---
 name: configure_vlan
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Create interface VLANs on a device
 enabled: true

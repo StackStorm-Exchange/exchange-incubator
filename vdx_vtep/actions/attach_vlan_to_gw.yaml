@@ -1,6 +1,6 @@
 ---
 name: attach_vlan_to_gw
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: attach_vlan_to_gw
 enabled: true

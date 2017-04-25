@@ -1,6 +1,6 @@
 ---
 name: get_nsxcntl_client_cert
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Implements the logic to create and save switch certificate.
 enabled: true

@@ -1,6 +1,6 @@
 ---
 name: publish_configs_day1
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Publish configurations present in config file.
 enabled: true

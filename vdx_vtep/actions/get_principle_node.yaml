@@ -1,6 +1,6 @@
 ---
 name: get_principle_node
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Get principle rbridge node
 enabled: true

@@ -1,6 +1,6 @@
 ---
 name: configure_switchport_trunk 
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Create switch port on a interface with switch port mode trunk allowed vlan 
 enabled: true

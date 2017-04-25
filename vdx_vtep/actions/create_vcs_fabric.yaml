@@ -1,6 +1,6 @@
 ---
 name: create_vcs_fabric
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: Add VDX switch to VCS fabric.
 enabled: true

@@ -1,6 +1,6 @@
 ---
 name: verify_vcs_ready
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: verify vcs fabric is ready.
 enabled: true

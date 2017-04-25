@@ -1,6 +1,6 @@
 ---
 name: configure_interface
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: configure interface
 enabled: true

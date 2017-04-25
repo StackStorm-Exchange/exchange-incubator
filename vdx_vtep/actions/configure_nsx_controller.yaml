@@ -1,6 +1,6 @@
 ---
 name: configure_nsx_controller
-pack: vdx
+pack: vdx_vtep
 runner_type: run-python
 description: configure nsx controller
 enabled: true

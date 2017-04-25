@@ -1,6 +1,6 @@
 ---
 name: configure_vdx
-pack: vdx
+pack: vdx_vtep
 runner_type: action-chain
 description: trigger the VDX configuration workflow.
 enabled: true

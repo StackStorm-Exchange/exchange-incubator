@@ -1,6 +1,6 @@
 ---
 name: publish_configs
-pack: nsx
+pack: nsx_vtep
 runner_type: run-python
 description: Publish nsx pack configs for other actions in workflow.
 enabled: true

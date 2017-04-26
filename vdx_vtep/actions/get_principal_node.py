@@ -15,9 +15,9 @@
 import logging
 import pynos.device
 from st2actions.runners.pythonrunner import Action
-class getPrincipledevice(Action):
+class getPrincipaldevice(Action):
     """
-       Implements the logic to get the principle rbridge device.
+       Implements the logic to get the principal rbridge device.
     """
 
     def run(self, host, username, password):
@@ -37,16 +37,16 @@ class getPrincipledevice(Action):
         self.logger = logging.getLogger(__name__)
         changes = {}
         with pynos.device.Device(conn=conn, auth=auth) as device:
-            changes['get_principle_rb'] = self._get_principle_rb(device)
-            if changes['get_principle_rb'] is None:
-                self.logger.info('Failed to get the principle node')
+            changes['get_principal_rb'] = self._get_principal_rb(device)
+            if changes['get_principal_rb'] is None:
+                self.logger.info('Failed to get the principal node')
                 exit(1)
             else:
-                return changes['get_principle_rb']
+                return changes['get_principal_rb']
 
-    def _get_principle_rb(self, device):
+    def _get_principal_rb(self, device):
         """
-        Get principle rbridge device in the VCS
+        Get principal rbridge device in the VCS
         """
         try:
             result = device.vcs.vcs_nodes
@@ -58,5 +58,5 @@ class getPrincipledevice(Action):
             return principal_node
         except Exception as e:
             self.logger.error(
-                'Failed to get the principle node with error: %s' %e)
+                'Failed to get the principal node with error: %s' %e)
             return False

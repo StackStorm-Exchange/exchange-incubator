@@ -63,20 +63,20 @@
             ref: "core.local"
             parameters:
                 cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
-            on-success: "get_principle_node"
+            on-success: "get_principal_node"
         -
-            name: "get_principle_node"
-            ref: "vdx_vtep.get_principle_node"
+            name: "get_principal_node"
+            ref: "vdx_vtep.get_principal_node"
             parameters:
                 host: "{{vdx_configs.result.mgmt_ip1}}"
                 username: "{{vdx_configs.result.username}}"
                 password: "{{vdx_configs.result.password}}"
             publish:
-                current_action: "Get principle node"
-            on-success: "log_get_principle_node"
+                current_action: "Get principal node"
+            on-success: "log_get_principal_node"
             on-failure: "failed_log"
         -
-            name: "log_get_principle_node"
+            name: "log_get_principal_node"
             ref: "core.local"
             parameters:
                 cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
@@ -85,7 +85,7 @@
             name: "configure_vcs_vip"
             ref: "vdx_vtep.configure_vcs_vip"
             parameters:
-                host: "{{get_principle_node.result}}"
+                host: "{{get_principal_node.result}}"
                 username: "{{vdx_configs.result.username}}"
                 password: "{{vdx_configs.result.password}}"
                 vip_mask: "{{vdx_configs.result.vip_mask}}"

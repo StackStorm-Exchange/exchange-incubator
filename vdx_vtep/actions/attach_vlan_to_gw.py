@@ -12,13 +12,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from vdx_ssh import ssh
+from netmiko import ConnectHandler
 import pynos.device
 import pynos.utilities
 import logging
 from st2actions.runners.pythonrunner import Action
 
 class attachVlanToGw(Action):
+    def __init__(self, config=None):
+        super(attachVlanToGw, self).__init__(config=config)
+        
     def run(self, host=None, username=None, password=None, overlay_gateway_name=None, vlan=None):
         """Run helper methods to implement the desired state.
         """
@@ -49,7 +52,7 @@ class attachVlanToGw(Action):
         changes['pre_requisites'] = self._check_requirements(dev, overlay_gateway_name, vlan)
         changes['attach_vlan'] = False
         if changes['pre_requisites']:
-            changes['attach_vlan'] = self._attach_vlan(host, username, password, overlay_gateway_name, vlan)
+            changes['attach_vlan'] = self._attach_vlan(host, auth, overlay_gateway_name, vlan)
         else:
             self.logger.info('Pre-requisites validation failed while attaching VLAN to overlay gateway')
         if not changes['attach_vlan']:
@@ -89,17 +92,43 @@ class attachVlanToGw(Action):
         return True
 
 
-    def _attach_vlan(self, host, username, password, overlay_gateway_name, vlan):
-        self._conn = ssh.SSH(host=host, auth=(username, password))
+    def _attach_vlan(self, host, auth, overlay_gateway_name, vlan):
+        '''
+        Add Vlans to the overlay-gateway
+        '''
+        cmd1 = "overlay-gateway %s" % (overlay_gateway_name)
+        cmd2 = "attach vlan %d" % (int(vlan))
+        cmds = ['configure', cmd1, cmd2]
+        result = self._execute_cmd(host, auth, cmds)
+        if result:
+            return True
+        else:
+            return False
 
+    def _execute_cmd(self, host, auth, cli_cmd):
+        '''
+        Logic to connect/ssh to the device and execute the command
+        '''
+        opt = {'device_type': 'brocade_vdx'}
+        opt['ip'] = host
+        opt['username'] = auth[0]
+        opt['password'] = auth[1]
+        opt['verbose'] = True
+        opt['global_delay_factor'] = 0.5
+        net_connect = None
+        cli_output = {}
         try:
-            cmd = "configure"
-            self._conn.send(cmd)
-            cmd = "overlay-gateway %s" % (overlay_gateway_name)
-            self._conn.send(cmd)
-            cmd = "attach vlan %d" % (int(vlan))
-            self._conn.send(cmd)
-        except Exception as e:
-            self.logger.error('Command: %s execution failed with Exception %s' %(cmd, e))
+            net_connect = ConnectHandler(**opt)
+            for cmd in cli_cmd:
+                cmd = cmd.strip()
+                cli_output[cmd] = (net_connect.send_command(cmd,expect_string='config'))
+                self.logger.info('successfully executed cli %s', cmd)
+            return True
 
-        return True
+        except Exception as e:
+            self.logger.error(
+                'Execution of command: %s Failed with Exception: %s' % (e, cmd))
+            return False
+        finally:
+            if net_connect is not None:
+                net_connect.disconnect()

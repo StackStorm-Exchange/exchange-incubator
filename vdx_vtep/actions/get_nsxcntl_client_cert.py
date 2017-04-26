@@ -12,16 +12,18 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from netmiko import ConnectHandler
 from st2actions.runners.pythonrunner import Action
-from vdx_ssh import ssh
 import logging
 
-class GetSwitchCertificate(Action):
+class getSwitchCertificate(Action):
     """
        Implements the logic to get the nsx-controller client certficate
        This action achieves the below functionality
            1. Reads client certificate
     """
+    def __init__(self, config=None):
+        super(getSwitchCertificate, self).__init__(config=config)
 
     def run(self, host=None, username=None, password=None):
         """Run helper methods to implement the desired state.
@@ -53,10 +55,41 @@ class GetSwitchCertificate(Action):
         Logic to read the client certificate
         Return: certificate
         '''
-        self._conn = ssh.SSH(host=host, auth=auth)
-        cert = self._conn.read("show nsx-controller client-cert")
-        certificate = '\n'.join(cert)
-        if 'BEGIN CERTIFICATE' not in certificate :
+        cmd = ["terminal length 0", "show nsx-controller client-cert"]
+        result = self._execute_cmd(host, auth, cmd)
+        cert = result['show nsx-controller client-cert']
+        print cert
+        #certificate = '\n'.join(cert)
+        #print certificate
+        if 'BEGIN CERTIFICATE' not in cert :
             return False
-        return certificate
+        return cert
 
+    def _execute_cmd(self, host, auth, cli_cmd):
+        '''
+        Logic to connect/ssh to the device and execute the command
+        '''
+        opt = {'device_type': 'brocade_vdx'}
+        opt['ip'] = host
+        opt['username'] = auth[0]
+        opt['password'] = auth[1]
+        opt['verbose'] = True
+        opt['global_delay_factor'] = 0.5
+        net_connect = None
+        cli_output = {}
+        try:
+            net_connect = ConnectHandler(**opt)
+            for cmd in cli_cmd:
+                cmd = cmd.strip()
+                cli_output[cmd] = (net_connect.send_command(cmd,expect_string='#'))
+                self.logger.info('successfully executed cli %s', cmd)
+                print cli_output
+            return cli_output
+
+        except Exception as e:
+            self.logger.error(
+                'Execution of command Failed with Exception: %s' % e)
+            return False
+        finally:
+            if net_connect is not None:
+                net_connect.disconnect()

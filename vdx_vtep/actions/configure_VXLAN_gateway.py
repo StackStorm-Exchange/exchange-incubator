@@ -103,7 +103,7 @@ class ConfigureVxlanGateway(Action):
         if int(intf_name) not in range(256):
             raise ValueError('Invlaid Loopback Interface Id: %s' % intf_name)
 
-        output = dev.interface.ve_interfaces
+        output = dev.interface.ve_interfaces()
         # Logic to check if loopback interface is precreated and active
         is_loopback_interface_present = False
         for each_int in output:

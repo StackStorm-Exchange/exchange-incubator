@@ -12,7 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from vdx_ssh import ssh
+from netmiko import ConnectHandler
 import pynos.device
 import logging
 import time
@@ -27,6 +27,8 @@ class ConfigureVcs(Action):
            2. Validates if VCS Fabric pre-exists on the device.
            3. VCS fabric configuration.
     """
+    def __init__(self, config=None):
+        super(ConfigureVcs, self).__init__(config=config)
 
     def run(self, host=None, username=None, password=None, vcs_id=None, rbridge_id=None):
         """Run helper methods to implement the desired state.
@@ -49,8 +51,6 @@ class ConfigureVcs(Action):
         conn = (host, '22')
         auth = (str(username), str(password))
         changes = {}
-
-
         self.logger = logging.getLogger(__name__)
         dev = pynos.device.Device(conn=conn, auth=auth)
 
@@ -92,11 +92,19 @@ class ConfigureVcs(Action):
     def _configure_vcs(self, vcs_id, rb_id, host, auth):
         """VCS Fabric Configuration
         """
-
-        self._conn = ssh.SSH(host=host, auth=auth)
-
+        #
         self.logger.info ("Creating VCS Fabric on the device: %r with vcsId:%r and rbridgeId: %r" % (host, vcs_id, rb_id))
         cmd = "vcs vcsid %s set-rbridge-id %s" % (vcs_id, rb_id)
+        cmds = [cmd,'y']
+        print cmds
+        result = self._execute_cmd(host, auth, cmds)
+        print result
+        if result:
+            return True
+        else:
+            return False
+
+        '''
         try:
             self._conn.send(cmd)
             self._conn.send("y")
@@ -107,8 +115,37 @@ class ConfigureVcs(Action):
         if not result:
             self.logger.info('Device:%s is not rebooted after VCS configuration' % host)
         return True
+        '''
 
 
+
+    def _execute_cmd(self, host, auth, cli_cmd):
+        '''
+        Logic to connect/ssh to the device and execute the command
+        '''
+        opt = {'device_type': 'brocade_vdx'}
+        opt['ip'] = host
+        opt['username'] = auth[0]
+        opt['password'] = auth[1]
+        opt['verbose'] = True
+        opt['global_delay_factor'] = 0.5
+        net_connect = None
+        cli_output = {}
+        try:
+            net_connect = ConnectHandler(**opt)
+            for cmd in cli_cmd:
+                cmd = cmd.strip()
+                cli_output[cmd] = (net_connect.send_command(cmd, expect_string='[y/n]'))
+                self.logger.info('successfully executed cli %s', cmd)
+            return True
+
+        except Exception as e:
+            self.logger.error(
+                'Execution of command: %s Failed with Exception: %s' % (e, cmd))
+            return False
+        finally:
+            if net_connect is not None:
+                net_connect.disconnect()
 
     def _if_device_reboot(self,host):
 
@@ -142,8 +179,3 @@ class ConfigureVcs(Action):
             return response
         except:
             return response
-
-
-
-
-

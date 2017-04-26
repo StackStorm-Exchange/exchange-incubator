@@ -55,7 +55,7 @@ Created by GS Lab, the StackStorm Integration Pack for the Brocade VCS Gateway f
 
 ***Access the appliance:***
 > Please note that this application works best in Chrome browser.
-* To access UI please hit bellow URL form browser.
+* To access UI please hit below URL from browser.
   ```
   http://<appliance_server_ip>:5000
   ```

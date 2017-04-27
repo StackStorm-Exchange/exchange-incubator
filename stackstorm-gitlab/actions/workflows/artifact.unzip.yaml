@@ -1,0 +1,39 @@
+version: '2.0'
+
+gitlab.artifact.unzip:
+  input:
+    - url
+    - token
+    - project
+    - ref
+    - artifact_build_job
+    - save_as
+    - unzip_path
+
+  output:
+    files: <% $.files %>
+    artifact: <% $.artifact_path %>
+
+  tasks:
+    download_artifact:
+      action: tools.archive.download
+      input:
+        url: "<% $.url %>/api/v4/projects/<% $.project %>/jobs/artifacts/<% $.ref %>/download"
+        headers:
+          PRIVATE-TOKEN: <% $.token %>
+        params:
+          job: <% $.artifact_build_job %>
+        save_as: "<% $.save_as %>"
+      publish:
+        artifact: <% task(download_artifact).result.result.archive %>
+      on-success: unzip_artifact
+
+    unzip_artifact:
+      action: tools.archive.extract
+      input:
+        archive: <% $.artifact %>
+        directory: <% $.unzip_path %>
+        files: true
+      publish:
+        files: <% task(unzip_artifact).result.result.files %>
+        artifact_path: <% task(unzip_artifact).result.result.archive %>

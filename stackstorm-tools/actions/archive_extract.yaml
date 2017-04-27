@@ -1,0 +1,17 @@
+---
+
+name: archive.extract
+description: "Extract an Archive. Returns the extracted archives absolute path"
+
+runner_type: python-script
+entry_point: archive_extract.py
+
+parameters:
+  archive:
+    type: string
+    required: true
+  directory:
+    type: string
+  files:
+    type: boolean
+    default: false

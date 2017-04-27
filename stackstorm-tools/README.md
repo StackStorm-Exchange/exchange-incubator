@@ -2,7 +2,7 @@
 
 ## Actions
 
-### `archive.download`
+### `download`
 ### `archive.extract`
 ### `relay`
 

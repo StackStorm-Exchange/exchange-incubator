@@ -1,18 +1,18 @@
 ---
 
-name: archive.download
-description: "Download zipfile"
+name: download
+description: "Download file"
 
 runner_type: python-script
-entry_point: archive_download.py
+entry_point: download.py
 
 parameters:
   url:
     type: string
-    description: "Gitlab URL"
   params:
     type: object
     description: "Request parameters"
+  default: {}
   headers:
     type: object
   save_as:

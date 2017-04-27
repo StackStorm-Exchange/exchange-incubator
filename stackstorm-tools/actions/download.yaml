@@ -12,7 +12,7 @@ parameters:
   params:
     type: object
     description: "Request parameters"
-  default: {}
+    default: {}
   headers:
     type: object
   save_as:

@@ -16,7 +16,7 @@ class Download(Action):
             makedirs(save_path)
 
         response = requests.get(url, headers=headers or {}, params=params or {}, verify=verify_ssl)
-        if response.status_code.startswith('2'):
+        if str(response.status_code).startswith('2'):
             with open(save_as, 'wb') as archive_fd:
                 for chunk in response.iter_content(chunk_size=1024):
                     if not chunk:

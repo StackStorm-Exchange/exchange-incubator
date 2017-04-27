@@ -16,7 +16,7 @@ gitlab.artifact.unzip:
 
   tasks:
     download_artifact:
-      action: tools.archive.download
+      action: tools.download
       input:
         url: "<% $.url %>/api/v4/projects/<% $.project %>/jobs/artifacts/<% $.ref %>/download"
         headers:
@@ -25,7 +25,7 @@ gitlab.artifact.unzip:
           job: <% $.artifact_build_job %>
         save_as: "<% $.save_as %>"
       publish:
-        artifact: <% task(download_artifact).result.result.archive %>
+        artifact: <% task(download_artifact).result.result.file %>
       on-success: unzip_artifact
 
     unzip_artifact:

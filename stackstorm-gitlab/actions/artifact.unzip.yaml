@@ -1,7 +1,7 @@
 ---
 
 name: artifact.unzip
-description: "Download gitlab Archive and Unzip it to a directory"
+description: "Download gitlab Archive and unzip it to a directory"
 
 runner_type: mistral-v2
 entry_point: "workflows/artifact.unzip.yaml"
@@ -9,7 +9,7 @@ entry_point: "workflows/artifact.unzip.yaml"
 parameters:
   url:
     type: string
-    description: "Gitlab URL with http(s)"
+    description: "Gitlab URL"
   token:
     type: string
     description: "Gitlab Private-Token"

@@ -14,22 +14,15 @@ verify_ssl: False
 
 ### Projects
 
-* `project.list` - Returns a list of gitlab projects
+* `project.info` - Returns project information
 
 ### Pipelines
 
-* `project.pipelines.list` - List all pipelines in a project
-* `project.pipelines.run` - Create a new Pipeline
+* `pipeline.list` - List all pipelines in a project
+* `pipeline.trigger` - Create a new pipeline
 
 ### Artifacts
 
 * `artifact.unzip` - Download the latest artifact and unzip it
 
-## Dependencies
-
-### packs
-
-* [tools](https://github.com/nullkarma/stackstorm-tools) - used by `artifact.unzip` workflow.
-
-Since `artifact.unzip` is a workflow build from a 3rd party pack,
-it won't be able to read `url` and `token` from your `gitlab.yaml` config.
+depends on tools pack

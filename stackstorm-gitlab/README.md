@@ -21,8 +21,3 @@ verify_ssl: False
 * `pipeline.list` - List all pipelines in a project
 * `pipeline.trigger` - Create a new pipeline
 
-### Artifacts
-
-* `artifact.unzip` - Download the latest artifact and unzip it
-
-depends on tools pack

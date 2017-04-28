@@ -12,16 +12,16 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from st2actions.runners.pythonrunner import Action
 import re
+from st2actions.runners.pythonrunner import Action
 
 class PublishConfigs(Action):
     def __init__(self, config=None):
         super(PublishConfigs, self).__init__(config=config)
-        
+
     def run(self):
         configs = {}
-        
+
         configs['vip'] = self.config['vip']
         configs['mgmt_ip1'] = self.config['mgmt_ip1']
         configs['mgmt_ip2'] = self.config['mgmt_ip2']
@@ -49,9 +49,9 @@ class PublishConfigs(Action):
         configs['vip_mask'] = self.config['vip_mask']
         configs['rbridge_ids'] = self.config['rbridge_id1'] + "," + self.config['rbridge_id1']
         configs['switch_ports'] = self._get_switch_ports()
-                
+
         return configs
-        
+
     def _get_switch_ports(self):
         switch_port_re = r"^intf_name[0-9]"
         switch_ports = ""

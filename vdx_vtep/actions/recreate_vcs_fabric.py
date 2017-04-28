@@ -12,11 +12,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from netmiko import ConnectHandler
-import pynos.device
 import logging
 import time
 import socket
+import pynos.device
+from netmiko import ConnectHandler
 from st2actions.runners.pythonrunner import Action
 
 class ConfigureVcs(Action):
@@ -29,12 +29,13 @@ class ConfigureVcs(Action):
     """
     def __init__(self, config=None):
         super(ConfigureVcs, self).__init__(config=config)
+        self.logger = logging.getLogger(__name__)
 
     def run(self, host=None, username=None, password=None, vcs_id=None, rbridge_id=None):
         """Run helper methods to implement the desired state.
         """
         if host is None:
-            self._host = self.config['vip']
+            host = self.config['vip']
 
         if username is None:
             username = self.config['username']
@@ -51,25 +52,24 @@ class ConfigureVcs(Action):
         conn = (host, '22')
         auth = (str(username), str(password))
         changes = {}
-        self.logger = logging.getLogger(__name__)
+        
         dev = pynos.device.Device(conn=conn, auth=auth)
 
-        changes['pre_requisites'] = self._check_requirements(dev,vcs_id,rbridge_id)
+        changes['pre_requisites'] = self._check_requirements(dev, vcs_id, rbridge_id)
         changes['create_vcs'] = False
         if changes['pre_requisites']:
             changes['create_vcs'] = self._configure_vcs(vcs_id, rbridge_id, host, auth)
         else:
             self.logger.info('Pre-requisites validation failed for interface configuration.')
         if not changes['create_vcs']:
-            self.logger.info(
-                    'VCS Fabric configuration Failed on the device %s' % host)
+            self.logger.info('VCS Fabric configuration Failed on the device %s', host)
             exit(1)
         else:
-            self.logger.info('closing connection to %s after successful VCS Fabric configuring' %
-                    host)
+            self.logger.info('closing connection to %s after successful VCS Fabric configuring',
+                             host)
             return changes
 
-    def _check_requirements(self,device,vcs_id,rbridge_id):
+    def _check_requirements(self, device, vcs_id, rbridge_id):
         """
         Verify if VCS Fabric pre-exists with multiple nodes.
         """
@@ -84,31 +84,14 @@ class ConfigureVcs(Action):
         """VCS Fabric Configuration
         """
         #
-        self.logger.info ("Creating VCS Fabric on the device: %r with vcsId:%r and rbridgeId: %r" % (host, vcs_id, rb_id))
-        cmd = "vcs vcsid %s set-rbridge-id %s" % (vcs_id, rb_id)
-        cmds = [cmd,'y']
+        self.logger.info("Creating VCS Fabric on the device: %r with vcsId:%r and rbridgeId: %r",
+                         host, vcs_id, rb_id)
+        cmd = "vcs vcsid %s set-rbridge-id %s", vcs_id, rb_id
+        cmds = [cmd, 'y']
         print cmds
         result = self._execute_cmd(host, auth, cmds)
         print result
-        if result:
-            return True
-        else:
-            return False
-
-        '''
-        try:
-            self._conn.send(cmd)
-            self._conn.send("y")
-        except Exception as e:
-            self._logger.error('Command: %s execution failed with Exception %s' %(cmd, e))
-
-        result = self._if_device_reboot(host)
-        if not result:
-            self.logger.info('Device:%s is not rebooted after VCS configuration' % host)
-        return True
-        '''
-
-
+        return bool(result)
 
     def _execute_cmd(self, host, auth, cli_cmd):
         '''
@@ -130,19 +113,18 @@ class ConfigureVcs(Action):
                 self.logger.info('successfully executed cli %s', cmd)
             return True
 
-        except Exception as e:
-            self.logger.error(
-                'Execution of command: %s Failed with Exception: %s' % (e, cmd))
+        except RuntimeError as e:
+            self.logger.error('Execution of command: %s Failed with Exception: %s', e, cmd)
             return False
         finally:
             if net_connect is not None:
                 net_connect.disconnect()
 
-    def _if_device_reboot(self,host):
+    def _if_device_reboot(self, host):
 
         #Logic to check if device has rebooted.
 
-        self.logger.info ("Checking if the device is rebooted after VCS command execution")
+        self.logger.info("Checking if the device is rebooted after VCS command execution")
         result = 0
         t_elapsed = 1
         while t_elapsed < 120:
@@ -157,7 +139,7 @@ class ConfigureVcs(Action):
                 break
         return result
 
-    def _verify_ssh_connectivity(self,**kwargs):
+    def _verify_ssh_connectivity(self, **kwargs):
         ip = kwargs.pop('ip')
         port = kwargs.pop('port', 22)
         response = None

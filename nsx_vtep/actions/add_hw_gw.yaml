@@ -15,6 +15,7 @@ parameters:
   nsx_mgr_pass:
     type: string
     description: login password
+    secret: true
   gw_name:
     type: string
     description: Hardware device name.

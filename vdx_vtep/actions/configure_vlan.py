@@ -12,10 +12,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import re
 import pynos.device
 import pynos.utilities
 from st2actions.runners.pythonrunner import Action
-import re
 
 class CreateVlan(Action):
     def __init__(self, config=None):
@@ -26,32 +26,33 @@ class CreateVlan(Action):
         """
         if host is None:
             host = self.config['vip']
-            
+
         if username is None:
             username = self.config['username']
-            
+
         if password is None:
             password = self.config['password']
-            
+
         if vlan is None:
             vlan = self.config['vlan']
-        
+
         conn = (host, '22')
         auth = (username, password)
-        
+
         changes = {}
 
         with pynos.device.Device(conn=conn, auth=auth) as device:
             self.logger.info('successfully connected to %s to create vlan', host)
             # Check is the user input for VLANS is correct
             vlan_list = self._check_requirements(vlan_id=vlan)
-            # Check if the description is valid  
+            # Check if the description is valid
             valid_desc = True
             if intf_desc:
                 # if description is passed we validate that the length is good.
                 valid_desc = self.check_int_description(intf_description=intf_desc)
             if vlan_list and valid_desc:
-                changes['vm_vlan'] = self._configure_vlan(device, vlan_id=vlan_list, intf_desc=intf_desc, host=host)
+                changes['vm_vlan'] = self._configure_vlan(device, vlan_id=vlan_list,
+                                                          intf_desc=intf_desc, host=host)
             else:
                 raise ValueError('Input is not a valid vlan or description')
             self.logger.info('closing connection to %s after configuring create vlan -- all done!',
@@ -115,8 +116,7 @@ class CreateVlan(Action):
         sysvlans = device.interface.vlans
         is_vlan_interface_present = False
 
-        """ The below code is to verify the given vlan is already present in VDX switch
-        """
+        #The below code is to verify the given vlan is already present in VDX switch
         vlan_list = []
         for vlan in vlan_id:
             for svlan in sysvlans:
@@ -133,8 +133,7 @@ class CreateVlan(Action):
                     if vlan_len == 1:
                         break
 
-            """ The below code is for creating single vlan.
-            """
+            #The below code is for creating single vlan.
             if not is_vlan_interface_present and vlan_len == 1:
                 self.logger.info('configuring vlan %s on %s', vlan, host)
                 error = device.interface.add_vlan_int(str(vlan))
@@ -148,8 +147,7 @@ class CreateVlan(Action):
                            on %s' % host
                     raise ValueError(msg)
 
-        """ The below code is for creating more than one vlan.
-        """
+        # The below code is for creating more than one vlan.
         if vlan_len > 1:
             vid_list = [x for x in vlan_id if x not in vlan_list]
             for vlan in vid_list:

@@ -17,11 +17,14 @@ import pynos.device
 from st2actions.runners.pythonrunner import Action
 class getPrincipaldevice(Action):
     """
-       Implements the logic to get the principal rbridge device.
+    Implements the logic to get the principal rbridge device.
     """
-
+    def __init__(self, config=None):
+        super(getPrincipaldevice, self).__init__(config=config)
+        self.logger = logging.getLogger(__name__)
     def run(self, host, username, password):
-        """Run helper methods to implement the desired state.
+        """
+        Run helper methods to implement the desired state.
         """
         if host is None:
             host = self.config['mgmt_ip1']
@@ -34,7 +37,7 @@ class getPrincipaldevice(Action):
 
         conn = (host, '22')
         auth = (username, password)
-        self.logger = logging.getLogger(__name__)
+
         changes = {}
         with pynos.device.Device(conn=conn, auth=auth) as device:
             changes['get_principal_rb'] = self._get_principal_rb(device)
@@ -56,7 +59,6 @@ class getPrincipaldevice(Action):
                     principal_node = node['node-switch-ip']
                     break
             return principal_node
-        except Exception as e:
-            self.logger.error(
-                'Failed to get the principal node with error: %s' %e)
+        except RuntimeError as e:
+            self.logger.error('Failed to get the principal node with error: %s', e)
             return False

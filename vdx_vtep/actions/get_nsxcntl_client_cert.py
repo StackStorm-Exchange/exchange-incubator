@@ -12,9 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import logging
 from netmiko import ConnectHandler
 from st2actions.runners.pythonrunner import Action
-import logging
 
 class getSwitchCertificate(Action):
     """
@@ -24,33 +24,34 @@ class getSwitchCertificate(Action):
     """
     def __init__(self, config=None):
         super(getSwitchCertificate, self).__init__(config=config)
+        self.logger = logging.getLogger(__name__)
 
     def run(self, host=None, username=None, password=None):
         """Run helper methods to implement the desired state.
         """
         if host is None:
-            host=self.config['vip']
+            host = self.config['vip']
 
         if username is None:
-            username=self.config['username']
+            username = self.config['username']
 
         if password is None:
-            password=self.config['password']
-            
+            password = self.config['password']
+
         auth = (str(username), str(password))
-        self.logger = logging.getLogger(__name__)
 
         changes = {}
-        changes['get_cert'] = self._get_client_certificate(host,auth)
+        changes['get_cert'] = self._get_client_certificate(host, auth)
         if not changes['get_cert']:
-            self.logger.info('Nsx-controller client-certificate is not generated on the device: %s' % host)
+            self.logger.info('Nsx-controller client-certificate is not generated on the device: %s',
+                             host)
             exit(1)
         else:
-            self.logger.info('closing connection to %s after reading nsx-controller client-certificate successfully' %
-                             host)
+            self.logger.info('closing connection to %s after reading nsx-controller \
+                              client-certificate successfully', host)
             return changes
 
-    def _get_client_certificate(self,host,auth):
+    def _get_client_certificate(self, host, auth):
         '''
         Logic to read the client certificate
         Return: certificate
@@ -61,7 +62,7 @@ class getSwitchCertificate(Action):
         print cert
         #certificate = '\n'.join(cert)
         #print certificate
-        if 'BEGIN CERTIFICATE' not in cert :
+        if 'BEGIN CERTIFICATE' not in cert:
             return False
         return cert
 
@@ -81,14 +82,13 @@ class getSwitchCertificate(Action):
             net_connect = ConnectHandler(**opt)
             for cmd in cli_cmd:
                 cmd = cmd.strip()
-                cli_output[cmd] = (net_connect.send_command(cmd,expect_string='#'))
+                cli_output[cmd] = (net_connect.send_command(cmd, expect_string='#'))
                 self.logger.info('successfully executed cli %s', cmd)
                 print cli_output
             return cli_output
 
-        except Exception as e:
-            self.logger.error(
-                'Execution of command Failed with Exception: %s' % e)
+        except RuntimeError as e:
+            self.logger.error('Execution of command Failed with Exception: %s', e)
             return False
         finally:
             if net_connect is not None:

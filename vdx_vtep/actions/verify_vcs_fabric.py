@@ -12,10 +12,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import logging
 import pynos.device
 from st2actions.runners.pythonrunner import Action
-
-import logging
 
 class VerifyVcs(Action):
     """
@@ -23,8 +22,12 @@ class VerifyVcs(Action):
        This action achieves the below functionality
            1. Valdiates vcsId,rbridgeIDs and total nodes in VCS Fabric.
     """
+    def __init__(self, config=None):
+        super(VerifyVcs, self).__init__(config=config)
+        self.logger = logging.getLogger(__name__)
 
-    def run(self, host=None, username=None, password=None, vcs_id=None, rbridge_ids=None, nodes=None):
+    def run(self, host=None, username=None, password=None, vcs_id=None,
+            rbridge_ids=None, nodes=None):
         """Run helper methods to implement the desired state.
         """
         if host is None:
@@ -45,7 +48,6 @@ class VerifyVcs(Action):
         if nodes is None:
             nodes = 2
 
-        self.logger = logging.getLogger(__name__)
         conn = (host, '22')
         auth = (username, password)
 
@@ -69,9 +71,9 @@ class VerifyVcs(Action):
 
     def _check_requirements(self, device, vcs_id, rb_ids, nodes):
         rb_list = rb_ids.split(',')
-        for id in rb_list:
-            if int(id) > 239 or int(id) < 1:
-                raise ValueError(' Rbridge ID: %s is Invalid. Not in <1-239> range' % id)
+        for rb_id in rb_list:
+            if int(rb_id) > 239 or int(rb_id) < 1:
+                raise ValueError(' Rbridge ID: %s is Invalid. Not in <1-239> range' % rb_id)
 
         if int(vcs_id) > 8192 or int(vcs_id) < 1:
             raise ValueError('VCS Id:%s is Invalid. Not in <1-8192> range' % vcs_id)
@@ -84,24 +86,24 @@ class VerifyVcs(Action):
         """
         try:
             output = device.vcs.vcs_nodes
-        except Exception as e:
-            self.logger.error(
-                'VCS Fabric Verification Failed with Exception: %s' % e)
+        except RuntimeError as e:
+            self.logger.error('VCS Fabric Verification Failed with Exception: %s', e)
             return False
 
         if not output:
             return False
 
-        if not (self._verify_vcsId(vcs_id, output)):
+        if not self._verify_vcsId(vcs_id, output):
             self.logger.info("VCSid verification failed")
             return False
         rb_list = rbridge_ids.split(',')
         for rb_id in rb_list:
-            if not (self._verify_vcsRbrideId(rb_id, output)):
-                self.logger.info("Rbridge Id:%s verification failed" % rb_id)
+            if not self._verify_vcsRbrideId(rb_id, output):
+                self.logger.info("Rbridge Id:%s verification failed", rb_id)
                 return False
-        if not (self._verify_vcsToalNoOfNodes(nodes, output)):
-            self.logger.info ("Total Number of nodes in the VCS are not equal to desired nodes %r" % (nodes))
+        if not self._verify_vcsToalNoOfNodes(nodes, output):
+            self.logger.info("Total Number of nodes in the VCS are not equal to desired nodes %r",
+                             nodes)
             return False
 
         return True
@@ -129,4 +131,3 @@ class VerifyVcs(Action):
         if len(output) == int(nodes):
             result = True
         return result
-

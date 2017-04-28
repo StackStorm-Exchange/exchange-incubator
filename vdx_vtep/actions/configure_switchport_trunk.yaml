@@ -12,11 +12,9 @@ parameters:
   username:
     type: string
     description: login username
-    default: admin
   password:
     type: string
     description: login password
-    default: password
     secret: true
   intf_type:
     type: string

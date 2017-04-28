@@ -15,3 +15,4 @@ parameters:
   password:
     type: string
     description: login password
+    secret: true

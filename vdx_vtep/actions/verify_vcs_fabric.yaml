@@ -15,6 +15,7 @@ parameters:
   password:
     type: string
     description: login password
+    secret: true
   vcs_id:
     type: string
     description: vcs id

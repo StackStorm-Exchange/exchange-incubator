@@ -1,4 +1,4 @@
-# Copyright 2017 Great Software Laboratory Pvt. Ltd.
+    # Copyright 2017 Great Software Laboratory Pvt. Ltd.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -12,6 +12,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import re
 from st2actions.runners.pythonrunner import Action
 import pynos.device
 
@@ -23,30 +24,31 @@ class CreateSwitchPort(Action):
            2.Configure switch port trunk allowed vlan add with vlan specified by user on the L2
            interface .
     """
-    
+
     def __init__(self, config=None):
         super(CreateSwitchPort, self).__init__(config=config)
 
-    def run(self, host=None, username=None, password=None, intf_type=None, vlan=None, switch_ports=None):
+    def run(self, host=None, username=None, password=None, intf_type=None, \
+        vlan=None, switch_ports=None):
         """Run helper methods to implement the desired state.
         """
         if host is None:
             host = self.config['vip']
-            
+
         if username is None:
             username = self.config['username']
-            
+
         if password is None:
             password = self.config['password']
-            
+
         if intf_type is None:
-           intf_type = self.config['intf_type']
+            intf_type = self.config['intf_type']
 
         if vlan is None:
-            vlan =self.config['vlan']
-            
+            vlan = self.config['vlan']
+
         switch_ports = switch_ports.split(",")
-            
+
         conn = (host, '22')
         auth = (username, password)
         changes = {}
@@ -54,8 +56,10 @@ class CreateSwitchPort(Action):
         with pynos.device.Device(conn=conn, auth=auth) as device:
             for intf_name in switch_ports:
                 if intf_name:
-                    changes['switchport_trunk_config' + intf_name] = self._create_switchport(device, intf_type,intf_name, vlan)
-                    changes['tag_native_vlan' + intf_name] = self._tag_native_vlan(device, intf_type, intf_name)
+                    changes['switchport_trunk_config' + intf_name] = \
+                        self._create_switchport(device, intf_type, intf_name, vlan)
+                    changes['tag_native_vlan' + intf_name] = \
+                        self._tag_native_vlan(device, intf_type, intf_name)
         return changes
 
     def _check_requirements_L2_interface(self, device, intf_type, intf_name):
@@ -76,7 +80,7 @@ class CreateSwitchPort(Action):
                 self.logger.info("Interface is L2 interface.")
                 return True
 
-        except (ValueError):
+        except ValueError:
             self.logger.info("interface type or name invalid.")
         return False
 
@@ -93,7 +97,7 @@ class CreateSwitchPort(Action):
         try:
             #If port is a port-profile-port then disable it and enable switchport
             if device.interface.port_profile_port(inter_type=intf_type, inter=intf_name):
-                device.interface.port_profile_port(inter_type=intf_type, inter=intf_name,enable=False)
+                device.interface.port_profile_port(inter_type=intf_type, inter=intf_name, enable=False)
 
             #Logic to set interface mode trunk and add allowed vlans.
             device.interface.enable_switchport(inter_type=intf_type, inter=intf_name)
@@ -101,19 +105,19 @@ class CreateSwitchPort(Action):
             device.interface.trunk_mode(int_type=intf_type, name=intf_name, mode='trunk')
             device.interface.trunk_allowed_vlan(int_type=intf_type, name=intf_name, action='all')
 
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error("Configuring interface as a switchport failed with error:%s" %e)
 
         return True
 
     def _tag_native_vlan(self, device, intf_type, intf_name):
         try:
-            output = device.interface.tag_native_vlan(int_type = 'tengigabitethernet', name = intf_name, enabled = True)
-            output = device.interface.tag_native_vlan(int_type = 'tengigabitethernet', name = intf_name, enabled = False)
+            device.interface.tag_native_vlan(int_type='tengigabitethernet', name=intf_name, enabled=True)
+            device.interface.tag_native_vlan(int_type='tengigabitethernet', name=intf_name, enabled=False)
         except ValueError:
             self.logger.info("Configuring Switch port trunk failed")
         return True
-        
+
     def _validate_vlan(self, vlan_id):
         """Fail the task if vlan id is zero or one or above 4096 .
         """

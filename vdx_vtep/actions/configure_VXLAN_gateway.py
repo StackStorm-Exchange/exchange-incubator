@@ -28,11 +28,12 @@ class ConfigureVxlanGateway(Action):
     def __init__(self, config=None):
         super(ConfigureVxlanGateway, self).__init__(config=config)
 
-    def run(self, host=None, username=None, password=None, overlay_gateway_name=None, rbridge_ids=None,
+    def run(self, host=None, username=None, password=None,
+            overlay_gateway_name=None, rbridge_ids=None,
             intf_name=None, vlan=None):
         """Run helper methods to implement the desired state.
         """
-        
+
         if host is None:
             host = self.config['vip']
 
@@ -46,7 +47,7 @@ class ConfigureVxlanGateway(Action):
             overlay_gateway_name = self.config['overlay_gateway_name']
 
         if rbridge_ids is None:
-            rbridge_id1 = self.config['rbridge_id1']
+            rbridge_ids = self.config['rbridge_id1']
 
 
         if intf_name is None:
@@ -54,7 +55,7 @@ class ConfigureVxlanGateway(Action):
 
         if vlan is None:
             vlan = self.config['vlan']
-            
+
         conn = (host, '22')
         auth = (username, password)
 
@@ -65,8 +66,9 @@ class ConfigureVxlanGateway(Action):
             changes['pre_requisites'] = self._check_requirements(dev, intf_name, vlan)
             changes['configure_overlaygw'] = False
             if changes['pre_requisites']:
-                changes['configure_overlaygw'] = self._configure_overlay_gw(dev, overlay_gateway_name, rbridge_ids,
-                                                                     intf_name)
+                changes['configure_overlaygw'] = self._configure_overlay_gw(dev,
+                                                                            overlay_gateway_name,
+                                                                            rbridge_ids, intf_name)
             else:
 
                 self.logger.info(
@@ -82,7 +84,7 @@ class ConfigureVxlanGateway(Action):
                     host)
                 return changes
 
-    def _configure_overlay_gw(self, dev, overlay_gateway_name, rbridge_ids,intf_name):
+    def _configure_overlay_gw(self, dev, overlay_gateway_name, rbridge_ids, intf_name):
 
         result = self._set_overlaygw_name(dev, overlay_gateway_name)
         if result:
@@ -121,11 +123,11 @@ class ConfigureVxlanGateway(Action):
         for each_vlan in output:
             if 'vlan-id' in each_vlan and each_vlan['vlan-id'] == str(vlan):
                 is_vlan_exist = True
-        if not (is_vlan_exist):
+        if not is_vlan_exist:
             raise ValueError("VlanId %s does not exists" % vlan)
 
         # logic to check if overlay-Gateway is already present
-        if (dev.hw_vtep.get_overlay_gateway()):
+        if dev.hw_vtep.get_overlay_gateway():
             self.logger.info('Overlay-Gateway already configured on the dev')
             return False
         return True
@@ -134,45 +136,44 @@ class ConfigureVxlanGateway(Action):
         try:
             dev.hw_vtep.hwvtep_set_overlaygw_name(name=overlay_gateway_name)
             return True
-
-        except Exception as e:
-            self.logger.error(
-                'Configuring Overlay-Gateway %s Failed with Exception: %s' % (e, overlay_gateway_name))
+        except RuntimeError as e:
+            self.logger.error('Configuring Overlay-Gateway %s Failed with Exception: %s'
+                              % (e, overlay_gateway_name))
             return False
 
     def _add_rbridgeid(self, dev, overlay_gateway_name, rb_range):
         try:
             dev.hw_vtep.hwvtep_add_rbridgeid(name=overlay_gateway_name, rb_range=rb_range)
             return True
-
-        except Exception as e:
-            self.logger.error(
-                'Configuring Overlay-Gateway %s Failed with Exception: %s' % (e, overlay_gateway_name))
+        except RuntimeError as e:
+            self.logger.error('Configuring Overlay-Gateway %s Failed with Exception: %s'
+                              % (e, overlay_gateway_name))
             return False
 
     def _add_loopback_interface(self, dev, overlay_gateway_name, intf_name):
         try:
             dev.hw_vtep.hwvtep_add_loopback_interface(name=overlay_gateway_name, int_id=intf_name)
             return True
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error(
-                'Configuring Overlay-Gateway %s Failed with Exception: %s' % (e, overlay_gateway_name))
+                'Configuring Overlay-Gateway %s Failed with Exception: %s'
+                % (e, overlay_gateway_name))
             return False
 
     def _attach_vlan_vid(self, dev, overlay_gateway_name, vlan):
         try:
             dev.hw_vtep.hwvtep_attach_vlan_vid(name=overlay_gateway_name, vlan=vlan)
             return True
-        except Exception as e:
-            self.logger.error(
-                'Configuring Overlay-Gateway %s Failed with Exception: %s' % (e, overlay_gateway_name))
+        except RuntimeError as e:
+            self.logger.error('Configuring Overlay-Gateway %s Failed with Exception: %s'
+                              % (e, overlay_gateway_name))
             return False
 
     def _activate_hwvtep(self, dev, overlay_gateway_name):
         try:
             dev.hw_vtep.hwvtep_activate_hwvtep(name=overlay_gateway_name)
             return True
-        except Exception as e:
-            self.logger.error(
-                'Configuring Overlay-Gateway %s Failed with Exception: %s' % (e, overlay_gateway_name))
+        except RuntimeError as e:
+            self.logger.error('Configuring Overlay-Gateway %s Failed with Exception: %s'
+                              % (e, overlay_gateway_name))
             return False

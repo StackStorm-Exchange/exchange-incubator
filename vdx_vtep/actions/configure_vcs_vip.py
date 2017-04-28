@@ -29,22 +29,22 @@ class ConfigureVcsVip(Action):
         """Run helper methods to implement the desired state.
         """
         if vip_mask is None:
-            vip_mask=self.config['vip_mask']
+            vip_mask = self.config['vip_mask']
 
         if username is None:
-            username=self.config['username']
+            username = self.config['username']
 
         if password is None:
-            password=self.config['password']
-            
+            password = self.config['password']
+
         if host is None:
-            host=self.config['mgmt_ip1']
+            host = self.config['mgmt_ip1']
 
         conn = (host, '22')
         auth = (username, password)
-        
+
         changes = {}
-        
+
         with pynos.device.Device(conn=conn, auth=auth) as device:
             changes['pre_requisites'] = self._check_requirements(device, vip_mask)
             changes['configure_vcs'] = False
@@ -52,19 +52,19 @@ class ConfigureVcsVip(Action):
                 changes['configure_vcs'] = self._set_vcs_vip(device, vip_mask)
             else:
                 self.logger.info(
-                'Pre-requisites validation failed for Virtual IP configuration')
+                    'Pre-requisites validation failed for Virtual IP configuration')
 
             if not changes['configure_vcs']:
                 self.logger.info('Virtual IP configuration in Vcs Fabric Failed')
                 exit(1)
             else:
                 self.logger.info(
-                'closing connection to %s after configuring Virtual IP successfully!',
-                host)
+                    'closing connection to %s after configuring Virtual IP successfully!',
+                    host)
             return changes
 
 
-    def _check_requirements(self,device,vip):
+    def _check_requirements(self, device, vip):
         """ Verify if the Virtual IP already exists
         """
 
@@ -90,11 +90,9 @@ class ConfigureVcsVip(Action):
         """
 
         try:
-         device.vcs.vcs_vip(vip=vip)
-         return True
-        except Exception as e:
+            device.vcs.vcs_vip(vip=vip)
+            return True
+        except RuntimeError as e:
             self.logger.error(
-                'Configuring VCS VIP: %s Failed with Exception: %s' % (e,vip))
+                'Configuring VCS VIP: %s Failed with Exception: %s' % (e, vip))
             return False
-
-

@@ -12,13 +12,18 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-from NSX.nsx import NSX
-from st2actions.runners.pythonrunner import Action
 import logging
 import os
+from NSX.nsx import NSX
+from st2actions.runners.pythonrunner import Action
 
 class addHardwareGw(Action):
-    def run(self, nsx_mgr_ip=None, nsx_mgr_user=None, nsx_mgr_pass=None, gw_name=None, nsx_cert=None):
+    def __init__(self, config=None):
+        super(addHardwareGw, self).__init__(config=config)
+        self.logger = logging.getLogger(__name__)
+
+    def run(self, nsx_mgr_ip=None, nsx_mgr_user=None, nsx_mgr_pass=None,
+            gw_name=None, nsx_cert=None):
         if nsx_mgr_ip is None:
             nsx_mgr_ip = self.config['nsx_mgr_ip']
 
@@ -30,13 +35,13 @@ class addHardwareGw(Action):
 
         if gw_name is None:
             gw_name = self.config['gw_name']
-        
+
         cert = nsx_cert
 
-        self.logger = logging.getLogger(__name__)
         os.chdir(os.path.dirname(os.path.realpath(__file__)))
-        file_path =  os.path.relpath("nsxraml/nsxvapi.raml")
-        controller = NSX(raml_file= file_path, password=nsx_mgr_pass, username=nsx_mgr_user, ip=nsx_mgr_ip)
+        file_path = os.path.relpath("nsxraml/nsxvapi.raml")
+        controller = NSX(raml_file=file_path, password=nsx_mgr_pass,
+                         username=nsx_mgr_user, ip=nsx_mgr_ip)
         changes = {}
         changes['pre_requisites'] = self._check_requirements(controller, cert, gw_name)
         changes['add_hw_gw'] = False
@@ -45,14 +50,14 @@ class addHardwareGw(Action):
         else:
             self.logger.info('Pre-requisites validation failed for hardware gateway addition.')
         if changes['add_hw_gw']:
-            self.logger.info(
-                'closing connection to %s after configuring hardware gateway successfully!' % nsx_mgr_ip)
+            self.logger.info('closing connection to %s after configuring hardware gateway\
+                             successfully!', nsx_mgr_ip)
             return changes
         else:
-            self.logger.info('Hardware gateway: %s installation failed.' % gw_name)
+            self.logger.info('Hardware gateway: %s installation failed.', gw_name)
             exit(1)
 
-    def _check_requirements(self,controller, cert, hw_gw):
+    def _check_requirements(self, controller, cert, hw_gw):
         '''
         Checks if hardware_gw with the same name exists.
         '''
@@ -72,7 +77,7 @@ class addHardwareGw(Action):
                     hwgw_present = True
                     break
         if hwgw_present:
-            self.logger.info('Hardware gateway: %s present on the nsx-controller' % hw_gw)
+            self.logger.info('Hardware gateway: %s present on the nsx-controller', hw_gw)
             return False
 
         #Logic to cvalidate certificate.
@@ -89,7 +94,6 @@ class addHardwareGw(Action):
         try:
             result = controller.add_hwdevice_cert(cert=cert, name=gw_name, bfd=True)
             return result
-        except Exception as e:
-            self.logger.error('Failed to add hardware gateway with error: %s' %e)
-            return "ssss"
+        except RuntimeError as e:
+            self.logger.error('Failed to add hardware gateway with error: %s', e)
             return False

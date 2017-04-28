@@ -65,8 +65,7 @@ class VerifyVcsReady(Action):
         # Logic to check if VCS Fabric formation is ready and its online
         # Wait for max:10 min as VCS formation can take upto 10 min after device reboots
         ready = False
-        count = 0
-        while count <= 30:
+        for t in range(30):
             try:
                 device = pynos.device.Device(conn=conn, auth=auth)
                 output = device.vcs.vcs_nodes
@@ -79,10 +78,9 @@ class VerifyVcsReady(Action):
                     self.logger.info('VCS Formation is in progress')
                     self.logger.info('Trying Again after 30 sec')
                     time.sleep(30)
-            except RuntimeError as e:
+
+            except Exception as e:
                 self.logger.info('%s', e)
                 self.logger.info('Trying Again after 30 sec')
                 time.sleep(30)
-            count = count + 1
-
         return ready

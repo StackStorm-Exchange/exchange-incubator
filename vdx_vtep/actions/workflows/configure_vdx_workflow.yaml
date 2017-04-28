@@ -54,6 +54,7 @@
                 username: "{{vdx_configs.result.username}}"
                 password: "{{vdx_configs.result.password}}"
                 nodes: '2'
+                timeout: 3600
             publish:
                 current_action: "Verify vcs ready"
             on-success: "log_verify_vcs_ready"

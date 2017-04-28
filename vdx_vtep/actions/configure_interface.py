@@ -67,7 +67,7 @@ class ConfigureInterface(Action):
                                             intf_type, intf_name, intf_ip, rbridge_id)
             changes['conf_intf'] = False
             if changes['pre_requisites']:
-                changes['conf_intf'] = self._configure_interfacei(device, \
+                changes['conf_intf'] = self._configure_interface(device, \
                                             intf_type, intf_name, intf_ip, rbridge_id)
             else:
                 self.logger.info(

@@ -1,0 +1,13 @@
+[Unit]
+Description=Ghost2logger Service for ST2
+Documentation=https://github.com/DavidJohnGee/ghost2logger
+
+[Service]
+Type=simple
+ExecStart=/opt/stackstorm/packs/ghost2logger/bin/ghost2logger-linux-x64-service-0.1
+StandardOutput=null
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=ghost2logger.service

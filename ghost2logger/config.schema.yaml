@@ -1,0 +1,54 @@
+---
+  username:
+    description: "Username used to authenticate."
+    type: "string"
+    secret: false
+    required: true
+    default: "admin"
+  password:
+    description: "Password used to authenticate."
+    type: "string"
+    secret: true
+    required: true
+    default: "admin"
+  st2_api_key:
+    description: "ST2 Long Lived API Key."
+    type: "string"
+    secret: false
+    required: true
+  syslog_listen_port:
+    description: "Port for the Syslog sensor to listen on."
+    type: "string"
+    secret: false
+    required: true
+    default: "514"
+  sensor_listen_ip:
+    description: "IP Address that the event sensor will listen on."
+    type: "string"
+    secret: false
+    required: true
+    default: "0.0.0.0"
+  sensor_listen_port:
+    description: "Port that the event sensor will listen on."
+    type: "string"
+    secret: false
+    required: true
+    default: "12022"
+  ghost_ip:
+    description: "IP Address that Ghost2 will listen on."
+    type: "string"
+    secret: false
+    required: true
+    default: "0.0.0.0"
+  ghost_port:
+    description: "Port that Ghost2 will listen on."
+    type: "string"
+    secret: false
+    required: true
+    default: "12023"
+  st2url:
+    description: "The query string for the API Loopback sensor."
+    type: "string"
+    secret: false
+    required: true
+    default: "http://127.0.0.1:9101/v1/rules/?limit=10&pack=ghost2logger"

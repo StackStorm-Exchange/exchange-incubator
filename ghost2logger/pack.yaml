@@ -1,0 +1,12 @@
+---
+ref: ghost2logger
+name : ghost2logger
+description : Syslog end-point for match rule criteria
+keywords :
+  - Syslog
+  - Go
+  - Logging
+  - Simple
+version : 0.1.0
+author : davidjohngee
+email : david.gee@ipengineer.net

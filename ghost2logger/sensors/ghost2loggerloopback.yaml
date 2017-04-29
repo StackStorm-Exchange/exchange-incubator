@@ -1,0 +1,5 @@
+---
+  class_name: "Ghost2loggerLoopback"
+  entry_point: "ghost2loggerloopback.py"
+  description: "Sensor that carries out loopback API activities"
+  poll_interval: 10

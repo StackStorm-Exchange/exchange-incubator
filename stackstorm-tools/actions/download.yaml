@@ -1,0 +1,24 @@
+---
+
+name: download
+description: "Download file"
+
+runner_type: python-script
+entry_point: download.py
+
+parameters:
+  url:
+    type: string
+  params:
+    type: object
+    description: "Request parameters"
+    default: {}
+  headers:
+    type: object
+  save_as:
+    type: string
+    default: "/tmp/archive.zip"
+    description: "Save Archive."
+  verify_ssl:
+    type: boolean
+    default: False

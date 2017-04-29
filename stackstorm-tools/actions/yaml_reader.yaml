@@ -1,0 +1,12 @@
+---
+
+name: yaml_reader
+description: "Read yaml file and return it as dict"
+
+runner_type: python-script
+entry_point: yaml_reader.py
+
+parameters:
+  filename:
+    type: string
+    description: "Path to file"

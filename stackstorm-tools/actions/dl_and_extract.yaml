@@ -1,0 +1,21 @@
+---
+
+name: dl_and_extract
+description: "Download and extract an archive"
+
+runner_type: mistral-v2
+entry_point: workflows/dl_and_extract.yaml
+
+parameters:
+  url:
+    type: string
+    required: true
+  headers:
+    type: object
+  params:
+    type: object
+    description: "Enter url parameters here"
+  save_path:
+    type: string
+  extract_path:
+    type: string

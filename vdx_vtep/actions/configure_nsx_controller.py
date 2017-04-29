@@ -27,35 +27,38 @@ class ConfigureNsxController(Action):
     def __init__(self, config=None):
         super(ConfigureNsxController, self).__init__(config=config)
 
-    def run(self, host=None, username=None, password=None, nsx_cnt_name=None, nsx_cnt_ip=None, nsx_cnt_port=None):
+    def run(self, host=None, username=None, password=None, nsx_cnt_name=None,
+            nsx_cnt_ip=None, nsx_cnt_port=None):
         """Run helper methods to implement the desired state.
         """
         if host is None:
-            host=self.config['vip']
+            host = self.config['vip']
 
         if username is None:
-            username=self.config['username']
+            username = self.config['username']
 
         if password is None:
-            password=self.config['password']
+            password = self.config['password']
 
         if nsx_cnt_name is None:
-            nsx_cnt_name=self.config['nsx_cnt_name']
-            
+            nsx_cnt_name = self.config['nsx_cnt_name']
+
         if nsx_cnt_ip is None:
-            nsx_cnt_ip=self.config['nsx_cnt_ip']
-            
+            nsx_cnt_ip = self.config['nsx_cnt_ip']
+
         if nsx_cnt_port is None:
-            nsx_cnt_port=self.config['nsx_cnt_port']
+            nsx_cnt_port = self.config['nsx_cnt_port']
 
         conn = (host, '22')
         auth = (username, password)
 
         changes = {}
         with pynos.device.Device(conn=conn, auth=auth) as device:
-            changes['pre_requisites'] = self._check_requirements(device,nsx_cnt_ip)
+            changes['pre_requisites'] = self._check_requirements(device, nsx_cnt_ip)
             if changes['pre_requisites']:
-                changes['configure_nsxcontroller'] = self._configure_nsx_controller(device, nsx_cnt_name, nsx_cnt_ip, nsx_cnt_port)
+                changes['configure_nsxcontroller'] = self._configure_nsx_controller\
+                                                            (device, nsx_cnt_name, nsx_cnt_ip,
+                                                             nsx_cnt_port)
             else:
                 changes['configure_nsxcontroller'] = False
                 self.logger.info(
@@ -70,24 +73,20 @@ class ConfigureNsxController(Action):
                 host)
             return changes
 
-
-
-    def _configure_nsx_controller(self,device, nsx_cnt_name, nsx_cnt_ip, nsx_cnt_port):
+    def _configure_nsx_controller(self, device, nsx_cnt_name, nsx_cnt_ip, nsx_cnt_port):
         """
         Configure nsx-controller on the device.
         """
-
-
         result = self._set_nsxcontroller_name(device, nsx_cnt_name)
         if result:
-            result  = self._set_nsxcontroller_ip(device, nsx_cnt_name, nsx_cnt_ip)
+            result = self._set_nsxcontroller_ip(device, nsx_cnt_name, nsx_cnt_ip)
         if result:
             result = self._set_nsxcontroller_port(device, nsx_cnt_name, nsx_cnt_port)
         if result:
             result = self._activate_nsxcontroller(device, nsx_cnt_name)
         return result
 
-    def _check_requirements(self,device,ip):
+    def _check_requirements(self, device, ip):
         """ Verify if the nsx-controller already exists """
 
         if not self._validate_ip(ip):
@@ -106,44 +105,44 @@ class ConfigureNsxController(Action):
         try:
             device.nsx.nsx_controller_name(name=nsx_cnt_name)
             return True
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error(
                 'Configuring NSX-Controller %s Failed with Exception: %s' % e)
             return False
-        
+
     def _set_nsxcontroller_ip(self, device, nsx_cnt_name, nsx_cnt_ip):
         """set NSX controller IP.
         """
         try:
             device.nsx.set_nsxcontroller_ip(name=nsx_cnt_name, ip_addr=nsx_cnt_ip)
             return True
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error(
                 'Configuring NSX-Controller %s Failed with Exception: %s' % e)
             return False
-        
+
     def _set_nsxcontroller_port(self, device, nsx_cnt_name, nsx_cnt_port):
         """set NSX controller port.
         """
         try:
             device.nsx.set_nsxcontroller_port(name=nsx_cnt_name, port=nsx_cnt_port)
             return True
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error(
                 'Configuring NSX-Controller %s Failed with Exception: %s' % e)
             return False
-    
+
     def _activate_nsxcontroller(self, device, nsx_cnt_name):
         """activate NSX controller.
         """
         try:
             device.nsx.activate_nsxcontroller(name=nsx_cnt_name)
             return True
-        except Exception as e:
+        except RuntimeError as e:
             self.logger.error(
                 'Configuring NSX-Controller %s Failed with Exception: %s' % e)
             return False
-            
+
     def _validate_ip(self, ip):
         try:
             iptools.ipv4.validate_ip(ip.decode('utf-8'))

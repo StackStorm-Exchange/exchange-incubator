@@ -1,0 +1,35 @@
+---
+name: configure_switchport_trunk 
+pack: vdx_vtep
+runner_type: run-python
+description: Create switch port on a interface with switch port mode trunk allowed vlan 
+enabled: true
+entry_point: configure_switchport_trunk.py 
+parameters:
+  host:
+    type: string
+    description: Device to get the version
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  intf_type:
+    type: string
+    enum: 
+      - tengigabitethernet
+      - gigabitethernet
+      - fortygigabitethernet
+      - hundredgigabitethernet
+      - port_channel
+    default: tengigabitethernet
+    description: Interface type tengigabitethernet,gigabitethernet,fortygigabitethernet and hundredgigabitethernet.
+  vlan: 
+    type: string
+    description: Vlan id to be configure on the switchport mode access.
+  switch_ports:
+    type: string
+    description: Interface name in 3-tuple format(example :2/0/96), port-channel number <1-6144>
+    required: true

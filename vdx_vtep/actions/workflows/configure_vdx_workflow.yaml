@@ -1,0 +1,417 @@
+---
+    chain:
+        -
+            name: "start_workflow"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'Executing Workflow...' >> /var/log/vdx.log"
+            on-success: "vdx_configs"
+        -
+            name: "vdx_configs"
+            ref: "vdx_vtep.publish_configs"
+            on-success: "nsx_configs"
+        -
+            name: "nsx_configs"
+            ref: "nsx_vtep.publish_configs"  
+            on-success: "log_create_vcs"
+        -
+            name: "log_create_vcs"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'Creating VCS fabric. This may take 9-10 minutes' >> /var/log/vdx.log"
+            on-success: "configure_vcs_fabric_on_rbridge1"
+        -
+            name: "configure_vcs_fabric_on_rbridge1"
+            ref: "vdx_vtep.create_vcs_fabric"
+            parameters:
+                host: "{{vdx_configs.result.mgmt_ip1}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vcs_id: "{{vdx_configs.result.vcs_id}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id1}}"
+            publish:
+                current_action: "Configure VCS fabric on rbridge1"
+            on-success: "configure_vcs_fabric_on_rbridge2"
+            on-failure: "failed_log"
+        -
+            name: "configure_vcs_fabric_on_rbridge2"
+            ref: "vdx_vtep.create_vcs_fabric"
+            parameters:
+                host: "{{vdx_configs.result.mgmt_ip2}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vcs_id: "{{vdx_configs.result.vcs_id}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id2}}"
+            publish:
+                current_action: "Configure VCS fabric on rbridge2"
+            on-success: "verify_vcs_ready"
+            on-failure: "failed_log"
+        -
+            name: "verify_vcs_ready"
+            ref: "vdx_vtep.verify_vcs_ready"
+            parameters:
+                host: "{{vdx_configs.result.mgmt_ip1}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                nodes: '2'
+                timeout: 3600
+            publish:
+                current_action: "Verify vcs ready"
+            on-success: "log_verify_vcs_ready"
+            on-failure: "failed_log"
+        -
+            name: "log_verify_vcs_ready"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "get_principal_node"
+        -
+            name: "get_principal_node"
+            ref: "vdx_vtep.get_principal_node"
+            parameters:
+                host: "{{vdx_configs.result.mgmt_ip1}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+            publish:
+                current_action: "Get principal node"
+            on-success: "log_get_principal_node"
+            on-failure: "failed_log"
+        -
+            name: "log_get_principal_node"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_vcs_vip"
+        -
+            name: "configure_vcs_vip"
+            ref: "vdx_vtep.configure_vcs_vip"
+            parameters:
+                host: "{{get_principal_node.result}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vip_mask: "{{vdx_configs.result.vip_mask}}"
+            publish:
+                current_action: "Configure vcs vip"
+            on-success: "log_configure_vcs_vip"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_vcs_vip"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "verify_vcs_fabric"
+        -
+            name: "verify_vcs_fabric"
+            ref: "vdx_vtep.verify_vcs_fabric"
+            parameters:
+                host: "{{vdx_configs.result.mgmt_ip1}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                rbridge_ids: "{{vdx_configs.result.rbridge_ids}}"
+                vcs_id: "{{vdx_configs.result.vcs_id}}"
+                nodes: '2'
+            publish:
+                current_action: "Verify vcs fabric"
+            on-success: "log_verify_vcs_fabric"
+            on-failure: "failed_log"
+        -
+            name: "log_verify_vcs_fabric"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_vlan"
+        -
+            name: "configure_vlan"
+            ref: "vdx_vtep.configure_vlan"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vlan: "{{vdx_configs.result.vlan}}"
+            publish:
+                current_action: "Configure vlan"
+            on-success: "log_configure_vlan"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_vlan"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_transport_vlan"
+        -
+            name: "configure_transport_vlan"
+            ref: "vdx_vtep.configure_vlan"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vlan: "{{vdx_configs.result.ve_vlan}}"
+            publish:
+                current_action: "Configure transport vlan"
+            on-success: "log_configure_transport_vlan"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_transport_vlan"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_loopback_interface_on_rbridge1"
+        -
+            name: "configure_loopback_interface_on_rbridge1"
+            ref: "vdx_vtep.configure_interface"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                mgmt_ip: "{{vdx_configs.result.mgmt_ip1}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                intf_ip: "{{vdx_configs.result.intf_ip}}"
+                intf_name: "{{vdx_configs.result.intf_name}}"
+                intf_type: "{{vdx_configs.result.intf_type}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id1}}"
+            publish:
+                current_action: "Configure loopback interface on rbridge1"
+            on-success: "log_configure_loopback_interface_on_rbridge1"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_loopback_interface_on_rbridge1"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_loopback_interface_on_rbridge2"
+        -
+            name: "configure_loopback_interface_on_rbridge2"
+            ref: "vdx_vtep.configure_interface"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                mgmt_ip: "{{vdx_configs.result.mgmt_ip2}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                intf_ip: "{{vdx_configs.result.intf_ip}}"
+                intf_name: "{{vdx_configs.result.intf_name}}"
+                intf_type: "{{vdx_configs.result.intf_type}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id2}}"
+            publish:
+                current_action: "Configure loopback interface on rbridge2"
+            on-success: "log_configure_loopback_interface_on_rbridge2"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_loopback_interface_on_rbridge2"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_ve_interface_on_rbridge1"
+        -
+            name: "configure_ve_interface_on_rbridge1"
+            ref: "vdx_vtep.configure_ve_interface"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id1}}"
+                ve_ip: "{{vdx_configs.result.ve_ip}}"
+                ve_vlan: "{{vdx_configs.result.ve_vlan}}"
+            publish:
+                current_action: "Configure ve interface on rbridge1"
+            on-success: "log_configure_ve_interface_on_rbridge1"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_ve_interface_on_rbridge1"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_ve_interface_on_rbridge2"
+        -
+            name: "configure_ve_interface_on_rbridge2"
+            ref: "vdx_vtep.configure_ve_interface"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                rbridge_id: "{{vdx_configs.result.rbridge_id2}}"
+                ve_ip: "{{vdx_configs.result.ve_ip}}"
+                ve_vlan: "{{vdx_configs.result.ve_vlan}}"
+            publish:
+                current_action: "Configure ve interface on rbridge2"
+            on-success: "log_configure_ve_interface_on_rbridge2"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_ve_interface_on_rbridge2"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_switchport_trunk"
+        -
+            name: "configure_switchport_trunk"
+            ref: "vdx_vtep.configure_switchport_trunk"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                switch_ports: "{{vdx_configs.result.switch_ports}}"
+                vlan: "{{vdx_configs.result.vlan}}"
+            publish:
+                current_action: "Configure switchport trunk"
+            on-success: "log_configure_switchport_trunk"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_switchport_trunk"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_VXLAN_gateway"
+        -
+            name: "configure_VXLAN_gateway"
+            ref: "vdx_vtep.configure_VXLAN_gateway"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                rbridge_ids: "{{vdx_configs.result.rbridge_ids}}"
+                vlan: "{{vdx_configs.result.vlan}}"
+                overlay_gateway_name: "{{vdx_configs.result.overlay_gateway_name}}"
+                intf_name: "{{vdx_configs.result.intf_name}}"
+            publish:
+                current_action: "Configure VXLAN gateway"
+            on-success: "log_configure_VXLAN_gateway"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_VXLAN_gateway"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "attach_vlan_to_VXLAN_gateway"
+        -
+            name: "attach_vlan_to_VXLAN_gateway"
+            ref: "vdx_vtep.attach_vlan_to_gw"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                overlay_gateway_name: "{{vdx_configs.result.overlay_gateway_name}}"
+                vlan: "{{vdx_configs.result.vlan}}"
+            publish:
+                current_action: "Attach vlan to VXLAN gateway"
+            on-success: "log_attach_vlan_to_VXLAN_gateway"
+            on-failure: "failed_log"
+        -
+            name: "log_attach_vlan_to_VXLAN_gateway"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_nsx_controller"
+        -
+            name: "configure_nsx_controller"
+            ref: "vdx_vtep.configure_nsx_controller"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                nsx_cnt_name: "{{vdx_configs.result.nsx_cnt_name}}"
+                nsx_cnt_ip: "{{vdx_configs.result.nsx_cnt_ip}}"
+            publish:
+                current_action: "Configure NSX controller"
+            on-success: "log_configure_nsx_controller"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_nsx_controller"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "get_nsxcntl_client_cert"
+        -
+            name: "get_nsxcntl_client_cert"
+            ref: "vdx_vtep.get_nsxcntl_client_cert"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+            publish:
+                current_action: "Get NSX controller certificate"
+            on-success: "log_get_nsxcntl_client_cert"
+            on-failure: "failed_log"
+        -
+            name: "log_get_nsxcntl_client_cert"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "add_hw_gw"
+        -
+            name: "add_hw_gw"
+            ref: "nsx_vtep.add_hw_gw"
+            parameters:
+                nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
+                nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"
+                nsx_mgr_pass: "{{nsx_configs.result.nsx_mgr_pass}}"
+                gw_name: "{{nsx_configs.result.vtep_name}}"
+                nsx_cert: "{{get_nsxcntl_client_cert.result.get_cert}}"
+            publish:
+                current_action: "Add hardware Gateway"
+            on-success: "log_add_hw_gw"
+            on-failure: "failed_log"
+        -
+            name: "log_add_hw_gw"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_logical_switch"
+        -
+            name: "configure_logical_switch"
+            ref: "nsx_vtep.configure_logical_switch"
+            parameters:
+                nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
+                nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"
+                nsx_mgr_pass: "{{nsx_configs.result.nsx_mgr_pass}}"
+                lswitch_name: "{{nsx_configs.result.lswitch_name}}"
+                vlan: "{{nsx_configs.result.vlan}}"
+                port_name: "{{nsx_configs.result.port_name}}"
+                switch_name: "{{nsx_configs.result.switch_name}}"
+                hardware_gateway_name: "{{nsx_configs.result.vtep_name}}"
+            publish:
+                current_action: "Configure logical switch"
+            on-success: "log_configure_logical_switch"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_logical_switch"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "configure_vcenter"
+        -
+            name: "configure_vcenter"
+            ref: "vdx_vtep.configure_vcenter"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vcenter_name: "{{vdx_configs.result.vcenter_name}}"
+                vcenter_user: "{{vdx_configs.result.vcenter_user}}"
+                vcenter_pass: "{{vdx_configs.result.vcenter_pass}}"
+                vcenter_url: "{{vdx_configs.result.vcenter_url}}"
+            publish:
+                current_action: "Configure vCenter"
+            on-success: "log_configure_vcenter"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_vcenter"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx.log"
+            on-success: "workflow_success_exit"
+        -
+            name: "workflow_success_exit"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'HW-VTEP has been configured successfully...\nExiting' >> /var/log/vdx.log"
+        -
+            name: "failed_log"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Failed' >> /var/log/vdx.log"
+            on-success: "workflow_failed_exit"
+        -
+            name: "workflow_failed_exit"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'HW-VTEP configuration has failed.\nExiting' >> /var/log/vdx.log"
+    
+    default: "start_workflow"

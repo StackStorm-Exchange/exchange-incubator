@@ -1,0 +1,33 @@
+---
+name: configure_interface
+pack: vdx_vtep
+runner_type: run-python
+description: configure interface
+enabled: true
+entry_point: configure_interface.py
+parameters:
+  host:
+    type: string
+    description: Device IP.
+  mgmt_ip:
+    type: string
+    description: switch management ip.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  intf_name:
+    type: string
+    description: interface Name/ID.
+  intf_ip:
+    type: string
+    description: interface IP
+  intf_type:
+    type: string
+    description: interface type
+  rbridge_id:
+    type: string
+    description: rbridge id

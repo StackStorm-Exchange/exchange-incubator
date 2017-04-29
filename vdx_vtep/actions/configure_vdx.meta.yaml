@@ -1,0 +1,7 @@
+---
+name: configure_vdx
+pack: vdx_vtep
+runner_type: action-chain
+description: trigger the VDX configuration workflow.
+enabled: true
+entry_point: workflows/configure_vdx_workflow.yaml

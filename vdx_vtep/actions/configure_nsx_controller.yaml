@@ -1,0 +1,24 @@
+---
+name: configure_nsx_controller
+pack: vdx_vtep
+runner_type: run-python
+description: configure nsx controller
+enabled: true
+entry_point: configure_nsx_controller.py
+parameters:
+  host:
+    type: string
+    description: Device IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  nsx_cnt_name:
+    type: string
+    description: NSX Controller Name.
+  nsx_cnt_ip:
+    type: string
+    description: NSX Controller IP.

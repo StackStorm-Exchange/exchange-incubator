@@ -1,0 +1,25 @@
+---
+name: verify_vcs_ready
+pack: vdx_vtep
+runner_type: run-python
+description: verify vcs fabric is ready.
+enabled: true
+entry_point: verify_vcs_ready.py
+parameters:
+  host:
+    type: string
+    description: Switch Management IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  nodes:
+    type: string
+    description: Total number of nodes in cluster.
+    default: '2'
+  timeout:
+    type: integer
+    default: 3600

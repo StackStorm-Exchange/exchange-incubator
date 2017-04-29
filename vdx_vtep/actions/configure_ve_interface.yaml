@@ -1,0 +1,27 @@
+---
+name: configure_ve_interface
+pack: vdx_vtep
+runner_type: run-python
+description: Configure ve interface
+enabled: true
+entry_point: configure_ve_interface.py
+parameters:
+  host:
+    type: string
+    description: Device IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  rbridge_id:
+    type: string
+    description: rbridge id
+  ve_vlan:
+    type: string
+    description: VLAN ID
+  ve_ip:
+    type: string
+    description: Ve Interface IP

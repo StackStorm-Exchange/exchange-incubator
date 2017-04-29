@@ -1,0 +1,18 @@
+---
+name: get_principal_node
+pack: vdx_vtep
+runner_type: run-python
+description: Get principal rbridge node
+enabled: true
+entry_point: get_principal_node.py
+parameters:
+  host:
+    type: string
+    description: Switch Management IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true

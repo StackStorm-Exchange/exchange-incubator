@@ -1,0 +1,93 @@
+---
+    chain:
+        -
+            name: "start_workflow"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'Executing Workflow...' >> /var/log/vdx_day1.log"
+            on-success: "vdx_configs"
+        -
+            name: "vdx_configs"
+            ref: "vdx_vtep.publish_configs_day1"
+            on-success: "nsx_configs"
+        -
+            name: "nsx_configs"
+            ref: "nsx_vtep.publish_configs_day1"  
+            on-success: "configure_vlan"
+        -
+            name: "configure_vlan"
+            ref: "vdx_vtep.configure_vlan"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vlan: "{{vlan}}"
+            publish:
+                current_action: "Configure vlan"
+            on-success: "log_configure_vlan"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_vlan"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx_day1.log"
+            on-success: "attach_vlan"
+        -
+            name: "attach_vlan"
+            ref: "vdx_vtep.attach_vlan_to_gw"
+            parameters:
+                host: "{{vdx_configs.result.vip}}"
+                username: "{{vdx_configs.result.username}}"
+                password: "{{vdx_configs.result.password}}"
+                vlan: "{{vlan}}"
+                overlay_gateway_name: "{{vdx_configs.result.overlay_gateway_name}}"
+            publish:
+                current_action: "Attach VLAN to overlay gateway"
+            on-success: "log_attach_vlan"
+            on-failure: "failed_log"
+        -
+            name: "log_attach_vlan"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx_day1.log"
+            on-success: "configure_logical_switch"
+        -
+            name: "configure_logical_switch"
+            ref: "nsx_vtep.configure_logical_switch"
+            parameters:
+                nsx_mgr_ip: "{{nsx_configs.result.nsx_mgr_ip}}"
+                nsx_mgr_user: "{{nsx_configs.result.nsx_mgr_user}}"
+                nsx_mgr_pass: "{{nsx_configs.result.nsx_mgr_pass}}"
+                lswitch_name: "{{lswitch_name}}"
+                vlan: "{{vlan}}"
+                port_name: "{{port}}"
+                switch_name: "{{nsx_configs.result.switch_name}}"
+                hardware_gateway_name: "{{nsx_configs.result.hardware_gateway_name}}"
+            publish:
+                current_action: "Configure logical switch"
+            on-success: "log_configure_logical_switch"
+            on-failure: "failed_log"
+        -
+            name: "log_configure_logical_switch"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Success' >> /var/log/vdx_day1.log"
+            on-success: "workflow_success_exit"
+        -
+            name: "workflow_success_exit"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'HW-VTEP has been configured successfully...\nExiting' >> /var/log/vdx_day1.log"
+        -
+            name: "failed_log"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e {{current_action}}': Failed' >> /var/log/vdx_day1.log"
+            on-success: "workflow_failed_exit"
+        -
+            name: "workflow_failed_exit"
+            ref: "core.local"
+            parameters:
+                cmd: "echo -e 'HW-VTEP configuration has failed.\nExiting' >> /var/log/vdx_day1.log"
+            
+    default: "start_workflow"

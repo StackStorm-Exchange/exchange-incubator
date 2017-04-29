@@ -1,0 +1,24 @@
+---
+name: add_hw_gw
+pack: nsx_vtep
+runner_type: run-python
+description: Add certificate in NSX controller.
+enabled: true
+entry_point: add_hw_gw.py
+parameters:
+  nsx_mgr_ip:
+    type: string
+    description: NSX manager IP.
+  nsx_mgr_user:
+    type: string
+    description: login username
+  nsx_mgr_pass:
+    type: string
+    description: login password
+    secret: true
+  gw_name:
+    type: string
+    description: Hardware device name.
+  nsx_cert:
+    type: string
+    description: Nsx-controller client certificate

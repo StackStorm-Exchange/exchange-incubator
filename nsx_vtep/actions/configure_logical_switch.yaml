@@ -1,0 +1,33 @@
+---
+name: configure_logical_switch
+pack: nsx_vtep
+runner_type: run-python
+description: Add and configure logical switch
+enabled: true
+entry_point: configure_logical_switch.py
+parameters:
+  nsx_mgr_ip:
+    type: string
+    description: NSX manager IP.
+  nsx_mgr_user:
+    type: string
+    description: login username
+  nsx_mgr_pass:
+    type: string
+    description: login password
+    secret: true
+  lswitch_name:
+    type: string
+    description: Logical switch name
+  vlan:
+    type: string
+    description: vlan Id
+  port_name:
+    type: string
+    description: Port name
+  switch_name:
+    type: string
+    description: Switch name.
+  hardware_gateway_name:
+    type: string
+    description: hw gw name.

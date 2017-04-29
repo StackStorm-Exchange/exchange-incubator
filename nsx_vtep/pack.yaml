@@ -1,0 +1,7 @@
+---
+ref: nsx_vtep
+name: nsx_vtep
+description: NSX automation pack.
+version: 0.1.0
+author: GSLAB
+email: yugendra.khonde@gslab.com

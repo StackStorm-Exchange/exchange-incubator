@@ -1,0 +1,19 @@
+---
+name: post_to_channel
+runner_type: run-python
+description: Post a message to a channel
+enabled: true
+entry_point: post_to_channel.py
+parameters:
+  channel:
+    type: string
+    description: channel tag to post message
+    required: true
+  message:
+    type: string
+    description: the message to be posted
+    required: true
+  subject:
+    type: string
+    description: subject of the message
+    required: false

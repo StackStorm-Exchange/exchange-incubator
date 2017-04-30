@@ -1,0 +1,16 @@
+---
+  name: "send_message"
+  runner_type: "run-python"
+  description: "send a message to a user or group"
+  enabled: true
+  entry_point: "send_message.py"
+  parameters:
+    message:
+      type: "string"
+      description: "message to send"
+      required: true
+    chat_id:
+      type: "integer"
+      description: "chat_id to post the message"
+      required: true
+

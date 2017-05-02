@@ -1,0 +1,16 @@
+---
+
+name: alert.aggregation
+
+runner_type: python-script
+entry_point: alert_aggregation.py
+
+parameters:
+  alerts:
+    type: array
+  outer_label:
+    type: string
+    description: "Label group root"
+  inner_label:
+    type: string
+    description: "Label group child"

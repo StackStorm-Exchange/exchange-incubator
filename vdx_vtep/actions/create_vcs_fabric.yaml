@@ -1,0 +1,29 @@
+---
+name: create_vcs_fabric
+pack: vdx
+runner_type: run-python
+description: Add VDX switch to VCS fabric.
+enabled: true
+entry_point: create_vcs_fabric.py
+parameters:
+  host:
+    type: string
+    description: Switch Management IP.
+    required: true
+  username:
+    type: string
+    description: login username
+    required: true
+  password:
+    type: string
+    description: login password
+    required: true
+    secret: true
+  vcs_id:
+    type: string
+    description: vcs fabric id
+    required: true
+  rbridge_id:
+    type: string
+    description: rbridge id
+    required: true

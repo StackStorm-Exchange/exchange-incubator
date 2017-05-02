@@ -1,0 +1,29 @@
+---
+name: configure_vcenter
+pack: vdx
+runner_type: run-python
+description: configure vcenter
+enabled: true
+entry_point: configure_vcenter.py
+parameters:
+  host:
+    type: string
+    description: Device IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+  vcenter_name:
+    type: string
+    description: Vcenter Name
+  vcenter_user:
+    type: string
+    description: vcenter login user
+  vcenter_pass:
+    type: string
+    description: vcenter login pass
+  vcenter_url:
+    type: string
+    description: vcenter url

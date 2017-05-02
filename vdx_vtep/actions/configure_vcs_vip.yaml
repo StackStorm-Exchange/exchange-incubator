@@ -1,0 +1,20 @@
+---
+name: configure_vcs_vip
+pack: vdx
+runner_type: run-python
+description: Configure VCS fabric virtual IP address
+enabled: true
+entry_point: configure_vcs_vip.py
+parameters:
+  vip_mask:
+    type: string
+    description: Virtual IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+  host:
+    type: string
+    description: Switch management IP.

@@ -1,0 +1,30 @@
+---
+name: configure_VXLAN_gateway
+pack: vdx
+runner_type: run-python
+description: configure VXLAN gateway
+enabled: true
+entry_point: configure_VXLAN_gateway.py
+parameters:
+  host:
+    type: string
+    description: Device IP.
+  username:
+    type: string
+    description: login username
+  password:
+    type: string
+    description: login password
+    secret: true
+  overlay_gateway_name:
+    type: string
+    description: overlay gateway name
+  rbridge_ids:
+    type: string
+    description: rbridge id
+  intf_name:
+    type: string
+    description: interface name/id
+  vlan:
+    type: string
+    description: vlan id

@@ -1,0 +1,9 @@
+---
+
+name: gitlab
+description: GitLab Rest API
+keywords:
+    - gitlab
+version: 0.4.0
+author: Daniel Chamot
+email: daniel@nullkarma.com

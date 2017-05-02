@@ -1,0 +1,3 @@
+[submodule "st2-sumologic"]
+	path = st2-sumologic
+	url = git@github.com:copartit/st2-sumologic.git

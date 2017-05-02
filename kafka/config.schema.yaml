@@ -1,0 +1,40 @@
+---
+  hosts:
+    description: "List of Kafka brokers hosts:port for sender action."
+    type: "string"
+    default: "172.16.1.10:9092"
+    required: true
+  client_id:
+    description: "Unique client ID to identify ourselves when sending"
+    type: "string"
+    default: "testclientID"
+    required: true
+
+  message_sensor:
+    description: "Sensor specific settings"
+    type: "object"
+    required: true
+    additionalProperties: true
+    properties:
+      hosts:
+        description: "List of Kafka brokers hosts:port for sensor to connect to"
+        type: "string"
+        default: "172.16.1.10:9092"
+        required: true
+      topics:
+        description: "List of topics for the sensor to subscribe to"
+        type: "array"
+        items:
+          type: "string"
+          default: "test"
+          required: true
+      group_id:
+        description: "The sensors group ID"
+        type: "string"
+        default: "testgroupID"
+        required: true
+      client_id:
+        description: "The sensors client ID"
+        type: "string"
+        default: "testclientID"
+        required: true

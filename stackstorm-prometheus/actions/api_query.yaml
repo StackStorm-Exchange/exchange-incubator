@@ -1,0 +1,11 @@
+---
+
+name: api.query
+description: 'Instant Query Prometheus API'
+
+runner_type: python-script
+entry_point: api_query.py
+
+parameters:
+  query:
+    type: string

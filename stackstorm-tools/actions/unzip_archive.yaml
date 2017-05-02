@@ -1,0 +1,17 @@
+---
+
+name: unzip_archive
+description: "Unzip an Archive. Returns the extracted archives absolute path"
+
+runner_type: python-script
+entry_point: unzip_archive.py
+
+parameters:
+  archive:
+    type: string
+    required: true
+  unzip_path:
+    type: string
+  list_content:
+    type: boolean
+    default: false

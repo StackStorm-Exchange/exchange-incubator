@@ -1,0 +1,5 @@
+
+url: http://gitlab.example.com
+token: Token
+verify_ssl: False
+

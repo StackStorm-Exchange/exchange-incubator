@@ -4,7 +4,7 @@ name: pipeline.list
 description: "List all project pipelines"
 
 runner_type: python-script
-entry_point: list_pipelines.py
+entry_point: pipeline_list.py
 
 parameters:
   url:

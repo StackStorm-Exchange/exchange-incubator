@@ -1,0 +1,27 @@
+---
+name: del_slb_server
+runner_type: run-python
+description: remove a server which is registered in SLB
+enabled: true
+entry_point: ax_action_runner.py
+parameters:
+    action:
+        default: delete
+        type: string
+        immutable: true
+    object_path:
+        default: slb.server
+        type: string
+        immutable: true
+    api_version:
+        type: string
+        description: version number of aXAPI to request ACOS appliance
+        required: true
+        enum:
+          - v2.1
+          - v3.0
+        default: v3.0
+    name:
+        type: string
+        description: name of server to delete
+        required: true

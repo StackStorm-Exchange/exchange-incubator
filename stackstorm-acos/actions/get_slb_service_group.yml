@@ -1,0 +1,27 @@
+---
+name: get_slb_service_group
+runner_type: run-python
+description: get a ServiceGroup information which is registered in SLB
+enabled: true
+entry_point: ax_action_runner.py
+parameters:
+    action:
+        default: get
+        type: string
+        immutable: true
+    object_path:
+        default: slb.service_group
+        type: string
+        immutable: true
+    api_version:
+        type: string
+        description: version number of aXAPI to request ACOS appliance
+        required: true
+        enum:
+            - v2.1
+            - v3.0
+        default: v3.0
+    name:
+        type: string
+        description: name of ServiceGroup to get
+        required: true

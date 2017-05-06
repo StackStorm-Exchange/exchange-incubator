@@ -1,0 +1,5 @@
+---
+appliance:
+  target: # IP address or hostname of appliance to connect
+  userid:
+  passwd:

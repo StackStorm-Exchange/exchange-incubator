@@ -1,0 +1,59 @@
+---
+name: add_slb_service_group
+runner_type: run-python
+description: register a ServiceGroup to the SLB 
+enabled: true
+entry_point: ax_action_runner.py
+parameters:
+    action:
+        default: create
+        type: string
+        immutable: true
+    object_path:
+        default: slb.service_group
+        type: string
+        immutable: true
+    api_version:
+        type: string
+        description: version number of aXAPI to request ACOS appliance
+        required: true
+        enum:
+            - v2.1
+            - v3.0
+        default: v3.0
+    name:
+        type: string
+        description: name of ServiceGroup to add
+        required: true
+    protocol:
+        type: string
+        description: protocol of TCP or UDP
+        required: true
+        enum:
+            - tcp
+            - udp
+        default: tcp
+    lb_method:
+        type: string
+        description: load balancing method, such as round-robin or weighted-rr
+        required: true
+        enum:
+            - round-robin
+            - weighted-rr
+            - least-connection
+            - weighted-least-connection
+            - service-least-connection
+            - service-weighted-least-connection
+            - fastest-response
+            - least-request
+            - round-robin-strict
+            - stateless-src-ip-hash
+            - stateless-src-ip-only-hash
+            - stateless-dst-ip-hash
+            - stateless-src-dst-ip-hash
+            - stateless-per-pkt-round-robin
+            - src-ip-only-hash
+            - src-ip-hash
+            - dst-ip-only-hash
+            - dst-ip-hash
+        default: round-robin

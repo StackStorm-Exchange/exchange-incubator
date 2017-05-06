@@ -1,0 +1,43 @@
+---
+name: add_slb_virtual_server
+pack: acos
+runner_type: run-python
+description: Add a VirtualServer to SLB
+enabled: true
+entry_point: ax_action_runner.py
+parameters:
+    action:
+        default: create
+        type: string
+        immutable: true
+    object_path:
+        default: slb.virtual_server
+        type: string
+        immutable: true
+    api_version:
+        type: string
+        description: version number of aXAPI to request ACOS appliance
+        required: false
+        enum:
+          - v2.1
+          - v3.0
+        default: v3.0
+    name:
+        type: string
+        description: the name of VirtualServer to be registered
+        required: true
+    ip_address:
+        type: string
+        description: the IP-Address to be attached to added VirtualServer (called Virtual-IP)
+        required: true
+    status:
+        type: string
+    arp_disable:
+        type: boolean
+        required: False
+        enum:
+          - True
+          - False
+        default: True
+    vrid:
+        type: string

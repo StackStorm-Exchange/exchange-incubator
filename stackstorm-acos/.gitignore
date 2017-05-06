@@ -1,0 +1,7 @@
+# means temporary files
+/tmp/*
+
+# means swap/backup files that editor makes
+*.sw*
+*~
+*.pyc

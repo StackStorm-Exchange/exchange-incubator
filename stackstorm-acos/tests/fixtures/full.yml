@@ -1,0 +1,5 @@
+---
+appliance:
+  target: appliance_hostname
+  userid: admin
+  passwd: admin

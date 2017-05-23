@@ -1,0 +1,3 @@
+[submodule "stackstorm-netbox"]
+	path = stackstorm-netbox
+	url = https://github.com/lampwins/stackstorm-netbox

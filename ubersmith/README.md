@@ -9,7 +9,7 @@ You can specificy multiple environments using nested values
 
 ```yaml
 ---
-ubersmith:
+instance:
   production:
     url: https://prod.domain.com
     api_user: apiuser

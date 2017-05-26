@@ -1,0 +1,6 @@
+---
+instance:
+  production:
+    url: https://prod.domain.com
+    api_user: apiuser
+    api_token: secret_key

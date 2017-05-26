@@ -1,5 +1,4 @@
 ---
-ssl_verify: yes
 instance:
   production:
     url: https://prod.domain.com

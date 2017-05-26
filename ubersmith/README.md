@@ -9,16 +9,13 @@ You can specificy multiple environments using nested values
 
 ```yaml
 ---
-ssl_verify: 
 ubersmith:
   production:
-    host: https://prod.domain.com
-    port: 443
+    url: https://prod.domain.com
     api_user: apiuser
     api_token: dsfsd0f9sdf9
   dev:
-    host: https://dev.domain.com
-    port: 443
+    url: https://dev.domain.com
     api_user: apiuser
     api_token: d0491fkfk
 ```

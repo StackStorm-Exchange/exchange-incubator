@@ -1,0 +1,23 @@
+---
+  name: "api_command"
+  runner_type: "run-python"
+  description: "Interact with Ubersmith"
+  enabled: true
+  entry_point: 'api_command.py'
+  parameters:
+    ubersmith:
+      type: "string"
+      description: "Pre-Configured ubersmith connection details"
+      required: false
+      position: 0 
+      default: ~
+    command:
+      type: "string"
+      description: "Module such as client.count or client.latest_client"
+      required: false
+      default:
+    params:
+      type: "object"
+      description: "JSON of Parameters"
+      required: false
+      default:

@@ -1,0 +1,26 @@
+---
+instance:
+  type: "object"
+  required: true
+  patternProperties:
+      "^\\w+":
+        "$ref": "#/properties/instances"
+  additionalProperties: false
+
+instances:
+  type: "object"
+  properties:
+    url:
+      description: URL for accessing Ubersmith instance
+      type: "string"
+      required: true
+    api_user:
+      description: Authentication API Key
+      type: "string"
+      required: true
+    api_token:
+      description: Authentication API Token
+      type: "string"
+      secret: true
+      required: true
+  additionalProperties: false

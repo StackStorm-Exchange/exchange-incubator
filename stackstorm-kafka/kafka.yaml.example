@@ -1,8 +1,8 @@
 ---
 # Used by the produce action
-client_id: testclientID
+client_id: st2-kafka-producer
 hosts: 172.16.1.10:9092
-# Used for the sensor
+# Used for the kafka sensor
 message_sensor:
   client_id: testclientID
   group_id: testgroupID
@@ -11,8 +11,8 @@ message_sensor:
   - test
 # Used by the gcp kafka sensor
 gcp_message_sensor:
-  client_id: GCPtestclientID
-  group_id: GCPtestgroupID
+  client_id: st2gcpclient
+  group_id: st2gcpgroup
   hosts: 172.16.1.10:9092
   topics:
   - gcp_stackdriver_topic

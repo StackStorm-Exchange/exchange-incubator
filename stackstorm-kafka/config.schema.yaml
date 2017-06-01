@@ -7,7 +7,7 @@
   client_id:
     description: "Unique client ID to identify ourselves when sending"
     type: "string"
-    default: "testclientID"
+    default: "st2-kafka-producer"
     required: true
 
   message_sensor:

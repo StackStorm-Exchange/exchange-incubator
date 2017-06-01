@@ -12,7 +12,7 @@ trigger_types:
           description: "Category from which message was retrieved"
           type: string
         message:
-          description: "Captured message. JSON-serialized messages are automatically parsed"
+          description: "Captured message. JSON-serialized messages are automatically parsed. payload.message is base64 decoded"
           type: object
         partition:
           description: "Topic partition number message belongs to"

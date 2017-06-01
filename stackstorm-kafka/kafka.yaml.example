@@ -1,0 +1,18 @@
+---
+# Used by the produce action
+client_id: testclientID
+hosts: 172.16.1.10:9092
+# Used for the sensor
+message_sensor:
+  client_id: testclientID
+  group_id: testgroupID
+  hosts: 172.16.1.10:9092
+  topics:
+  - test
+# Used by the gcp kafka sensor
+gcp_message_sensor:
+  client_id: GCPtestclientID
+  group_id: GCPtestgroupID
+  hosts: 172.16.1.10:9092
+  topics:
+  - gcp_stackdriver_topic

@@ -1,0 +1,15 @@
+---
+name: kafka
+description: Integration pack for Apache Kafka message broker
+keywords:
+  - kafka
+  - queuing
+  - messaging
+  - message broker
+  - gcp
+  - base64
+version: 0.2.1
+author: StackStorm
+email: support@stackstorm.com
+Contributors:
+  - Target Corp., Lukas.Marty@Target.com

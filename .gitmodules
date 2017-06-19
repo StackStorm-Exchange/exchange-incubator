@@ -1,0 +1,3 @@
+[submodule "stackstorm-exchange"]
+	path = stackstorm-exchange
+	url = git@github.com:tonybaloney/stackstorm-exchange

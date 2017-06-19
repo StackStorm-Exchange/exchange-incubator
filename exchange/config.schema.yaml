@@ -1,0 +1,24 @@
+---
+  primary_smtp_address:
+    description: "Your primary SMTP address e.g. example@example.com"
+    required: true
+    type: "string"
+  username:
+    description: "Logon username, either NT style DOMAIN\user or FQDN style user@fulldomain.com"
+    type: "string"
+    required: true
+    secret: true
+  password:
+    description: "Logon password"
+    type: "string"
+    required: true
+    secret: true
+  server:
+    description: "Optional server hostname, for when autodiscover is not available"
+    type: "string"
+    required: false
+  verify_ssl:
+    description: "Verify endpoint SSL details"
+    type: "boolean"
+    default: true
+    required: true

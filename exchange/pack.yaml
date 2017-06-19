@@ -1,0 +1,12 @@
+---
+ref: exchange
+name: "Microsoft Exchange"
+description: "A pack for interfacing with a Microsoft Exchange server"
+keywords:
+    - mail
+    - calendar
+    - exchange
+    - office365
+version: 0.1.0
+author: "Anthony Shaw"
+email: anthonyshaw@apache.org

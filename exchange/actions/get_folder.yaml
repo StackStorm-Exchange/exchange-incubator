@@ -1,0 +1,12 @@
+---
+name: get_folder
+pack: exchange
+runner_type: "python"
+description: Get the details of an email folder
+enabled: true
+entry_point: get_folder.sh
+parameters:
+    folder_name:
+        type: string
+        description: Folder name
+        required: true

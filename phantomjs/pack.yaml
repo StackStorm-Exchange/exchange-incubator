@@ -1,0 +1,11 @@
+---
+ref: phantomjs
+name: phantomjs
+description: st2 content pack containing PhantomJS integrations
+keywords:
+  - phantomjs
+  - browser
+  - headless browser
+version: 0.1.0
+author: Tomaz Muraus
+email: tomaz@tomaz.me

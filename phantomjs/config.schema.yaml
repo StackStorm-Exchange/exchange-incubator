@@ -1,0 +1,5 @@
+---
+  executable_path:
+    type: "string"
+    description: "Path to PhantomJS executable."
+    required: false

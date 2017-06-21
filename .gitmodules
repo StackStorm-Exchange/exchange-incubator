@@ -1,0 +1,3 @@
+[submodule "stackstorm-activedirectory"]
+	path = stackstorm-activedirectory
+	url = https://github.com/EncoreTechnologies/stackstorm-activedirectory.git

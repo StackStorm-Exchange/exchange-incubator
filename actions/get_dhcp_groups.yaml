@@ -1,0 +1,58 @@
+---
+description: "None (yet)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: "get_dhcp_groups"
+parameters:
+  operation:
+    type: string
+    default: "GetDHCPGroups"
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  owner_ref:
+    type: string
+    required: true
+  filter:
+    type: string
+    required: false
+  offset:
+    type: integer
+    required: false
+  limit:
+    type: integer
+    required: false
+  sort_by:
+    type: string
+    required: false
+  sort_order:
+    type: string
+    required: false

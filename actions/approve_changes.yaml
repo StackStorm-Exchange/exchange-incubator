@@ -1,0 +1,350 @@
+---
+description: "None (yet)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: "approve_changes"
+parameters:
+  operation:
+    type: string
+    default: "ApproveChanges"
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  change_request_ref:
+    type: string
+    required: true
+  dns_zone_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dnsZoneChange": [
+           {
+             "dnsZoneAfter": {
+               "dnssecSigned": "boolean", 
+               "name": "string", 
+               "dnsScopeName": "string", 
+               "adIntegrated": "boolean", 
+               "type": "string", 
+               "adReplicationType": "string", 
+               "dnsViewRef": "string", 
+               "dynamic": "boolean", 
+               "authority": "string", 
+               "kskIDs": "string", 
+               "adPartition": "string", 
+               "zskIDs": "string", 
+               "customProperties": {
+                 "property": [
+                   {
+                     "name": "string", 
+                     "value": "string"
+                   }
+                 ]
+               }, 
+               "dnsViewRefs": {
+                 "ref": [
+                   "string"
+                 ]
+               }, 
+               "ref": "string"
+             }, 
+             "hasAccess": "boolean", 
+             "dnsZoneBefore": {
+               "dnssecSigned": "boolean", 
+               "name": "string", 
+               "dnsScopeName": "string", 
+               "adIntegrated": "boolean", 
+               "type": "string", 
+               "adReplicationType": "string", 
+               "dnsViewRef": "string", 
+               "dynamic": "boolean", 
+               "authority": "string", 
+               "kskIDs": "string", 
+               "adPartition": "string", 
+               "zskIDs": "string", 
+               "customProperties": {
+                 "property": [
+                   {
+                     "name": "string", 
+                     "value": "string"
+                   }
+                 ]
+               }, 
+               "dnsViewRefs": {
+                 "ref": [
+                   "string"
+                 ]
+               }, 
+               "ref": "string"
+             }, 
+             "state": "string", 
+             "changeIndex": "unsignedInt", 
+             "type": "string"
+           }
+         ]
+       }'
+  dns_record_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dnsRecordChange": [
+           {
+             "hasAccess": "boolean", 
+             "dnsRecordAfter": {
+               "comment": "string", 
+               "aging": "unsignedInt", 
+               "dnsZoneRef": "string", 
+               "name": "string", 
+               "ref": "string", 
+               "enabled": "boolean", 
+               "data": "string", 
+               "ttl": "string", 
+               "type": "string"
+             }, 
+             "state": "string", 
+             "dnsRecordBefore": {
+               "comment": "string", 
+               "aging": "unsignedInt", 
+               "dnsZoneRef": "string", 
+               "name": "string", 
+               "ref": "string", 
+               "enabled": "boolean", 
+               "data": "string", 
+               "ttl": "string", 
+               "type": "string"
+             }, 
+             "changeIndex": "unsignedInt", 
+             "type": "string"
+           }
+         ]
+       }'
+  dhcp_scope_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dhcpScopeChange": [
+           {
+             "dhcpScopeBefore": {
+               "available": "unsignedInt", 
+               "superscope": "string", 
+               "name": "string", 
+               "dhcpServerRef": "string", 
+               "enabled": "boolean", 
+               "rangeRef": "string", 
+               "ref": "string", 
+               "description": "string"
+             }, 
+             "hasAccess": "boolean", 
+             "state": "string", 
+             "changeIndex": "unsignedInt", 
+             "type": "string", 
+             "dhcpScopeAfter": {
+               "available": "unsignedInt", 
+               "superscope": "string", 
+               "name": "string", 
+               "dhcpServerRef": "string", 
+               "enabled": "boolean", 
+               "rangeRef": "string", 
+               "ref": "string", 
+               "description": "string"
+             }
+           }
+         ]
+       }'
+  dhcp_reservation_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dhcpReservationChange": [
+           {
+             "hasAccess": "boolean", 
+             "dhcpReservationBefore": {
+               "ref": "string", 
+               "name": "string", 
+               "reservationMethod": "string", 
+               "type": "string", 
+               "description": "string", 
+               "filename": "string", 
+               "ownerRef": "string", 
+               "ddnsHostName": "string", 
+               "nextServer": "string", 
+               "clientIdentifier": "string", 
+               "serverName": "string", 
+               "addresses": {
+                 "address": [
+                   "string"
+                 ]
+               }
+             }, 
+             "state": "string", 
+             "changeIndex": "unsignedInt", 
+             "dhcpReservationAfter": {
+               "ref": "string", 
+               "name": "string", 
+               "reservationMethod": "string", 
+               "type": "string", 
+               "description": "string", 
+               "filename": "string", 
+               "ownerRef": "string", 
+               "ddnsHostName": "string", 
+               "nextServer": "string", 
+               "clientIdentifier": "string", 
+               "serverName": "string", 
+               "addresses": {
+                 "address": [
+                   "string"
+                 ]
+               }
+             }, 
+             "type": "string"
+           }
+         ]
+       }'
+  dhcp_exclusion_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dhcpExclusionChange": [
+           {
+             "hasAccess": "boolean", 
+             "dhcpExclusionAfter": {
+               "from": "string", 
+               "dhcpScopeRef": "string", 
+               "ref": "string", 
+               "name": "string", 
+               "to": "string"
+             }, 
+             "state": "string", 
+             "dhcpExclusionBefore": {
+               "from": "string", 
+               "dhcpScopeRef": "string", 
+               "ref": "string", 
+               "name": "string", 
+               "to": "string"
+             }, 
+             "changeIndex": "unsignedInt", 
+             "type": "string"
+           }
+         ]
+       }'
+  dhcp_address_pool_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dhcpAddressPoolChange": [
+           {
+             "dhcpAddressPoolBefore": {
+               "from": "string", 
+               "name": "string", 
+               "failoverPeer": "string", 
+               "to": "string", 
+               "failoverRelationship": "string", 
+               "dhcpScopeRef": "string", 
+               "ref": "string"
+             }, 
+             "hasAccess": "boolean", 
+             "state": "string", 
+             "changeIndex": "unsignedInt", 
+             "type": "string", 
+             "dhcpAddressPoolAfter": {
+               "from": "string", 
+               "name": "string", 
+               "failoverPeer": "string", 
+               "to": "string", 
+               "failoverRelationship": "string", 
+               "dhcpScopeRef": "string", 
+               "ref": "string"
+             }
+           }
+         ]
+       }'
+  dhcp_option_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "dhcpOptionChange": [
+           {
+             "policyName": "string", 
+             "hasAccess": "boolean", 
+             "dhcpOption": {
+               "option": "string", 
+               "value": "string"
+             }, 
+             "state": "string", 
+             "changeIndex": "unsignedInt", 
+             "owner": {
+               "objType": "string", 
+               "ref": "string", 
+               "name": "string"
+             }
+           }
+         ]
+       }'
+  custom_property_changes:
+    type: object
+    required: false
+    description: >
+      '{
+         "customPropertyChange": [
+           {
+             "hasAccess": "boolean", 
+             "customPropertiesBefore": {
+               "property": [
+                 {
+                   "name": "string", 
+                   "value": "string"
+                 }
+               ]
+             }, 
+             "state": "string", 
+             "type": "string", 
+             "objType": "string", 
+             "ref": "string", 
+             "customPropertiesAfter": {
+               "property": [
+                 {
+                   "name": "string", 
+                   "value": "string"
+                 }
+               ]
+             }
+           }
+         ]
+       }'
+  save_comment:
+    type: string
+    required: false

@@ -1,0 +1,236 @@
+---
+description: "None (yet)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: "set_ipam_record"
+parameters:
+  operation:
+    type: string
+    default: "SetIPAMRecord"
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  ipam_record_before:
+    type: object
+    required: true
+    description: >
+      '{
+         "dnsHosts": {
+           "dnsHost": [
+             {
+               "dnsRecord": {
+                 "comment": "string", 
+                 "aging": "unsignedInt", 
+                 "dnsZoneRef": "string", 
+                 "name": "string", 
+                 "ref": "string", 
+                 "enabled": "boolean", 
+                 "data": "string", 
+                 "ttl": "string", 
+                 "type": "string"
+               }, 
+               "ptrStatus": "string", 
+               "relatedRecords": {
+                 "dnsRecord": [
+                   {
+                     "comment": "string", 
+                     "aging": "unsignedInt", 
+                     "dnsZoneRef": "string", 
+                     "name": "string", 
+                     "ref": "string", 
+                     "enabled": "boolean", 
+                     "data": "string", 
+                     "ttl": "string", 
+                     "type": "string"
+                   }
+                 ]
+               }
+             }
+           ]
+         }, 
+         "addrRef": "string", 
+         "usage": "unsignedInt", 
+         "discoveryType": "string", 
+         "dhcpReservations": {
+           "dhcpReservation": [
+             {
+               "ref": "string", 
+               "name": "string", 
+               "reservationMethod": "string", 
+               "type": "string", 
+               "description": "string", 
+               "filename": "string", 
+               "ownerRef": "string", 
+               "ddnsHostName": "string", 
+               "nextServer": "string", 
+               "clientIdentifier": "string", 
+               "serverName": "string", 
+               "addresses": {
+                 "address": [
+                   "string"
+                 ]
+               }
+             }
+           ]
+         }, 
+         "dhcpLeases": {
+           "dhcpLease": [
+             {
+               "name": "string", 
+               "mac": "string", 
+               "state": "string", 
+               "address": "string", 
+               "dhcpScopeRef": "string", 
+               "type": "string", 
+               "lease": "string"
+             }
+           ]
+         }, 
+         "lastKnownClientIdentifier": "string", 
+         "device": "string", 
+         "state": "string", 
+         "lastDiscoveryDate": "string", 
+         "ptrStatus": "string", 
+         "customProperties": {
+           "property": [
+             {
+               "name": "string", 
+               "value": "string"
+             }
+           ]
+         }, 
+         "address": "string", 
+         "claimed": "boolean", 
+         "interface": "string", 
+         "lastSeenDate": "string", 
+         "extraneousPTR": "boolean"
+       }'
+  ipam_record_after:
+    type: object
+    required: true
+    description: >
+      '{
+         "dnsHosts": {
+           "dnsHost": [
+             {
+               "dnsRecord": {
+                 "comment": "string", 
+                 "aging": "unsignedInt", 
+                 "dnsZoneRef": "string", 
+                 "name": "string", 
+                 "ref": "string", 
+                 "enabled": "boolean", 
+                 "data": "string", 
+                 "ttl": "string", 
+                 "type": "string"
+               }, 
+               "ptrStatus": "string", 
+               "relatedRecords": {
+                 "dnsRecord": [
+                   {
+                     "comment": "string", 
+                     "aging": "unsignedInt", 
+                     "dnsZoneRef": "string", 
+                     "name": "string", 
+                     "ref": "string", 
+                     "enabled": "boolean", 
+                     "data": "string", 
+                     "ttl": "string", 
+                     "type": "string"
+                   }
+                 ]
+               }
+             }
+           ]
+         }, 
+         "addrRef": "string", 
+         "usage": "unsignedInt", 
+         "discoveryType": "string", 
+         "dhcpReservations": {
+           "dhcpReservation": [
+             {
+               "ref": "string", 
+               "name": "string", 
+               "reservationMethod": "string", 
+               "type": "string", 
+               "description": "string", 
+               "filename": "string", 
+               "ownerRef": "string", 
+               "ddnsHostName": "string", 
+               "nextServer": "string", 
+               "clientIdentifier": "string", 
+               "serverName": "string", 
+               "addresses": {
+                 "address": [
+                   "string"
+                 ]
+               }
+             }
+           ]
+         }, 
+         "dhcpLeases": {
+           "dhcpLease": [
+             {
+               "name": "string", 
+               "mac": "string", 
+               "state": "string", 
+               "address": "string", 
+               "dhcpScopeRef": "string", 
+               "type": "string", 
+               "lease": "string"
+             }
+           ]
+         }, 
+         "lastKnownClientIdentifier": "string", 
+         "device": "string", 
+         "state": "string", 
+         "lastDiscoveryDate": "string", 
+         "ptrStatus": "string", 
+         "customProperties": {
+           "property": [
+             {
+               "name": "string", 
+               "value": "string"
+             }
+           ]
+         }, 
+         "address": "string", 
+         "claimed": "boolean", 
+         "interface": "string", 
+         "lastSeenDate": "string", 
+         "extraneousPTR": "boolean"
+       }'
+  save_comment:
+    type: string
+    required: false
+  force_override_of_naming_conflict_check:
+    type: boolean
+    required: false

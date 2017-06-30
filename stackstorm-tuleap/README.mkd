@@ -1,6 +1,6 @@
 # Tuleap Integration Pack
 
-Pack which allows integration with your Tuleap.
+Pack which allows integration with your [Tuleap](https://www.tuleap.org/).
 
 ## Configuration
 

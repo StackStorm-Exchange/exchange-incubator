@@ -83,3 +83,14 @@ result:
   stderr: ''
   stdout: ''
 ```
+
+
+# TODO
+- Cleanup run_operation.py
+- Unit tests
+- Comment code
+- This README file
+- Update etc/README.md on how to generate code
+
+# Future
+- Create sensors to trigger events on changes (look at the the GetHistory command)

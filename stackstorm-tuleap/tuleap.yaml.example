@@ -1,0 +1,6 @@
+---
+# Tuleap API connection info
+
+tuleap_domain_name: "localhost"
+tuleap_username: ""
+tuleap_password: ""

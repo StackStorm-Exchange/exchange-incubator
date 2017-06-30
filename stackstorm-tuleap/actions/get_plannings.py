@@ -1,30 +1,17 @@
-import requests
-from Tuleap.RestClient.Connection import CertificateVerification
-from Tuleap.RestClient.Connection import Connection
 from Tuleap.RestClient.Projects import Projects
-from st2actions.runners.pythonrunner import Action
+from lib.base import BaseTuleapAction
 
 
-class GetPlannings(Action):
+class GetPlannings(BaseTuleapAction):
     def run(self, project_id):
-        requests.packages.urllib3.disable_warnings()
-
-        connection = Connection()
-        plannings = None
-        success = connection.login('https://' + self.config['tuleap_domain_name'] + '/api/v1',
-                                   self.config['tuleap_username'],
-                                   self.config['tuleap_password'],
-                                   CertificateVerification.Disabled)
-
+        success = self._login()
         if success:
             # Projects
-            projects = Projects(connection)
-
+            projects = Projects(self.connection)
             success = projects.request_plannings(project_id)
-
             if success:
-                plannings = projects.get_data()
+                self.response = projects.get_data()
 
-                return True, plannings
+                return True, self.response
 
-        return False, plannings
+        return False, self.response

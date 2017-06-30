@@ -1,0 +1,19 @@
+# Tuleap Integration Pack
+
+Pack which allows integration with your [Tuleap](https://www.tuleap.org/).
+
+## Configuration
+
+* ``tuleap_domain_name`` - Tuleap domain name server
+* ``tuleap_username`` - Tuleap username
+* ``tuleap_password`` - Tuleap password
+
+## Actions
+
+* ``create_artifact`` - Create a new artifact.
+* ``create_artifacts`` - Create new artifacts.
+* ``get_artifacts `` - Retrieve information about Tuleap tracker artifacts.
+* ``get_git_repositories`` - Retrieve information about Tuleap project git repositories.
+* ``get_milestones`` - Retrieve information about Tuleap project milestones.
+* ``get_plannings`` - Retrieve information about Tuleap project plannings.
+* ``get_projects`` - Retrieve information about Tuleap projects user can see.

@@ -1,0 +1,15 @@
+---
+tuleap_domain_name:
+    description: "Tuleap domain name"
+    type: "string"
+    required: true
+tuleap_username:
+    description: "The Tuleap username"
+    type: "string"
+    required: true
+    secret: true
+tuleap_password:
+    description: "The Tuleap user password"
+    type: "string"
+    required: true
+    secret: true

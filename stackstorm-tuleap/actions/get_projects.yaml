@@ -1,0 +1,6 @@
+---
+name: get_projects
+runner_type: "python-script"
+description: Retrieve information about Tuleap projects user can see.
+enabled: true
+entry_point: get_projects.py

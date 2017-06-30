@@ -1,0 +1,13 @@
+---
+ref: tuleap
+name: Tuleap
+description: A Tuleap StackStorm pack
+keywords:
+    - Tuleap
+    - ALM
+    - Issue tracker
+    - Open source
+    - Agile tool
+version: 0.1.0
+author: Humbert Moreaux
+email: crew@enalean.com

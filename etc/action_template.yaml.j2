@@ -4,36 +4,7 @@ enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
 name: "{{ operation_snake_case }}"
-parameters:
-  operation:
-    type: string
-    default: "{{ operation_camel_case }}"
-    immutable: true
-  connection:
-    type: string
-    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
-    required: false
-  server:
-    type: string
-    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
-    required: false
-  username:
-    type: string
-    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
-    required: false
-  password:
-    type: string
-    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
-    required: false
-    secret: true
-  port:
-    type: integer
-    description: "Optional override of the Men&Mice port in <connection>."
-    required: false
-  transport:
-    type: string
-    description: "Optional override of the Men&Mice transport in <connection>."
-    required: false
+{{ action_template_params }}
 {% for param in operation_parameters %}  {{ param.parameter_name }}:
     type: {{ param.parameter_type }}
     required: {{ param.parameter_required }}

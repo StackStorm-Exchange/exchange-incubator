@@ -7,34 +7,27 @@
 # Files generated
 #  actions/*.yaml (one for each operation in etc/menandmice_wsdl.xml)
 #
-import re
-import jinja2
 
-import zeep
-import operator # todo remove this
-import datetime
-import os
-import requests
-import sys
 import argparse
+import datetime
 import glob
+import jinja2
 import json
-import pprint
+import os
+import re
+import requests
 from xml.dom import minidom
+import yaml
+import zeep
 
 
-WSDL_FILE = "./cmdlets.txt"
 ACTION_TEMPLATE_PATH = "./action_template.yaml.j2"
+ACTION_TEMPLATE_PARAMS_PATH = "./action_template_params.yaml.j2"
 ACTION_DIRECTORY = "../actions"
 WSDL_URL = "http://{0}/_mmwebext/mmwebext.dll?wsdl?server=localhost"
+WSDL_GLOB_PATH = "./menandmice_wsdl_*.xml"
+MM_API_URL = "http://api.menandmice.com/8.1.0/#{}"
 
-DEFAULT_ACTION_PARAMS = ['operation',
-                         'connection',
-                         'server',
-                         'username',
-                         'password',
-                         'port',
-                         'transport']
 
 class Cli:
     def parse(self):
@@ -44,7 +37,7 @@ class Cli:
         # Subparsers
         subparsers = parser.add_subparsers(dest="command")
 
-        ## commands
+        # commands
         fetch_parser = subparsers.add_parser('fetch-wsdl',
                                              help="Deploy packs to a host")
         # connection args
@@ -62,9 +55,8 @@ class Cli:
         generate_parser.add_argument('-w', '--wsdl-path',
                                      help="WSDL file to use")
 
-        examples_parser = subparsers.add_parser('examples',
-                                                help="Prints examples of how to use this script to stdout"
-        )
+        subparsers.add_parser('examples',
+                              help="Prints examples of how to use this script to stdout")
 
         args = parser.parse_args()
         if args.command == "examples":
@@ -87,10 +79,19 @@ class Cli:
             "  ./action_generate.py generate -d ../actions_new -w menandmice_wsdl_new.xml\n"\
 
 
+
 class ActionGenerator(object):
 
     def __init__(self, cli_args, **kwargs):
         self.cli_args = cli_args
+        self.action_template_params = self.load_template_params()
+
+    def load_template_params(self):
+        params_yaml_str = self.jinja_render_file(ACTION_TEMPLATE_PARAMS_PATH,
+                                                 {'operation_camel_case': ''})
+        params_dict = yaml.load(params_yaml_str)
+        params = params_dict['parameters'].keys()
+        return params
 
     def run(self):
         if self.cli_args.command == "fetch-wsdl":
@@ -123,11 +124,12 @@ class ActionGenerator(object):
             loader=jinja2.FileSystemLoader(path or './')
         ).get_template(filename).render(context)
 
-
     def jinja_render_str(self, jinja_template_str, context):
         return jinja2.Environment().from_string(jinja_template_str).render(context)
 
     def render_action(self, context):
+        params_data = self.jinja_render_file(ACTION_TEMPLATE_PARAMS_PATH, context)
+        context['action_template_params'] = params_data
         action_data = self.jinja_render_file(ACTION_TEMPLATE_PATH, context)
         action_filename = "{}/{}.yaml".format(ACTION_DIRECTORY,
                                               context['operation_snake_case'])
@@ -141,7 +143,7 @@ class ActionGenerator(object):
 
         if isinstance(elem_type, zeep.xsd.types.builtins.BuiltinType):
             if type_elem.accepts_multiple:
-                return [ elem_type._default_qname.localname ]
+                return [elem_type._default_qname.localname]
             else:
                 return elem_type._default_qname.localname
         else:
@@ -156,23 +158,93 @@ class ActionGenerator(object):
 
     def get_type_description(self, type_elem):
         type_dict = self.build_type_dict(type_elem)
-        #type_desc = pprint.pformat(type_dict)
-        type_desc = json.dumps(type_dict, indent=2)
-        type_desc = type_desc.replace('\n', '\n       ')
-        return ">\n      '" + type_desc + "'"
+        # type_desc = pprint.pformat(type_dict)
+        type_json = json.dumps(type_dict, indent=2)
+        type_json = type_json.replace('\n', '\n       ')
+        return (">\n"
+                "      'type: {0}\n"
+                "       reference: {1}\n"
+                "       json_schema: {2}'").format(type_elem.type.name,
+                                                   MM_API_URL.format(type_elem.type.name),
+                                                   type_json)
+
+    def generate_operation(self, operation):
+        op_name = operation.name
+        op_inputs = []
+
+        # Translate operation "inputs" in the SOAP WSDL into StackStorm action
+        # parameters
+        for input_name, input_elem in operation.input.body.type.elements:
+            input_type_obj = input_elem.type
+            parameter_required = 'true' if input_elem.min_occurs > 0 else 'false'
+            parameter_name = self.camel_case_to_snake_case(input_name)
+            parameter_description = None
+            parameter_type = None
+
+            if op_name == 'GetHistory' and parameter_name == 'username':
+                # GetHistory operation has a conflicting parameter name 'username'
+                # so we manually change it to user_name here and then back in the
+                # run_operation.py
+                parameter_name = 'user_name'
+            elif op_name == 'Login' and parameter_name == 'server':
+                # Utilize our existing 'server' parameter on the action template
+                continue
+            elif op_name == 'Login' and parameter_name == 'password':
+                # Utilize our existing 'password' parameter on the action template
+                continue
+            elif op_name == 'Login' and parameter_name == 'login_name':
+                # Utilize our existing 'username' parameter on the action template
+                continue
+            elif parameter_name == "session":
+                # The session input is present on every operation.
+                # We want to make this optional, and if unspecified we simply
+                # perform a login immediately prior to executing the operation.
+                parameter_required = False
+                parameter_description = ('"Login session cookie. If empty then'
+                                         ' username/password will be used to login'
+                                         ' prior to running this operation"')
+
+            # Ensure that this parameter doesn't conflict with any of the ones
+            # we have defined in the aciton template
+            if parameter_name in self.action_template_params:
+                print ("ERROR: Param conflicts with default: {}.{}"
+                       .format(op_name, parameter_name))
+
+            if isinstance(input_type_obj, zeep.xsd.types.builtins.BuiltinType):
+                parameter_type = input_type_obj._default_qname.localname
+                if parameter_type == "unsignedInt":
+                    parameter_type = "integer"
+
+            else:
+                parameter_description = self.get_type_description(input_elem)
+                parameter_type = 'object'
+
+            op_inputs.append({'name': input_name,
+                              'parameter_name': parameter_name,
+                              'parameter_type': parameter_type,
+                              'parameter_description': parameter_description,
+                              'parameter_required': parameter_required})
+
+        # end for each input
+        op_api_ref_url = MM_API_URL.format(op_name)
+        op_description = ("Invokes the Men&Mice SOAP command {0} ({1})"
+                          .format(op_name, op_api_ref_url))
+        op_context = {'operation_camel_case': op_name,
+                      'operation_snake_case': self.camel_case_to_snake_case(op_name),
+                      'operation_description': op_description,
+                      'operation_parameters': op_inputs}
+        self.render_action(op_context)
 
     def generate(self):
         wsdl_path = None
         if self.cli_args.wsdl_path:
             wsdl_path = self.cli_args.wsdl_path
         else:
-            wsdl_files = glob.glob("./menandmice_wsdl_*.xml")
+            wsdl_files = glob.glob(WSDL_GLOB_PATH)
             # find newest wsdl (by name)
             wsdl_path = max(wsdl_files)
 
         client = zeep.Client(wsdl=wsdl_path)
-
-        operations_context = []
 
         # Parse Operations from the WSDL file
         for service in client.wsdl.services.values():
@@ -183,73 +255,8 @@ class ActionGenerator(object):
                 if port.name != "ServiceSoap12":
                     continue
 
-                operations = sorted(port.binding._operations.values(),
-                                    key=operator.attrgetter('name'))
-
-                for operation in operations:
-                    name = operation.name
-                    op_inputs = []
-
-                    for input_name, input_elem in operation.input.body.type.elements:
-                        type_obj = input_elem.type
-                        input_type = type_obj.name
-                        param_required = 'true' if input_elem.min_occurs > 0 else 'false'
-                        parameter_name = self.camel_case_to_snake_case(input_name)
-
-                        if name == 'GetHistory' and parameter_name == 'username':
-                            parameter_name = 'user_name'
-                        elif name == 'Login' and parameter_name == 'server':
-                            continue
-                        elif name == 'Login' and parameter_name == 'password':
-                            continue
-                        elif name == 'Login' and parameter_name == 'login_name':
-                            continue
-
-                        if parameter_name in DEFAULT_ACTION_PARAMS:
-                            print ("ERROR: Param conflicts with default: {}.{}"
-                                   .format(name, parameter_name))
-
-                        if isinstance(type_obj, zeep.xsd.types.builtins.BuiltinType):
-                            description = None
-                            if input_name == "session":
-                                param_required = False
-                                description = '"Login session cookie. If empty then username/password will be used to login prior to running this operation"'
-
-                            type_name = type_obj._default_qname.localname
-                            parameter_type = type_name
-                            if type_name == "unsignedInt":
-                                parameter_type = "integer"
-                            op_inputs.append({'name': input_name,
-                                              'data_type': type_obj._default_qname.localname,
-                                              'type_name': input_type,
-                                              'type_elem': input_elem,
-                                              'builtin': True,
-                                              'parameter_name': parameter_name,
-                                              'parameter_type': parameter_type,
-                                              'parameter_description': description,
-                                              'parameter_required': param_required})
-                        else:
-                            op_inputs.append({'name': input_name,
-                                              'data_type': 'object',
-                                              'type_name': input_type,
-                                              'type_elem': input_elem,
-                                              'builtin': False,
-                                              'parameter_name': parameter_name,
-                                              'parameter_type': 'object',
-                                              'parameter_description': self.get_type_description(input_elem),
-                                              'parameter_required': param_required})
-
-                    # Debug
-                    # op_inputs_str = [input['type_name'] + "(" + input['data_type'] + ") " + input['name'] for input in op_inputs]
-                    # print "{}({})".format(name, ', '.join(op_inputs_str))
-
-                    op_context = {'name': name,
-                                  'inputs': op_inputs,
-                                  'operation_camel_case': name,
-                                  'operation_snake_case': self.camel_case_to_snake_case(name),
-                                  'operation_description': 'None (yet)',
-                                  'operation_parameters': op_inputs}
-                    self.render_action(op_context)
+                for operation in port.binding._operations.values():
+                    self.generate_operation(operation)
 
 
 if __name__ == "__main__":

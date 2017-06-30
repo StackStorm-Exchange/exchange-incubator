@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddCloudNetwork (http://api.menandmice.com/8.1.0/#AddCloudNetwork)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: CloudNetwork
+       reference: http://api.menandmice.com/8.1.0/#CloudNetwork
+       json_schema: {
          "cloudRef": "string", 
          "ref": "string", 
          "name": "string", 

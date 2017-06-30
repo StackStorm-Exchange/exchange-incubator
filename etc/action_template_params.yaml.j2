@@ -1,13 +1,7 @@
----
-description: "Invokes the Men&Mice SOAP command GetADPartitions (http://api.menandmice.com/8.1.0/#GetADPartitions)"
-enabled: true
-runner_type: "python-script"
-entry_point: lib/run_operation.py
-name: "get_ad_partitions"
 parameters:
   operation:
     type: string
-    default: "GetADPartitions"
+    default: "{{ operation_camel_case }}"
     immutable: true
   connection:
     type: string
@@ -34,10 +28,3 @@ parameters:
     type: string
     description: "Optional override of the Men&Mice transport in <connection>."
     required: false
-  session:
-    type: string
-    required: False
-    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
-  dns_server_ref:
-    type: string
-    required: true

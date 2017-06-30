@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddADForest (http://api.menandmice.com/8.1.0/#AddADForest)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ADForest
+       reference: http://api.menandmice.com/8.1.0/#ADForest
+       json_schema: {
          "userName": "string", 
          "catalogServer": "string", 
          "name": "string", 

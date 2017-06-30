@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command JoinRanges (http://api.menandmice.com/8.1.0/#JoinRanges)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfObjRef
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfObjRef
+       json_schema: {
          "ref": [
            "string"
          ]
@@ -66,7 +68,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfProperty
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfProperty
+       json_schema: {
          "property": [
            {
              "name": "string", 
@@ -78,7 +82,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: Discovery
+       reference: http://api.menandmice.com/8.1.0/#Discovery
+       json_schema: {
          "interval": "unsignedInt", 
          "enabled": "boolean", 
          "startTime": "string", 

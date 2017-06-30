@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command SetProperties (http://api.menandmice.com/8.1.0/#SetProperties)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -54,7 +54,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfProperty
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfProperty
+       json_schema: {
          "property": [
            {
              "name": "string", 

@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDNSServer (http://api.menandmice.com/8.1.0/#AddDNSServer)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: DNSServer
+       reference: http://api.menandmice.com/8.1.0/#DNSServer
+       json_schema: {
          "name": "string", 
          "resolvedAddress": "string", 
          "type": "string", 

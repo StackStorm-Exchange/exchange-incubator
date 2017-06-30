@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command RemoveUserFromGroup (http://api.menandmice.com/8.1.0/#RemoveUserFromGroup)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py

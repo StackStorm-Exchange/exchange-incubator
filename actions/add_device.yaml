@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDevice (http://api.menandmice.com/8.1.0/#AddDevice)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: Device
+       reference: http://api.menandmice.com/8.1.0/#Device
+       json_schema: {
          "interfaces": {
            "interface": [
              {

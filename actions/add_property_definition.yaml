@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddPropertyDefinition (http://api.menandmice.com/8.1.0/#AddPropertyDefinition)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: PropertyDefinition
+       reference: http://api.menandmice.com/8.1.0/#PropertyDefinition
+       json_schema: {
          "mandatory": "boolean", 
          "name": "string", 
          "defaultValue": "string", 

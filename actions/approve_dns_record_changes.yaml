@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command ApproveDNSRecordChanges (http://api.menandmice.com/8.1.0/#ApproveDNSRecordChanges)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfDNSRecordChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDNSRecordChange
+       json_schema: {
          "dnsRecordChange": [
            {
              "hasAccess": "boolean", 

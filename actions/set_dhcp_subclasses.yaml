@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command SetDHCPSubclasses (http://api.menandmice.com/8.1.0/#SetDHCPSubclasses)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -48,7 +48,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfString
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfString
+       json_schema: {
          "string": [
            "string"
          ]

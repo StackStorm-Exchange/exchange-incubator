@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDHCPAddressPool (http://api.menandmice.com/8.1.0/#AddDHCPAddressPool)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: DHCPAddressPool
+       reference: http://api.menandmice.com/8.1.0/#DHCPAddressPool
+       json_schema: {
          "from": "string", 
          "name": "string", 
          "failoverPeer": "string", 

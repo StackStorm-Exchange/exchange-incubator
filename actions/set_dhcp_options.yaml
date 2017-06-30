@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command SetDHCPOptions (http://api.menandmice.com/8.1.0/#SetDHCPOptions)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -51,7 +51,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfDHCPOption
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPOption
+       json_schema: {
          "dhcpOption": [
            {
              "option": "string", 

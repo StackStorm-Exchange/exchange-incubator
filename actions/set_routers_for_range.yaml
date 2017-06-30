@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command SetRoutersForRange (http://api.menandmice.com/8.1.0/#SetRoutersForRange)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfIPAddress
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfIPAddress
+       json_schema: {
          "address": [
            "string"
          ]

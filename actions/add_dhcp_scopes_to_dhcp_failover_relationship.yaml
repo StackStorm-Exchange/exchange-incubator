@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDHCPScopesToDHCPFailoverRelationship (http://api.menandmice.com/8.1.0/#AddDHCPScopesToDHCPFailoverRelationship)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -48,7 +48,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfObjRef
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfObjRef
+       json_schema: {
          "ref": [
            "string"
          ]

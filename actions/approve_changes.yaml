@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command ApproveChanges (http://api.menandmice.com/8.1.0/#ApproveChanges)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDNSZoneChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDNSZoneChange
+       json_schema: {
          "dnsZoneChange": [
            {
              "dnsZoneAfter": {
@@ -115,7 +117,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDNSRecordChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDNSRecordChange
+       json_schema: {
          "dnsRecordChange": [
            {
              "hasAccess": "boolean", 
@@ -151,7 +155,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDHCPScopeChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPScopeChange
+       json_schema: {
          "dhcpScopeChange": [
            {
              "dhcpScopeBefore": {
@@ -185,7 +191,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDHCPReservationChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPReservationChange
+       json_schema: {
          "dhcpReservationChange": [
            {
              "hasAccess": "boolean", 
@@ -235,7 +243,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDHCPExclusionChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPExclusionChange
+       json_schema: {
          "dhcpExclusionChange": [
            {
              "hasAccess": "boolean", 
@@ -263,7 +273,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDHCPAddressPoolChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPAddressPoolChange
+       json_schema: {
          "dhcpAddressPoolChange": [
            {
              "dhcpAddressPoolBefore": {
@@ -295,7 +307,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfDHCPOptionChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPOptionChange
+       json_schema: {
          "dhcpOptionChange": [
            {
              "policyName": "string", 
@@ -318,7 +332,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfCustomPropertyChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfCustomPropertyChange
+       json_schema: {
          "customPropertyChange": [
            {
              "hasAccess": "boolean", 

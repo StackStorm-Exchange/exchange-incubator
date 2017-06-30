@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDHCPPolicy (http://api.menandmice.com/8.1.0/#AddDHCPPolicy)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -48,7 +48,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: DHCPPolicy
+       reference: http://api.menandmice.com/8.1.0/#DHCPPolicy
+       json_schema: {
          "name": "string", 
          "logicalOperator": "string", 
          "leaseDuration": {

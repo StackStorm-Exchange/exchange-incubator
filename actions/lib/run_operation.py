@@ -10,6 +10,7 @@ CONFIG_CONNECTION_KEYS = [('server', True, ""),
                           ('port', False, ""),
                           ('transport', False, "http")]
 
+
 class RunOperation(Action):
 
     def __init__(self, config):
@@ -19,13 +20,13 @@ class RunOperation(Action):
         """
         super(RunOperation, self).__init__(config)
         self._first_cap_re = re.compile(r'(.)([A-Z][a-z]+)')
-        self._all_cap_re   = re.compile('([a-z0-9])([A-Z])')
+        self._all_cap_re = re.compile('([a-z0-9])([A-Z])')
 
     def camel_to_snake(self, camel_cased_str):
         """
         This function converts to snake_case from camelCase
         """
-        sub1            = self._first_cap_re.sub(r'\1_\2', camel_cased_str)
+        sub1 = self._first_cap_re.sub(r'\1_\2', camel_cased_str)
         snake_cased_str = self._all_cap_re.sub(r'\1_\2', sub1).lower()
         return snake_cased_str.replace('__', '_')
 
@@ -33,7 +34,7 @@ class RunOperation(Action):
         """
         This function converts to dashed_case from camelCase
         """
-        sub2            = self._first_cap_re.sub(r'\1-\2', camel_cased_str)
+        sub2 = self._first_cap_re.sub(r'\1-\2', camel_cased_str)
         dashed_case_str = self._all_cap_re.sub(r'\1-\2', sub2).lower()
         return dashed_case_str.replace('--', '-')
 
@@ -45,14 +46,14 @@ class RunOperation(Action):
 
     def _convert_to_camel(self, snake_cased_str, separator):
         components = snake_cased_str.split(separator)
-        preffix    = ""
-        suffix     = ""
+        preffix = ""
+        suffix = ""
         if components[0] == "":
             components = components[1:]
-            preffix    = separator
+            preffix = separator
         if components[-1] == "":
             components = components[:-1]
-            suffix     = separator
+            suffix = separator
         if len(components) > 1:
             camel_cased_str = components[0].lower()
             for x in components[1:]:
@@ -82,7 +83,7 @@ class RunOperation(Action):
         config_connection = None
         if connection_name:
             config_connection = self.config['menandmice'].get(connection_name)
-            if not config_creds:
+            if not config_connection:
                 raise KeyError("config.yaml missing connection: menandmice:{0}"
                                .format(connection_name))
 

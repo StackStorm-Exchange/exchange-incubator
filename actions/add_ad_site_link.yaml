@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddADSiteLink (http://api.menandmice.com/8.1.0/#AddADSiteLink)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ADSiteLink
+       reference: http://api.menandmice.com/8.1.0/#ADSiteLink
+       json_schema: {
          "adForestRef": "string", 
          "name": "string", 
          "cost": "unsignedInt", 

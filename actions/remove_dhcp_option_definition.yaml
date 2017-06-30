@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command RemoveDHCPOptionDefinition (http://api.menandmice.com/8.1.0/#RemoveDHCPOptionDefinition)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: DHCPOptionDefinition
+       reference: http://api.menandmice.com/8.1.0/#DHCPOptionDefinition
+       json_schema: {
          "array": "boolean", 
          "type": "string", 
          "option": "string", 

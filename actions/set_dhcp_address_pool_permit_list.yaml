@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command SetDHCPAddressPoolPermitList (http://api.menandmice.com/8.1.0/#SetDHCPAddressPoolPermitList)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -45,7 +45,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: ArrayOfDHCPAddressPoolPermit
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDHCPAddressPoolPermit
+       json_schema: {
          "dhcpAddressPoolPermit": [
            {
              "access": "string", 

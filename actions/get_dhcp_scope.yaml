@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command GetDHCPScope (http://api.menandmice.com/8.1.0/#GetDHCPScope)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py

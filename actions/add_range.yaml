@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddRange (http://api.menandmice.com/8.1.0/#AddRange)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: Range
+       reference: http://api.menandmice.com/8.1.0/#Range
+       json_schema: {
          "parentRef": "string", 
          "dhcpScopes": {
            "object": [
@@ -112,7 +114,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: Discovery
+       reference: http://api.menandmice.com/8.1.0/#Discovery
+       json_schema: {
          "interval": "unsignedInt", 
          "enabled": "boolean", 
          "startTime": "string", 

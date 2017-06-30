@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command AddDNSZone (http://api.menandmice.com/8.1.0/#AddDNSZone)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
@@ -42,7 +42,9 @@ parameters:
     type: object
     required: true
     description: >
-      '{
+      'type: DNSZone
+       reference: http://api.menandmice.com/8.1.0/#DNSZone
+       json_schema: {
          "dnssecSigned": "boolean", 
          "name": "string", 
          "dnsScopeName": "string", 
@@ -74,7 +76,9 @@ parameters:
     type: object
     required: false
     description: >
-      '{
+      'type: ArrayOfIPAddress
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfIPAddress
+       json_schema: {
          "address": [
            "string"
          ]

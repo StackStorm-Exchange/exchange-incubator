@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command GetRoutersForRange (http://api.menandmice.com/8.1.0/#GetRoutersForRange)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py

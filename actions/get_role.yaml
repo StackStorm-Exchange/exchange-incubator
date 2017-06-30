@@ -1,5 +1,5 @@
 ---
-description: "None (yet)"
+description: "Invokes the Men&Mice SOAP command GetRole (http://api.menandmice.com/8.1.0/#GetRole)"
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py

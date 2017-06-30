@@ -1,0 +1,10 @@
+---
+ref: tuleap
+name: Tuleap
+description: A Tuleap StackStorm pack 
+keywords:
+    - Tuleap
+    - ALM
+version: 0.1.0
+author: Yannis ROSSETTO
+email: yannis.rossetto@enalean.com

@@ -1,0 +1,17 @@
+---
+name: get_git_repositories
+runner_type: "python-script"
+description: Retrieve information about Tuleap project git repositories.
+enabled: true
+entry_point: get_git_repositories.py
+parameters:
+    project_id:
+        type: "string"
+        description: "The project id"
+        required: true
+        position: 0
+    git_fields:
+        type: "string"
+        description: "all/basic to get all fields or just basic fields"
+        required: false
+        position: 1

@@ -1,0 +1,11 @@
+---
+name: get_artifacts
+runner_type: "python-script"
+description: Retrieve information about Tuleap tracker artifacts.
+enabled: true
+entry_point: get_artifacts.py
+parameters:
+    tracker_id:
+        type: "string"
+        description: "The tracker id"
+        required: true

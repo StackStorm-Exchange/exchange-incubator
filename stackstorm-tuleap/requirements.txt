@@ -1,0 +1,2 @@
+requests>=2.7.0,<3.0
+-e git+https://github.com/moreauxh/tuleap-rest-api-client.git#egg=tuleap

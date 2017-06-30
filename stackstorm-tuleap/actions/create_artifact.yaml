@@ -1,0 +1,17 @@
+---
+name: create_artifact
+runner_type: "python-script"
+description: Create an artifact.
+enabled: true
+entry_point: create_artifact.py
+parameters:
+    tracker_id:
+        type: "string"
+        description: "The tracker id"
+        required: true
+        position: 0
+    values_by_field:
+        type: "object"
+        description: 'Values by field, ex: ''{ "title": {"value": "title"}, "remaining_effort": {"value": 75} }'''
+        required: true
+        position: 1

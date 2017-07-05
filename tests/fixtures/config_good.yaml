@@ -1,0 +1,12 @@
+---
+menandmice:
+  base:
+    server: abc
+    username: Administrator
+    password: PassworD!
+  tport-override:
+    server: abc
+    username: Administrator
+    password: PassworD!
+    port: 1234
+    transport: https

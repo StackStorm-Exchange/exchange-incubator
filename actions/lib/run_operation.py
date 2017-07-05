@@ -24,25 +24,14 @@ class RunOperation(Action):
 
     def camel_to_snake(self, camel_cased_str):
         """
-        This function converts to snake_case from camelCase
+        This function converts from camelCase to snake_case
         """
         sub1 = self._first_cap_re.sub(r'\1_\2', camel_cased_str)
         snake_cased_str = self._all_cap_re.sub(r'\1_\2', sub1).lower()
         return snake_cased_str.replace('__', '_')
 
-    def camel_to_dash(self, camel_cased_str):
-        """
-        This function converts to dashed_case from camelCase
-        """
-        sub2 = self._first_cap_re.sub(r'\1-\2', camel_cased_str)
-        dashed_case_str = self._all_cap_re.sub(r'\1-\2', sub2).lower()
-        return dashed_case_str.replace('--', '-')
-
     def snake_to_camel(self, snake_cased_str):
         return self._convert_to_camel(snake_cased_str, "_")
-
-    def dash_to_camel(self, snake_cased_str):
-        return self._convert_to_camel(snake_cased_str, "-")
 
     def _convert_to_camel(self, snake_cased_str, separator):
         components = snake_cased_str.split(separator)
@@ -114,18 +103,22 @@ class RunOperation(Action):
 
     def validate_connection(self, connection):
         for key, required, default in CONFIG_CONNECTION_KEYS:
+            # ensure the key is present in the connection?
             if key in connection and connection[key]:
                 continue
+
+            # skip if this key is not required
+            if not required:
+                continue
+
+            #
+            if connection['connection']:
+                raise KeyError("config.yaml mising: menandmice:{0}:{1}"
+                               .format(connection['connection'], key))
             else:
-                if not required:
-                    continue
-                elif connection['connection']:
-                    raise KeyError("config.yaml mising: menandmice:{0}:{1}"
-                                   .format(connection['connection'], key))
-                else:
-                    raise KeyError("Because the 'connection' action parameter was"
-                                   " not specified, the following action parameter"
-                                   " is required: {0}".format(key))
+                raise KeyError("Because the 'connection' action parameter was"
+                               " not specified, the following action parameter"
+                               " is required: {0}".format(key))
         return True
 
     def build_wsdl_url(self, connection):
@@ -141,6 +134,12 @@ class RunOperation(Action):
                                       connection['server'])
 
         return wsdl_url
+
+    def login(self, client, connection):
+        session = client.service.Login(server=connection['server'],
+                                       loginName=connection['username'],
+                                       password=connection['password'])
+        return session
 
     def run(self, **kwargs):
         kwargs_dict = dict(kwargs)
@@ -166,16 +165,12 @@ class RunOperation(Action):
         elif operation == 'Login':
             # special handler for login to map parameter names
             self.validate_connection(connection)
-            session = client.service.Login(server=connection['server'],
-                                           loginName=connection['username'],
-                                           password=connection['password'])
+            session = self.login(client, connection)
             result_dict = {'session': session}
         else:
             self.validate_connection(connection)
             if not session:
-                session = client.service.Login(server=connection['server'],
-                                               loginName=connection['username'],
-                                               password=connection['password'])
+                session = self.login(client, connection)
 
             op_args = {}
             for snake_key, value in kwargs_dict.items():

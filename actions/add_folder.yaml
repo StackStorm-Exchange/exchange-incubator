@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddFolder (http://api.menandmice
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_folder"
+name: add_folder
 parameters:
   operation:
     type: string
-    default: "AddFolder"
+    default: AddFolder
     immutable: true
   connection:
     type: string

@@ -8,7 +8,8 @@ CONFIG_CONNECTION_KEYS = [('server', True, ""),
                           ('username', True, ""),
                           ('password', True, ""),
                           ('port', False, ""),
-                          ('transport', False, "http")]
+                          ('transport', False, "http"),
+                          ('wsdl_endpoint', False, "_mmwebext/mmwebext.dll?wsdl")]
 
 
 class RunOperation(Action):
@@ -123,15 +124,22 @@ class RunOperation(Action):
 
     def build_wsdl_url(self, connection):
         wsdl_url = None
+        # example(s):
+        #   http://menandmice.domain.tld/_mmwebext/mmwebext.dll?wsdl?server=localhost
+        #   https://menandmice.domain.tld/_mmwebext/mmwebext.dll?wsdl?server=localhost
+        #   http://menandmice.domain.tld:8080/_mmwebext/mmwebext.dll?wsdl?server=localhost
+        #   https://menandmice.domain.tld:8443/_mmwebext/mmwebext.dll?wsdl?server=localhost
         if 'port' in connection and connection['port']:
-            url_str = "{0}://{1}:{2}/_mmwebext/mmwebext.dll?wsdl?server=localhost"
+            url_str = "{0}://{1}:{2}/{3}?server=localhost"
             wsdl_url = url_str.format(connection['transport'],
                                       connection['server'],
-                                      connection['port'])
+                                      connection['port'],
+                                      connection['wsdl_endpoint'])
         else:
-            url_str = "{0}://{1}/_mmwebext/mmwebext.dll?wsdl?server=localhost"
+            url_str = "{0}://{1}/{2}?server=localhost"
             wsdl_url = url_str.format(connection['transport'],
-                                      connection['server'])
+                                      connection['server'],
+                                      connection['wsdl_endpoint'])
 
         return wsdl_url
 
@@ -141,43 +149,38 @@ class RunOperation(Action):
                                        password=connection['password'])
         return session
 
-    def run(self, **kwargs):
+    def _pre_exec(self, **kwargs):
         kwargs_dict = dict(kwargs)
+        operation = self.get_del_arg('operation', kwargs_dict)
+        session = self.get_del_arg('session', kwargs_dict)
         connection = self.resolve_connection(kwargs_dict)
         wsdl_url = self.build_wsdl_url(connection)
         client = zeep.Client(wsdl=wsdl_url)
+        context = {'kwargs_dict': kwargs_dict,
+                   'operation': operation,
+                   'session': session,
+                   'connection': connection,
+                   'wsdl_url': wsdl_url}
+        return (context, client)
 
-        operation = self.get_del_arg('operation', kwargs_dict)
-        session = self.get_del_arg('session', kwargs_dict)
+    def _exec(self, context, client):
+        self.validate_connection(context['connection'])
+        if not context['session']:
+            context['session'] = self.login(client, context['connection'])
 
-        # username parameter was renamed in generate because
-        # it conflicted with the username from the connection
-        # undo that rename here so it's passed properly
-        if operation == 'GetHistory':
-            kwargs_dict['username'] = kwargs_dict['user_name']
-            del kwargs_dict['user_name']
+        op_args = {}
+        for snake_key, value in context['kwargs_dict'].items():
+            op_args[self.snake_to_camel(snake_key)] = value
 
-        if operation == 'Logout':
-            # don't validate connection info for logout because
-            # most of the connection parameters are not needed
-            result = client.service.Logout(session=session)
-            result_dict = zeep.helpers.serialize_object(result)
-        elif operation == 'Login':
-            # special handler for login to map parameter names
-            self.validate_connection(connection)
-            session = self.login(client, connection)
-            result_dict = {'session': session}
-        else:
-            self.validate_connection(connection)
-            if not session:
-                session = self.login(client, connection)
+        op_obj = client.service.__getitem__(context['operation'])
+        result = op_obj(session=context['session'], **op_args)
+        return result
 
-            op_args = {}
-            for snake_key, value in kwargs_dict.items():
-                op_args[self.snake_to_camel(snake_key)] = value
+    def _post_exec(self, result):
+        result_dict = zeep.helpers.serialize_object(result, target_cls=dict)
+        return result_dict
 
-            op_obj = client.service.__getitem__(operation)
-            result = op_obj(session=session, **op_args)
-            result_dict = zeep.helpers.serialize_object(result)
-
-        return (True, result_dict)
+    def run(self, **kwargs):
+        context, client = self._pre_exec(**kwargs)
+        result = self._exec(context, client)
+        return self._post_exec(result)

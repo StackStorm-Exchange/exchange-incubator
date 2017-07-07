@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddRange (http://api.menandmice.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_range"
+name: add_range
 parameters:
   operation:
     type: string
-    default: "AddRange"
+    default: AddRange
     immutable: true
   connection:
     type: string

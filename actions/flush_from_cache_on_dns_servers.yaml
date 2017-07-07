@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command FlushFromCacheOnDNSServers (http
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "flush_from_cache_on_dns_servers"
+name: flush_from_cache_on_dns_servers
 parameters:
   operation:
     type: string
-    default: "FlushFromCacheOnDNSServers"
+    default: FlushFromCacheOnDNSServers
     immutable: true
   connection:
     type: string

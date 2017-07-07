@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveDHCPFailoverRelationships 
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_dhcp_failover_relationships"
+name: remove_dhcp_failover_relationships
 parameters:
   operation:
     type: string
-    default: "RemoveDHCPFailoverRelationships"
+    default: RemoveDHCPFailoverRelationships
     immutable: true
   connection:
     type: string

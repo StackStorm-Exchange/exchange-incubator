@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetADForest (http://api.menandmi
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_ad_forest"
+name: get_ad_forest
 parameters:
   operation:
     type: string
-    default: "GetADForest"
+    default: GetADForest
     immutable: true
   connection:
     type: string

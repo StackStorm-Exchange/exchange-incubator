@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetInterfaces (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_interfaces"
+name: get_interfaces
 parameters:
   operation:
     type: string
-    default: "GetInterfaces"
+    default: GetInterfaces
     immutable: true
   connection:
     type: string

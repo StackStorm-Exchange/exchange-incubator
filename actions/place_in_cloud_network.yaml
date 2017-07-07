@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command PlaceInCloudNetwork (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "place_in_cloud_network"
+name: place_in_cloud_network
 parameters:
   operation:
     type: string
-    default: "PlaceInCloudNetwork"
+    default: PlaceInCloudNetwork
     immutable: true
   connection:
     type: string

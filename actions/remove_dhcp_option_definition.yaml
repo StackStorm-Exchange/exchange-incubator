@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveDHCPOptionDefinition (http
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_dhcp_option_definition"
+name: remove_dhcp_option_definition
 parameters:
   operation:
     type: string
-    default: "RemoveDHCPOptionDefinition"
+    default: RemoveDHCPOptionDefinition
     immutable: true
   connection:
     type: string

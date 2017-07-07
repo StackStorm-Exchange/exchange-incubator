@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command MoveIPAMRecord (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "move_ipam_record"
+name: move_ipam_record
 parameters:
   operation:
     type: string
-    default: "MoveIPAMRecord"
+    default: MoveIPAMRecord
     immutable: true
   connection:
     type: string

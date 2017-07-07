@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command PromoteDNSSlaveZone (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "promote_dns_slave_zone"
+name: promote_dns_slave_zone
 parameters:
   operation:
     type: string
-    default: "PromoteDNSSlaveZone"
+    default: PromoteDNSSlaveZone
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPConcurrentLeases (http://
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_concurrent_leases"
+name: get_dhcp_concurrent_leases
 parameters:
   operation:
     type: string
-    default: "GetDHCPConcurrentLeases"
+    default: GetDHCPConcurrentLeases
     immutable: true
   connection:
     type: string

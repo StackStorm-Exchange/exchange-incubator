@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportHostDiscovery (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_host_discovery"
+name: report_host_discovery
 parameters:
   operation:
     type: string
-    default: "ReportHostDiscovery"
+    default: ReportHostDiscovery
     immutable: true
   connection:
     type: string

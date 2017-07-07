@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveFromADSite (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_from_ad_site"
+name: remove_from_ad_site
 parameters:
   operation:
     type: string
-    default: "RemoveFromADSite"
+    default: RemoveFromADSite
     immutable: true
   connection:
     type: string

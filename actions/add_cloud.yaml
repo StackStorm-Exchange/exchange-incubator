@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddCloud (http://api.menandmice.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_cloud"
+name: add_cloud
 parameters:
   operation:
     type: string
-    default: "AddCloud"
+    default: AddCloud
     immutable: true
   connection:
     type: string

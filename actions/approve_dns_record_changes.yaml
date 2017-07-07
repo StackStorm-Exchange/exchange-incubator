@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ApproveDNSRecordChanges (http://
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "approve_dns_record_changes"
+name: approve_dns_record_changes
 parameters:
   operation:
     type: string
-    default: "ApproveDNSRecordChanges"
+    default: ApproveDNSRecordChanges
     immutable: true
   connection:
     type: string

@@ -33,5 +33,10 @@ connection:
       type: "string"
       default: http
       required: false
+    wsdl_endpoint:
+      description: HTTP URI for the WSDL file on the server
+      type: "string"
+      default: "_mmwebext/mmwebext.dll?wsdl"
+      required: false
   additionalProperties: false
 

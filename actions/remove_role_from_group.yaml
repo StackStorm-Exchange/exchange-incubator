@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveRoleFromGroup (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_role_from_group"
+name: remove_role_from_group
 parameters:
   operation:
     type: string
-    default: "RemoveRoleFromGroup"
+    default: RemoveRoleFromGroup
     immutable: true
   connection:
     type: string

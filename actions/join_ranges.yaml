@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command JoinRanges (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "join_ranges"
+name: join_ranges
 parameters:
   operation:
     type: string
-    default: "JoinRanges"
+    default: JoinRanges
     immutable: true
   connection:
     type: string

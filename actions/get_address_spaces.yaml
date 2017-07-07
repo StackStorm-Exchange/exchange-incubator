@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetAddressSpaces (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_address_spaces"
+name: get_address_spaces
 parameters:
   operation:
     type: string
-    default: "GetAddressSpaces"
+    default: GetAddressSpaces
     immutable: true
   connection:
     type: string

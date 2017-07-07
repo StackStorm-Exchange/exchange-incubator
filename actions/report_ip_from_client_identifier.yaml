@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportIPFromClientIdentifier (ht
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_ip_from_client_identifier"
+name: report_ip_from_client_identifier
 parameters:
   operation:
     type: string
-    default: "ReportIPFromClientIdentifier"
+    default: ReportIPFromClientIdentifier
     immutable: true
   connection:
     type: string

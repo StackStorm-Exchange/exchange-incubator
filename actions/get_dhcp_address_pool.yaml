@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPAddressPool (http://api.m
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_address_pool"
+name: get_dhcp_address_pool
 parameters:
   operation:
     type: string
-    default: "GetDHCPAddressPool"
+    default: GetDHCPAddressPool
     immutable: true
   connection:
     type: string

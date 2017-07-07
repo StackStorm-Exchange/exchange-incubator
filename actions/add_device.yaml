@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDevice (http://api.menandmice
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_device"
+name: add_device
 parameters:
   operation:
     type: string
-    default: "AddDevice"
+    default: AddDevice
     immutable: true
   connection:
     type: string

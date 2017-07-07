@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetCloudNetwork (http://api.mena
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_cloud_network"
+name: get_cloud_network
 parameters:
   operation:
     type: string
-    default: "GetCloudNetwork"
+    default: GetCloudNetwork
     immutable: true
   connection:
     type: string

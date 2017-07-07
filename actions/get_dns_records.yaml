@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSRecords (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_records"
+name: get_dns_records
 parameters:
   operation:
     type: string
-    default: "GetDNSRecords"
+    default: GetDNSRecords
     immutable: true
   connection:
     type: string

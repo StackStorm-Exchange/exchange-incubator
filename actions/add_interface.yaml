@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddInterface (http://api.menandm
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_interface"
+name: add_interface
 parameters:
   operation:
     type: string
-    default: "AddInterface"
+    default: AddInterface
     immutable: true
   connection:
     type: string

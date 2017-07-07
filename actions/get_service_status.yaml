@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetServiceStatus (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_service_status"
+name: get_service_status
 parameters:
   operation:
     type: string
-    default: "GetServiceStatus"
+    default: GetServiceStatus
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDNSZones (http://api.menandmi
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_dns_zones"
+name: add_dns_zones
 parameters:
   operation:
     type: string
-    default: "AddDNSZones"
+    default: AddDNSZones
     immutable: true
   connection:
     type: string

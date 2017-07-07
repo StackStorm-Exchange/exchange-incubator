@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetInheritAccess (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_inherit_access"
+name: set_inherit_access
 parameters:
   operation:
     type: string
-    default: "SetInheritAccess"
+    default: SetInheritAccess
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SplitRange (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "split_range"
+name: split_range
 parameters:
   operation:
     type: string
-    default: "SplitRange"
+    default: SplitRange
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetNextFreeReservationAddress (h
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_next_free_reservation_address"
+name: get_next_free_reservation_address
 parameters:
   operation:
     type: string
-    default: "GetNextFreeReservationAddress"
+    default: GetNextFreeReservationAddress
     immutable: true
   connection:
     type: string

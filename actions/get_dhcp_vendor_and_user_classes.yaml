@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPVendorAndUserClasses (htt
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_vendor_and_user_classes"
+name: get_dhcp_vendor_and_user_classes
 parameters:
   operation:
     type: string
-    default: "GetDHCPVendorAndUserClasses"
+    default: GetDHCPVendorAndUserClasses
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetIPAMRecords (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_ipam_records"
+name: get_ipam_records
 parameters:
   operation:
     type: string
-    default: "GetIPAMRecords"
+    default: GetIPAMRecords
     immutable: true
   connection:
     type: string

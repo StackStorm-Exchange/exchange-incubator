@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSReverseZone (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_reverse_zone"
+name: get_dns_reverse_zone
 parameters:
   operation:
     type: string
-    default: "GetDNSReverseZone"
+    default: GetDNSReverseZone
     immutable: true
   connection:
     type: string

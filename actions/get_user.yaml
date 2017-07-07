@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetUser (http://api.menandmice.c
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_user"
+name: get_user
 parameters:
   operation:
     type: string
-    default: "GetUser"
+    default: GetUser
     immutable: true
   connection:
     type: string

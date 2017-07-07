@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveObject (http://api.menandm
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_object"
+name: remove_object
 parameters:
   operation:
     type: string
-    default: "RemoveObject"
+    default: RemoveObject
     immutable: true
   connection:
     type: string

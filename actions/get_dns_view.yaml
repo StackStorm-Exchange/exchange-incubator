@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSView (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_view"
+name: get_dns_view
 parameters:
   operation:
     type: string
-    default: "GetDNSView"
+    default: GetDNSView
     immutable: true
   connection:
     type: string

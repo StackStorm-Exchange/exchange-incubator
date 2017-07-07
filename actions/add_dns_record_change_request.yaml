@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDNSRecordChangeRequest (http:
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_dns_record_change_request"
+name: add_dns_record_change_request
 parameters:
   operation:
     type: string
-    default: "AddDNSRecordChangeRequest"
+    default: AddDNSRecordChangeRequest
     immutable: true
   connection:
     type: string

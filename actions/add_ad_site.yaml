@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddADSite (http://api.menandmice
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_ad_site"
+name: add_ad_site
 parameters:
   operation:
     type: string
-    default: "AddADSite"
+    default: AddADSite
     immutable: true
   connection:
     type: string

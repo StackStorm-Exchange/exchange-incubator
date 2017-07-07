@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command MigrateDNSZone (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "migrate_dns_zone"
+name: migrate_dns_zone
 parameters:
   operation:
     type: string
-    default: "MigrateDNSZone"
+    default: MigrateDNSZone
     immutable: true
   connection:
     type: string

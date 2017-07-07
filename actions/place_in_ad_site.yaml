@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command PlaceInADSite (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "place_in_ad_site"
+name: place_in_ad_site
 parameters:
   operation:
     type: string
-    default: "PlaceInADSite"
+    default: PlaceInADSite
     immutable: true
   connection:
     type: string

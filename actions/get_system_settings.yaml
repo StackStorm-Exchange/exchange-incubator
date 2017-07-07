@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetSystemSettings (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_system_settings"
+name: get_system_settings
 parameters:
   operation:
     type: string
-    default: "GetSystemSettings"
+    default: GetSystemSettings
     immutable: true
   connection:
     type: string

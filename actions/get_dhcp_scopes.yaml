@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPScopes (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_scopes"
+name: get_dhcp_scopes
 parameters:
   operation:
     type: string
-    default: "GetDHCPScopes"
+    default: GetDHCPScopes
     immutable: true
   connection:
     type: string

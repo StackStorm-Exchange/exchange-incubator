@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveUserFromGroup (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_user_from_group"
+name: remove_user_from_group
 parameters:
   operation:
     type: string
-    default: "RemoveUserFromGroup"
+    default: RemoveUserFromGroup
     immutable: true
   connection:
     type: string

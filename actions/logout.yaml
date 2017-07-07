@@ -2,12 +2,12 @@
 description: "Invokes the Men&Mice SOAP command Logout (http://api.menandmice.com/8.1.0/#Logout)"
 enabled: true
 runner_type: "python-script"
-entry_point: lib/run_operation.py
-name: "logout"
+entry_point: lib/run_logout.py
+name: logout
 parameters:
   operation:
     type: string
-    default: "Logout"
+    default: Logout
     immutable: true
   connection:
     type: string

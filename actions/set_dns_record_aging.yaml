@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetDNSRecordAging (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_dns_record_aging"
+name: set_dns_record_aging
 parameters:
   operation:
     type: string
-    default: "SetDNSRecordAging"
+    default: SetDNSRecordAging
     immutable: true
   connection:
     type: string

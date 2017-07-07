@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetNextFreeAddress (http://api.m
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_next_free_address"
+name: get_next_free_address
 parameters:
   operation:
     type: string
-    default: "GetNextFreeAddress"
+    default: GetNextFreeAddress
     immutable: true
   connection:
     type: string

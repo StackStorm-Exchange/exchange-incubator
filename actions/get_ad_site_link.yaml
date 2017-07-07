@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetADSiteLink (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_ad_site_link"
+name: get_ad_site_link
 parameters:
   operation:
     type: string
-    default: "GetADSiteLink"
+    default: GetADSiteLink
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSGenerateDirective (http://
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_generate_directive"
+name: get_dns_generate_directive
 parameters:
   operation:
     type: string
-    default: "GetDNSGenerateDirective"
+    default: GetDNSGenerateDirective
     immutable: true
   connection:
     type: string

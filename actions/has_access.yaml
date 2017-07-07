@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command HasAccess (http://api.menandmice
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "has_access"
+name: has_access
 parameters:
   operation:
     type: string
-    default: "HasAccess"
+    default: HasAccess
     immutable: true
   connection:
     type: string

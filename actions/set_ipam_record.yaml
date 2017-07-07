@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetIPAMRecord (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_ipam_record"
+name: set_ipam_record
 parameters:
   operation:
     type: string
-    default: "SetIPAMRecord"
+    default: SetIPAMRecord
     immutable: true
   connection:
     type: string

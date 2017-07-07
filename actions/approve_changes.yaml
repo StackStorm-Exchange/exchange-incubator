@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ApproveChanges (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "approve_changes"
+name: approve_changes
 parameters:
   operation:
     type: string
-    default: "ApproveChanges"
+    default: ApproveChanges
     immutable: true
   connection:
     type: string

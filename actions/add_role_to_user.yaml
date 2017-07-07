@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddRoleToUser (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_role_to_user"
+name: add_role_to_user
 parameters:
   operation:
     type: string
-    default: "AddRoleToUser"
+    default: AddRoleToUser
     immutable: true
   connection:
     type: string

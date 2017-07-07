@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RejectChanges (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "reject_changes"
+name: reject_changes
 parameters:
   operation:
     type: string
-    default: "RejectChanges"
+    default: RejectChanges
     immutable: true
   connection:
     type: string

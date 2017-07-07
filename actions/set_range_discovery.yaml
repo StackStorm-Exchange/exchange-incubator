@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetRangeDiscovery (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_range_discovery"
+name: set_range_discovery
 parameters:
   operation:
     type: string
-    default: "SetRangeDiscovery"
+    default: SetRangeDiscovery
     immutable: true
   connection:
     type: string

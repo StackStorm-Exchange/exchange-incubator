@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetInheritedDHCPOptions (http://
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_inherited_dhcp_options"
+name: get_inherited_dhcp_options
 parameters:
   operation:
     type: string
-    default: "GetInheritedDHCPOptions"
+    default: GetInheritedDHCPOptions
     immutable: true
   connection:
     type: string

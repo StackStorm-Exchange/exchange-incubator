@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDHCPScopesToDHCPFailoverRelat
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_dhcp_scopes_to_dhcp_failover_relationship"
+name: add_dhcp_scopes_to_dhcp_failover_relationship
 parameters:
   operation:
     type: string
-    default: "AddDHCPScopesToDHCPFailoverRelationship"
+    default: AddDHCPScopesToDHCPFailoverRelationship
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDHCPAddressPool (http://api.m
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_dhcp_address_pool"
+name: add_dhcp_address_pool
 parameters:
   operation:
     type: string
-    default: "AddDHCPAddressPool"
+    default: AddDHCPAddressPool
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPLeaseHistory (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_lease_history"
+name: get_dhcp_lease_history
 parameters:
   operation:
     type: string
-    default: "GetDHCPLeaseHistory"
+    default: GetDHCPLeaseHistory
     immutable: true
   connection:
     type: string

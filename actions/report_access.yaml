@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportAccess (http://api.menandm
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_access"
+name: report_access
 parameters:
   operation:
     type: string
-    default: "ReportAccess"
+    default: ReportAccess
     immutable: true
   connection:
     type: string

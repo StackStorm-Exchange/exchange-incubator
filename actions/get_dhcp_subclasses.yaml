@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPSubclasses (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_subclasses"
+name: get_dhcp_subclasses
 parameters:
   operation:
     type: string
-    default: "GetDHCPSubclasses"
+    default: GetDHCPSubclasses
     immutable: true
   connection:
     type: string

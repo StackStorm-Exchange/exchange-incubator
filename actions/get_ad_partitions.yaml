@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetADPartitions (http://api.mena
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_ad_partitions"
+name: get_ad_partitions
 parameters:
   operation:
     type: string
-    default: "GetADPartitions"
+    default: GetADPartitions
     immutable: true
   connection:
     type: string

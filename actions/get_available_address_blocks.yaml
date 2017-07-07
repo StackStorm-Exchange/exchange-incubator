@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetAvailableAddressBlocks (http:
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_available_address_blocks"
+name: get_available_address_blocks
 parameters:
   operation:
     type: string
-    default: "GetAvailableAddressBlocks"
+    default: GetAvailableAddressBlocks
     immutable: true
   connection:
     type: string

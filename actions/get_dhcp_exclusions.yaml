@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPExclusions (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_exclusions"
+name: get_dhcp_exclusions
 parameters:
   operation:
     type: string
-    default: "GetDHCPExclusions"
+    default: GetDHCPExclusions
     immutable: true
   connection:
     type: string

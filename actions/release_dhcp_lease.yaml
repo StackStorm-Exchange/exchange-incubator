@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReleaseDHCPLease (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "release_dhcp_lease"
+name: release_dhcp_lease
 parameters:
   operation:
     type: string
-    default: "ReleaseDHCPLease"
+    default: ReleaseDHCPLease
     immutable: true
   connection:
     type: string

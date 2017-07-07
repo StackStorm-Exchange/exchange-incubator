@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveFromFolder (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_from_folder"
+name: remove_from_folder
 parameters:
   operation:
     type: string
-    default: "RemoveFromFolder"
+    default: RemoveFromFolder
     immutable: true
   connection:
     type: string

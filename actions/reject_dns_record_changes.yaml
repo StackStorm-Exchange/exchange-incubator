@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RejectDNSRecordChanges (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "reject_dns_record_changes"
+name: reject_dns_record_changes
 parameters:
   operation:
     type: string
-    default: "RejectDNSRecordChanges"
+    default: RejectDNSRecordChanges
     immutable: true
   connection:
     type: string

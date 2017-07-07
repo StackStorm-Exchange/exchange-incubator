@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddLicenseKey (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_license_key"
+name: add_license_key
 parameters:
   operation:
     type: string
-    default: "AddLicenseKey"
+    default: AddLicenseKey
     immutable: true
   connection:
     type: string

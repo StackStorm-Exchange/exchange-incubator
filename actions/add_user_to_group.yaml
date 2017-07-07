@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddUserToGroup (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_user_to_group"
+name: add_user_to_group
 parameters:
   operation:
     type: string
-    default: "AddUserToGroup"
+    default: AddUserToGroup
     immutable: true
   connection:
     type: string

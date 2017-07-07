@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetAddressesInUse (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_addresses_in_use"
+name: get_addresses_in_use
 parameters:
   operation:
     type: string
-    default: "GetAddressesInUse"
+    default: GetAddressesInUse
     immutable: true
   connection:
     type: string

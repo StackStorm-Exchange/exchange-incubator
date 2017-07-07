@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetCustomFilters (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_custom_filters"
+name: get_custom_filters
 parameters:
   operation:
     type: string
-    default: "GetCustomFilters"
+    default: GetCustomFilters
     immutable: true
   connection:
     type: string

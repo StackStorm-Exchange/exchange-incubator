@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetProperties (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_properties"
+name: set_properties
 parameters:
   operation:
     type: string
-    default: "SetProperties"
+    default: SetProperties
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetSubranges (http://api.menandm
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_subranges"
+name: get_subranges
 parameters:
   operation:
     type: string
-    default: "GetSubranges"
+    default: GetSubranges
     immutable: true
   connection:
     type: string

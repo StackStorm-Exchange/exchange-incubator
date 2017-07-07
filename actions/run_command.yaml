@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RunCommand (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "run_command"
+name: run_command
 parameters:
   operation:
     type: string
-    default: "RunCommand"
+    default: RunCommand
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetFolders (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_folders"
+name: get_folders
 parameters:
   operation:
     type: string
-    default: "GetFolders"
+    default: GetFolders
     immutable: true
   connection:
     type: string

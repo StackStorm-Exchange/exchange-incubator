@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetRangeByIPAddress (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_range_by_ip_address"
+name: get_range_by_ip_address
 parameters:
   operation:
     type: string
-    default: "GetRangeByIPAddress"
+    default: GetRangeByIPAddress
     immutable: true
   connection:
     type: string

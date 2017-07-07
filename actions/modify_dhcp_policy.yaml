@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ModifyDHCPPolicy (http://api.men
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "modify_dhcp_policy"
+name: modify_dhcp_policy
 parameters:
   operation:
     type: string
-    default: "ModifyDHCPPolicy"
+    default: ModifyDHCPPolicy
     immutable: true
   connection:
     type: string

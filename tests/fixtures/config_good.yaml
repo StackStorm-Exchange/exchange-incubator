@@ -4,9 +4,10 @@ menandmice:
     server: abc
     username: Administrator
     password: PassworD!
-  tport-override:
+  full:
     server: abc
     username: Administrator
     password: PassworD!
     port: 1234
     transport: https
+    wsdl_endpoint: _mmwebext/mmwebext.dll?wsdl

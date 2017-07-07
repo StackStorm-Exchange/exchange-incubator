@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetDHCPOptions (http://api.menan
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_dhcp_options"
+name: set_dhcp_options
 parameters:
   operation:
     type: string
-    default: "SetDHCPOptions"
+    default: SetDHCPOptions
     immutable: true
   connection:
     type: string

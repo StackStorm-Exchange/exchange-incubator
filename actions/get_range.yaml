@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetRange (http://api.menandmice.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_range"
+name: get_range
 parameters:
   operation:
     type: string
-    default: "GetRange"
+    default: GetRange
     immutable: true
   connection:
     type: string

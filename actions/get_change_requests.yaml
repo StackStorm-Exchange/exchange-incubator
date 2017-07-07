@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetChangeRequests (http://api.me
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_change_requests"
+name: get_change_requests
 parameters:
   operation:
     type: string
-    default: "GetChangeRequests"
+    default: GetChangeRequests
     immutable: true
   connection:
     type: string

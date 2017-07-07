@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetAddressSpace (http://api.mena
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_address_space"
+name: get_address_space
 parameters:
   operation:
     type: string
-    default: "GetAddressSpace"
+    default: GetAddressSpace
     immutable: true
   connection:
     type: string

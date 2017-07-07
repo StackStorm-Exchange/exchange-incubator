@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddPropertyDefinition (http://ap
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_property_definition"
+name: add_property_definition
 parameters:
   operation:
     type: string
-    default: "AddPropertyDefinition"
+    default: AddPropertyDefinition
     immutable: true
   connection:
     type: string

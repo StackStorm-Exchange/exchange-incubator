@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetOrphanReverseDNSRecords (http
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_orphan_reverse_dns_records"
+name: get_orphan_reverse_dns_records
 parameters:
   operation:
     type: string
-    default: "GetOrphanReverseDNSRecords"
+    default: GetOrphanReverseDNSRecords
     immutable: true
   connection:
     type: string

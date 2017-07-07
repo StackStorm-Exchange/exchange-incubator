@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSRecordsInCaches (http://ap
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_records_in_caches"
+name: get_dns_records_in_caches
 parameters:
   operation:
     type: string
-    default: "GetDNSRecordsInCaches"
+    default: GetDNSRecordsInCaches
     immutable: true
   connection:
     type: string

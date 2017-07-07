@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddUser (http://api.menandmice.c
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_user"
+name: add_user
 parameters:
   operation:
     type: string
-    default: "AddUser"
+    default: AddUser
     immutable: true
   connection:
     type: string

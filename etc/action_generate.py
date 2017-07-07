@@ -22,7 +22,6 @@ import zeep
 
 
 ACTION_TEMPLATE_PATH = "./action_template.yaml.j2"
-ACTION_TEMPLATE_PARAMS_PATH = "./action_template_params.yaml.j2"
 ACTION_DIRECTORY = "../actions"
 WSDL_URL = "http://{0}/_mmwebext/mmwebext.dll?wsdl?server=localhost"
 WSDL_GLOB_PATH = "./menandmice_wsdl_*.xml"
@@ -87,19 +86,11 @@ class ActionGenerator(object):
         self.action_template_params = self.load_template_params()
 
     def load_template_params(self):
-        params_yaml_str = self.jinja_render_file(ACTION_TEMPLATE_PARAMS_PATH,
+        params_yaml_str = self.jinja_render_file(ACTION_TEMPLATE_PATH,
                                                  {'operation_camel_case': ''})
         params_dict = yaml.load(params_yaml_str)
         params = params_dict['parameters'].keys()
         return params
-
-    def run(self):
-        if self.cli_args.command == "fetch-wsdl":
-            self.fetch_wsdl()
-        elif self.cli_args.command == "generate":
-            self.generate()
-        else:
-            raise RuntimeError("Unknown command {}".format(self.cli_args.command))
 
     def fetch_wsdl(self):
         wsdl_url = WSDL_URL.format(self.cli_args.hostname)
@@ -128,8 +119,6 @@ class ActionGenerator(object):
         return jinja2.Environment().from_string(jinja_template_str).render(context)
 
     def render_action(self, context):
-        params_data = self.jinja_render_file(ACTION_TEMPLATE_PARAMS_PATH, context)
-        context['action_template_params'] = params_data
         action_data = self.jinja_render_file(ACTION_TEMPLATE_PATH, context)
         action_filename = "{}/{}.yaml".format(ACTION_DIRECTORY,
                                               context['operation_snake_case'])
@@ -171,6 +160,14 @@ class ActionGenerator(object):
     def generate_operation(self, operation):
         op_name = operation.name
         op_inputs = []
+        op_entry_point = "lib/run_operation.py"
+
+        if op_name == "Login":
+            op_entry_point = "lib/run_login.py"
+        elif op_name == "Logout":
+            op_entry_point = "lib/run_logout.py"
+        elif op_name == "GetHistory":
+            op_entry_point = "lib/run_get_history.py"
 
         # Translate operation "inputs" in the SOAP WSDL into StackStorm action
         # parameters
@@ -232,6 +229,7 @@ class ActionGenerator(object):
         op_context = {'operation_camel_case': op_name,
                       'operation_snake_case': self.camel_case_to_snake_case(op_name),
                       'operation_description': op_description,
+                      'operation_entry_point': op_entry_point,
                       'operation_parameters': op_inputs}
         self.render_action(op_context)
 
@@ -247,16 +245,19 @@ class ActionGenerator(object):
         client = zeep.Client(wsdl=wsdl_path)
 
         # Parse Operations from the WSDL file
-        for service in client.wsdl.services.values():
-            if service.name != "Service":
-                continue
+        service = next(s for s in client.wsdl.services.values() if s.name == "Service")
+        port = next(p for p in service.ports.values() if p.name != "ServiceSoap12")
 
-            for port in service.ports.values():
-                if port.name != "ServiceSoap12":
-                    continue
+        for operation in port.binding._operations.values():
+            self.generate_operation(operation)
 
-                for operation in port.binding._operations.values():
-                    self.generate_operation(operation)
+    def run(self):
+        if self.cli_args.command == "fetch-wsdl":
+            self.fetch_wsdl()
+        elif self.cli_args.command == "generate":
+            self.generate()
+        else:
+            raise RuntimeError("Unknown command {}".format(self.cli_args.command))
 
 
 if __name__ == "__main__":

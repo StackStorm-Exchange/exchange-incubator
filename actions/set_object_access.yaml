@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetObjectAccess (http://api.mena
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_object_access"
+name: set_object_access
 parameters:
   operation:
     type: string
-    default: "SetObjectAccess"
+    default: SetObjectAccess
     immutable: true
   connection:
     type: string

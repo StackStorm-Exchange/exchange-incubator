@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetDHCPPolicyEnforcement (http:/
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_dhcp_policy_enforcement"
+name: set_dhcp_policy_enforcement
 parameters:
   operation:
     type: string
-    default: "SetDHCPPolicyEnforcement"
+    default: SetDHCPPolicyEnforcement
     immutable: true
   connection:
     type: string

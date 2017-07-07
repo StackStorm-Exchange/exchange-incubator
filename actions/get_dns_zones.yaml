@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDNSZones (http://api.menandmi
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dns_zones"
+name: get_dns_zones
 parameters:
   operation:
     type: string
-    default: "GetDNSZones"
+    default: GetDNSZones
     immutable: true
   connection:
     type: string

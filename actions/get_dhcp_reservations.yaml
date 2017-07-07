@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPReservations (http://api.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_reservations"
+name: get_dhcp_reservations
 parameters:
   operation:
     type: string
-    default: "GetDHCPReservations"
+    default: GetDHCPReservations
     immutable: true
   connection:
     type: string

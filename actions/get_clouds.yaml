@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetClouds (http://api.menandmice
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_clouds"
+name: get_clouds
 parameters:
   operation:
     type: string
-    default: "GetClouds"
+    default: GetClouds
     immutable: true
   connection:
     type: string

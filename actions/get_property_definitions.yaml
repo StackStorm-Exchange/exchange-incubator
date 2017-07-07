@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetPropertyDefinitions (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_property_definitions"
+name: get_property_definitions
 parameters:
   operation:
     type: string
-    default: "GetPropertyDefinitions"
+    default: GetPropertyDefinitions
     immutable: true
   connection:
     type: string

@@ -2,12 +2,12 @@
 description: "Invokes the Men&Mice SOAP command GetHistory (http://api.menandmice.com/8.1.0/#GetHistory)"
 enabled: true
 runner_type: "python-script"
-entry_point: lib/run_operation.py
-name: "get_history"
+entry_point: lib/run_get_history.py
+name: get_history
 parameters:
   operation:
     type: string
-    default: "GetHistory"
+    default: GetHistory
     immutable: true
   connection:
     type: string

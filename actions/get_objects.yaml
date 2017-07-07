@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetObjects (http://api.menandmic
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_objects"
+name: get_objects
 parameters:
   operation:
     type: string
-    default: "GetObjects"
+    default: GetObjects
     immutable: true
   connection:
     type: string

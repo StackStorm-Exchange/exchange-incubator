@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReplicateDHCPFailover (http://ap
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "replicate_dhcp_failover"
+name: replicate_dhcp_failover
 parameters:
   operation:
     type: string
-    default: "ReplicateDHCPFailover"
+    default: ReplicateDHCPFailover
     immutable: true
   connection:
     type: string

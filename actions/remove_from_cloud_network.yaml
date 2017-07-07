@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemoveFromCloudNetwork (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_from_cloud_network"
+name: remove_from_cloud_network
 parameters:
   operation:
     type: string
-    default: "RemoveFromCloudNetwork"
+    default: RemoveFromCloudNetwork
     immutable: true
   connection:
     type: string

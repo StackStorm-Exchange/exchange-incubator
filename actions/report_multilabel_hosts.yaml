@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportMultilabelHosts (http://ap
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_multilabel_hosts"
+name: report_multilabel_hosts
 parameters:
   operation:
     type: string
-    default: "ReportMultilabelHosts"
+    default: ReportMultilabelHosts
     immutable: true
   connection:
     type: string

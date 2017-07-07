@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GenerateReverseRecords (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "generate_reverse_records"
+name: generate_reverse_records
 parameters:
   operation:
     type: string
-    default: "GenerateReverseRecords"
+    default: GenerateReverseRecords
     immutable: true
   connection:
     type: string

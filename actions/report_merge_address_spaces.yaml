@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportMergeAddressSpaces (http:/
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_merge_address_spaces"
+name: report_merge_address_spaces
 parameters:
   operation:
     type: string
-    default: "ReportMergeAddressSpaces"
+    default: ReportMergeAddressSpaces
     immutable: true
   connection:
     type: string

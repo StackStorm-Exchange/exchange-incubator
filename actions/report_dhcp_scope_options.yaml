@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command ReportDHCPScopeOptions (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "report_dhcp_scope_options"
+name: report_dhcp_scope_options
 parameters:
   operation:
     type: string
-    default: "ReportDHCPScopeOptions"
+    default: ReportDHCPScopeOptions
     immutable: true
   connection:
     type: string

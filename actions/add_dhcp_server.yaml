@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command AddDHCPServer (http://api.menand
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "add_dhcp_server"
+name: add_dhcp_server
 parameters:
   operation:
     type: string
-    default: "AddDHCPServer"
+    default: AddDHCPServer
     immutable: true
   connection:
     type: string

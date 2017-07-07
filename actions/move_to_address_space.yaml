@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command MoveToAddressSpace (http://api.m
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "move_to_address_space"
+name: move_to_address_space
 parameters:
   operation:
     type: string
-    default: "MoveToAddressSpace"
+    default: MoveToAddressSpace
     immutable: true
   connection:
     type: string

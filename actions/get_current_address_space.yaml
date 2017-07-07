@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetCurrentAddressSpace (http://a
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_current_address_space"
+name: get_current_address_space
 parameters:
   operation:
     type: string
-    default: "GetCurrentAddressSpace"
+    default: GetCurrentAddressSpace
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetGroup (http://api.menandmice.
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_group"
+name: get_group
 parameters:
   operation:
     type: string
-    default: "GetGroup"
+    default: GetGroup
     immutable: true
   connection:
     type: string

@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command RemovePropertyDefinition (http:/
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "remove_property_definition"
+name: remove_property_definition
 parameters:
   operation:
     type: string
-    default: "RemovePropertyDefinition"
+    default: RemovePropertyDefinition
     immutable: true
   connection:
     type: string

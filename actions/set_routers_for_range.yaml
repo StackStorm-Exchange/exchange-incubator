@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command SetRoutersForRange (http://api.m
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "set_routers_for_range"
+name: set_routers_for_range
 parameters:
   operation:
     type: string
-    default: "SetRoutersForRange"
+    default: SetRoutersForRange
     immutable: true
   connection:
     type: string

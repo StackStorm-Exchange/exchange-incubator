@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPGroup (http://api.menandm
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_group"
+name: get_dhcp_group
 parameters:
   operation:
     type: string
-    default: "GetDHCPGroup"
+    default: GetDHCPGroup
     immutable: true
   connection:
     type: string

@@ -2,12 +2,12 @@
 description: "Invokes the Men&Mice SOAP command Login (http://api.menandmice.com/8.1.0/#Login)"
 enabled: true
 runner_type: "python-script"
-entry_point: lib/run_operation.py
-name: "login"
+entry_point: lib/run_login.py
+name: login
 parameters:
   operation:
     type: string
-    default: "Login"
+    default: Login
     immutable: true
   connection:
     type: string

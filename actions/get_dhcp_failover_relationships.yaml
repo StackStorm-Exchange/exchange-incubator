@@ -3,11 +3,11 @@ description: "Invokes the Men&Mice SOAP command GetDHCPFailoverRelationships (ht
 enabled: true
 runner_type: "python-script"
 entry_point: lib/run_operation.py
-name: "get_dhcp_failover_relationships"
+name: get_dhcp_failover_relationships
 parameters:
   operation:
     type: string
-    default: "GetDHCPFailoverRelationships"
+    default: GetDHCPFailoverRelationships
     immutable: true
   connection:
     type: string

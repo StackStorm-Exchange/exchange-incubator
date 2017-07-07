@@ -1,6 +1,7 @@
 from st2actions.runners.pythonrunner import Action
 
 import zeep
+import zeep.helpers
 import re
 
 #                         (key, required, default)

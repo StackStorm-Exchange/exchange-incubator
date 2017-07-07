@@ -10,7 +10,7 @@ import zeep
 import logging
 
 
-class TestActionLibBaseAction(MenAndMiceBaseActionTestCase):
+class TestActionLibRunOperation(MenAndMiceBaseActionTestCase):
     __test__ = True
     action_cls = RunOperation
 
@@ -250,7 +250,7 @@ class TestActionLibBaseAction(MenAndMiceBaseActionTestCase):
         action = self.get_action_instance(self.config_good)
         connection_name = 'full'
         kwargs_dict = {'operation': 'GetDNSViews',
-                       'session':  None,
+                       'session': None,
                        'connection': connection_name}
         connection = self.config_good['menandmice'][connection_name]
         kwargs_dict.update(connection)

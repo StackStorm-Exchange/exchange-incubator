@@ -330,6 +330,17 @@ class TestActionLibRunOperation(MenAndMiceBaseActionTestCase):
                                           **expected_args)
         self.assertEquals(result, expected_result)
 
+    def test__exec_login_bad_connection(self):
+        action = self.get_action_instance(self.config_blank)
+        context = {'kwargs_dict': {'param_one_value': 'value1',
+                                   'param_two_value': 'value2'},
+                   'operation': 'GetDNSViews',
+                   'session': None,
+                   'connection': {'server': 'menandmice.domain.tld'}}
+        mock_client = mock.Mock()
+        with self.assertRaises(KeyError):
+            action._exec(context, mock_client)
+
     def test__post_exec(self):
         logging.disable(logging.CRITICAL)
         action = self.get_action_instance(self.config_blank)

@@ -165,8 +165,8 @@ class RunOperation(Action):
         return (context, client)
 
     def _exec(self, context, client):
-        self.validate_connection(context['connection'])
         if not context['session']:
+            self.validate_connection(context['connection'])
             context['session'] = self.login(client, context['connection'])
 
         op_args = {}

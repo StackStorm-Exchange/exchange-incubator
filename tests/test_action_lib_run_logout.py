@@ -20,9 +20,9 @@ class TestActionLibRunLogout(MenAndMiceBaseActionTestCase):
         action = self.get_action_instance(self.config_blank)
         expected_session = "xyz123"
         connection = {'connection': None,
-                       'username': 'user',
-                       'password': 'pass',
-                       'server': 'menandmice.domain.tld',}
+                      'username': 'user',
+                      'password': 'pass',
+                      'server': 'menandmice.domain.tld'}
         kwargs_dict = {'session': expected_session,
                        'operation': "Logout"}
         kwargs_dict.update(connection)

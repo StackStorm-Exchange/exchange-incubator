@@ -19,9 +19,9 @@ class TestActionLibRunLogin(MenAndMiceBaseActionTestCase):
     def test_run(self, mock__pre_exec):
         action = self.get_action_instance(self.config_blank)
         connection = {'connection': None,
-                       'username': 'user',
-                       'password': 'pass',
-                       'server': 'menandmice.domain.tld',}
+                      'username': 'user',
+                      'password': 'pass',
+                      'server': 'menandmice.domain.tld'}
         kwargs_dict = {'session': None,
                        'operation': "Login"}
         kwargs_dict.update(connection)

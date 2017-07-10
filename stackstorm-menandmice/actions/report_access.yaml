@@ -1,0 +1,57 @@
+---
+description: "Invokes the Men&Mice SOAP command ReportAccess (http://api.menandmice.com/8.1.0/#ReportAccess)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: report_access
+parameters:
+  operation:
+    type: string
+    default: ReportAccess
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  identity_ref:
+    type: string
+    required: true
+  identity_type:
+    type: string
+    required: false
+  obj_types:
+    type: object
+    required: true
+    description: >
+      'type: ArrayOfObjectType
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfObjectType
+       json_schema: {
+         "objType": [
+           "string"
+         ]
+       }'

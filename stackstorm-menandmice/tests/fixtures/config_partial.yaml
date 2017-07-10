@@ -1,0 +1,11 @@
+---
+menandmice:
+  missing-username:
+    username: Administrator
+    password: PassworD!
+  missing-username:
+    server: menandmice.domian.tld
+    password: PassworD!
+  missing-password:
+    server: menandmice.domian.tld
+    username: Administrator

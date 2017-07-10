@@ -1,0 +1,127 @@
+---
+description: "Invokes the Men&Mice SOAP command AddRange (http://api.menandmice.com/8.1.0/#AddRange)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: add_range
+parameters:
+  operation:
+    type: string
+    default: AddRange
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  range:
+    type: object
+    required: true
+    description: >
+      'type: Range
+       reference: http://api.menandmice.com/8.1.0/#Range
+       json_schema: {
+         "parentRef": "string", 
+         "dhcpScopes": {
+           "object": [
+             {
+               "objType": "string", 
+               "ref": "string", 
+               "name": "string"
+             }
+           ]
+         }, 
+         "customProperties": {
+           "property": [
+             {
+               "name": "string", 
+               "value": "string"
+             }
+           ]
+         }, 
+         "cloudNetworkRef": "string", 
+         "subnet": "boolean", 
+         "from": "string", 
+         "inheritAccess": "boolean", 
+         "hasRogueAddresses": "boolean", 
+         "hasSchedule": "boolean", 
+         "to": "string", 
+         "ref": "string", 
+         "autoAssign": "boolean", 
+         "childRanges": {
+           "object": [
+             {
+               "objType": "string", 
+               "ref": "string", 
+               "name": "string"
+             }
+           ]
+         }, 
+         "adSiteRef": "string", 
+         "hasMonitor": "boolean", 
+         "cloudAllocationPools": {
+           "addressBlock": [
+             {
+               "to": "string", 
+               "from": "string"
+             }
+           ]
+         }, 
+         "discoveredProperties": {
+           "networkDiscoveryInfo": [
+             {
+               "routerName": "string", 
+               "interfaceID": "unsignedInt", 
+               "VRFName": "string", 
+               "interfaceName": "string", 
+               "interfaceDescription": "string", 
+               "VLANID": "unsignedInt", 
+               "gateway": "string"
+             }
+           ]
+         }, 
+         "locked": "boolean", 
+         "name": "string", 
+         "utilizationPercentage": "unsignedInt", 
+         "creationTime": "string", 
+         "isContainer": "boolean"
+       }'
+  discovery:
+    type: object
+    required: false
+    description: >
+      'type: Discovery
+       reference: http://api.menandmice.com/8.1.0/#Discovery
+       json_schema: {
+         "interval": "unsignedInt", 
+         "enabled": "boolean", 
+         "startTime": "string", 
+         "unit": "string"
+       }'
+  save_comment:
+    type: string
+    required: false

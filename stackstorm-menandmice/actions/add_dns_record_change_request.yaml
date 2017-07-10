@@ -1,0 +1,98 @@
+---
+description: "Invokes the Men&Mice SOAP command AddDNSRecordChangeRequest (http://api.menandmice.com/8.1.0/#AddDNSRecordChangeRequest)"
+enabled: true
+runner_type: "python-script"
+entry_point: lib/run_operation.py
+name: add_dns_record_change_request
+parameters:
+  operation:
+    type: string
+    default: AddDNSRecordChangeRequest
+    immutable: true
+  connection:
+    type: string
+    description: "Name of <connection> from this pack's configuration that specifies how to connect to a Men&Mice server."
+    required: false
+  server:
+    type: string
+    description: "Optional override of the Men&Mice server in <connection> (required if <connection> is not specified)."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the Men&Mice username in <connection> (example: username@domain.tld) (required if <connection> is not specified)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the Men&Mice password in <connection>. (required if <connection> is not specified)"
+    required: false
+    secret: true
+  port:
+    type: integer
+    description: "Optional override of the Men&Mice port in <connection>."
+    required: false
+  transport:
+    type: string
+    description: "Optional override of the Men&Mice transport in <connection>."
+    required: false
+  session:
+    type: string
+    required: False
+    description: "Login session cookie. If empty then username/password will be used to login prior to running this operation"
+  dns_record_changes:
+    type: object
+    required: true
+    description: >
+      'type: ArrayOfDNSRecordChange
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfDNSRecordChange
+       json_schema: {
+         "dnsRecordChange": [
+           {
+             "hasAccess": "boolean", 
+             "dnsRecordAfter": {
+               "comment": "string", 
+               "aging": "unsignedInt", 
+               "dnsZoneRef": "string", 
+               "name": "string", 
+               "ref": "string", 
+               "enabled": "boolean", 
+               "data": "string", 
+               "ttl": "string", 
+               "type": "string"
+             }, 
+             "state": "string", 
+             "dnsRecordBefore": {
+               "comment": "string", 
+               "aging": "unsignedInt", 
+               "dnsZoneRef": "string", 
+               "name": "string", 
+               "ref": "string", 
+               "enabled": "boolean", 
+               "data": "string", 
+               "ttl": "string", 
+               "type": "string"
+             }, 
+             "changeIndex": "unsignedInt", 
+             "type": "string"
+           }
+         ]
+       }'
+  request_date:
+    type: string
+    required: false
+  custom_properties:
+    type: object
+    required: false
+    description: >
+      'type: ArrayOfProperty
+       reference: http://api.menandmice.com/8.1.0/#ArrayOfProperty
+       json_schema: {
+         "property": [
+           {
+             "name": "string", 
+             "value": "string"
+           }
+         ]
+       }'
+  save_comment:
+    type: string
+    required: false

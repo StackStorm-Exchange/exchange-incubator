@@ -38,3 +38,16 @@ class TestActionLibRunLogout(MenAndMiceBaseActionTestCase):
         mock_client.service.Logout.assert_called_with(session=expected_session)
 
         self.assertEquals(result, None)
+
+    def test_run_missing_server(self):
+        action = self.get_action_instance(self.config_blank)
+        expected_session = "xyz123"
+        connection = {'connection': None,
+                      'username': 'user',
+                      'password': 'pass'}
+        kwargs_dict = {'session': expected_session,
+                       'operation': "Logout"}
+        kwargs_dict.update(connection)
+
+        with self.assertRaises(RuntimeError):
+            action.run(**kwargs_dict)

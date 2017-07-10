@@ -19,27 +19,6 @@ class TestActionLibRunOperation(MenAndMiceBaseActionTestCase):
         self.assertIsInstance(action, RunOperation)
         self.assertIsInstance(action, Action)
 
-    def test_camel_to_snake_lower(self):
-        action = self.get_action_instance({})
-        camel = "camelCaseString"
-        snake = "camel_case_string"
-        result = action.camel_to_snake(camel)
-        self.assertEqual(result, snake)
-
-    def test_camel_to_snake_upper(self):
-        action = self.get_action_instance({})
-        camel = "CamelCaseString"
-        snake = "camel_case_string"
-        result = action.camel_to_snake(camel)
-        self.assertEqual(result, snake)
-
-    def test_camel_to_snake_multiple_upper(self):
-        action = self.get_action_instance({})
-        camel = "GetADComputer"
-        snake = "get_ad_computer"
-        result = action.camel_to_snake(camel)
-        self.assertEqual(result, snake)
-
     def test_snake_to_camel(self):
         action = self.get_action_instance({})
         snake = "snake_case_string"
@@ -196,6 +175,14 @@ class TestActionLibRunOperation(MenAndMiceBaseActionTestCase):
                                connection['wsdl_endpoint']))
         wsdl_url = action.build_wsdl_url(connection)
         self.assertEquals(wsdl_url, expected_url)
+
+    def test_build_wsdl_url_missing_server(self):
+        action = self.get_action_instance({})
+        connection = {'transport': 'https',
+                      'port': 8443,
+                      'wsdl_endpoint': '_mmwebext/mmwebext.dll?wsdl'}
+        with self.assertRaises(RuntimeError):
+            action.build_wsdl_url(connection)
 
     def test_login(self):
         action = self.get_action_instance(self.config_good)

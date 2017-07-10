@@ -1,0 +1,16 @@
+---
+menandmice:
+  dev:
+    server: menandmice.dev.domain.tld
+    username: stackstorm_svc@dev.domain.tld
+    password: DevPassword
+  stage:
+    server: menandmice.stage.domain.tld
+    username: stackstorm_svc@stage.domain.tld
+    password: stagePassword
+    port: 8080
+  prod:
+    server: menandmice.prod.domain.tld
+    username: stackstorm_svc@prod.domain.tld
+    password: SuperSecret
+    transport: https

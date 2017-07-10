@@ -1,0 +1,89 @@
+version: '2.0'
+
+menandmice.wf_add_dns_zone:
+  description: >
+    A sample workflow that demonstrates how to create a master DNS zone.
+    type: direct
+  input:
+    - session
+    - connection
+    - server
+    - username
+    - password
+    - port
+    - transport
+    - zone_name
+    - master_server
+  output:
+    master_server_ref: "{{ _.master_server_ref }}"
+    master_server_ip: "{{ _.master_server_ip }}"
+    master_view_ref: "{{ _.master_view_ref }}"
+    master_zone_ref: "{{ _.master_zone_ref }}"
+  tasks:
+    main:
+      action: std.noop
+      on-success:
+        - login: "{{ not _.session }}"
+        - get_master_server
+
+    login:
+      action: menandmice.login
+      input:
+        connection: "{{ _.connection }}"
+        server: "{{ _.server }}"
+        username: "{{ _.username }}"
+        password: "{{ _.password }}"
+        port: "{{ _.port }}"
+        transport: "{{ _.transport }}"
+      publish:
+        session: "{{ task('login').result.result.session }}"
+    
+    get_master_server:
+      workflow: menandmice.get_dns_servers
+      input:
+        session: "{{ _.session }}"
+        server: "{{ _.server }}"
+        filter: "name: {{ _.master_server }}"
+      publish:
+        master_server_obj: "{{ task('get_master_server').result.result.dnsServers.dnsServer[0] }}"
+      on-success:
+        - parse_master_server
+
+    parse_master_server:
+      action: std.noop
+      publish:
+        master_server_ref: "{{ _.master_server_obj.ref }}"
+        master_server_ip: "{{ _.master_server_obj.address }}"
+      on-success:
+        - get_master_view
+
+    get_master_view:
+      action: menandmice.get_dns_views
+      input:
+        session: "{{ _.session }}"
+        server: "{{ _.server }}"
+        dns_server_ref: "{{ _.master_server_ref }}"
+      publish:
+        master_view_ref: "{{ task('get_master_view').result.result.dnsViews.dnsView[0].ref }}"
+      on-success:
+        - build_master_zone
+
+    build_master_zone:
+      action: std.noop
+      publish:
+        master_zone:
+          name: "{{ _.zone_name }}"
+          dnsViewRef: "{{ _.master_view_ref }}"
+          authority: "{{ _.master_server }}"
+          type: "Master"
+      on-success:
+        - add_master_zone
+
+    add_master_zone:
+      action: menandmice.add_dns_zone
+      input:
+        session: "{{ _.session }}"
+        server: "{{ _.server }}"
+        dns_zone: "{{ _.master_zone }}"
+      publish:
+        master_zone_ref: "{{ task('add_master_zone').result.result }}"

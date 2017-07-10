@@ -1,0 +1,42 @@
+---
+
+menandmice:
+  type: "object"
+  required: true
+  patternProperties:
+      "^\\w+":
+        "$ref": "#/properties/connection"
+  additionalProperties: false
+
+connection:
+  type: "object"
+  properties:
+    server:
+      description: "Men&Mice server hostname/ip to connect with"
+      type: "string"
+      required: true
+    username:
+      description: Username for authentication
+      type: "string"
+      required: true
+    password:
+      description: Password of the specified username
+      type: "string"
+      secret: true
+      required: true
+    port:
+      description: Port number override used for the connection (80, 443) (none means use the default for the transport)
+      type: "integer"
+      required: false
+    transport:
+      description: Transport used for the connection (http, https)
+      type: "string"
+      default: http
+      required: false
+    wsdl_endpoint:
+      description: HTTP URI for the WSDL file on the server
+      type: "string"
+      default: "_mmwebext/mmwebext.dll?wsdl"
+      required: false
+  additionalProperties: false
+

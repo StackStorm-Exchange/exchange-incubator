@@ -1,0 +1,13 @@
+---
+ref: menandmice
+name: menandmice
+description: StackStorm integration pack for working with the Men&Mice IPAM system.
+keywords: 
+    - menandmice
+    - men
+    - mice
+    - ipam
+    - dns
+version: 0.1.0
+author: Encore Technologies
+email: code@encore.tech

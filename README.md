@@ -302,8 +302,5 @@ into the `dns_zone` parameter for the `menandmice.add_dns_zone` action.
 |--------------|------------------|-----------|
 | 0.1.0        | 8.1.0            | `etc/menandmice_wsdl_2017_06_26.xml` |
 
-# TODO
-- Update etc/README.md on how to generate code
-
 # Future
-- Create sensors to trigger events on changes (look at the the GetHistory command)
+- Create sensors to trigger events on changes (look at the the `GetHistory` command)

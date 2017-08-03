@@ -1,0 +1,3 @@
+[submodule "st2-redis"]
+	path = st2-redis
+	url = git@github.com:csesmita/st2-redis.git

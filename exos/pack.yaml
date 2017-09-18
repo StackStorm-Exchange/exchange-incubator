@@ -1,0 +1,9 @@
+---
+ref: exos
+name: EXOS
+description: Extreme EXOS pack containing sensors, rules and actions
+keywords:
+    - exos
+version: 0.0.1
+author: Extreme Networks
+email: support@extremenetworks.com

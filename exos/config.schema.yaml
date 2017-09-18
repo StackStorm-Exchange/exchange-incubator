@@ -1,0 +1,11 @@
+username:
+    description: "Login username"
+    type: "string"
+    required: true
+    default: "admin"
+password:
+    description: "Login password"
+    type: "string"
+    required: true
+    default: ""
+

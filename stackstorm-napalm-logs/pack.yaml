@@ -1,0 +1,11 @@
+---
+name: napalm_logs
+description: Runs a napalm-logs client as a sensor and dispatches rendered logs as triggers.
+keywords:
+  - napalm-logs
+  - napalm
+  - syslog
+  - networking
+version: 0.1.0
+author: John Anderson
+email: lampwins@gmail.com

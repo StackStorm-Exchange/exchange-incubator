@@ -1,0 +1,21 @@
+---
+server_address:
+  description: "Napalm-logs server address/fqdn"
+  type: "string"
+  required: true
+server_port:
+  description: "Napalm-logs server port"
+  type: integer
+  default: 49017
+auth_address:
+  description: "Napalm-logs authentication server address/fqdn"
+  type: "string"
+  required: true
+auth_port:
+  description: "Napalm-logs authentication server port"
+  type: integer
+  default: 49018
+certificate_file:
+  description: "Full file path to the certificate used on the napalm-logs server."
+  type: string
+  default: /opt/stackstorm/configs/napalm-logs.crt

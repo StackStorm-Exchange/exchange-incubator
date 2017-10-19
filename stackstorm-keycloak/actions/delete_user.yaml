@@ -1,0 +1,12 @@
+name: delete_user
+pack: keycloak
+runner_type: python-script
+description: "Delete a user"
+enabled: true
+entry_point: "delete_user.py"
+parameters:
+    user_id:
+      type: string
+      description: "keycloak internal user id"
+      required: true
+      position: 0

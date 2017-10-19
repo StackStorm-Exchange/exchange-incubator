@@ -1,0 +1,31 @@
+name: update_user
+pack: keycloak
+runner_type: python-script
+description: "Update a user"
+enabled: true
+entry_point: "update_user.py"
+parameters:
+    username:
+      type: string
+      description: "username"
+      required: true
+      position: 0
+    email:
+      type: string
+      description: "email"
+      required: true
+      position: 1
+    firstName:
+      type: string
+      description: "firstname"
+    lastName:
+      type: string
+      description: "lastname"
+    enabled:
+      type: boolean
+      description: "is user enabled"
+      default: true
+    emailVerified:
+      type: boolean
+      description: "is emil verified"
+      default: false

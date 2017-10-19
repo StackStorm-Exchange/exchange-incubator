@@ -1,0 +1,12 @@
+name: get_client
+pack: keycloak
+runner_type: python-script
+description: "Get a client"
+enabled: true
+entry_point: "get_client.py"
+parameters:
+    client_id:
+      type: string
+      description: "client id"
+      required: true
+      position: 0

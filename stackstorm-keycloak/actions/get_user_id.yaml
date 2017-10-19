@@ -1,0 +1,12 @@
+name: get_user_id
+pack: keycloak
+runner_type: python-script
+description: "Get a user id from its name"
+enabled: true
+entry_point: "get_user_id.py"
+parameters:
+    username:
+      type: string
+      description: "username"
+      required: true
+      position: 0

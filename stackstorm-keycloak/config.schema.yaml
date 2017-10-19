@@ -1,0 +1,38 @@
+---
+  host:
+    description: "Keycloak server IP/name.  Default 127.0.0.1"
+    type: "string"
+    secret: false
+    required: true
+    default: "127.0.0.1"
+  port:
+    description: "Keycloak server port. Default 443"
+    type: "string"
+    secret: false
+    required: true
+    default: "443"
+  scheme:
+    description: "Keycloak HTTP scheme. Default https"
+    type: "string"
+    secret: false
+    required: true
+    default: "https"
+  user:
+    description: "Keycloak password. Default admin"
+    type: "string"
+    required: true
+    default: "admin"
+  password:
+    description: "Keycloak password. Default admin"
+    type: "string"
+    required: true
+    default: "admin"
+  realm:
+    description: "Keycloak realm. Default master"
+    type: "string"
+    required: true
+    default: "master"
+  verify:
+    description: "SSL Verify. Default True"
+    type: "boolean"
+    required: true

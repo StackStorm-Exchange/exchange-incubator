@@ -1,0 +1,6 @@
+name: get_server_info
+pack: keycloak
+runner_type: python-script
+description: "Get server info"
+enabled: true
+entry_point: "get_server_info.py"

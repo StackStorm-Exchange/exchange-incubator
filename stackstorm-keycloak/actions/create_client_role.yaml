@@ -1,0 +1,17 @@
+name: create_client_role
+pack: keycloak
+runner_type: python-script
+description: "Create a client role"
+enabled: true
+entry_point: "create_client_role.py"
+parameters:
+    client_id:
+      type: string
+      description: "keycloak internal client id"
+      required: true
+      position: 0
+    role_name:
+      type: string
+      description: "client role name"
+      required: true
+      position: 1

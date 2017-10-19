@@ -1,0 +1,12 @@
+name: get_client_id
+pack: keycloak
+runner_type: python-script
+description: "Get a client id from its name"
+enabled: true
+entry_point: "get_client_id.py"
+parameters:
+    client_id_name:
+      type: string
+      description: "client name"
+      required: true
+      position: 0

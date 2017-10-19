@@ -1,0 +1,8 @@
+### Place information about your pack version here.
+---
+ref: keycloak
+name: keycloak
+description: Keycloak Admin pack
+version: 0.1.0
+author: devlm
+email: devlinm@gmail.com

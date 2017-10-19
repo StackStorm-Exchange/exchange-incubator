@@ -1,0 +1,17 @@
+name: get_client_role_id
+pack: keycloak
+runner_type: python-script
+description: "Get client role id"
+enabled: true
+entry_point: "get_client_role_id.py"
+parameters:
+    client_id:
+      type: string
+      description: "keycloak internal client id"
+      required: true
+      position: 0
+    role_name:
+      type: string
+      description: "client role name"
+      required: true
+      position: 1

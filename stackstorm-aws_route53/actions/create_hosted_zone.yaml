@@ -1,0 +1,38 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: create_hosted_zone
+runner_type: python-script
+parameters:
+  action:
+    default: create_hosted_zone
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  Name:
+    type: string
+    description: "The name of the domain. This must be a fully-specified domain, for example, www.example.com. The trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Amazon Route 53 treats www.example.com (without a trailing dot) and www.example.com. (with a trailing dot) as identical. This is the name you have registered with your DNS registrar. You should ask your registrar to change the authoritative name servers for your domain to the set of NameServers elements returned in DelegationSet."
+    required: true
+  CallerReference:
+    type: string
+    description: "A unique string that identifies the request and that allows failed CreateHostedZone requests to be retried without the risk of executing the operation twice. You must use a unique CallerReference string every time you create a hosted zone. CallerReference can be any unique string; you might choose to use a string that identifies your project, such as DNSMigration_01. Valid characters are any Unicode code points that are legal in an XML 1.0 document. The UTF-8 encoding of the value must be less than 128 bytes."
+    required: true
+  VPC:
+    type: object
+    description: "The VPC that you want your hosted zone to be associated with. By providing this parameter, your newly created hosted cannot be resolved anywhere other than the given VPC."
+  HostedZoneConfig:
+    type: object
+    description: "A complex type that contains an optional comment about your hosted zone."
+  DelegationSetId:
+    type: string
+    description: "The delegation set id of the reusable delgation set whose NS records you want to assign to the new hosted zone."

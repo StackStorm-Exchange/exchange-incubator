@@ -1,0 +1,30 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: get_geo_location
+runner_type: python-script
+parameters:
+  action:
+    default: get_geo_location
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  ContinentCode:
+    type: string
+    description: "The code for a continent geo location. Note: only continent locations have a continent code. Valid values: AF | AN | AS | EU | OC | NA | SA Constraint: Specifying ContinentCode with either CountryCode or SubdivisionCode returns an InvalidInput error."
+  CountryCode:
+    type: string
+    description: "The code for a country geo location. The default location uses '*' for the country code and will match all locations that are not matched by a geo location. The default geo location uses a * for the country code. All other country codes follow the ISO 3166 two-character code."
+  SubdivisionCode:
+    type: string
+    description: "The code for a country's subdivision (e.g., a province of Canada). A subdivision code is only valid with the appropriate country code. Constraint: Specifying SubdivisionCode without CountryCode returns an InvalidInput error."

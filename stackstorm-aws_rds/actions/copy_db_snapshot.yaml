@@ -1,0 +1,38 @@
+---
+description: 
+pack: aws_rds
+enabled: true
+entry_point: run.py
+name: copy_db_snapshot
+runner_type: python-script
+parameters:
+  action:
+    default: copy_db_snapshot
+    immutable: true
+    type: string
+  cls:
+    default: rds
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  SourceDBSnapshotIdentifier:
+    type: string
+    description: "The identifier for the source DB snapshot. If you are copying from a shared manual DB snapshot, this must be the ARN of the shared DB snapshot. Constraints:   Must specify a valid system snapshot in the 'available' state.   If the source snapshot is in the same region as the copy, specify a valid DB snapshot identifier.   If the source snapshot is in a different region than the copy, specify a valid DB snapshot ARN. For more information, go to  Copying a DB Snapshot.   Example: rds:mydb-2012-04-02-00-01  Example: arn:aws:rds:rr-regn-1:123456789012:snapshot:mysql-instance1-snapshot-20130805 "
+    required: true
+  TargetDBSnapshotIdentifier:
+    type: string
+    description: "The identifier for the copied snapshot. Constraints:   Cannot be null, empty, or blank   Must contain from 1 to 255 alphanumeric characters or hyphens   First character must be a letter   Cannot end with a hyphen or contain two consecutive hyphens   Example: my-db-snapshot "
+    required: true
+  KmsKeyId:
+    type: string
+    description: "The AWS Key Management Service (AWS KMS) key identifier for an encrypted DB snapshot. The KMS key identifier is the Amazon Resource Name (ARN) or the KMS key alias for the KMS encryption key. If you copy an unencrypted DB snapshot and specify a value for the KmsKeyId parameter, Amazon RDS encrypts the target DB snapshot using the specified KMS encryption key. If you copy an encrypted DB snapshot from your AWS account, you can specify a value for KmsKeyId to encrypt the copy with a new KMS encryption key. If you don't specify a value for KmsKeyId then the copy of the DB snapshot is encrypted with the same KMS key as the source DB snapshot.  If you copy an encrypted DB snapshot that is shared from another AWS account, then you must specify a value for KmsKeyId."
+  Tags:
+    type: array
+    description: ""
+  CopyTags:
+    type: boolean
+    description: "True to copy all tags from the source DB snapshot to the target DB snapshot; otherwise false. The default is false."

@@ -1,0 +1,31 @@
+---
+description: 
+pack: aws_cognito-identity
+enabled: true
+entry_point: run.py
+name: get_id
+runner_type: python-script
+parameters:
+  action:
+    default: get_id
+    immutable: true
+    type: string
+  cls:
+    default: cognito-identity
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  IdentityPoolId:
+    type: string
+    description: "An identity pool ID in the format REGION:GUID."
+    required: true
+  AccountId:
+    type: string
+    description: "A standard AWS account ID (9+ digits)."
+  Logins:
+    type: object
+    description: "A set of optional name-value pairs that map provider names to provider tokens. The available provider names for Logins are as follows:  Facebook: graph.facebook.com Google: accounts.google.com Amazon: www.amazon.com Twitter: api.twitter.com Digits: www.digits.com  "

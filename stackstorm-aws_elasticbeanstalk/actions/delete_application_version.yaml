@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_elasticbeanstalk
+enabled: true
+entry_point: run.py
+name: delete_application_version
+runner_type: python-script
+parameters:
+  action:
+    default: delete_application_version
+    immutable: true
+    type: string
+  cls:
+    default: elasticbeanstalk
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  ApplicationName:
+    type: string
+    description: "The name of the application to delete releases from."
+    required: true
+  VersionLabel:
+    type: string
+    description: "The label of the version to delete."
+    required: true
+  DeleteSourceBundle:
+    type: boolean
+    description: "Indicates whether to delete the associated source bundle from Amazon S3:    true: An attempt is made to delete the associated Amazon S3 source bundle specified at time of creation.   false: No action is taken on the Amazon S3 source bundle specified at time of creation.    Valid Values: true | false "

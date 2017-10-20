@@ -1,0 +1,15 @@
+---
+ref: aws_cognito-idp
+name : aws_cognito-idp
+description : st2 content pack containing Amazon Web Services integrations.
+keywords:
+  - aws
+  - amazon web services
+  - amazon
+  - cognito-idp
+
+version : 0.0.1
+author : StackStorm, Inc.
+email : info@stackstorm.com
+contributors:
+  - Andy Moore <andrew.moore@pearson.com>

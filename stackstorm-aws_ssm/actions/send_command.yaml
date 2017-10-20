@@ -1,0 +1,56 @@
+---
+description: 
+pack: aws_ssm
+enabled: true
+entry_point: run.py
+name: send_command
+runner_type: python-script
+parameters:
+  action:
+    default: send_command
+    immutable: true
+    type: string
+  cls:
+    default: ssm
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  InstanceIds:
+    type: array
+    description: "Required. The instance IDs where the command should execute. You can specify a maximum of 50 IDs."
+    required: true
+  DocumentName:
+    type: string
+    description: "Required. The name of the SSM document to execute. This can be an SSM public document or a custom document."
+    required: true
+  DocumentHash:
+    type: string
+    description: "The Sha256 or Sha1 hash created by the system when the document was created.   Sha1 hashes have been deprecated. "
+  DocumentHashType:
+    type: string
+    description: "Sha256 or Sha1.  Sha1 hashes have been deprecated. "
+  TimeoutSeconds:
+    type: integer
+    description: "If this time is reached and the command has not already started executing, it will not execute."
+  Comment:
+    type: string
+    description: "User-specified information about the command, such as a brief description of what the command should do."
+  Parameters:
+    type: object
+    description: "The required and optional parameters specified in the SSM document being executed."
+  OutputS3BucketName:
+    type: string
+    description: "The name of the S3 bucket where command execution responses should be stored."
+  OutputS3KeyPrefix:
+    type: string
+    description: "The directory structure within the S3 bucket where the responses should be stored."
+  ServiceRoleArn:
+    type: string
+    description: "The IAM role that SSM uses to send notifications. "
+  NotificationConfig:
+    type: object
+    description: "Configurations for sending notifications."

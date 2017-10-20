@@ -1,0 +1,33 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: list_geo_locations
+runner_type: python-script
+parameters:
+  action:
+    default: list_geo_locations
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  StartContinentCode:
+    type: string
+    description: "The first continent code in the lexicographic ordering of geo locations that you want the ListGeoLocations request to list. For non-continent geo locations, this should be null. Valid values: AF | AN | AS | EU | OC | NA | SA Constraint: Specifying ContinentCode with either CountryCode or SubdivisionCode returns an InvalidInput error."
+  StartCountryCode:
+    type: string
+    description: "The first country code in the lexicographic ordering of geo locations that you want the ListGeoLocations request to list. The default geo location uses a * for the country code. All other country codes follow the ISO 3166 two-character code."
+  StartSubdivisionCode:
+    type: string
+    description: "The first subdivision code in the lexicographic ordering of geo locations that you want the ListGeoLocations request to list. Constraint: Specifying SubdivisionCode without CountryCode returns an InvalidInput error."
+  MaxItems:
+    type: string
+    description: "The maximum number of geo locations you want in the response body."

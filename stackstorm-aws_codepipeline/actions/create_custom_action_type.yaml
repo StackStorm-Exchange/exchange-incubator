@@ -1,0 +1,47 @@
+---
+description: 
+pack: aws_codepipeline
+enabled: true
+entry_point: run.py
+name: create_custom_action_type
+runner_type: python-script
+parameters:
+  action:
+    default: create_custom_action_type
+    immutable: true
+    type: string
+  cls:
+    default: codepipeline
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  category:
+    type: string
+    description: "The category of the custom action, such as a source action or a build action.  Although Source is listed as a valid value, it is not currently functional. This value is reserved for future use. "
+    required: true
+  provider:
+    type: string
+    description: "The provider of the service used in the custom action, such as AWS CodeDeploy."
+    required: true
+  version:
+    type: string
+    description: "The version number of the custom action."
+    required: true
+  inputArtifactDetails:
+    type: object
+    description: ""
+    required: true
+  outputArtifactDetails:
+    type: object
+    description: ""
+    required: true
+  settings:
+    type: object
+    description: ""
+  configurationProperties:
+    type: array
+    description: "The configuration properties for the custom action.  You can refer to a name in the configuration properties of the custom action within the URL templates by following the format of {Config:name}, as long as the configuration property is both required and not secret. For more information, see Create a Custom Action for a Pipeline. "

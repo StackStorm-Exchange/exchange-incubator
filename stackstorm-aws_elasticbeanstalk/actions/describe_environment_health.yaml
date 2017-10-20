@@ -1,0 +1,30 @@
+---
+description: 
+pack: aws_elasticbeanstalk
+enabled: true
+entry_point: run.py
+name: describe_environment_health
+runner_type: python-script
+parameters:
+  action:
+    default: describe_environment_health
+    immutable: true
+    type: string
+  cls:
+    default: elasticbeanstalk
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  EnvironmentName:
+    type: string
+    description: "Specifies the AWS Elastic Beanstalk environment name. Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns MissingRequiredParameter error. "
+  EnvironmentId:
+    type: string
+    description: "Specifies the AWS Elastic Beanstalk environment ID. Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns MissingRequiredParameter error. "
+  AttributeNames:
+    type: array
+    description: "Specifies the response elements you wish to receive. If no attribute names are specified, AWS Elastic Beanstalk only returns the name of the environment."

@@ -1,0 +1,30 @@
+---
+description: 
+pack: aws_kms
+enabled: true
+entry_point: run.py
+name: retire_grant
+runner_type: python-script
+parameters:
+  action:
+    default: retire_grant
+    immutable: true
+    type: string
+  cls:
+    default: kms
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  GrantToken:
+    type: string
+    description: "Token that identifies the grant to be retired."
+  KeyId:
+    type: string
+    description: "A unique identifier for the customer master key associated with the grant. This value can be a globally unique identifier or a fully specified ARN of the key.   Key ARN Example - arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012   Globally Unique Key ID Example - 12345678-1234-1234-1234-123456789012  "
+  GrantId:
+    type: string
+    description: "Unique identifier of the grant to be retired. The grant ID is returned by the CreateGrant function.   Grant ID Example - 0123456789012345678901234567890123456789012345678901234567890123  "

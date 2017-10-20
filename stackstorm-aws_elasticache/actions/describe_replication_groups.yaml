@@ -1,0 +1,30 @@
+---
+description: 
+pack: aws_elasticache
+enabled: true
+entry_point: run.py
+name: describe_replication_groups
+runner_type: python-script
+parameters:
+  action:
+    default: describe_replication_groups
+    immutable: true
+    type: string
+  cls:
+    default: elasticache
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  ReplicationGroupId:
+    type: string
+    description: "The identifier for the replication group to be described. This parameter is not case sensitive. If you do not specify this parameter, information about all replication groups is returned."
+  MaxRecords:
+    type: integer
+    description: "The maximum number of records to include in the response. If more records exist than the specified MaxRecords value, a marker is included in the response so that the remaining results can be retrieved. Default: 100 Constraints: minimum 20; maximum 100."
+  Marker:
+    type: string
+    description: "An optional marker returned from a prior request. Use this marker for pagination of results from this action. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by MaxRecords."

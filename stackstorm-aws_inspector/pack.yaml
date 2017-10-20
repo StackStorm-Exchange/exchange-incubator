@@ -1,0 +1,15 @@
+---
+ref: aws_inspector
+name : aws_inspector
+description : st2 content pack containing Amazon Web Services integrations.
+keywords:
+  - aws
+  - amazon web services
+  - amazon
+  - inspector
+
+version : 0.0.1
+author : StackStorm, Inc.
+email : info@stackstorm.com
+contributors:
+  - Andy Moore <andrew.moore@pearson.com>

@@ -1,0 +1,37 @@
+---
+description: 
+pack: aws_application-autoscaling
+enabled: true
+entry_point: run.py
+name: describe_scaling_activities
+runner_type: python-script
+parameters:
+  action:
+    default: describe_scaling_activities
+    immutable: true
+    type: string
+  cls:
+    default: application-autoscaling
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  ServiceNamespace:
+    type: string
+    description: "The namespace for the AWS service that the scaling activity is associated with. For more information, see AWS Service Namespaces in the Amazon Web Services General Reference."
+    required: true
+  ResourceId:
+    type: string
+    description: "The unique identifier string for the resource associated with the scaling activity. For Amazon ECS services, this value is the resource type, followed by the cluster name and service name, such as service/default/sample-webapp. If you specify a scalable dimension, you must also specify a resource ID."
+  ScalableDimension:
+    type: string
+    description: "The scalable dimension associated with the scaling activity. The scalable dimension contains the service namespace, resource type, and scaling property, such as ecs:service:DesiredCount for the desired task count of an Amazon ECS service. If you specify a scalable dimension, you must also specify a resource ID."
+  MaxResults:
+    type: integer
+    description: "The maximum number of scaling activity results returned by DescribeScalingActivities in paginated output. When this parameter is used, DescribeScalingActivities returns up to MaxResults results in a single page along with a NextToken response element. The remaining results of the initial request can be seen by sending another DescribeScalingActivities request with the returned NextToken value. This value can be between 1 and 50. If this parameter is not used, then DescribeScalingActivities returns up to 50 results and a NextToken value, if applicable."
+  NextToken:
+    type: string
+    description: "The NextToken value returned from a previous paginated DescribeScalingActivities request. Pagination continues from the end of the previous results that returned the NextToken value. This value is null when there are no more results to return."

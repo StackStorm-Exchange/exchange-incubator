@@ -1,0 +1,36 @@
+---
+description: 
+pack: aws_logs
+enabled: true
+entry_point: run.py
+name: put_log_events
+runner_type: python-script
+parameters:
+  action:
+    default: put_log_events
+    immutable: true
+    type: string
+  cls:
+    default: logs
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  logGroupName:
+    type: string
+    description: "The name of the log group to put log events to."
+    required: true
+  logStreamName:
+    type: string
+    description: "The name of the log stream to put log events to."
+    required: true
+  logEvents:
+    type: array
+    description: ""
+    required: true
+  sequenceToken:
+    type: string
+    description: " A string token that must be obtained from the response of the previous PutLogEvents request. "

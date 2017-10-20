@@ -1,0 +1,29 @@
+---
+description: 
+pack: aws_logs
+enabled: true
+entry_point: run.py
+name: delete_metric_filter
+runner_type: python-script
+parameters:
+  action:
+    default: delete_metric_filter
+    immutable: true
+    type: string
+  cls:
+    default: logs
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  logGroupName:
+    type: string
+    description: "The name of the log group that is associated with the metric filter to delete."
+    required: true
+  filterName:
+    type: string
+    description: "The name of the metric filter to delete."
+    required: true

@@ -1,0 +1,25 @@
+---
+description: 
+pack: aws_iot
+enabled: true
+entry_point: run.py
+name: delete_thing_type
+runner_type: python-script
+parameters:
+  action:
+    default: delete_thing_type
+    immutable: true
+    type: string
+  cls:
+    default: iot
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  thingTypeName:
+    type: string
+    description: "The name of the thing type."
+    required: true

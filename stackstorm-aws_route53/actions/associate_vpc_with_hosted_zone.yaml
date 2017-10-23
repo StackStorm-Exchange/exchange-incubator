@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: associate_vpc_with_hosted_zone
+runner_type: python-script
+parameters:
+  action:
+    default: associate_vpc_with_hosted_zone
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  HostedZoneId:
+    type: string
+    description: "The ID of the hosted zone you want to associate your VPC with. Note that you cannot associate a VPC with a hosted zone that doesn't have an existing VPC association."
+    required: true
+  VPC:
+    type: object
+    description: "The VPC that you want your hosted zone to be associated with. "
+    required: true
+  Comment:
+    type: string
+    description: "Optional: Any comments you want to include about a AssociateVPCWithHostedZoneRequest."

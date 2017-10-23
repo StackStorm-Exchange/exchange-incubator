@@ -1,0 +1,67 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: update_health_check
+runner_type: python-script
+parameters:
+  action:
+    default: update_health_check
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  HealthCheckId:
+    type: string
+    description: "The ID of the health check to update."
+    required: true
+  HealthCheckVersion:
+    type: integer
+    description: "Optional. When you specify a health check version, Amazon Route 53 compares this value with the current value in the health check, which prevents you from updating the health check when the versions don't match. Using HealthCheckVersion lets you prevent overwriting another change to the health check."
+  IPAddress:
+    type: string
+    description: "The IP address of the resource that you want to check. Specify this value only if you want to change it."
+  Port:
+    type: integer
+    description: "The port on which you want Amazon Route 53 to open a connection to perform health checks. Specify this value only if you want to change it."
+  ResourcePath:
+    type: string
+    description: "The path that you want Amazon Route 53 to request when performing health checks. The path can be any value for which your endpoint will return an HTTP status code of 2xx or 3xx when the endpoint is healthy, for example the file /docs/route53-health-check.html.  Specify this value only if you want to change it."
+  FullyQualifiedDomainName:
+    type: string
+    description: "Fully qualified domain name of the instance to be health checked. Specify this value only if you want to change it."
+  SearchString:
+    type: string
+    description: "If the value of Type is HTTP_STR_MATCH or HTTP_STR_MATCH, the string that you want Amazon Route 53 to search for in the response body from the specified resource. If the string appears in the response body, Amazon Route 53 considers the resource healthy. Amazon Route 53 considers case when searching for SearchString in the response body. Specify this value only if you want to change it."
+  FailureThreshold:
+    type: integer
+    description: "The number of consecutive health checks that an endpoint must pass or fail for Amazon Route 53 to change the current status of the endpoint from unhealthy to healthy or vice versa. Valid values are integers between 1 and 10. For more information, see 'How Amazon Route 53 Determines Whether an Endpoint Is Healthy' in the Amazon Route 53 Developer Guide. Specify this value only if you want to change it."
+  Inverted:
+    type: boolean
+    description: "A boolean value that indicates whether the status of health check should be inverted. For example, if a health check is healthy but Inverted is True, then Amazon Route 53 considers the health check to be unhealthy. Specify this value only if you want to change it."
+  HealthThreshold:
+    type: integer
+    description: "The minimum number of child health checks that must be healthy for Amazon Route 53 to consider the parent health check to be healthy. Valid values are integers between 0 and 256, inclusive. Specify this value only if you want to change it."
+  ChildHealthChecks:
+    type: array
+    description: "For a specified parent health check, a list of HealthCheckId values for the associated child health checks. Specify this value only if you want to change it."
+  EnableSNI:
+    type: boolean
+    description: "Specify whether you want Amazon Route 53 to send the value of FullyQualifiedDomainName to the endpoint in the client_hello message during TLS negotiation. If you don't specify a value for EnableSNI, Amazon Route 53 defaults to true when Type is HTTPS or HTTPS_STR_MATCH and defaults to false when Type is any other value. Specify this value only if you want to change it."
+  Regions:
+    type: array
+    description: "A list of HealthCheckRegion values that specify the Amazon EC2 regions that you want Amazon Route 53 to use to perform health checks. You must specify at least three regions. When you remove a region from the list, Amazon Route 53 will briefly continue to check your endpoint from that region. Specify this value only if you want to change it."
+  AlarmIdentifier:
+    type: object
+    description: ""
+  InsufficientDataHealthStatus:
+    type: string
+    description: ""

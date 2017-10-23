@@ -1,0 +1,41 @@
+---
+description: 
+pack: aws_elasticbeanstalk
+enabled: true
+entry_point: run.py
+name: create_application_version
+runner_type: python-script
+parameters:
+  action:
+    default: create_application_version
+    immutable: true
+    type: string
+  cls:
+    default: elasticbeanstalk
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  ApplicationName:
+    type: string
+    description: " The name of the application. If no application is found with this name, and AutoCreateApplication is false, returns an InvalidParameterValue error. "
+    required: true
+  VersionLabel:
+    type: string
+    description: "A label identifying this version. Constraint: Must be unique per application. If an application version already exists with this label for the specified application, AWS Elastic Beanstalk returns an InvalidParameterValue error. "
+    required: true
+  Description:
+    type: string
+    description: "Describes this version."
+  SourceBundle:
+    type: object
+    description: " The Amazon S3 bucket and key that identify the location of the source bundle for this version.   If data found at the Amazon S3 location exceeds the maximum allowed source bundle size, AWS Elastic Beanstalk returns an InvalidParameterValue error. The maximum size allowed is 512 MB.  Default: If not specified, AWS Elastic Beanstalk uses a sample application. If only partially specified (for example, a bucket is provided but not the key) or if no data is found at the Amazon S3 location, AWS Elastic Beanstalk returns an InvalidParameterCombination error. "
+  AutoCreateApplication:
+    type: boolean
+    description: " Determines how the system behaves if the specified application for this version does not already exist:    true : Automatically creates the specified application for this release if it does not already exist.   false : Throws an InvalidParameterValue if the specified application for this release does not already exist.    Default: false   Valid Values: true | false "
+  Process:
+    type: boolean
+    description: "Preprocesses and validates the environment manifest and configuration files in the source bundle. Validating configuration files can identify issues prior to deploying the application version to an environment."

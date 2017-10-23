@@ -1,0 +1,34 @@
+---
+description: 
+pack: aws_ec2
+enabled: true
+entry_point: run.py
+name: modify_instance_placement
+runner_type: python-script
+parameters:
+  action:
+    default: modify_instance_placement
+    immutable: true
+    type: string
+  cls:
+    default: ec2
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  InstanceId:
+    type: string
+    description: "The ID of the instance that you are modifying."
+    required: true
+  Tenancy:
+    type: string
+    description: "The tenancy of the instance that you are modifying."
+  Affinity:
+    type: string
+    description: "The new affinity setting for the instance."
+  HostId:
+    type: string
+    description: "The ID of the Dedicated host that the instance will have affinity with."

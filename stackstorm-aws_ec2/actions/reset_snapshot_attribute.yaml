@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_ec2
+enabled: true
+entry_point: run.py
+name: reset_snapshot_attribute
+runner_type: python-script
+parameters:
+  action:
+    default: reset_snapshot_attribute
+    immutable: true
+    type: string
+  cls:
+    default: ec2
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  SnapshotId:
+    type: string
+    description: "The ID of the snapshot."
+    required: true
+  Attribute:
+    type: string
+    description: "The attribute to reset. Currently, only the attribute for permission to create volumes can be reset."
+    required: true
+  DryRun:
+    type: boolean
+    description: "Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation. Otherwise, it is UnauthorizedOperation."

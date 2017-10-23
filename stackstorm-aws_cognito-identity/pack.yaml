@@ -1,0 +1,15 @@
+---
+ref: aws_cognito-identity
+name : aws_cognito-identity
+description : st2 content pack containing Amazon Web Services integrations.
+keywords:
+  - aws
+  - amazon web services
+  - amazon
+  - cognito-identity
+
+version : 0.0.1
+author : StackStorm, Inc.
+email : info@stackstorm.com
+contributors:
+  - Andy Moore <andrew.moore@pearson.com>

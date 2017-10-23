@@ -1,0 +1,15 @@
+---
+ref: aws_marketplacecommerceanalytics
+name : aws_marketplacecommerceanalytics
+description : st2 content pack containing Amazon Web Services integrations.
+keywords:
+  - aws
+  - amazon web services
+  - amazon
+  - marketplacecommerceanalytics
+
+version : 0.0.1
+author : StackStorm, Inc.
+email : info@stackstorm.com
+contributors:
+  - Andy Moore <andrew.moore@pearson.com>

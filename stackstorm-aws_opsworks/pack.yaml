@@ -1,0 +1,15 @@
+---
+ref: aws_opsworks
+name : aws_opsworks
+description : st2 content pack containing Amazon Web Services integrations.
+keywords:
+  - aws
+  - amazon web services
+  - amazon
+  - opsworks
+
+version : 0.0.1
+author : StackStorm, Inc.
+email : info@stackstorm.com
+contributors:
+  - Andy Moore <andrew.moore@pearson.com>

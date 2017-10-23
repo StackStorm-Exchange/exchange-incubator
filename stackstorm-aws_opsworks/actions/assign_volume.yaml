@@ -1,0 +1,28 @@
+---
+description: 
+pack: aws_opsworks
+enabled: true
+entry_point: run.py
+name: assign_volume
+runner_type: python-script
+parameters:
+  action:
+    default: assign_volume
+    immutable: true
+    type: string
+  cls:
+    default: opsworks
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  VolumeId:
+    type: string
+    description: "The volume ID."
+    required: true
+  InstanceId:
+    type: string
+    description: "The instance ID."

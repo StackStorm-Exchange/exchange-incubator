@@ -1,0 +1,50 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: list_change_batches_by_rr_set
+runner_type: python-script
+parameters:
+  action:
+    default: list_change_batches_by_rr_set
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  HostedZoneId:
+    type: string
+    description: "The ID of the hosted zone that you want to see changes for."
+    required: true
+  Name:
+    type: string
+    description: "The name of the RRSet that you want to see changes for."
+    required: true
+  Type:
+    type: string
+    description: "The type of the RRSet that you want to see changes for."
+    required: true
+  StartDate:
+    type: string
+    description: "The start of the time period you want to see changes for."
+    required: true
+  EndDate:
+    type: string
+    description: "The end of the time period you want to see changes for."
+    required: true
+  SetIdentifier:
+    type: string
+    description: "The identifier of the RRSet that you want to see changes for."
+  MaxItems:
+    type: string
+    description: "The maximum number of items on a page."
+  Marker:
+    type: string
+    description: "The page marker."

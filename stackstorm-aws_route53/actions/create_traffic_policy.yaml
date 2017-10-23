@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_route53
+enabled: true
+entry_point: run.py
+name: create_traffic_policy
+runner_type: python-script
+parameters:
+  action:
+    default: create_traffic_policy
+    immutable: true
+    type: string
+  cls:
+    default: route53
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  Name:
+    type: string
+    description: "The name of the traffic policy."
+    required: true
+  Document:
+    type: string
+    description: "The definition of this traffic policy in JSON format. For more information, see Traffic Policy Document Format in the Amazon Route 53 API Reference."
+    required: true
+  Comment:
+    type: string
+    description: "Any comments that you want to include about the traffic policy."

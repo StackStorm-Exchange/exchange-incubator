@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_apigateway
+enabled: true
+entry_point: run.py
+name: update_deployment
+runner_type: python-script
+parameters:
+  action:
+    default: update_deployment
+    immutable: true
+    type: string
+  cls:
+    default: apigateway
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  restApiId:
+    type: string
+    description: "The replacement identifier of the RestApi resource for the Deployment resource to change information about."
+    required: true
+  deploymentId:
+    type: string
+    description: "The replacment identifier for the Deployment resource to change information about."
+    required: true
+  patchOperations:
+    type: array
+    description: "A list of operations describing the updates to apply to the specified resource. The patches are applied in the order specified in the list."

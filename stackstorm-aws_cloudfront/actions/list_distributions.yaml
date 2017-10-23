@@ -1,0 +1,27 @@
+---
+description: 
+pack: aws_cloudfront
+enabled: true
+entry_point: run.py
+name: list_distributions
+runner_type: python-script
+parameters:
+  action:
+    default: list_distributions
+    immutable: true
+    type: string
+  cls:
+    default: cloudfront
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  Marker:
+    type: string
+    description: "Use Marker and MaxItems to control pagination of results. If you have more than MaxItems distributions that satisfy the request, the response includes a NextMarker element. To get the next page of results, submit another request. For the value of Marker, specify the value of NextMarker from the last response. (For the first request, omit Marker.)"
+  MaxItems:
+    type: string
+    description: "The maximum number of distributions that you want CloudFront to return in the response body. The maximum and default values are both 100."

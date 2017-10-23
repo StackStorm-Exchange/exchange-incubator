@@ -1,0 +1,31 @@
+---
+description: 
+pack: aws_iot-data
+enabled: true
+entry_point: run.py
+name: publish
+runner_type: python-script
+parameters:
+  action:
+    default: publish
+    immutable: true
+    type: string
+  cls:
+    default: iot-data
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  topic:
+    type: string
+    description: "The name of the MQTT topic."
+    required: true
+  qos:
+    type: integer
+    description: "The Quality of Service (QoS) level."
+  payload:
+    type: string
+    description: "The state information, in JSON format."

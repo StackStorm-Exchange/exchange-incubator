@@ -1,0 +1,25 @@
+---
+description: 
+pack: aws_gamelift
+enabled: true
+entry_point: run.py
+name: get_game_session_log_url
+runner_type: python-script
+parameters:
+  action:
+    default: get_game_session_log_url
+    immutable: true
+    type: string
+  cls:
+    default: gamelift
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  GameSessionId:
+    type: string
+    description: "Unique identifier for a game session. Specify the game session you want to get logs for."
+    required: true

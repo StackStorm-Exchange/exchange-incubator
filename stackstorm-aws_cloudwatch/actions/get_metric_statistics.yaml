@@ -1,0 +1,51 @@
+---
+description: 
+pack: aws_cloudwatch
+enabled: true
+entry_point: run.py
+name: get_metric_statistics
+runner_type: python-script
+parameters:
+  action:
+    default: get_metric_statistics
+    immutable: true
+    type: string
+  cls:
+    default: cloudwatch
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  Namespace:
+    type: string
+    description: " The namespace of the metric, with or without spaces. "
+    required: true
+  MetricName:
+    type: string
+    description: " The name of the metric, with or without spaces. "
+    required: true
+  StartTime:
+    type: string
+    description: " The time stamp to use for determining the first datapoint to return. The value specified is inclusive; results include datapoints with the time stamp specified. The time stamp must be in ISO 8601 UTC format (e.g., 2014-09-03T23:00:00Z).   The specified start time is rounded down to the nearest value. Datapoints are returned for start times up to two weeks in the past. Specified start times that are more than two weeks in the past will not return datapoints for metrics that are older than two weeks. Data that is timestamped 24 hours or more in the past may take in excess of 48 hours to become available from submission time using GetMetricStatistics. "
+    required: true
+  EndTime:
+    type: string
+    description: " The time stamp to use for determining the last datapoint to return. The value specified is exclusive; results will include datapoints up to the time stamp specified. The time stamp must be in ISO 8601 UTC format (e.g., 2014-09-03T23:00:00Z). "
+    required: true
+  Period:
+    type: integer
+    description: " The granularity, in seconds, of the returned datapoints. Period must be at least 60 seconds and must be a multiple of 60. The default value is 60. "
+    required: true
+  Statistics:
+    type: array
+    description: " The metric statistics to return. For information about specific statistics returned by GetMetricStatistics, see Statistics in the Amazon CloudWatch Developer Guide. "
+    required: true
+  Dimensions:
+    type: array
+    description: " A list of dimensions describing qualities of the metric. "
+  Unit:
+    type: string
+    description: " The unit for the metric. "

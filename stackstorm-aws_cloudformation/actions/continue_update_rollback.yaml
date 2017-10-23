@@ -1,0 +1,25 @@
+---
+description: 
+pack: aws_cloudformation
+enabled: true
+entry_point: run.py
+name: continue_update_rollback
+runner_type: python-script
+parameters:
+  action:
+    default: continue_update_rollback
+    immutable: true
+    type: string
+  cls:
+    default: cloudformation
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  StackName:
+    type: string
+    description: "The name or the unique ID of the stack that you want to continue rolling back."
+    required: true

@@ -1,0 +1,40 @@
+---
+description: 
+pack: aws_logs
+enabled: true
+entry_point: run.py
+name: describe_log_streams
+runner_type: python-script
+parameters:
+  action:
+    default: describe_log_streams
+    immutable: true
+    type: string
+  cls:
+    default: logs
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  logGroupName:
+    type: string
+    description: "The log group name for which log streams are to be listed."
+    required: true
+  logStreamNamePrefix:
+    type: string
+    description: " Will only return log streams that match the provided logStreamNamePrefix. If you don't specify a value, no prefix filter is applied. "
+  orderBy:
+    type: string
+    description: " Specifies what to order the returned log streams by. Valid arguments are 'LogStreamName' or 'LastEventTime'. If you don't specify a value, results are ordered by LogStreamName. If 'LastEventTime' is chosen, the request cannot also contain a logStreamNamePrefix. "
+  descending:
+    type: boolean
+    description: " If set to true, results are returned in descending order. If you don't specify a value or set it to false, results are returned in ascending order. "
+  nextToken:
+    type: string
+    description: " A string token used for pagination that points to the next page of results. It must be a value obtained from the response of the previous DescribeLogStreams request. "
+  limit:
+    type: integer
+    description: " The maximum number of items returned in the response. If you don't specify a value, the request would return up to 50 items. "

@@ -1,0 +1,33 @@
+---
+description: 
+pack: aws_elasticache
+enabled: true
+entry_point: run.py
+name: authorize_cache_security_group_ingress
+runner_type: python-script
+parameters:
+  action:
+    default: authorize_cache_security_group_ingress
+    immutable: true
+    type: string
+  cls:
+    default: elasticache
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  CacheSecurityGroupName:
+    type: string
+    description: "The cache security group which will allow network ingress."
+    required: true
+  EC2SecurityGroupName:
+    type: string
+    description: "The Amazon EC2 security group to be authorized for ingress to the cache security group."
+    required: true
+  EC2SecurityGroupOwnerId:
+    type: string
+    description: "The AWS account number of the Amazon EC2 security group owner. Note that this is not the same thing as an AWS access key ID - you must provide a valid AWS account number for this parameter."
+    required: true

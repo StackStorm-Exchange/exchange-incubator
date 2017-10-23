@@ -1,0 +1,32 @@
+---
+description: 
+pack: aws_elasticache
+enabled: true
+entry_point: run.py
+name: copy_snapshot
+runner_type: python-script
+parameters:
+  action:
+    default: copy_snapshot
+    immutable: true
+    type: string
+  cls:
+    default: elasticache
+    type: string
+  headers:
+    type: string
+  module_path:
+    default: boto3
+    immutable: true
+    type: string
+  SourceSnapshotName:
+    type: string
+    description: "The name of an existing snapshot from which to make a copy."
+    required: true
+  TargetSnapshotName:
+    type: string
+    description: "A name for the snapshot copy. ElastiCache does not permit overwriting a snapshot, therefore this name must be unique within its context - ElastiCache or an Amazon S3 bucket if exporting.  Error Message     Error Message: The S3 bucket %s already contains an object with key %s.  Solution: Give the TargetSnapshotName a new and unique value. If exporting a snapshot, you could alternatively create a new Amazon S3 bucket and use this same value for TargetSnapshotName.  "
+    required: true
+  TargetBucket:
+    type: string
+    description: "The Amazon S3 bucket to which the snapshot will be exported. This parameter is used only when exporting a snapshot for external access. When using this parameter to export a snapshot, be sure Amazon ElastiCache has the needed permissions to this S3 bucket. For more information, see Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket in the Amazon ElastiCache User Guide.  Error Messages:  You could receive one of the following error messages.  Erorr Messages     Error Message:  ElastiCache has not been granted READ permissions %s on the S3 Bucket.  Solution: Add List and Read permissions on the bucket.    Error Message:  ElastiCache has not been granted WRITE permissions %s on the S3 Bucket.  Solution: Add Upload/Delete permissions on the bucket.    Error Message:  ElastiCache has not been granted READ_ACP permissions %s on the S3 Bucket.  Solution: Add View Permissions permissions on the bucket.    Error Message: The S3 bucket %s is outside of the region.  Solution: Before exporting your snapshot, create a new Amazon S3 bucket in the same region as your snapshot. For more information, see Step 1: Create an Amazon S3 Bucket.    Error Message: The S3 bucket %s does not exist.  Solution: Create an Amazon S3 bucket in the same region as your snapshot. For more information, see Step 1: Create an Amazon S3 Bucket.    Error Message: The S3 bucket %s is not owned by the authenticated user.  Solution: Create an Amazon S3 bucket in the same region as your snapshot. For more information, see Step 1: Create an Amazon S3 Bucket.    Error Message: The authenticated user does not have sufficient permissions to perform the desired activity.  Solution: Contact your system administrator to get the needed permissions.   For more information, see Exporting a Snapshot in the Amazon ElastiCache User Guide."

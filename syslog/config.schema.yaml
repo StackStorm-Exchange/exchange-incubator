@@ -1,0 +1,22 @@
+---
+    server:
+        description: "The DNS or IP address of the syslog server. Default: localhost"
+        type: string
+        default: localhost
+        secret: false
+        required: true
+    port:
+        description: "The port the syslog daemon is listening on. Default: 514"
+        type: integer
+        default: 514
+        secret: false
+        required: true
+    protocol:
+        description: "The protocol to use UDP/TCP.  Default: UDP"
+        type: string
+        enum:
+            - UDP
+            - TCP
+        default: UDP
+        secret: false
+        required: true

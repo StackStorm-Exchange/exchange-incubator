@@ -1,0 +1,12 @@
+---
+name: "format_execution_result"
+pack: syslog
+runner_type: python-script
+description: "Format an execution result to log via syslog protocol."
+enabled: true
+entry_point: "format_execution_result.py"
+parameters:
+  execution_id:
+    type: "string"
+    description: "Id of execution to format"
+    required: true

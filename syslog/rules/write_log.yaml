@@ -1,0 +1,15 @@
+---
+name: "write_log"
+pack: "syslog"
+enabled: true
+description: "Notification rule to send results of action executions to syslog"
+trigger:
+  type: "core.st2.generic.notifytrigger"
+criteria:
+  trigger.route:
+    pattern: "syslog"
+    type: "equals"
+action:
+  ref: syslog.log_via_syslog
+  parameters:
+    execution_id: "{{ trigger.execution_id }}"

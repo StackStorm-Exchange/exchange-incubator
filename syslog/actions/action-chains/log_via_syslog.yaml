@@ -1,0 +1,19 @@
+---
+    chain:
+        -
+            name: "format_execution_result"
+            ref: "syslog.format_execution_result"
+            parameters:
+                execution_id: "{{ execution_id }}"
+            publish:
+                message: "{{ format_execution_result.result.message }}"
+            on-success: "log_via_syslog"
+        -
+            name: "log_via_syslog"
+            ref: "syslog.write_syslog"
+            parameters:
+                message: "{{ message }}"
+                facility: daemon
+                priority: info
+
+    default: "format_execution_result"

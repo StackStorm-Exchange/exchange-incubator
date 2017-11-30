@@ -1,0 +1,57 @@
+---
+name: write_syslog
+pack: syslog
+runner_type: python-script
+description: Write a message via syslog protocol
+enabled: true
+entry_point: "write_syslog.py"
+parameters:
+    message:
+        type: string
+        description: The content to be sent to the syslog server.
+        required: true
+    facility:
+        type: string
+        description: Priority of the message.
+        enum:
+            - auth
+            - authpriv
+            - cron
+            - daemon
+            - ftp
+            - kern
+            - local0
+            - local1
+            - local2
+            - local3
+            - local4
+            - local5
+            - local6
+            - local7
+            - lpr
+            - mail
+            - news
+            - security
+            - syslog
+            - user
+            - uucp
+        default: user
+        required: true
+    priority:
+        type: string
+        description: Priority of the message.
+        enum:
+            - notice
+            - alert
+            - warn
+            - warning
+            - crit
+            - info
+            - err
+            - critical
+            - error
+            - debug
+            - panic
+            - emerg
+        default: info
+        required: true

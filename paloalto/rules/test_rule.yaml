@@ -7,9 +7,9 @@
     trigger:
         type: "core.st2.webhook"
         parameters:
-            url: "blockthreats"
+            url: "paloalto"
 
     action:
         ref: "core.local"
         parameters:
-            cmd: "echo \"{{trigger.body}}\" >> ~/st2.blockthreats.out"
+            cmd: "echo \"{{trigger.body}}\" >> ~/st2.paloalto.out"

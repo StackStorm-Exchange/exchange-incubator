@@ -1,6 +1,6 @@
 ---
 ref: paloalto
-name: blockthreats
+name: paloalto
 description: Block threats on Palo Alto Networks firewalls
 keywords:
     - firewalls

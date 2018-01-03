@@ -7,11 +7,11 @@
     trigger:
         type: "core.st2.webhook"
         parameters:
-            url: "blockthreats"
+            url: "paloalto"
     
     criteria:                              # optional
         trigger.body.severity:
-            type: "regex"
+            type: "contains"
             pattern : "critical"       
 
     action:

@@ -30,5 +30,5 @@ See my blog post [here](https://medium.com/@IrekRomaniuk).
 ## Actions
 
 Currently, the following actions listed below are supported:
-- blockthreats
+- register IP to DAG (Dynamic Address Group)
 

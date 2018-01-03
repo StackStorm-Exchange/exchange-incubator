@@ -10,7 +10,7 @@
             url: "paloalto"
 
     action:
-        ref: "paloalto_blockthreats.dag_update"
+        ref: "paloalto.dag_update"
         parameters:
             ip: "{{trigger.body.source}}"
             firewall: "3.3.3.3"

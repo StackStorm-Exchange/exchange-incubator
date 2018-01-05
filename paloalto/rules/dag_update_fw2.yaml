@@ -13,4 +13,4 @@
         ref: "paloalto.dag_update"
         parameters:
             ip: "{{trigger.body.source}}"
-            firewall: "3.3.3.3"
+            firewall: "2.2.2.2"

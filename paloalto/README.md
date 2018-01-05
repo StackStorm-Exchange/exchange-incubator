@@ -25,7 +25,7 @@ Name of _st2 server_ has to match st2 certificate imported to PAN. To get *st2 A
  ```
 st2 apikey create -k -m '{"used_by": "PAN"}'
  ```
-See my blog post [here](https://medium.com/@IrekRomaniuk).
+See my blog post [here](https://medium.com/@IrekRomaniuk/stackstorm-pack-for-palo-alto-networks-firewall-a7d8a4ea6655).
 
 ## Actions
 

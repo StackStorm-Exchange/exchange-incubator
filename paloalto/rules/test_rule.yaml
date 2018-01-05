@@ -1,0 +1,15 @@
+---
+    name: "test_rule"
+    pack: "paloalto"
+    description: "Test rule dumping http webhook payload to a file"
+    enabled: false
+
+    trigger:
+        type: "core.st2.webhook"
+        parameters:
+            url: "paloalto"
+
+    action:
+        ref: "core.local"
+        parameters:
+            cmd: "echo \"{{trigger.body}}\" >> ~/st2.paloalto.out"

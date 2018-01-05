@@ -1,0 +1,21 @@
+---
+    name: "dag_update_fw1"
+    pack: "paloalto"
+    description: "update DAG for firewall 192.168.3.101 with sev filter"
+    enabled: true
+
+    trigger:
+        type: "core.st2.webhook"
+        parameters:
+            url: "paloalto"
+    
+    criteria:                              # optional
+        trigger.body.severity:
+            type: "contains"
+            pattern : "critical"       
+
+    action:
+        ref: "paloalto.dag_update"
+        parameters:
+            ip: "{{trigger.body.source}}"
+            firewall: "1.1.1.1"

@@ -1,6 +1,9 @@
-import sys, requests, xmltodict, json, urllib3
+import sys
+import requests
+import xmltodict
+import json
+import urllib3
 from string import Template
-
 from st2actions.runners.pythonrunner import Action
 
 class UpdateDAG(Action):
@@ -29,7 +32,7 @@ class UpdateDAG(Action):
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         # for firewall in self.config['fws_ips'].split(","):
         # print(ip, firewall)                
-        url = "https://" + firewall + "/api"
+        url='https://{}/api'.format(firewall)
         try:
             response = requests.post(url + "/?type=user-id&cmd={}&key={}".
                 format(xml.substitute(ip='"{}"'.format(ip), tag=_tag), _key),verify=False, timeout=5)
@@ -40,7 +43,7 @@ class UpdateDAG(Action):
             return (False, _result)
         doc = json.loads(json.dumps(xmltodict.parse(response.text)))                
         if 'success' in doc['response']['@status']:
-            _result['"{}"'.format(firewall)] = 'success'
+            _result[firewall] = 'success'
         else:
             _result['"{}"'.format(firewall)] = "{} : {} {}".format(doc['response']['@status'], 
                 doc['response']['msg']['line']['uid-response']['payload']['register']['entry']['@ip'],

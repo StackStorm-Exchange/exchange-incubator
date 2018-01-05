@@ -6,4 +6,4 @@
   tag:
     description: "Palo Alto object tag"
     type: "string"
-    required: true  
+    required: true

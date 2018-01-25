@@ -1,0 +1,11 @@
+name: delete_address_group
+pack: fortinet
+runner_type: python-script
+description: "Delete Address Group Details"
+enabled: true
+entry_point: "delete_address_group.py"
+parameters:
+    name:
+        type: string
+        description: "name of the address group"
+        required: True

@@ -1,0 +1,17 @@
+name: update_address_object
+pack: fortinet
+runner_type: python-script
+description: "Update Address Group Details"
+enabled: true
+entry_point: "update_address_group.py"
+parameters:
+    name:
+        type: "string"
+        description: "Name of the Address Group"
+        required: True
+        position: 0
+    payload:
+        type: "string"
+        description: "Address Group configuration"
+        required: True
+  

@@ -1,0 +1,10 @@
+name: get_address_object
+pack: fortinet
+runner_type: python-script
+description: "Get Address Object Details"
+enabled: true
+entry_point: "get_address_object.py"
+parameters:
+    name:
+        type: string
+        description: "name of the address object"

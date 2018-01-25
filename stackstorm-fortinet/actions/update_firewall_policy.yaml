@@ -1,0 +1,17 @@
+name: update_firewall_policy
+pack: fortinet
+runner_type: python-script
+description: "Update Firewall Policy Details"
+enabled: true
+entry_point: "update_firewall_policy.py"
+parameters:
+    policy_id:
+        type: "integer"
+        description: "Policy ID of the firewall policy"
+        required: True
+        position: 0
+    payload:
+        type: "string"
+        description: "Firewall Policy configuration"
+        required: True
+  

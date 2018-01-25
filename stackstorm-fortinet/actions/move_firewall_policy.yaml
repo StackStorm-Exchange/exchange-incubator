@@ -1,0 +1,27 @@
+name: move_firewall_policy
+pack: fortinet
+runner_type: python-script
+description: "Move Firewall Policy Details"
+enabled: true
+entry_point: "move_firewall_policy.py"
+parameters:
+    policy_id:
+        type: "integer"
+        description: "ID of the policy being moved"
+        required: True
+        position: 0
+    position:
+        type: "string"
+        description: "position ('before' or 'after')"
+        enum:
+         - "before"
+         - "after"
+        required: True
+        position: 1
+    neighbor:
+        type: "integer"
+        description: "ID of the policy being used as a positional anchor"
+        required: True
+        position: 2
+        
+  

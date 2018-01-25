@@ -1,0 +1,10 @@
+name: get_address_group
+pack: fortinet
+runner_type: python-script
+description: "Get Firewall Address Group"
+enabled: true
+entry_point: "get_address_group.py"
+parameters:
+    name:
+        type: string
+        description: "name of the address group"

@@ -1,0 +1,16 @@
+---
+  firewall_ip:
+    description: "IP/Endpoint of Fortinet appliance. (e.g.: 'fqdn.to.device' or '10.10.10.10')"
+    type: "string"
+    secret: false
+    required: true
+  username:
+    description: "Fortinet username"
+    type: "string"
+    secret: false
+    required: true
+  password:
+    description: "Fortinet password"
+    type: "string"
+    secret: true
+    required: true

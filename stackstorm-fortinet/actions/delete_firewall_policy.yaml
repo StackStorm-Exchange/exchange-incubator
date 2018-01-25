@@ -1,0 +1,11 @@
+name: delete_firewall_policy
+pack: fortinet
+runner_type: python-script
+description: "Delete Firewall Policy"
+enabled: true
+entry_point: "delete_firewall_policy.py"
+parameters:
+    policy_id:
+        type: "integer" 
+        description: "ID of the Firewall Policy"
+        required: True

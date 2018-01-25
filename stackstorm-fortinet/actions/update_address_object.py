@@ -1,5 +1,6 @@
 from lib.action import FortinetBaseAction
 
+
 class UpdateAddressObject(FortinetBaseAction):
     def run(self, name=None, payload=None):
         status_code = self.device.update_firewall_address(name, payload)

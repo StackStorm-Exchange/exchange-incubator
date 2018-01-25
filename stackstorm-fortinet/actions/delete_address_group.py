@@ -1,5 +1,6 @@
 from lib.action import FortinetBaseAction
 
+
 class DeleteAddressGroup(FortinetBaseAction):
     def run(self, name=None):
         status = self.device.delete_address_group(name)

@@ -1,5 +1,6 @@
 from lib.action import FortinetBaseAction
 
+
 class CreateAddressGroup(FortinetBaseAction):
     def run(self, name=None, payload=None):
         status = self.device.create_address_group(name, payload)

@@ -1,0 +1,7 @@
+machine:
+  services:
+    - rabbitmq-server
+
+test:
+  override:
+    - make all

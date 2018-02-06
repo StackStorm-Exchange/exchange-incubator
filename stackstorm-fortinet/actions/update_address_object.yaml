@@ -1,0 +1,17 @@
+name: update_address_object
+pack: fortinet
+runner_type: python-script
+description: "Update Address Object Details"
+enabled: true
+entry_point: "update_address_object.py"
+parameters:
+    name:
+        type: "string"
+        description: "name of the address object"
+        required: True
+        position: 0
+    payload:
+        type: "string"
+        description: "Address Object configuration"
+        required: True
+  

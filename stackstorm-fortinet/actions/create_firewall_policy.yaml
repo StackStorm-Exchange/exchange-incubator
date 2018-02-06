@@ -1,0 +1,17 @@
+name: create_firewall_policy
+pack: fortinet
+runner_type: python-script
+description: "Create Firewall Policy Details"
+enabled: true
+entry_point: "create_firewall_policy.py"
+parameters:
+    policy_id:
+        type: "integer"
+        description: "Firewall policy ID"
+        required: True
+        position: 0
+    payload:
+        type: "string"
+        description: "Firewall Policy configuration"
+        required: True
+  

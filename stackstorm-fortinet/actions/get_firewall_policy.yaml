@@ -1,0 +1,10 @@
+name: get_firewall_policy
+pack: fortinet
+runner_type: python-script
+description: "Get Firewall Policy Details"
+enabled: true
+entry_point: "get_firewall_policy.py"
+parameters:
+    name_or_id:
+        type: "integer"
+        description: "ID of the firewall policy"

@@ -1,0 +1,14 @@
+---
+ref: hyperv
+name: hyperv
+description: StackStorm integration pack for working with Microsoft Hyper-V.
+keywords: 
+    - microsoft
+    - ms
+    - hyper-v
+    - hyperv
+    - virtualization
+    - vm
+version: 0.1.3
+author: Encore Technologies
+email: code@encore.tech

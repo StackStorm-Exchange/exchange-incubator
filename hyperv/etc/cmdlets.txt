@@ -1,0 +1,431 @@
+Add-VMDvdDrive
+Adds a DVD drive to a virtual machine.
+Add-VMFibreChannelHba
+Adds a virtual Fibre Channel host bus adapter to a virtual machine.
+Add-VMGroupMember
+Adds group members to a virtual machine group.
+Add-VMHardDiskDrive
+Adds a hard disk drive to a virtual machine.
+Add-VMMigrationNetwork
+Adds a network for virtual machine migration on one or more virtual machine hosts.
+Add-VMNetworkAdapter
+Adds a virtual network adapter to a virtual machine.
+Add-VMNetworkAdapterAcl
+Creates an ACL to apply to the traffic through a virtual machine network adapter.
+Add-VMNetworkAdapterExtendedAcl
+Creates an extended ACL for a virtual network adapter.
+Add-VMRemoteFx3dVideoAdapter
+Adds a RemoteFX video adapter in a virtual machine.
+Add-VMScsiController
+Adds a SCSI controller in a virtual machine.
+Add-VMStoragePath
+Adds a path to a storage resource pool.
+Add-VMSwitch
+Adds a virtual switch to an Ethernet resource pool.
+Add-VMSwitchExtensionPortFeature
+Adds a feature to a virtual network adapter.
+Add-VMSwitchExtensionSwitchFeature
+Adds a feature to a virtual switch.
+Add-VMSwitchTeamMember
+Adds members to a virtual switch team.
+Add-VmNetworkAdapterRoutingDomainMapping
+Adds a routing domain and virtual subnets to a virtual network adapter.
+Checkpoint-VM
+Creates a checkpoint of a virtual machine.
+Compare-VM
+Compares a virtual machine and a virtual machine host for compatibility, returning a compatibility report.
+Complete-VMFailover
+Completes a virtual machine's failover process on the Replica server.
+Connect-VMNetworkAdapter
+Connects a virtual network adapter to a virtual switch.
+Connect-VMSan
+Associates a host bus adapter with a virtual storage area network (SAN).
+Convert-VHD
+Converts the format, version type, and block size of a virtual hard disk file.
+Copy-VMFile
+Copies a file to a virtual machine.
+Debug-VM
+Debugs a virtual machine.
+Disable-VMConsoleSupport
+Disables keyboard, video, and mouse for virtual machines.
+Disable-VMEventing
+Disables virtual machine eventing.
+Disable-VMIntegrationService
+Disables an integration service on a virtual machine.
+Disable-VMMigration
+Disables migration on one or more virtual machine hosts.
+Disable-VMRemoteFXPhysicalVideoAdapter
+Disables one or more RemoteFX physical video adapters from use with RemoteFX-enabled virtual machines.
+Disable-VMResourceMetering
+Disables collection of resource utilization data for a virtual machine or resource pool.
+Disable-VMSwitchExtension
+Disables one or more extensions on one or more virtual switches.
+Disable-VMTPM
+Disables TPM functionality on a virtual machine.
+Disconnect-VMNetworkAdapter
+Disconnects a virtual network adapter from a virtual switch or Ethernet resource pool.
+Disconnect-VMSan
+Removes a host bus adapter from a virtual storage area network (SAN).
+Dismount-VHD
+Dismounts a virtual hard disk.
+Enable-VMConsoleSupport
+Enables keyboard, video, and mouse for virtual machines.
+Enable-VMEventing
+Enables virtual machine eventing.
+Enable-VMIntegrationService
+Enables an integration service on a virtual machine.
+Enable-VMMigration
+Enables migration on one or more virtual machine hosts.
+Enable-VMRemoteFXPhysicalVideoAdapter
+Enables one or more RemoteFX physical video adapters for use with RemoteFX-enabled virtual machines.
+Enable-VMReplication
+Enables replication of a virtual machine.
+Enable-VMResourceMetering
+Collects resource utilization data for a virtual machine or resource pool.
+Enable-VMSwitchExtension
+Enables one or more extensions on one or more switches.
+Enable-VMTPM
+Enables TPM functionality on a virtual machine.
+Export-VM
+Exports a virtual machine to disk.
+Export-VMSnapshot
+Exports a virtual machine checkpoint to disk.
+Get-VHD
+Gets the virtual hard disk object associated with a virtual hard disk.
+Get-VHDSet
+Gets information about a VHD set.
+Get-VHDSnapshot
+Gets information about a checkpoint in a VHD set.
+Get-VM
+Gets the virtual machines from one or more Hyper-V hosts.
+Get-VMBios
+Gets the BIOS of a virtual machine or snapshot.
+Get-VMComPort
+Gets the COM ports of a virtual machine or snapshot.
+Get-VMConnectAccess
+Gets entries showing users and the virtual machines to which they can connect on one or more Hyper-V hosts.
+Get-VMDvdDrive
+Gets the DVD drives attached to a virtual machine or snapshot.
+Get-VMFibreChannelHba
+Gets the Fibre Channel host bus adapters associated with one or more virtual machines.
+Get-VMFirmware
+Gets the firmware configuration of a virtual machine.
+Get-VMFloppyDiskDrive
+Gets the floppy disk drives of a virtual machine or snapshot.
+Get-VMGroup
+Gets virtual machine groups.
+Get-VMHardDiskDrive
+Gets the virtual hard disk drives attached to one or more virtual machines.
+Get-VMHost
+Gets a Hyper-V host.
+Get-VMHostCluster
+Gets virtual machine host clusters.
+Get-VMHostNumaNode
+Gets the NUMA topology of a virtual machine host.
+Get-VMHostNumaNodeStatus
+Gets the status of the virtual machines on the non-uniform memory access (NUMA) nodes of a virtual machine host or hosts.
+Get-VMHostSupportedVersion
+Returns a list of virtual machine configuration versions that are supported on a host.
+Get-VMIdeController
+Gets the IDE controllers of a virtual machine or snapshot.
+Get-VMIntegrationService
+Gets the integration services of a virtual machine or snapshot.
+Get-VMKeyProtector
+Retrieves a key protector for a virtual machine.
+Get-VMMemory
+Gets the memory of a virtual machine or snapshot.
+Get-VMMigrationNetwork
+Gets the networks added for migration to one or more virtual machine hosts.
+Get-VMNetworkAdapter
+Gets the virtual network adapters of a virtual machine, snapshot, management operating system, or of a virtual machine and management operating system.
+Get-VMNetworkAdapterAcl
+Gets the ACLs configured for a virtual machine network adapter.
+Get-VMNetworkAdapterExtendedAcl
+Gets extended ACLs configured for a virtual network adapter.
+Get-VMNetworkAdapterFailoverConfiguration
+Gets the IP address of a virtual network adapter configured to be used when a virtual machine fails over.
+Get-VMNetworkAdapterRoutingDomainMapping
+Gets members of a routing domain.
+Get-VMNetworkAdapterTeamMapping
+Gets mapping for the virtual network adapters of a virtual machine to the management operating systems network team adapters.
+Get-VMNetworkAdapterVlan
+Gets the virtual LAN settings configured on a virtual network adapter.
+Get-VMProcessor
+Gets the processor of a virtual machine or snapshot.
+Get-VMRemoteFXPhysicalVideoAdapter
+Gets the RemoteFX physical graphics adapters on one or more Hyper-V hosts.
+Get-VMRemoteFx3dVideoAdapter
+Gets the RemoteFX video adapter of a virtual machine or snapshot.
+Get-VMReplication
+Gets the replication settings for a virtual machine.
+Get-VMReplicationAuthorizationEntry
+Gets the authorization entries of a Replica server.
+Get-VMReplicationServer
+Gets the replication and authentication settings of a Replica server.
+Get-VMResourcePool
+Gets the resource pools on one or more virtual machine hosts.
+Get-VMSan
+Gets the available virtual machine storage area networks on a Hyper-V host or hosts.
+Get-VMScsiController
+Gets the SCSI controllers of a virtual machine or snapshot.
+Get-VMSecurity
+Gets security information about a virtual machine.
+Get-VMSnapshot
+Gets the checkpoints associated with a virtual machine or checkpoint.
+Get-VMStoragePath
+Gets the storage paths in a storage resource pool.
+Get-VMSwitch
+Gets virtual switches from one or more virtual Hyper-V hosts.
+Get-VMSwitchExtension
+Gets the extensions on one or more virtual switches.
+Get-VMSwitchExtensionPortData
+Retrieves the status of a virtual switch extension feature applied to a virtual network adapter.
+Get-VMSwitchExtensionPortFeature
+Gets the features configured on a virtual network adapter.
+Get-VMSwitchExtensionSwitchData
+Gets the status of a virtual switch extension feature applied on a virtual switch.
+Get-VMSwitchExtensionSwitchFeature
+Gets the features configured on a virtual switch.
+Get-VMSwitchTeam
+Gets virtual switch teams from Hyper-V hosts.
+Get-VMSystemSwitchExtension
+Gets the switch extensions installed on a virtual machine host.
+Get-VMSystemSwitchExtensionPortFeature
+Gets the port-level features supported by virtual switch extensions on one or more Hyper-V hosts.
+Get-VMSystemSwitchExtensionSwitchFeature
+Gets the switch-level features on one or more Hyper-V hosts.
+Get-VMVideo
+Gets video settings for virtual machines.
+Get-VmNetworkAdapterIsolation
+Gets isolation settings for a virtual network adapter.
+Grant-VMConnectAccess
+Grants a user or users access to connect to a virtual machine or machines.
+Import-VM
+Imports a virtual machine from a file.
+Import-VMInitialReplication
+Imports initial replication files for a Replica virtual machine to complete the initial replication when using external media as the source.
+Measure-VM
+Reports resource utilization data for one or more virtual machines.
+Measure-VMReplication
+Gets replication statistics and information associated with a virtual machine.
+Measure-VMResourcePool
+Reports resource utilization data for one or more resource pools.
+Merge-VHD
+Merges virtual hard disks.
+Mount-VHD
+Mounts one or more virtual hard disks.
+Move-VM
+Moves a virtual machine to a new Hyper-V host.
+Move-VMStorage
+Moves the storage of a virtual machine.
+New-VFD
+Creates a virtual floppy disk.
+New-VHD
+Creates one or more new virtual hard disks.
+New-VM
+Creates a new virtual machine.
+New-VMGroup
+Creates a virtual machine group.
+New-VMReplicationAuthorizationEntry
+Creates a new authorization entry that allows one or more primary servers to replicate data to a specified Replica server.
+New-VMResourcePool
+Creates a resource pool.
+New-VMSan
+Creates a new virtual storage area network (SAN) on a Hyper-V host.
+New-VMSwitch
+Creates a new virtual switch on one or more virtual machine hosts.
+Optimize-VHD
+Optimizes the allocation of space used by virtual hard disk files, except for fixed virtual hard disks.
+Optimize-VHDSet
+Optimizes VHD set files.
+Remove-VHDSnapshot
+Removes a checkpoint from a VHD set file.
+Remove-VM
+Deletes a virtual machine.
+Remove-VMDvdDrive
+Deletes a DVD drive from a virtual machine.
+Remove-VMFibreChannelHba
+Removes a Fibre Channel host bus adapter from a virtual machine.
+Remove-VMGroup
+Removes a virtual machine group.
+Remove-VMGroupMember
+Removes members from a virtual machine group.
+Remove-VMHardDiskDrive
+Deletes a hard disk drive from a virtual machine.
+Remove-VMMigrationNetwork
+Removes a network from use with migration.
+Remove-VMNetworkAdapter
+Removes one or more virtual network adapters from a virtual machine.
+Remove-VMNetworkAdapterAcl
+Removes an ACL applied to the traffic through a virtual network adapter.
+Remove-VMNetworkAdapterExtendedAcl
+Removes an extended ACL for a virtual network adapter.
+Remove-VMNetworkAdapterRoutingDomainMapping
+Removes a routing domain from a virtual network adapter.
+Remove-VMNetworkAdapterTeamMapping
+Removes mapping for the virtual network adapters of a virtual machine to the management operating systems network team adapters.
+Remove-VMRemoteFx3dVideoAdapter
+Removes a RemoteFX 3D video adapter from a virtual machine.
+Remove-VMReplication
+Removes the replication relationship of a virtual machine.
+Remove-VMReplicationAuthorizationEntry
+Removes an authorization entry from a Replica server.
+Remove-VMResourcePool
+Deletes a resource pool from one or more virtual machine hosts.
+Remove-VMSan
+Removes a virtual storage area network (SAN) from a Hyper-V host.
+Remove-VMSavedState
+Deletes the saved state of a saved virtual machine.
+Remove-VMScsiController
+Removes a SCSI controller from a virtual machine.
+Remove-VMSnapshot
+Deletes a virtual machine checkpoint.
+Remove-VMStoragePath
+Removes a path from a storage resource pool.
+Remove-VMSwitch
+Deletes a virtual switch.
+Remove-VMSwitchExtensionPortFeature
+Removes a feature from a virtual network adapter.
+Remove-VMSwitchExtensionSwitchFeature
+Removes a feature from a virtual switch.
+Remove-VMSwitchTeamMember
+Removes a member from a virtual machine switch team.
+Rename-VM
+Renames a virtual machine.
+Rename-VMGroup
+Renames virtual machine groups.
+Rename-VMNetworkAdapter
+Renames a virtual network adapter on a virtual machine or on the management operating system.
+Rename-VMResourcePool
+Renames a resource pool on one or more Hyper-V hosts.
+Rename-VMSan
+Renames a virtual storage area network (SAN).
+Rename-VMSnapshot
+Renames a virtual machine checkpoint.
+Rename-VMSwitch
+Renames a virtual switch.
+Repair-VM
+Repairs one or more virtual machines.
+Reset-VMReplicationStatistics
+Resets the replication statistics of a virtual machine.
+Reset-VMResourceMetering
+Resets the resource utilization data collected by Hyper-V resource metering.
+Resize-VHD
+Resizes a virtual hard disk.
+Restart-VM
+Restarts a virtual machine.
+Restore-VMSnapshot
+Restores a virtual machine checkpoint.
+Resume-VM
+Resumes a suspended (paused) virtual machine.
+Resume-VMReplication
+Resumes a virtual machine replication that is in a state of Paused, Error, Resynchronization Required, or Suspended.
+Revoke-VMConnectAccess
+Revokes access for one or more users to connect to a one or more virtual machines.
+Save-VM
+Saves a virtual machine.
+Set-VHD
+Sets properties associated with a virtual hard disk.
+Set-VM
+Configures a virtual machine.
+Set-VMBios
+Configures the BIOS of a Generation 1 virtual machine.
+Set-VMComPort
+Configures the COM port of a virtual machine.
+Set-VMDvdDrive
+Configures a virtual DVD drive.
+Set-VMFibreChannelHba
+Configures a Fibre Channel host bus adapter on a virtual machine.
+Set-VMFirmware
+Sets the firmware configuration of a virtual machine.
+Set-VMFloppyDiskDrive
+Configures a virtual floppy disk drive.
+Set-VMHardDiskDrive
+Configures a virtual hard disk.
+Set-VMHost
+Configures a Hyper-V host.
+Set-VMHostCluster
+Configures a virtual machine host cluster.
+Set-VMKeyProtector
+Configures a key protector for a virtual machine.
+Set-VMMemory
+Configures the memory of a virtual machine.
+Set-VMMigrationNetwork
+Sets the subnet, subnet mask, and/or priority of a migration network.
+Set-VMNetworkAdapter
+Configures features of the virtual network adapter in a virtual machine or the management operating system.
+Set-VMNetworkAdapterFailoverConfiguration
+Configures the IP address of a virtual network adapter to be used when a virtual machine fails over.
+Set-VMNetworkAdapterTeamMapping
+Configures mapping for the virtual network adapters of a virtual machine to the management operating systems network team adapters.
+Set-VMNetworkAdapterVlan
+Configures the virtual LAN settings for the traffic through a virtual network adapter.
+Set-VMProcessor
+Configures one or more processors of a virtual machine.
+Set-VMRemoteFx3dVideoAdapter
+Configures the RemoteFX 3D video adapter of a virtual machine.
+Set-VMReplication
+Modifies the replication settings of a virtual machine.
+Set-VMReplicationAuthorizationEntry
+Modifies an authorization entry on a Replica server.
+Set-VMReplicationServer
+Configures a host as a Replica server.
+Set-VMResourcePool
+Sets the parent resource pool for a selected resource pool.
+Set-VMSan
+Configures a virtual storage area network (SAN) on one or more Hyper-V hosts.
+Set-VMSecurity
+Configures security settings for a virtual machine.
+Set-VMSecurityPolicy
+Configures the security policy for a virtual machine.
+Set-VMSwitch
+Configures a virtual switch.
+Set-VMSwitchExtensionPortFeature
+Configures a feature on a virtual network adapter.
+Set-VMSwitchExtensionSwitchFeature
+Configures a feature on a virtual switch.
+Set-VMSwitchTeam
+Configures a virtual switch team.
+Set-VMVideo
+Configures video settings for virtual machines.
+Set-VmNetworkAdapterIsolation
+Modifies isolation settings for a virtual network adapter.
+Set-VmNetworkAdapterRoutingDomainMapping
+Sets virtual subnets on a routing domain.
+Start-VM
+Starts a virtual machine.
+Start-VMFailover
+Starts failover on a virtual machine.
+Start-VMInitialReplication
+Starts replication of a virtual machine.
+Start-VMTrace
+Starts tracing to a file.
+Stop-VM
+Shuts down, turns off, or saves a virtual machine.
+Stop-VMFailover
+Stops failover of a virtual machine.
+Stop-VMInitialReplication
+Stops an ongoing initial replication.
+Stop-VMReplication
+Cancels an ongoing virtual machine resynchronization.
+Stop-VMTrace
+Stops tracing to file.
+Suspend-VM
+Suspends, or pauses, a virtual machine.
+Suspend-VMReplication
+Suspends replication of a virtual machine.
+Test-VHD
+Tests a virtual hard disk for any problems that would make it unusable.
+Test-VMNetworkAdapter
+Tests connectivity between virtual machines.
+Test-VMReplicationConnection
+Tests the connection between a primary server and a Replica server.
+Update-VMVersion
+Updates the version of virtual machines.
+
+
+
+
+
+
+

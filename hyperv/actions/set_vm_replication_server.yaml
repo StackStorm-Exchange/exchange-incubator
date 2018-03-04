@@ -1,0 +1,60 @@
+---
+description: "Configures a host as a Replica server."
+enabled: true
+runner_type: "python-script"
+entry_point: run_cmdlet.py
+name: "set_vm_replication_server"
+parameters:
+  cmdlet:
+    type: string
+    default: "Set-VMReplicationServer"
+    immutable: true
+  args:
+    type: string
+    description: "Arguments to pass to the Set-VMReplicationServer PowerShell cmdlet."
+    required: false
+  output:
+    type: string
+    description: "Output format of data turned by cmdlet (json, raw). Unspecified defaults to value in config."
+    required: false
+  hostname:
+    type: string
+    description: "Remote host to execute the command on"
+    required: true
+  port:
+    type: integer
+    description: "Port used when connecting to windows host via WinRM (standard is 5986)"
+    required: false
+  transport:
+    type: string
+    description: "Transport used when connecting to windows host via WinRM (basic, plaintext, certificate, ssl, kerberos, ntlm, credssp)"
+    required: false
+  credential_name:
+    type: string
+    description: "Name of credentials from this pack's configuration to use when connecting to <hostname>."
+    required: false
+  username:
+    type: string
+    description: "Optional override of the username in <credential_name> (example: username@domain.tld)."
+    required: false
+  password:
+    type: string
+    description: "Optional override of the password in <credential_name>."
+    required: false
+    secret: true
+  cmdlet_credential_name:
+    type: string
+    description: >
+      Name of credentials from this pack\'s configuration to use in the cmdlet
+      execution for the -Credential argument. If not specified then no
+      -Credential argument will be passed.
+    required: false
+  cmdlet_username:
+    type: string
+    description: "Optional override of the username in <cmdlet_credential_name> (example: username@domain.tld)."
+    required: false
+  cmdlet_password:
+    type: string
+    description: "Optional override of the password in <cmdlet_credential_name>."
+    required: false
+    secret: true

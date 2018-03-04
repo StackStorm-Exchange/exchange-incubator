@@ -1,0 +1,22 @@
+---
+port: 5986
+transport: ntlm
+  
+hyperv:
+  dev:
+    username: username@dev.domain.tld
+    password: xxx
+  test:
+    username: username@test.domain.tld
+    password: xxx
+    port: 5522
+  prod:
+    username: produser@domain.tld
+    password: xxx
+    port: 6611
+    transport: kerberos
+  prod-svc:
+    username: prodsvc@domain.tld
+    password: xxx
+    port: 1234
+    transport: basic

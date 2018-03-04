@@ -1,0 +1,13 @@
+---
+port: 6543
+transport: basic
+
+activedirectory:
+  missing-username:
+    username: Administrator
+    port: 7654
+    transport: ssl
+  missing-password:
+    password: PassworD!
+    port: 7654
+    transport: ssl

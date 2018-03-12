@@ -1,0 +1,1 @@
+git+git://github.com/AntagonistHQ/python-api-library@e119989cb0d292a48d4e78a9a75eb1da7da34ff0#egg=kayako&&subdirectory=src

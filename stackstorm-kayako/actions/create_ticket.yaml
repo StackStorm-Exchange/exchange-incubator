@@ -1,0 +1,42 @@
+---
+name: create_ticket
+runner_type: python-script
+description: Create a new Kayako ticket and optionally send it. Returns the unique ticket id.
+enabled: true
+entry_point: create_ticket.py
+parameters:
+  subject:
+    type: string
+    description: Ticket subject.
+    required: true
+  contents:
+    type: string
+    description: Ticket contents (body of email, if sent).
+  user_email:
+    type: string
+    description: E-mail address of ticket user (recipient).
+    required: true
+  user_fullname:
+    type: string
+    description: Full name of ticket user (recipient).
+    required: true
+  staff_email:
+    type: string
+    description: E-mail address of staff user this ticket will be created as. If filled in, the tickets contents will be sent to user_email.
+    required: false
+  department:
+    type: string
+    description: Kayako department this ticket needs to be crea.ted in
+    required: true
+  status:
+    type: string
+    description: Kayako status this tickets needs to be set to.
+    required: true
+  priority:
+    type: string
+    description: Kayako priority this ticket needs to be set to.
+    required: true
+  ticket_type:
+    type: string
+    description: Kayako type this ticket needs to be set to.
+    required: true

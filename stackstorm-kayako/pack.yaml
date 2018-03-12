@@ -1,0 +1,10 @@
+---
+ref: kayako
+name: Kayako
+description: Pack containing integration with Kayako
+keywords:
+        - tickets
+        - ticket management
+version: 0.1.0
+author: Antagonist B.V.
+email: info@antagonist.nl

@@ -14,3 +14,7 @@
     type: integer
     default: 0
     required: true
+  password:
+    description: "Password of the Redis instance"
+    type: string
+    required: false

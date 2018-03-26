@@ -18,7 +18,9 @@ class BaseRedisAction(Action):
     def _get_client(self):
         config = self.config
 
-        client = redis.StrictRedis(host=config['host'], port=config['port'],
-                                   db=config['database'])
+        client = redis.StrictRedis(host=config['host'],
+                                   port=config['port'],
+                                   db=config['database'],
+                                   password=config.get('password'))
 
         return client

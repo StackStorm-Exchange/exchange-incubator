@@ -1,0 +1,31 @@
+---
+name: set
+runner_type: python-script
+description: Set key to hold the string value.
+enabled: true
+entry_point: set.py
+parameters:
+  key:
+    type: string
+    description: The key
+    required: true
+  value:
+    type: string
+    description: The value
+    required: true
+  ex:
+    type: integer
+    description: Set the specified expire time, in seconds.
+    required: false
+  px:
+    type: integer
+    description: Set the specified expire time, in milliseconds.
+    required: false
+  nx:
+    type: boolean
+    description: Only set the key if it does not already exist.
+    required: false
+  xx:
+    type: boolean
+    description: Only set the key if it already exist.
+    required: false

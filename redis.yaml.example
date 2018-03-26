@@ -1,0 +1,4 @@
+---
+  host: 10.1.1.8
+  port: 6379
+  database: 0

@@ -1,0 +1,11 @@
+---
+name: del
+runner_type: python-script
+description: Removes the specified key.
+enabled: true
+entry_point: del.py
+parameters:
+  key:
+    type: string
+    description: The key
+    required: true

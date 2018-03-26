@@ -1,0 +1,20 @@
+---
+  host:
+    description: "Hostname or IP address of the Redis instance"
+    type: string
+    secret: false
+    required: true
+  port:
+    description: "Port of the Redis instance"
+    type: integer
+    default: 6379
+    required: true
+  database:
+    description: "Database number to use"
+    type: integer
+    default: 0
+    required: true
+  password:
+    description: "Password of the Redis instance"
+    type: string
+    required: false

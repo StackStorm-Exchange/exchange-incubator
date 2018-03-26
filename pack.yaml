@@ -1,0 +1,9 @@
+---
+ref: redis
+name : redis
+description : st2 content pack containing redis integrations
+keywords:
+  - database
+version: 0.0.1
+author : Antagonist B.V.
+email : systeembeheer@antagonist.nl

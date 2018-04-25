@@ -1,0 +1,18 @@
+---
+  name: "get_org"
+  runner_type: "python-script"
+  description: "Retrieve details for an Organisations"
+  enabled: true
+  entry_point: "get_org.py"
+  parameters:
+    vcloud:
+      type: "string"
+      description: "Which vcloud to connect to"
+      required: false
+      position: 0
+    org_ref:
+      type: "string"
+      description: "Organisation vcloud reference"
+      required: false
+      position: 1
+

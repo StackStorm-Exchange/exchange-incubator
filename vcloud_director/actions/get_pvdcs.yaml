@@ -1,0 +1,13 @@
+---
+  name: "get_pvdcs"
+  runner_type: "python-script"
+  description: "Retrieve list of Provider VDCs"
+  enabled: true
+  entry_point: "get_pvdcs.py"
+  parameters:
+    vcloud:
+      type: "string"
+      description: "Which vcloud to connect to"
+      required: false
+      position: 0
+

@@ -1,0 +1,25 @@
+vcloud:
+  type: "object"
+  required: true
+  patternProperties:
+      "^\\w+":
+        "$ref": "#/properties/vclouds"
+  additionalProperties: false
+
+vclouds:
+  type: "object"
+  properties:
+    host:
+      description: "Hostname or IP address of vSphere Server."
+      type: "string"
+      required: true
+    user:
+      description: "Authentication user-id for the vSphere Server."
+      type: "string"
+      required: true
+    passwd:
+      description: "The password of the specified user."
+      type: "string"
+      secret: true
+      required: true
+

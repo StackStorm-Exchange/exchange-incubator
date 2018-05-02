@@ -1,0 +1,10 @@
+ref: aci
+name: Cisco ACI
+description: Cisco ACI pack
+version: 0.1.0
+author: Paul Mulvihill
+email: paul.mulvihill@pulsant.com
+keywords:
+    - cisco
+    - aci
+

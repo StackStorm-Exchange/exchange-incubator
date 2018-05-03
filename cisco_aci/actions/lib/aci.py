@@ -46,36 +46,58 @@ class ACIBaseActions(Action):
         self.apic_passwd = self.config['apic'][apic]['passwd']
         self.apic_token = ""
 
-        return
+        return self.get_sessionid()
 
     def get_sessionid(self):
-        url = 'https://%s/api/aaaLogin.json' % self.apic_address
-        #url = 'https://%s/api/aaaLogin.json?gui-token-request=yes' % self.apic_address
-        headers = {'Accept': 'application/json',
-                   'Content-type': 'application/json'}
+        endpoint = 'aaaLogin.json' 
         payload = {}
         payload['aaaUser'] = {}
         payload['aaaUser']['attributes'] = {}
         payload['aaaUser']['attributes']['name'] = self.apic_user
         payload['aaaUser']['attributes']['pwd'] = self.apic_passwd
 
-        p = requests.post(url, headers=headers, json=payload, verify=False)
-        jdata = p.json()
+        jdata = self.aci_post(endpoint, payload)
+        #if jdata['imdata'][0]['aaaLogin']['attributes']['token']:
+            #self.apic_token =  {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
+        #else:
+            #self.apic_token = {'APIC-Cookie': None}
         self.apic_token =  {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
 
-        return jdata
-        #return self.apic_token
+        return self.apic_token
 
     def get_tenants(self):
         tenants = {}
-        url = 'http://%s/api/node/class/fvTenant.json' % (self.apic_address)
+        endpoint = 'node/class/fvTenant.json'
+        return self.aci_get(endpoint)
+
+    def get_vrfs(self):
+        tenants = {}
+        endpoint = 'node/class/fvCtx.json'
+        return self.aci_get(endpoint)
+
+    def get_bds(self):
+        tenants = {}
+        endpoint = 'node/class/fvBD.json'
+        return self.aci_get(endpoint)
+
+    def get_epgs(self):
+        tenants = {}
+        endpoint = 'node/class/fvAEPg.json'
+        return self.aci_get(endpoint)
+
+    def aci_get(self, endpoint):
+        url = 'https://%s/api/%s' % (self.apic_address, endpoint)
         headers = {'Accept': 'application/json'}
-
         p = requests.get(url, headers=headers, verify=False, cookies=self.apic_token)
+        return p.json()
+
+    def aci_post(self, endpoint, payload):
+        url = 'https://%s/api/%s' % (self.apic_address, endpoint)
+        headers = {'Accept': 'application/json',
+                   'Content-type': 'application/json'}
+        p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=False)
         jdata = p.json()
-        return jdata
-
-
-        return tenants
-
+        if 'error' in jdata['imdata'][0]:
+            raise Exception("Error: %s" % (jdata['imdata'][0]['error']['attributes']['text']))
+        return p.json()
 

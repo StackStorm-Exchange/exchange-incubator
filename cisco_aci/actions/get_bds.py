@@ -16,8 +16,8 @@
 from lib.aci import ACIBaseActions
 
 
-class getTenants(ACIBaseActions):
+class getBDs(ACIBaseActions):
     def run (self, apic="default"):
         self.set_connection(apic)
-        return self.get_tenants()
+        return self.get_bds()
        

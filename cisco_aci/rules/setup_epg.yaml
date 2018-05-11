@@ -1,0 +1,24 @@
+---
+name: "Setup ACI EPG"
+pack: "cisco_aci"
+description: "Deploy EPG, BD, Domain link and Static Bindings"
+enabled: true
+
+trigger:
+  type: "core.st2.webhook"
+  parameters:
+    url: "aci_setup_epg"
+
+criteria:
+  trigger.body.apic:
+    pattern: "^value$"
+    type: "exists"
+  trigger.body.epg_spec:
+    pattern: "^value$"
+    type: "exists"
+
+action:
+  ref: "cisco_aci.setup_epg"
+  parameters:
+    apic: "{{trigger.body.apic}}"
+    epg_spec: "{{trigger.body.epg_spec}}"

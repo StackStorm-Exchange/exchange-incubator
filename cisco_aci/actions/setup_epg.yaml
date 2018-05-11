@@ -13,7 +13,7 @@ parameters:
     description: "configuration name for APIC to connect to"
     position: 0
     required: true
-  aci_spec:
+  epg_spec:
     type: "object"
     description: "Json Object showing epg structure"
     position: 1

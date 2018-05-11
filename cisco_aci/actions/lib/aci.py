@@ -41,10 +41,13 @@ class ACIBaseActions(Action):
 
         if apic == None:
             apic = "default"
-        self.apic_address = self.config['apic'][apic]['address']
-        self.apic_user = self.config['apic'][apic]['user']
-        self.apic_passwd = self.config['apic'][apic]['passwd']
-        self.apic_token = ""
+        if apic not in self.config['apic']:
+            raise ValueError("Invalid apic")
+        else:
+            self.apic_address = self.config['apic'][apic]['address']
+            self.apic_user = self.config['apic'][apic]['user']
+            self.apic_passwd = self.config['apic'][apic]['passwd']
+            self.apic_token = ""
 
         return self.get_sessionid()
 
@@ -57,10 +60,6 @@ class ACIBaseActions(Action):
         payload['aaaUser']['attributes']['pwd'] = self.apic_passwd
 
         jdata = self.aci_post(endpoint, payload)
-        #if jdata['imdata'][0]['aaaLogin']['attributes']['token']:
-            #self.apic_token =  {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
-        #else:
-            #self.apic_token = {'APIC-Cookie': None}
         self.apic_token =  {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
 
         return self.apic_token
@@ -80,10 +79,58 @@ class ACIBaseActions(Action):
         endpoint = 'node/class/fvBD.json'
         return self.aci_get(endpoint)
 
+    def get_bd_list(self):
+        all_bds = []
+        bds = self.get_bds()
+        for item in bds['imdata']:
+            all_bds.append(item['fvBD']['attributes']['dn'])
+        return all_bds
+
+    def get_aps(self):
+        endpoint = 'node/class/fvAp.json'
+        return self.aci_get(endpoint)
+        
     def get_epgs(self):
-        tenants = {}
         endpoint = 'node/class/fvAEPg.json'
         return self.aci_get(endpoint)
+
+    def get_epg_list(self):
+        epg_list = []
+        epgs = self.get_epgs()
+        for item in epgs['imdata']:
+            epg_list.append(item['fvAEPg']['attributes']['dn'])
+        return epg_list
+
+    def get_static_bindings(self, tenant=None, app_profile=None):
+        final_sb = {}
+        final_sb['imdata'] = []
+        dn_match = ""
+        endpoint = 'node/class/fvRsPathAtt.json'
+        sb_results = self.aci_get(endpoint)
+        if tenant:
+            dn_match = ("uni/tn-"+tenant)
+            if app_profile:
+                dn_match += ("/ap-"+app_profile)
+           
+            for item in sb_results['imdata']:
+                if item['fvRsPathAtt']['attributes']['dn'].startswith(dn_match): 
+                    final_sb['imdata'].append(item)
+        else:
+            final_sb = sb_results
+        return final_sb 
+
+
+    def get_domains(self):
+        endpoint = 'node/class/fvDom.json'
+        return self.aci_get(endpoint)
+
+    def get_epg_domains(self, tenant, ap, epg):
+        domains = []
+        endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json?query-target=children&target-subtree-class=fvRsDomAtt" % (tenant, ap, epg)
+        jdata = self.aci_get(endpoint)
+        for entry in jdata['imdata']:
+            domains.append(entry['fvRsDomAtt']['attributes']['tDn'])
+        return domains
 
     def aci_get(self, endpoint):
         url = 'https://%s/api/%s' % (self.apic_address, endpoint)
@@ -95,9 +142,12 @@ class ACIBaseActions(Action):
         url = 'https://%s/api/%s' % (self.apic_address, endpoint)
         headers = {'Accept': 'application/json',
                    'Content-type': 'application/json'}
-        p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=False)
-        jdata = p.json()
-        if 'error' in jdata['imdata'][0]:
-            raise Exception("Error: %s" % (jdata['imdata'][0]['error']['attributes']['text']))
+        try:
+            p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=False)
+            p.raise_for_status()
+            jdata = p.json()
+        except requests.exceptions.HTTPError as e:
+            raise Exception("Error: %s" % (p.json()['imdata'][0]['error']['attributes']['text']))
+
         return p.json()
 

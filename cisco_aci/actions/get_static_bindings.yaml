@@ -1,0 +1,22 @@
+---
+  name: "get_static_bindings"
+  runner_type: "python-script"
+  description: "Retrieve list of Tenants"
+  enabled: true
+  entry_point: "get_static_bindings.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    tenant:
+      type: "string"
+      description: "Which tenant to retrieve static bindings for"
+      required: false
+      position: 1
+    app_profile:
+      type: "string"
+      description: "Which Application Profile within the tenant to retrieve static bindings for"
+      required: false
+      position: 2

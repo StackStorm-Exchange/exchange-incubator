@@ -1,0 +1,18 @@
+---
+  name: "link_domain"
+  runner_type: "python-script"
+  description: "Link EPG to Domain"
+  enabled: true
+  entry_point: "link_domain.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    data:
+      type: "object"
+      description: "json Data to create"
+      required: true
+      position: 1
+

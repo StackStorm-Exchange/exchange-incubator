@@ -1,0 +1,13 @@
+---
+  name: "get_aps"
+  runner_type: "python-script"
+  description: "Retrieve list of Application Profiles"
+  enabled: true
+  entry_point: "get_aps.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+

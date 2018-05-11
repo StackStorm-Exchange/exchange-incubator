@@ -1,0 +1,18 @@
+---
+  name: "create_epg"
+  runner_type: "python-script"
+  description: "Create a new EPG"
+  enabled: true
+  entry_point: "create_epg.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    data:
+      type: "object"
+      description: "json Data to create"
+      required: true
+      position: 1
+

@@ -89,6 +89,13 @@ class ACIBaseActions(Action):
     def get_aps(self):
         endpoint = 'node/class/fvAp.json'
         return self.aci_get(endpoint)
+
+    def get_ap_list(self):
+        all_aps = []
+        aps = self.get_aps()
+        for item in aps['imdata']:
+            all_aps.append(item['fvAp']['attributes']['dn'])
+        return all_aps
         
     def get_epgs(self):
         endpoint = 'node/class/fvAEPg.json'

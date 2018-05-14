@@ -7,6 +7,14 @@ cisco_aci.setup_epg:
     - apic
     - epg_spec
   tasks:
+    build_ap:
+      action: cisco_aci.create_ap
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+      on-success:
+        - build_bd 
     build_bd:
       action: cisco_aci.create_bd
       wait-after: 2

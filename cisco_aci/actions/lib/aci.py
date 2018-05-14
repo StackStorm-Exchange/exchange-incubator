@@ -149,8 +149,14 @@ class ACIBaseActions(Action):
         url = 'https://%s/api/%s' % (self.apic_address, endpoint)
         headers = {'Accept': 'application/json',
                    'Content-type': 'application/json'}
+
         try:
-            p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=False)
+            ssl_verify = self.config['defaults']['ssl']['verify']
+        except:
+            ssl_verify = True
+     
+        try:
+            p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=ssl_verify)
             p.raise_for_status()
             jdata = p.json()
         except requests.exceptions.HTTPError as e:

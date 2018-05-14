@@ -18,11 +18,11 @@ import json
 from st2tests.base import BaseActionTestCase
 
 
-class CiscoACIBaseActionTestCase.g(BaseActionTestCase):
+class CiscoACIBaseActionTestCase(BaseActionTestCase):
     __test__ = False
 
     def setUp(self):
-        super(CiscoACIBaseActionTestCase.g, self).setUp()
+        super(CiscoACIBaseActionTestCase, self).setUp()
 
         self._blank_config = self.load_yaml('cfg_blank.yaml')
         self._good_config = self.load_yaml('cfg_good.yaml')

@@ -1,0 +1,48 @@
+---
+version: '2.0'
+
+cisco_aci.setup_epg:
+  description: "Create an EPG with supporting bridge domain and Static Bindings"
+  input:
+    - apic
+    - epg_spec
+  tasks:
+    build_ap:
+      action: cisco_aci.create_ap
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+      on-success:
+        - build_bd 
+    build_bd:
+      action: cisco_aci.create_bd
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+      on-success:
+        - build_epg 
+    build_epg:
+      action: cisco_aci.create_epg
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+      on-success:
+        - link_domains
+    link_domains:
+      action: cisco_aci.link_domain
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+      on-success:
+        - build_static_bindings
+    build_static_bindings:
+      action: cisco_aci.create_static_binding
+      wait-after: 2
+      input:
+        apic: <% $.apic %>
+        data: <% $.epg_spec %>
+

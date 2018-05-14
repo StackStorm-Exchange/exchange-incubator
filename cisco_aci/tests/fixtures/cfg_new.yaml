@@ -1,0 +1,26 @@
+---
+apic:
+  apic1:
+    address: 192.168.0.3
+    user: aci_admin
+    passwd: Pa55w0rd
+    domains:
+      PHYS:
+        type: phys
+      PEC3:
+        tdn: 'uni/vmmp-VMware/dom-Vmware-Cluster1'
+        type: vmm
+    leafs:
+      pod-1:
+        leaf1:
+          path: 101
+        leaf2:
+          path: 102
+
+defaults:
+  BD:
+    arpFlood: "yes"
+    limitIpLearnToSubnets: "no"
+    unicastRoute: "no"
+    unkMacUcastAct: flood
+

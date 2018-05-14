@@ -1,0 +1,20 @@
+---
+description: "Setup an EPG, link domains and create Static Bindings"
+enabled: true
+entry_point: 'workflows/setup_epg.yaml'
+name: "setup_epg"
+pack: "cisco_aci"
+
+runner_type: "mistral-v2"
+
+parameters:
+  apic:
+    type: "string"
+    description: "configuration name for APIC to connect to"
+    position: 0
+    required: true
+  epg_spec:
+    type: "object"
+    description: "Json Object showing epg structure"
+    position: 1
+    required: true

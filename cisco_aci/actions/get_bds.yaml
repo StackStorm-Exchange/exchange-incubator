@@ -1,0 +1,13 @@
+---
+  name: "get_bds"
+  runner_type: "python-script"
+  description: "Retrieve list of Tenants"
+  enabled: true
+  entry_point: "get_bds.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+

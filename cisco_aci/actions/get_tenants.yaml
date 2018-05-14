@@ -1,0 +1,13 @@
+---
+  name: "get_tenants"
+  runner_type: "python-script"
+  description: "Retrieve list of Tenants"
+  enabled: true
+  entry_point: "get_tenants.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+

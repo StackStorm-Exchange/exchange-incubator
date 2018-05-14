@@ -1,0 +1,67 @@
+apic:
+  type: "object"
+  required: true
+  patternProperties:
+    "^\\w+":
+      "$ref": "#/properties/apics"
+  additionalProperties: false
+
+apics:
+  type: "object"
+  properties:
+    address:
+      description: "Hostname or IP address of APIC."
+      type: "string"
+      required: true
+    user:
+      description: "Authentication user-id for the APIC."
+      type: "string"
+      required: true
+    passwd:
+      description: "The password of the specified user."
+      type: "string"
+      secret: true
+      required: true
+    domains:
+      type: "object"
+      patternProperties:
+        "^\\w+":
+          "$ref": "#/properties/domains"
+    leafs:
+      type: "object"
+      patternproperties:
+        "^\\w+":
+          "$ref": "#/properties/leafs"
+  additionalProperties: false
+
+domains:
+  type: "object"
+  description: "Domain name to be used in as domain"
+  properties:
+    tdn:
+      description: "Domain TDN"
+      required: false
+      type: "string"
+    type:
+      description: "Type of domain"
+      type: "string"
+      required: true
+  additionalProperties: false
+
+leafs:
+  type: "object"
+  patternProperties:
+    "^\\w+":
+      type: "object"
+      description: "Name of the Pod"
+      required: true
+      patternProperties:
+        "^\\w+":
+          type: "object"
+          description: "Leaf Switch identifer"
+          required: true
+          Properties:
+            path:
+              type: "integer"
+              required: true
+  additionalProperties: false

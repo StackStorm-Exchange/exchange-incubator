@@ -1,0 +1,13 @@
+---
+  name: "get_sessionid"
+  runner_type: "python-script"
+  description: "Retrieve API session id"
+  enabled: true
+  entry_point: "get_sessionid.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+

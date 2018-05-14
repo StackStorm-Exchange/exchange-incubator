@@ -32,7 +32,7 @@ apics:
       patternproperties:
         "^\\w+":
           "$ref": "#/properties/leafs"
-  #additionalProperties: false
+  additionalProperties: false
 
 domains:
   type: "object"
@@ -46,7 +46,7 @@ domains:
       description: "Type of domain"
       type: "string"
       required: true
-  #additionalProperties: false
+  additionalProperties: false
 
 leafs:
   type: "object"

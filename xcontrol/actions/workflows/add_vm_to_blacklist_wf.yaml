@@ -1,0 +1,47 @@
+version: '2.0'
+
+xcontrol.add_vm_to_blacklist_wf
+    description: A workflow that blacklists an End-System. If End-System MAC is provided,
+        the workflow just makes a call to xcontrol and blocks it. If End-System IP is
+        provided, a call is made to xcontrol to get the MAC address for the End-System IP and
+        then a second call is made to xcontrol to block the End-System via MAC adddress.
+    type: direct
+    input:
+        - endsystem_mac_address
+        - endsystem_ip_address
+    tasks:
+      is_mac_address_supplied:
+        action: core.noop
+        on-success:
+          - get_endsystem_mac_from_ip: <% $.endsystem_mac_address = '' or $.endsystem_mac_address = null %>
+          - add_mac_to_blacklist: <% $.endsystem_mac_address != '' and $.endsystem_mac_address != null %>
+
+      get_endsystem_mac_from_ip:
+        action: "xcontrol.get_endsystem_mac_from_ip"
+        input:
+          endsystem_ip_address: <% $.endsystem_ip_address %>
+        publish:
+          endsystem_mac_address: <% task(get_endsystem_mac_from_ip).result.result.endsystem_mac_address %>
+        on-success:
+          - add_mac_to_blacklist
+        on-error:
+          - report_failure
+
+      add_mac_to_blacklist:
+        action: "xcontrol.add_mac_to_blacklist"
+        input:
+            endsystem_mac_address: <% $.endsystem_mac_address %>
+        on-success:
+          - report_success
+        on-error:
+          - report_failure
+
+      report_failure:
+        action: "core.local"
+        input:
+          cmd: 'echo "Failed blacklisting MAC" ; exit 1'
+
+      report_success:
+        action: "core.local"
+        input:
+          cmd: <% 'echo "Blacklisted endsystem ' + $.endsystem_mac_address + '." ; exit 0' %>

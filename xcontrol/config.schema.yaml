@@ -1,0 +1,16 @@
+---
+  xcontrol_ip:
+    description: "IP/Endpoint of xcontrol service."
+    type: "string"
+    secret: false
+    required: true
+  username:
+    description: "xcontrol username"
+    type: "string"
+    secret: false
+    required: true
+  password:
+    description: "xcontrol password"
+    type: "string"
+    secret: true
+    required: true

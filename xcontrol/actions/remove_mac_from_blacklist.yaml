@@ -1,0 +1,11 @@
+name: remove_mac_from_blacklist
+pack: xcontrol
+runner_type: python-script
+description: Remove an End-System MAC from Blacklist
+enabled: true
+entry_point: python_actions/remove_mac_from_blacklist.py
+parameters:
+    endsystem_mac_address:
+        type: string
+        description: End-System MAC address that is going to be removed from blocked
+        required: true

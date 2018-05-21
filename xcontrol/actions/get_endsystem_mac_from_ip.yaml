@@ -1,0 +1,12 @@
+---
+name: get_endsystem_mac_from_ip
+pack: xcontrol
+runner_type: python-script
+description: Get an End-System MAC address by given IP address.
+enabled: true
+entry_point: python_actions/get_endsystem_mac_from_ip.py
+parameters:
+    endsystem_ip_address:
+        type: string
+        description: End-System IP address.
+        required: True

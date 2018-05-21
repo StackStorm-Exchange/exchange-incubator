@@ -1,0 +1,25 @@
+version: '2.0'
+
+xcontrol.remove_vm_from_blacklist_wf:
+    description: A workflow that remove VM from blacklists in xcontrol.
+    input:
+        - endsystem_mac_address
+    tasks:
+      remove_mac_from_blacklist:
+        action: "xcontrol.remove_mac_from_blacklist"
+        input:
+            endsystem_mac_address: <% $.endsystem_mac_address %>
+        on-success:
+          - report_success
+        on-error:
+          - report_failure
+
+      report_failure:
+        action: "core.local"
+        input:
+          cmd: 'echo "Failed to remove MAC from Blacklist" ; exit 1'
+
+      report_success:
+        action: "core.local"
+        input:
+          cmd: <% 'echo "Successfully removed End-System ' + $.endsystem_mac_address + ' from Blacklist." ; exit 0' %>

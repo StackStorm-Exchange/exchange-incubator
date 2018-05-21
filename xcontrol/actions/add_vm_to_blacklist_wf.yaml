@@ -1,0 +1,16 @@
+---
+description: Add an End-System VM to Blacklists in xcontrol.
+enabled: true
+entry_point: workflows/add_vm_to_blacklist_wf.yaml
+name: add_vm_to_blacklist_wf
+pack: xcontrol
+parameters:
+  endsystem_mac_address:
+    type: string
+    description: End-System MAC address. 
+    default: ''
+  endsystem_ip_address:
+    type: string
+    description: End-System IP address.
+    required: true
+runner_type: mistral-v2

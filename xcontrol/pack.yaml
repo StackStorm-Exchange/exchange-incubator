@@ -1,0 +1,11 @@
+---
+ref: xcontrol
+name: xcontrol
+description: St2 integration with xcontrol
+keywords: 
+    - Blacklist
+    - xcontrol
+    - security
+version: 0.0.1
+author: StackStorm, Inc.
+email: info@stackstorm.com

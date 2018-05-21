@@ -1,0 +1,11 @@
+---
+ref: checkpoint
+name: checkpoint
+description: St2 integration with CheckPoint Firewall
+keywords: 
+    - firewalls
+    - threat
+    - security
+version: 0.0.1
+author: StackStorm, Inc.
+email: info@stackstorm.com

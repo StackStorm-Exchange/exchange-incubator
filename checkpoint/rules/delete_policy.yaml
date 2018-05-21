@@ -1,0 +1,23 @@
+---
+description: Delete thread IP from policy table 
+name: delete_policy
+pack: checkpoint
+ref: checkpoint.delete_policy
+tags: []
+type:
+  ref: standard
+  parameters:
+enabled: true
+
+trigger:
+  ref: standard
+  type: core.st2.webhook
+  parameters:
+    url: delete_policy
+criteria: {}
+action:
+  ref: checkpoint.delete_policy
+  parameters:
+    threat_ip: '{{trigger.body.threat_ip}}'
+
+

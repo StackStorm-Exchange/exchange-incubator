@@ -1,0 +1,11 @@
+name: add_mac_to_blacklist
+pack: xcontrol
+runner_type: python-script
+description: Add an End-System MAC to Blacklist
+enabled: true
+entry_point: python_actions/add_mac_to_blacklist.py
+parameters:
+    endsystem_mac_address:
+        type: string
+        description: End-System MAC address that is going to be blocked
+        required: True

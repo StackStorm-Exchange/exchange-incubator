@@ -202,7 +202,7 @@ class CheckpointApi(object):
                 self.publish()
         else:
             status = "{\"message\": \"Could not get checkpoint session id\"}"
-         
+
         response = self.logout()
         return status
 
@@ -229,7 +229,7 @@ class CheckpointApi(object):
             if delete is not None:
                 print 'Deleted host object: {0}'.format(threat)
                 publish = True
-            else: 
+            else:
                 status = "{\"message\": \"threat: " + threat + " is not in group\"}"
             if publish:
                 self.publish()
@@ -242,7 +242,7 @@ class CheckpointApi(object):
 urllib3.disable_warnings()
 
 if __name__ == "__main__":
-    checkpoint = '10.52.23.34
+    checkpoint = '10.52.23.34'
     username = 'admin'
     password = 'admin'
     threat = '192.168.10.32'
@@ -252,5 +252,3 @@ if __name__ == "__main__":
 
     #response = api.remove_threat(threat)
     #print response
-
-    

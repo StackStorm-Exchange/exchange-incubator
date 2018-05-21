@@ -1,0 +1,12 @@
+---
+description: Remove End-System VM from Blacklist in xcontrol.
+enabled: true
+entry_point: workflows/remove_vm_from_blacklist_wf.yaml
+name: remove_vm_from_blacklist_wf
+pack: xcontrol
+parameters:
+  endsystem_mac_address:
+    type: string
+    description: End-System MAC address. 
+    required: true
+runner_type: mistral-v2

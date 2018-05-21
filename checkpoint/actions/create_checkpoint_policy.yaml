@@ -1,0 +1,11 @@
+name: create_checkpoint_policy
+pack: checkpoint
+runner_type: python-script
+description: "Create checkpoint Policy"
+enabled: true
+entry_point: "create_checkpoint_policy.py"
+parameters:
+    threat_ip:
+        type: "string" 
+        description: "Threat IP address that is going to be blocked"
+        required: True

@@ -1,0 +1,16 @@
+---
+  firewall_ip:
+    description: "IP/Endpoint of Checkpoint appliance. (e.g.: 'fqdn.to.device' or '10.10.10.10')"
+    type: "string"
+    secret: false
+    required: true
+  username:
+    description: "Checkpoint username"
+    type: "string"
+    secret: false
+    required: true
+  password:
+    description: "Checkpoint password"
+    type: "string"
+    secret: true
+    required: true

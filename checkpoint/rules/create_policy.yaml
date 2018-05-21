@@ -1,0 +1,22 @@
+---
+description: Add thread IP to policy table 
+name: create_policy
+pack: checkpoint
+ref: checkpoint.create_policy
+tags: []
+type:
+  ref: standard
+  parameters:
+enabled: true
+
+trigger:
+  ref: standard
+  type: core.st2.webhook
+  parameters:
+    url: create_policy
+criteria: {}
+action:
+  ref: checkpoint.create_policy
+  parameters:
+    threat_ip: '{{trigger.body.threat_ip}}'
+

@@ -22,4 +22,8 @@ vclouds:
       type: "string"
       secret: true
       required: true
+    ssl_verify:
+      description: "SSL Verify."
+      type: "boolean"
+      required: false
 

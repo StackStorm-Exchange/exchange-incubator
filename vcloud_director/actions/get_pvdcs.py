@@ -16,7 +16,7 @@
 from lib.vcd import VCDBaseActions
 
 
-class getPVCDS(VCDBaseActions):
+class getPVDCs(VCDBaseActions):
     def run(self, vcloud="default"):
         self.set_connection(vcloud)
         self.get_sessionid()

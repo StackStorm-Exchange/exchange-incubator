@@ -1,0 +1,10 @@
+ref: vcd
+name: VCloud Director
+description: Vcloud Director integrations
+version: 0.1.0
+author: Paul Mulvihill
+email: paul.mulvihill@pulsant.com
+keywords:
+    - vmware
+    - vcloud
+

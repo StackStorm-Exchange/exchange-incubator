@@ -1,0 +1,19 @@
+---
+  name: "get_orgs"
+  runner_type: "python-script"
+  description: "Retrieve list of Organisations"
+  enabled: true
+  entry_point: "get_orgs.py"
+  parameters:
+    vcloud:
+      type: "string"
+      description: "Which vcloud to connect to"
+      required: false
+      position: 0
+    detailed:
+      type: "boolean"
+      description: "Drill down on Orgs"
+      required: false
+      default: false
+      position: 1
+

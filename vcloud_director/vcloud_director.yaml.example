@@ -1,0 +1,8 @@
+---
+vcloud:
+  default:
+    host: portal.vcloud.com
+    user: sys.admin
+    passwd: Pa55w0rd
+    ssl_verify: False
+

@@ -1,0 +1,18 @@
+---
+name: get_ipv6network
+runner_type: python-script
+description: Get IPv6 Networks
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'ipv6network'
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - "comment"
+      - "network"
+      - "network_view"

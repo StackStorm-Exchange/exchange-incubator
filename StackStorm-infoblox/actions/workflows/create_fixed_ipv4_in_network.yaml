@@ -1,0 +1,18 @@
+chain:
+  -
+    name: get_network
+    ref: infoblox.get_network
+    params:
+      network: "{{network}}"
+    on-success: create_fixed_ip
+    publish:
+      address: "{{get_network.result[0].network}}"
+    
+  -
+    name: create_fixed_ip
+    ref: infoblox.create_fixedaddress_ipv4
+    params:
+      ipv4addr: "func:nextavailableip:{{address}}"
+      mac: "{{mac}}"
+    publish:
+      ip_address: "{{create_fixed_ip.result}}"

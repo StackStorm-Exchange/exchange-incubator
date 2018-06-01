@@ -1,0 +1,7 @@
+---
+ref: infoblox
+name: infoblox
+description: Integration with Infoblox IPAM, DNS and DHCP management
+version: 0.1.0
+author: Dimension Data
+email: noreply@dimensiondata.com

@@ -1,0 +1,23 @@
+---
+name: create_ipv4ptrrecord
+runner_type: python-script
+description: Create IPv4 PTR record
+enabled: true
+entry_point: create_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'record:ptr'
+  name:
+    type: string
+    description: The name of the DNS PTR record in FQDN format.
+    required: true
+  ipv4addr:
+    type: string
+    required: true
+    description: IPv4 address
+  ptrdname:
+    type: string
+    required: true
+    description: The domain name of the DNS PTR record in FQDN format.

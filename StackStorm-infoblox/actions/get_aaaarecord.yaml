@@ -1,0 +1,27 @@
+---
+name: get_aaaarecord
+runner_type: python-script
+description: Get AAAA Records
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'record:aaaa'
+  ipv6addr:
+    type: string
+    description: Filter by IPv6 address
+  name: 
+    type: string
+    description: Filter by record name
+  view:
+    type: string
+    description: Filter by DNS view
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - "ipv6addr"
+      - "name"
+      - "view"

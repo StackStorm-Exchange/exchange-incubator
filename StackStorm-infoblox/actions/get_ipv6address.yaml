@@ -1,0 +1,21 @@
+---
+name: get_ipv6address
+runner_type: python-script
+description: Get IPv6 addresses
+enabled: true
+entry_point: get_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'ipv6address'
+  network:
+    type: string
+    description: filter by ipv6 address
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - "comment"
+      - "network"
+      - "network_view"

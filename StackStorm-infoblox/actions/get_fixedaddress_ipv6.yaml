@@ -1,0 +1,24 @@
+---
+name: get_fixedaddress_ipv6
+runner_type: python-script
+description: Get IPv6 fixed addresses
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'ipv6fixedaddress'
+  ipv4addr:
+    type: string
+    description: filter by ip4 address
+  network_view:
+    type: string
+    description: filter by network view
+  fields:
+    type: array
+    description: Fields to show in the result
+    default:
+      - "duid"
+      - "ipv6addr"
+      - "network_view"

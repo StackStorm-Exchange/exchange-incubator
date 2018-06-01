@@ -1,0 +1,16 @@
+---
+name: create_fixedaddress_ipv4_in_network
+runner_type: action-chain
+description: Create a fixed ipv4 address mapped to MAC in a provided network 
+enabled: true
+entry_point: workflows/create_fixed_ipv4_in_network.yaml
+parameters:
+  network:
+    type: string
+    required: true 
+    description: Network name
+  mac:
+    type: string
+    description: Mac address of device
+    required: true
+  

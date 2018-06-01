@@ -1,0 +1,11 @@
+---
+name: get_object
+runner_type: python-script
+description: Get an object
+enabled: true
+entry_point: get_object.py
+parameters:
+  object_type:
+    type: string
+    required: true
+    description: The infoblox object type name, e.g. 'network'

@@ -1,0 +1,22 @@
+---
+name: get_fixedaddress_ipv4
+runner_type: python-script
+description: Get IPv4 fixed addresses
+enabled: true
+entry_point: get_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'fixedaddress'
+  ipv4addr:
+    type: string
+    description: filter by ip4 address
+  network_view:
+    type: string
+    description: filter by network view
+  fields:
+    type: array
+    description: Fields to show in the result
+    default:
+      - 

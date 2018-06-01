@@ -1,0 +1,24 @@
+---
+name: get_cnamerecord
+runner_type: python-script
+description: Get CNAME records
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'record:cname'
+  name:
+    type: string
+    description: Filter by name
+  zone:
+    type: string
+    description: Filter by zone
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - "canonical"
+      - "name"
+      - "view"

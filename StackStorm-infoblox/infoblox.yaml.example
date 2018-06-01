@@ -1,0 +1,5 @@
+---
+hostname: "myserver.com"
+username: "myuser"
+password: "mypassword"
+verify_ssl: true

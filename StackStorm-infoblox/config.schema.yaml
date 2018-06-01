@@ -1,0 +1,22 @@
+---
+  username:
+    description: "Username for authenticating to Infloblox"
+    type: "string"
+    secret: false
+    required: true
+    default: "alphonse"
+  password:
+    description: "Username password for authenticating to Infloblox"
+    type: "string"
+    secret: true
+    required: true
+  hostname:
+    description: "Hostname of Infloblox"
+    type: "string"
+    secret: false
+    required: true
+  verify_ssl:
+    description: "Verify SSL of Infoblox API"
+    default: true
+    type: boolean
+    required: true

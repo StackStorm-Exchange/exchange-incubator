@@ -1,0 +1,17 @@
+---
+name: create_networkview
+runner_type: python-script
+description: Create a network view
+enabled: true
+entry_point: create_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'networkview'
+  name:
+    type: string
+    required: true
+  comment:
+    type: string
+    description: Comment for the network view

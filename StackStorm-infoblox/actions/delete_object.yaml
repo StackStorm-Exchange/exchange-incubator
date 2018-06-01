@@ -1,0 +1,11 @@
+---
+name: delete_object
+runner_type: python-script
+description: Delete an object
+enabled: true
+entry_point: delete_object.py
+parameters:
+  ref:
+    type: string
+    required: true
+    description: The infoblox object reference ID

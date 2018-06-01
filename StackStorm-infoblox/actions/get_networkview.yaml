@@ -1,0 +1,21 @@
+---
+name: get_networkview
+runner_type: python-script
+description: Get network views
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'networkview'
+  name:
+    type: string
+    description: Filter by name
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - name
+      - comment
+      - is_default

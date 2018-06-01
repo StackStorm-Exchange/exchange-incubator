@@ -1,0 +1,21 @@
+---
+name: get_dns_view
+runner_type: python-script
+description: Get DNS views
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    default: 'view'
+    immutable: true
+  name:
+    type: string
+    description: Filter by name
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - name
+      - comment
+      - is_default

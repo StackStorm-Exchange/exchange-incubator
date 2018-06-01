@@ -1,0 +1,27 @@
+---
+name: create_fixedaddress_ipv6
+runner_type: python-script
+description: Create a fixed IPv6 address
+enabled: true
+entry_point: create_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'ipv6fixedaddress'
+  duid:
+    type: string
+    required: true 
+    description: The DUID value for this IPv6 fixed address.
+  ipv6addr:
+    type: string
+    required: true 
+    description: The IPv6 Address of the DHCP IPv6 fixed address. Supports range references
+  ipv6prefix:
+    type: string
+    required: true 
+    description: The IPv6 Address prefix of the DHCP IPv6 fixed address.
+  ipv6prefix_bits:
+    type: integer
+    required: true 
+    description: Prefix bits of the DHCP IPv6 fixed address.

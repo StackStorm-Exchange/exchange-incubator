@@ -1,0 +1,27 @@
+---
+name: get_arecord
+runner_type: python-script
+description: Get A Records
+enabled: true
+entry_point: get_object_detailed.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'record:a'
+  ipv4addr:
+    type: string
+    description: Filter by IPv4 address
+  name: 
+    type: string
+    description: Filter by record name
+  view:
+    type: string
+    description: Filter by DNS view
+  fields:
+    type: array
+    description: Fields to return
+    default:
+      - "ipv4addr"
+      - "name"
+      - "view"

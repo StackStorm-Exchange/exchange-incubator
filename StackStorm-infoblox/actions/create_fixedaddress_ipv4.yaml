@@ -1,0 +1,20 @@
+---
+name: create_fixedaddress_ipv4
+runner_type: python-script
+description: Create a fixed ipv4 address mapped to MAC 
+enabled: true
+entry_point: create_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'fixedaddress'
+  ipv4addr:
+    type: string
+    required: true 
+    description: Format to add IP is "func:nextavailableip:a.b.c.d/x"
+  mac:
+    type: string
+    description: Mac address of device
+    required: true
+  

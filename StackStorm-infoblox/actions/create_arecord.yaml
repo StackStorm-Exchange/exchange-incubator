@@ -1,0 +1,19 @@
+---
+name: create_arecord
+runner_type: python-script
+description: Create an A record
+enabled: true
+entry_point: create_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'record:a'
+  ipv4addr:
+    type: string
+    description: IPv4 address
+    required: true
+  name:
+    type: string
+    description: The record name, e.g. www
+    required: true

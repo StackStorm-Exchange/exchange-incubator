@@ -1,0 +1,11 @@
+---
+name: get_eadefinition
+runner_type: python-script
+description: The structure describes what to do with descendant’s extensible attribute, if the value is different from the parent’s.
+enabled: true
+entry_point: get_object.py
+parameters:
+  object_type:
+    type: string
+    immutable: true
+    default: 'extensibleattributedef'

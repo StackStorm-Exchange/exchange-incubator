@@ -1,0 +1,3 @@
+[submodule "stackstorm-algosec"]
+	path = stackstorm-algosec
+	url = https://github.com/EncoreTechnologies/stackstorm-algosec.git

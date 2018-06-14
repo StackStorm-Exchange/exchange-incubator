@@ -1,0 +1,3 @@
+[submodule "stackstorm-backups"]
+	path = stackstorm-backups
+	url = https://github.com/EncoreTechnologies/stackstorm-backups

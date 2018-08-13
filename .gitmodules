@@ -1,0 +1,3 @@
+[submodule "stackstorm-bolt"]
+	path = stackstorm-bolt
+	url = https://github.com/EncoreTechnologies/stackstorm-bolt.git

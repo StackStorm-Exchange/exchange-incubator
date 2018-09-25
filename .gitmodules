@@ -1,0 +1,3 @@
+[submodule "stackstorm-manageiq"]
+	path = stackstorm-manageiq
+	url = https://github.com/EncoreTechnologies/stackstorm-manageiq.git

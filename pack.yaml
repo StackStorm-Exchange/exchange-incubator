@@ -1,0 +1,9 @@
+---
+name: nginxplus
+description: Integration between StackStorm and Nginx Plus
+keywords:
+    - nginx
+    - nginx-plus
+version: 1.0.0
+author: Copart
+email: igor.cherkaev@copart.com

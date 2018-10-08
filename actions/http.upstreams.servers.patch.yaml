@@ -1,0 +1,37 @@
+---
+description: Patch backend servers for http upstream
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: http.upstreams.servers.patch
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: PATCH
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/http/upstreams/{{http_upstream_name}}/servers/{{ http_upstream_server_id }}
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+  http_upstream_name:
+    type: string
+    required: true
+  http_upstream_server_id:
+    type: integer
+    required: true
+  body:
+    type: object
+    required: true

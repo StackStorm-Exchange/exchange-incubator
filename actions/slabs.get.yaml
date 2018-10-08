@@ -1,0 +1,32 @@
+---
+description: Get status of all or specific slab(s)
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: slabs.get
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: GET
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/slabs/{% if slab_zone_name is not none %}{{ slab_zone_name }}{% endif %}
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+  slab_zone_name:
+    type: string
+    required: false
+

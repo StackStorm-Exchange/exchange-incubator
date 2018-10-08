@@ -1,0 +1,28 @@
+---
+description: Get nginx processes status
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: processes.get
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: GET
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/processes
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true

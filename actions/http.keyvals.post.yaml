@@ -1,0 +1,35 @@
+---
+description: Add a key-value pair to the HTTP keyval zone
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: http.keyvals.post
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: POST
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/http/keyvals/{{ http_keyval_zone_name }}
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+  http_keyval_zone_name:
+    type: string
+    required: true
+  body:
+    type: object
+    required: true
+

@@ -1,0 +1,35 @@
+---
+description: Get configuration of all or specific server(s) in a stream upstream server group
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: stream.upstreams.servers.get
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: GET
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/stream/upstreams/{{ stream_upstream_name }}/servers/{% if stream_upstream_server_id is not none %}{{ stream_upstream_server_id }}{% endif %}
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+  stream_upstream_name:
+    type: string
+    required: true
+  stream_upstream_server_id:
+    type: integer
+    required: false
+

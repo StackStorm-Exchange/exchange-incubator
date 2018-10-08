@@ -1,0 +1,32 @@
+---
+description: Reset statistics of an HTTP upstream server group
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: http.upstreams.delete
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: DELETE
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/http/upstreams/{{ http_upstream_name }}
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+  http_upstream_name:
+    type: string
+    required: true
+

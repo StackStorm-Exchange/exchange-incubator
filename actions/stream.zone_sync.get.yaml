@@ -1,0 +1,29 @@
+---
+description: Get sync status of a node
+runner_type: "http-request"
+enabled: true
+entry_point: ''
+name: stream.zone_sync.get
+parameters:
+  auth:
+    type: string
+  headers:
+    type: object
+    default: {"content-type": "application/json"}
+  method:
+    default: GET
+    type: string
+    immutable: true
+  params:
+    type: object
+  timeout:
+    default: 10
+    type: integer
+  url:
+    default: http://{{ server }}/api/3/stream/zone_sync/
+    immutable: true
+    type: string
+  server:
+    type: string
+    required: true
+

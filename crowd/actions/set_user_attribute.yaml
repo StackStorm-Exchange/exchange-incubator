@@ -1,0 +1,20 @@
+---
+name: set_user_attribute
+runner_type: python-script
+description: "Set an attribute on a user."
+enabled: true
+entry_point: "set_user_attribute.py"
+parameters:
+  username:
+    type: "string"
+    description: "The username on which to set the attribute."
+    required: true
+    secret: true
+  attribute:
+    type: "string"
+    description: "The name of the attribute to set."
+    required: true
+  value:
+    type: "string"
+    description: "The value of the attribute to set."
+    required: true

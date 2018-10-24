@@ -24,3 +24,12 @@ You can also use dynamic values from the datastore. See the
 
 ## Actions
 
+* `check_user` - Action to check if the user already exists in Crowd.
+* `get_user` - Action to get given user details from Crowd.
+* `add_user` - Action to add a user to the directory. 
+* `set_active` - Action to set/change the active state of a user.
+* `set_user_attribute` - Action to set/change an attribute on a existing user.
+* `add_user_to_group` - Action to add a user to a group.
+* `get_groups` - Action to retrieves a list of group names that have given user as a direct member.
+
+

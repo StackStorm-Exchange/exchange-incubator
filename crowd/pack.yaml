@@ -1,0 +1,11 @@
+---
+ref: crowd
+name: crowd
+description: Pack which allows integration with Crowd.
+keywords:
+  - crowd
+  - atlassian
+  - atlassian-crowd
+version: 0.1.0
+author: Mohan L
+email: thefossgeek@gmail.com

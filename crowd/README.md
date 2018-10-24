@@ -32,4 +32,3 @@ You can also use dynamic values from the datastore. See the
 * `add_user_to_group` - Action to add a user to a group.
 * `get_groups` - Action to retrieves a list of group names that have given user as a direct member.
 
-

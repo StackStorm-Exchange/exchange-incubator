@@ -1,7 +1,7 @@
 
 # Crowd Integration Pack
 
-Pack for integration of Crowd into StackStorm. The pack includes the
+Pack for integration of [Crowd](https://developer.atlassian.com/server/crowd/crowd-rest-apis/) into StackStorm. The pack includes the
 functionality to perform actions on Crowd through StackStorm.
 
 ## Configuration

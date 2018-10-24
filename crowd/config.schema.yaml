@@ -1,0 +1,21 @@
+---
+crowd:
+  description: "Crowd application settings."
+  type: "object"
+  required: false
+  additionalProperties: false
+  properties:
+    app_url:
+      description: "URL for the Crowd application"
+      type: "string"
+      required: true
+    app_user:
+      description: "Application name"
+      type: "string"
+      required: true
+      secret: true
+    app_pass:
+      description: "Application password"
+      type: "string"
+      required: true
+      secret: true

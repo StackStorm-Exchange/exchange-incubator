@@ -1,0 +1,12 @@
+---
+name: check_user
+runner_type: python-script
+description: "Check if the user already exists in Crowd."
+enabled: true
+entry_point: "check_user.py"
+parameters:
+  username:
+    type: "string"
+    description: "Name of the user."
+    required: true
+    secret: true

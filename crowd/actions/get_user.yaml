@@ -1,0 +1,12 @@
+---
+name: get_user
+runner_type: python-script
+description: "Retrieves the user details from Crowd."
+enabled: true
+entry_point: "get_user.py"
+parameters:
+  username:
+    type: "string"
+    description: "Name of the user."
+    required: true
+    secret: true

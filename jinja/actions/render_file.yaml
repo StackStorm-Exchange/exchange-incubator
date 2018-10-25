@@ -1,0 +1,24 @@
+---
+name: "render_file"
+runner_type: "python-script"
+description: "Render template"
+enabled: true
+entry_point: "render_file.py"
+parameters:
+    type: "string"
+    description: "Path to the template"
+    required: true
+  template_path:
+    type: "string"
+    description: "Path to the template"
+    required: true
+  context:
+    type: object
+    description: "Context to render"
+    default: {}
+  include_execution:
+    type: string
+    description: "Include execution of the certain id to jinja context as `__execution` property"
+  include_six:
+    type: boolean
+    default: true

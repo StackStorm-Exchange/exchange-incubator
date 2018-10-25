@@ -44,9 +44,10 @@ jobs:
 
 workflows:
   version: 2
-  jobs:
-    - build_and_test:
-        filters:
-          branches:
-            ignore:
-              - master
+  build_and_test:
+    jobs:
+      - build_and_test:
+          filters:
+            branches:
+              ignore:
+                - master

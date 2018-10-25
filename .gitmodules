@@ -1,3 +1,0 @@
-[submodule "stackstorm-influxdb"]
-	path = stackstorm-influxdb
-	url = https://github.com/EncoreTechnologies/stackstorm-influxdb.git

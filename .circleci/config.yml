@@ -38,36 +38,8 @@ jobs:
             - home/circleci/repo
             - home/circleci/.gitconfig
 
-  deploy:
-    docker:
-      - image: circleci/python:2.7
-
-    working_directory: ~/repo
-
-    environment:
-      VIRTUALENV_DIR: "~/virtualenv"
-
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "requirements.txt" }}
-      - attach_workspace:
-          at: /
-      - run:
-          name: Install dependencies
-          command: sudo apt -y install gmic optipng
-      - run:
-          name: Update exchange.stackstorm.org
-          command:  ~/ci/.circle/deployment
-
 workflows:
   version: 2
   build_test_deploy:
     jobs:
       - build_and_test
-      - deploy:
-          requires:
-            - build_and_test
-          filters:
-            branches:
-              only: master

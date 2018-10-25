@@ -9,7 +9,8 @@ parameters:
     type: "string"
     description: "Path to the template"
     required: true
-type: "string"
+  template_path:
+    type: "string"
     description: "Path to the template"
     required: true
   context:

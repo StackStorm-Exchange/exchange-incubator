@@ -16,6 +16,8 @@
 import six
 import os
 
+import foo
+
 from st2common.runners.base_action import Action
 from st2client.client import Client
 from st2common.content import utils as content_utils
@@ -23,7 +25,7 @@ from st2common.util import jinja as jinja_utils
 
 
 class FormatResultAction(Action):
-    def __init__(self, config=None, action_service=None):
+    def __init__(self, config=None, action_service = None):
         super(FormatResultAction, self).__init__(config=config, action_service=action_service)
 
         api_url = os.environ.get('ST2_ACTION_API_URL', None)

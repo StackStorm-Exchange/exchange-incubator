@@ -9,7 +9,6 @@ parameters:
     type: "string"
     description: "The username on which to set the attribute."
     required: true
-    secret: true
   attribute:
     type: "string"
     description: "The name of the attribute to set."

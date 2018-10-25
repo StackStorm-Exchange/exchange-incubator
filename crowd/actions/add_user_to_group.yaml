@@ -9,9 +9,7 @@ parameters:
     type: "string"
     description: "The username to assign to the group."
     required: true
-    secret: true
   groupname:
     type: "string"
     description: "The group name into which to assign the user."
     required: true
-    secret: true

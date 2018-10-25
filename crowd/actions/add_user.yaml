@@ -9,7 +9,6 @@ parameters:
     type: "string"
     description: "Name of the user."
     required: true
-    secret: true
   password:
     type: "string"
     description: "User password."

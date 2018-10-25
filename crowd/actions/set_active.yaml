@@ -9,7 +9,6 @@ parameters:
     type: "string"
     description: "Name of the user."
     required: true
-    secret: true
   active_state:
     type: "boolean"
     description: "Active state true or false."

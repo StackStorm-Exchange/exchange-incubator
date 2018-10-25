@@ -11,6 +11,7 @@ jobs:
 
     environment:
       VIRTUALENV_DIR: "~/virtualenv"
+      FORCE_CHECK_ALL_FILES: "true"
 
     steps:
       - checkout

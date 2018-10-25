@@ -15,9 +15,9 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Prepare repository
-        command: |
-          .scripts/prepare-repo.sh
+          name: Prepare repository
+          command: |
+            .scripts/prepare-repo.sh
       - restore_cache:
           key: v1-dependency-cache-{{ checksum "requirements.txt" }}
       - run:

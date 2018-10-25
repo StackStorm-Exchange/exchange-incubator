@@ -25,4 +25,6 @@ echo "Exporting PACK_NAME and removing pack directory"
 cp -r ${PACK_DIRECTORY}/* .
 rm -rf ${PACK_DIRECTORY}
 
+ls -la .
+
 echo "export PACK_NAME=$PACK_NAME" >> ~/.circlerc

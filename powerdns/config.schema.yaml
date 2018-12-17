@@ -1,0 +1,11 @@
+---
+    api_key:
+        description: "PowerDNS API Key"
+        type: "string"
+        secret: true
+        required: true
+    api_url:
+        description: "PowerDNS API."
+        type: "string"
+        secret: false
+        required: true

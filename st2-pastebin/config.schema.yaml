@@ -1,0 +1,15 @@
+---
+ipversion:
+  description: "Use IPv4 (4) or IPv6 to make API requests. Default is 4, Pastebin will only allow a single IP."
+  type: "integer"
+  required: true
+  secret: false
+  default: 4
+poll_interval:
+  description: "Seconds between polling the scrape API"
+  type: "integer"
+  default: 60
+poll_maxresults:
+  description: "Maximum results in a poll result - API limit is 250"
+  type: "integer"
+  default: 60

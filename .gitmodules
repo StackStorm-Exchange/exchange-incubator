@@ -1,0 +1,3 @@
+[submodule "stackstorm-sql"]
+	path = stackstorm-sql
+	url = https://github.com/EncoreTechnologies/stackstorm-sql.git

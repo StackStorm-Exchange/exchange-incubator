@@ -1,0 +1,90 @@
+{
+  "generator-st2pack": {
+    "promptValues": {
+      "features": [
+        "Sensors",
+        "Rules",
+        "Policies",
+        "Aliases"
+      ],
+      "pack_ref": "nexus3",
+      "pack_name": "Sontatype Nexus3",
+      "pack_desc": "Sontatype nexus3 stackstorm pack"
+    },
+    "actions": {},
+    "aliases": {
+      "greet": {
+        "name": "greet",
+        "pack": "nexus3",
+        "description": "Greet StackStorm",
+        "action_ref": "nexus3.greet",
+        "formats": [
+          "greet {{greeting}}"
+        ]
+      }
+    },
+    "rules": {
+      "on_hello_event1": {
+        "name": "on_hello_event1",
+        "pack": "nexus3",
+        "description": "Sample rule firing on nexus3.event1.",
+        "enabled": true,
+        "trigger": {
+          "type": "nexus3.event1"
+        },
+        "action": {
+          "ref": "nexus3.greet",
+          "parameters": {
+            "greeting": "Yo"
+          }
+        }
+      }
+    },
+    "sensors": {
+      "HelloSensor": {
+        "class_name": "HelloSensor",
+        "entry_point": "sensor1.py",
+        "description": "Test sensor that emits triggers.",
+        "trigger_types": [
+          {
+            "name": "event1",
+            "description": "An example trigger.",
+            "payload_schema": {
+              "type": "object"
+            }
+          }
+        ]
+      }
+    },
+    "policies": {
+      "http.retry": {
+        "name": "http.retry",
+        "description": "Retry core.http action on timeout.",
+        "enabled": true,
+        "resource_ref": "core.http",
+        "policy_type": "action.retry",
+        "parameters": {
+          "retry_on": "timeout",
+          "max_retry_count": 2,
+          "delay": 2
+        }
+      },
+      "greet.concurrency": {
+        "name": "greet.concurrency",
+        "pack": "nexus3",
+        "description": "Limits the concurrent executions of the greet action.",
+        "enabled": true,
+        "resource_ref": "nexus3.greet",
+        "policy_type": "action.concurrency",
+        "parameters": {
+          "threshold": 10
+        }
+      }
+    },
+    "pack": {
+      "ref": "nexus3",
+      "name": "Sontatype Nexus3",
+      "description": "Sontatype nexus3 stackstorm pack"
+    }
+  }
+}

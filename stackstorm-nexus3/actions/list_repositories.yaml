@@ -1,0 +1,15 @@
+---
+name: list_repositories
+runner_type: python-script
+description: List all repositories of nexus3
+enabled: true
+entry_point: run.py
+parameters:
+  action:
+    default: list_repositories
+    immutable: true
+    type: string
+  config_profile:
+    type: string
+    description: Select which nexus config profile to use.
+    required: false

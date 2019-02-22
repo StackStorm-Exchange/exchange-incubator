@@ -1,0 +1,31 @@
+---
+<<: &profile_options
+  url:
+    description: "URL of the JIRA instance (e.g. ``https://myproject.atlassian.net``)"
+    type: "string"
+    secret: false
+    required: true
+  verify:
+    description: "Verify SSL certificate. Set to False to disable verification. Default True"
+    type: boolean
+    default: True
+  user:
+    description: "username"
+    type: "string"
+    secret: false
+    required: false
+  password:
+    description: "Password"
+    type: "string"
+    secret: true
+    required: false
+profiles:
+  description: "Nexus3 Connection profile."
+  type: object
+  required: false
+  properties: {}
+  additionalProperties:
+    type: object
+    additionalProperties: false
+    properties:
+      <<: *profile_options

@@ -1,0 +1,12 @@
+---
+url: "http://localhost:8081"
+user: "admin"
+password: "admin123"
+verify: True
+default_profile: "dev"
+profiles:
+  "dev":
+    url: "http://localhost:8081"
+    user: "dev-user"
+    password: "mypas"
+    verify: True

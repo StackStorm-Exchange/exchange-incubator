@@ -1,10 +1,14 @@
+from st2common.runners.base_action import Action
 import sys
-from exception import *
+from exception import Error
+from exception import MissingProfileError
+from exception import ValidationFailError
+from exception import NexusClientNotInstantiatedError
 from nexuscli.repository import Repository
 from nexuscli.nexus_client import NexusClient
-from nexuscli.exception import *
+from nexuscli.exception import NexusClientAPIError
+from nexuscli.exception import NexusClientCreateRepositoryError
 
-from st2common.runners.base_action import Action
 
 __all__ = [
     'BaseAction'
@@ -18,24 +22,27 @@ class BaseAction(Action):
     def __init__(self, config):
         super(BaseAction, self).__init__(config)
         self.nexus_profiles = self.config.get('profiles', {})
-        self.nexus_client = None
+        self._client = None
         self.dial_config = None
 
     def validate_config(self, c_profile):
         """ Validate connection configuration
-
+        This function returns a tuple of (is_valid, errors), where errors is
+        a list of all of the missing fields in a profile. This is avoid
+        making users having to correct each missing field at a time.
         """
         validation_errors = []
         is_valid = True
         for field in REQUIRED_FIELDS:
             if c_profile.get(field, None) == None:
-                validation_errors.push("%s if missing" % field)
+                validation_errors.append(
+                    "Required parameter %s is missing" % field)
                 is_valid = False
 
         return (is_valid, validation_errors)
 
     def get_connection_defaults(self):
-        """ default properties
+        """ Default properties
 
         """
         return {
@@ -46,14 +53,11 @@ class BaseAction(Action):
         }
 
     def init_config(self, profile=None):
-        """ Get nexus3 server connection string
+        """ Generate connection config and validate it
 
         """
         self.dial_config = self.get_connection_defaults()
-        if profile is not None:
-            profile = profile.strip()
-            if len(profile) == 0:
-                profile = None
+        profile = profile if profile and len(profile.strip()) > 0 else None
 
         # use 'default_profile' if 'config_profile' is empty
         if profile is None:
@@ -81,21 +85,22 @@ class BaseAction(Action):
     def init_dialer(self):
         try:
             self.logger.debug("connection string: %s \n" % self.dial_config)
-            self.nexus_client = NexusClient(**self.dial_config)
+            self._client = NexusClient(**self.dial_config)
         except Exception as error:
             self.logger.error("Couldn't instantiate nexus client %s" % error)
+            raise error
 
     def get_resource_dialer(self, resource):
-        """ return nexus_client
+        """ return nexus client
 
         """
-        if self.nexus_client is None:
+        if self._client is None:
             raise NexusClientNotInstantiatedError(
                 "Instantiate nexus_client by calling init_dialer() method first")
-        return getattr(self.nexus_client, resource)
+        return getattr(self._client, resource)
 
     def intent_list(self, resource, **kwargs):
-        """ Intent: List
+        """ Intent: LIST
 
         """
         dialer = self.get_resource_dialer(resource)

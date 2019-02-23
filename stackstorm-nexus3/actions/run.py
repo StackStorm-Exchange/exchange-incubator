@@ -1,9 +1,6 @@
 import sys
 from lib import base
 from st2common.runners.base_action import Action
-from nexuscli.repository import Repository
-from nexuscli.nexus_client import NexusClient
-from nexuscli.exception import *
 from lib.exception import *
 
 
@@ -20,7 +17,7 @@ class ActionManager(base.BaseAction):
 
         # Resolve connection config
         self.init_config(
-            kwargs.pop('config_profile'))
+            kwargs.pop('config_profile', None))
 
         # Instantiating dialer
         self.init_dialer()

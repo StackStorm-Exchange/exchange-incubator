@@ -1,7 +1,7 @@
 
 ST2_EXEC_CMD = grep "execution get" | xargs -0 -I{} bash -c "sleep 2; {}";
 
-run: list_repo create_repo get_repo del_repo get_repo list_scripts get_script run_script delete_script get_script
+run: sync list_repo create_repo get_repo del_repo get_repo list_scripts get_script run_script delete_script get_script test
 
 list_repo:
 	echo "=================== List repository"
@@ -35,6 +35,23 @@ delete_script:
 	echo "=================== Delete script"
 	st2 action execute nexus3.delete_scripts config_profile=dev name=nexus3-cli-repository-create | $(ST2_EXEC_CMD)
 
+install:
+	echo "=================== Running st2 pack install"
+	st2 pack install file:///$$PWD
+
+reload: 
+	echo "=================== Running st2ctl reload"
+	st2ctl reload --register-all
+
+sync:
+	LOCAL_NEXUS_DIR=$$PWD; \
+	ST2_PACK_DIR='/opt/stackstorm/packs'; \
+	mkdir -p /opt/stackstorm/packs/nexus3; \
+	cp -rf $$LOCAL_NEXUS_DIR/*  $$ST2_PACK_DIR/nexus3/; \
+	chmod -R --reference $$ST2_PACK_DIR/linux $$ST2_PACK_DIR/nexus3;\
+	chown -R --reference $$ST2_PACK_DIR/linux/pack.yaml $$ST2_PACK_DIR/nexus3/*;
+
+
 test:
-	st2-run-pack-tests -p ./
+	st2-run-pack-tests -cjtp ./
 

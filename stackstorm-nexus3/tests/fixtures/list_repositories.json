@@ -1,0 +1,44 @@
+[
+    {
+      "url": "http://nexus:8081/repository/nuget-group",
+      "type": "group",
+      "name": "nuget-group",
+      "format": "nuget"
+    },
+    {
+      "url": "http://nexus:8081/repository/maven-snapshots",
+      "type": "hosted",
+      "name": "maven-snapshots",
+      "format": "maven2"
+    },
+    {
+      "url": "http://nexus:8081/repository/maven-central",
+      "type": "proxy",
+      "name": "maven-central",
+      "format": "maven2"
+    },
+    {
+      "url": "http://nexus:8081/repository/nuget.org-proxy",
+      "type": "proxy",
+      "name": "nuget.org-proxy",
+      "format": "nuget"
+    },
+    {
+      "url": "http://nexus:8081/repository/maven-releases",
+      "type": "hosted",
+      "name": "maven-releases",
+      "format": "maven2"
+    },
+    {
+      "url": "http://nexus:8081/repository/nuget-hosted",
+      "type": "hosted",
+      "name": "nuget-hosted",
+      "format": "nuget"
+    },
+    {
+      "url": "http://nexus:8081/repository/maven-public",
+      "type": "group",
+      "name": "maven-public",
+      "format": "maven2"
+    }
+  ]

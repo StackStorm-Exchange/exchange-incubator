@@ -1,0 +1,6 @@
+{
+  "url": "http://nexus:8081/repository/maven2-dumy",
+  "type": "hosted",
+  "name": "maven2-repo",
+  "format": "maven2"
+}

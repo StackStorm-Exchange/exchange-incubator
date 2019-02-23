@@ -1,7 +1,6 @@
-# Stackstorm-Sontatype Nexus3
+# Stackstorm-Nexus3
 
-
-Sontatype nexus3 stackstorm pack
+[Sontatype nexus3](https://www.sonatype.com/nexus-repository-oss) stackstorm pack
 
 ## Installation
 
@@ -20,7 +19,7 @@ add nexus3 server connection profile:
 * ``url`` - URL of the nexus3 server (e.g. ``http://localhost:8081``)
 * ``user`` - username
 * ``password`` - Password
-* ``verify`` - https tls verify
+* ``verify`` - https tls verify, only used if the `url` option specifies an `https` connection
 
 You can also add multiple profiles:
 
@@ -54,6 +53,18 @@ profiles:
 
 ## Actions
 
+While naming actions following convention is used:
+
+**< VERB >_< RESOURCE(plural) >**
+
+
+Supported Resources
+
+- Repositories
+- Scripts
+
+### Available actions:
+
 * **list_repositories** : List nexus3 repositories
 * **get_repositories** : get nexus3 repositories
 * **create_repositories** : create nexus3 repository
@@ -64,17 +75,24 @@ profiles:
 * **create_scripts** : create(& upload) if missing, groovy script
 * **delete_scripts** : delete nexus3 script
 
-## Aliases
-
-
-## Rules
-
-
-## Sensors
-
-
 ## Policies
 
 * **http.retry** : Retry core.http action on timeout.
 
+## Aliases
 
+--NIL--
+
+## Rules
+
+--NIL--
+
+## Sensors
+
+--NIL--
+
+
+# Testing
+
+
+While testing you can leverage [Makefile](./tests/Makefile) to ease writing and testing actions. Read the Makefile for the list of useful commands.

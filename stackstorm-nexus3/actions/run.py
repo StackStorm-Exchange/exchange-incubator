@@ -1,7 +1,6 @@
-import sys
 from lib import base
-from st2common.runners.base_action import Action
-from lib.exception import *
+from lib.exception import MissingParameterError
+from lib.exception import UnsupportedActionOrResourceError
 
 
 class ActionManager(base.BaseAction):
@@ -23,9 +22,19 @@ class ActionManager(base.BaseAction):
         self.init_dialer()
 
         # Serve Request
-        [intent, resource] = requested_action.split('_')
+        try:
+            [intent, resource] = requested_action.split('_')
+        except ValueError:
+            raise UnsupportedActionOrResourceError(
+                "Requested action: '%s' \
+                    is not supported currently" % requested_action)
         intent_method_name = "intent_%s" % intent
-        (is_success, response) = getattr(
-            self,  intent_method_name)(resource, **kwargs)
+        try:
+            (is_success, response) = getattr(
+                self,  intent_method_name)(resource, **kwargs)
+        except AttributeError:
+            raise UnsupportedActionOrResourceError(
+                "Requested action: '%s' \
+                    is not supported currently" % (requested_action))
 
         return (is_success, response)

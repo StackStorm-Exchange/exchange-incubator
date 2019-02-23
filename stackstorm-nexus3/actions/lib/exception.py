@@ -33,6 +33,11 @@ class ValidationFailError(Error):
     pass
 
 
+class UnsupportedActionOrResourceError(Error):
+    """Raised when resource or action is unsupported"""
+    pass
+
+
 class NexusClientNotInstantiatedError(Error):
     """Raised when nexus_client is not instantiated"""
     pass

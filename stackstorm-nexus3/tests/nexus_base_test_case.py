@@ -27,7 +27,8 @@ class NexusBaseTestCase(BaseActionTestCase):
     def get_action_config(self, action_name):
         self._configs["action_config"]["action"] = action_name
 
-        if action_name in ["get_repositories", "delete_repositories", "get_scripts", "delete_scripts"]:
+        if action_name in ["get_repositories", "delete_repositories",
+                           "get_scripts", "delete_scripts"]:
             self._configs["action_config"]["name"] = "maven2-repo"
         elif action_name == "create_repositories":
             self._configs["action_config"].update(json.loads(

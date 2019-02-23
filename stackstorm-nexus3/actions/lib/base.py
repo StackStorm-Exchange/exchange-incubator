@@ -1,6 +1,4 @@
 from st2common.runners.base_action import Action
-import sys
-from exception import Error
 from exception import MissingProfileError
 from exception import ValidationFailError
 from exception import NexusClientNotInstantiatedError
@@ -34,7 +32,7 @@ class BaseAction(Action):
         validation_errors = []
         is_valid = True
         for field in REQUIRED_FIELDS:
-            if c_profile.get(field, None) == None:
+            if c_profile.get(field) is None:
                 validation_errors.append(
                     "Required parameter %s is missing" % field)
                 is_valid = False
@@ -63,7 +61,8 @@ class BaseAction(Action):
         if profile is None:
             profile = self.config.get('default_profile', None)
 
-        # Use defaults options, if neither config_profile nor default_profile is provided
+        # Use defaults options, if neither config_profile nor default_profile
+        #  is provided
         if profile is None:
             self.logger.info("using defaults connection values")
         else:
@@ -96,7 +95,8 @@ class BaseAction(Action):
         """
         if self._client is None:
             raise NexusClientNotInstantiatedError(
-                "Instantiate nexus_client by calling init_dialer() method first")
+                "Instantiate nexus_client by calling \
+                    init_dialer() method first")
         return getattr(self._client, resource)
 
     def intent_list(self, resource, **kwargs):
@@ -146,8 +146,7 @@ class BaseAction(Action):
             else:
                 response = dialer.create(payload)
         except NexusClientCreateRepositoryError as error:
-            response = "Failed to create %s. Most likely reason, same name resource already exist." % (
-                resource)
+            response = "Failed to create %s. Reason: %s" % (resource, error)
             is_success = False
 
         return (is_success, response)
@@ -163,7 +162,8 @@ class BaseAction(Action):
             response = dialer.run(kwargs.pop('name'), kwargs.pop('data'))
         else:
             is_success = False
-            response = "Invalid resource: %s(supported only scripts)" % resource
+            response = "Invalid resource: %s\
+                (supported only scripts)" % resource
 
         return (is_success, response)
 

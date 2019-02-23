@@ -52,6 +52,10 @@ sync:
 	chown -R --reference $$ST2_PACK_DIR/linux/pack.yaml $$ST2_PACK_DIR/nexus3/*;
 
 
+lint:
+	flake8 ./
+
+
 test:
 	st2-run-pack-tests -cjtp ./
 

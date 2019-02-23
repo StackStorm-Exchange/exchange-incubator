@@ -96,3 +96,15 @@ Supported Resources
 
 
 While testing you can leverage [Makefile](./tests/Makefile) to ease writing and testing actions. Read the Makefile for the list of useful commands.
+
+
+# Contributing
+
+Before submitting make sure python linter is happy with your changes first
+
+```
+pip install flake8
+
+#executing flake8 ./
+make -f tests/Makefile lint
+```

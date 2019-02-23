@@ -1,7 +1,9 @@
 from st2tests.base import BaseActionTestCase
 
 from run import ActionManager
-from lib.exception import *
+from lib.exception import MissingParameterError
+from lib.exception import MissingProfileError
+from lib.exception import ValidationFailError
 
 
 class RunTestCase(BaseActionTestCase):

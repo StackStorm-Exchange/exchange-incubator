@@ -43,6 +43,10 @@ reload:
 	echo "=================== Running st2ctl reload"
 	st2ctl reload --register-all
 
+restart:
+	echo "=================== Running st2ctl restart"
+	st2ctl restart
+
 sync:
 	LOCAL_NEXUS_DIR=$$PWD; \
 	ST2_PACK_DIR='/opt/stackstorm/packs'; \

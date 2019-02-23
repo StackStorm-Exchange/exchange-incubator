@@ -1,26 +1,29 @@
 ---
-<<: &profile_options
-  url:
-    description: "URL of the JIRA instance (e.g. ``https://myproject.atlassian.net``)"
-    type: "string"
-    secret: false
-    required: true
-  verify:
-    description: "Verify SSL certificate. Set to False to disable verification. Default True"
-    type: boolean
-    default: True
-  user:
-    description: "username"
-    type: "string"
-    secret: false
-    required: false
-  password:
-    description: "Password"
-    type: "string"
-    secret: true
-    required: false
+url:
+  description: "URL of the nexus3 instance (e.g. ``http://localhost:8081``)"
+  type: "string"
+  secret: false
+  required: true
+  position: 0
+verify:
+  description: "verify TLS, only used if the ``url`` option specifies an ``HTTPS`` connection"
+  type: boolean
+  position: 1
+  default: True
+user:
+  description: "Username"
+  type: "string"
+  secret: false
+  required: false
+  position: 2
+password:
+  description: "Password"
+  type: "string"
+  secret: true
+  required: false
+  position: 3
 profiles:
-  description: "Nexus3 Connection profile."
+  description: "Nexus3 Connection profile name. This will use above options as"
   type: object
   required: false
   properties: {}
@@ -28,4 +31,22 @@ profiles:
     type: object
     additionalProperties: false
     properties:
-      <<: *profile_options
+      url:
+        description: "URL of the JIRA instance (e.g. ``https://myproject.atlassian.net``)"
+        type: "string"
+        secret: false
+        required: true
+      verify:
+        description: "verify TLS, only used if the ``url`` option specifies an ``HTTPS`` connection"
+        type: boolean
+        default: True
+      user:
+        description: "Username"
+        type: "string"
+        secret: false
+        required: false
+      password:
+        description: "Password"
+        type: "string"
+        secret: true
+        required: false

@@ -31,7 +31,7 @@ class ActionManager(base.BaseAction):
         intent_method_name = "intent_%s" % intent
         try:
             (is_success, response) = getattr(
-                self,  intent_method_name)(resource, **kwargs)
+                self, intent_method_name)(resource, **kwargs)
         except AttributeError:
             raise UnsupportedActionOrResourceError(
                 "Requested action: '%s' \

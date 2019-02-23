@@ -55,6 +55,8 @@ sync:
 lint:
 	flake8 ./
 
+validate:
+	st2-check-validate-yaml-file ./*.yaml
 
 test:
 	st2-run-pack-tests -cjtp ./

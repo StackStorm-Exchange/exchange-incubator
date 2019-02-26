@@ -4,8 +4,7 @@
 
 ## Installation
 
-
-Install this pack with: `st2 pack install file:///$PWD`
+Install this pack with: `st2 pack install file://$PWD`
 
 Or if in remote repository: `st2 pack install https://github.com/MY/PACK`
 
@@ -45,25 +44,25 @@ profiles:
      # verify: fallback to verify: True
 ```
 
-
 **Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
            remember to tell StackStorm to load these new values by running
            `st2ctl reload --register-configs`
-
 
 ## Actions
 
 While naming actions following convention is used:
 
-**< VERB >_< RESOURCE(plural) >**
-
+    < VERB >_< RESOURCE(plural) >
+    eg.
+    list_repositories
+    get_scripts
 
 Supported Resources
 
-- Repositories
-- Scripts
+* Repositories
+* Scripts
 
-### Available actions:
+### Available actions
 
 * **list_repositories** : List nexus3 repositories
 * **get_repositories** : get nexus3 repositories
@@ -91,18 +90,15 @@ Supported Resources
 
 --NIL--
 
-
-# Testing
-
+## Testing
 
 While testing you can leverage [Makefile](./tests/Makefile) to ease writing and testing actions. Read the Makefile for the list of useful commands.
 
-
-# Contributing
+## Contributing
 
 Before submitting make sure python linter is happy with your changes first
 
-```
+``` bash
 pip install flake8
 
 #executing flake8 ./

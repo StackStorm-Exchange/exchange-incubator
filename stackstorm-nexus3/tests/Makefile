@@ -37,7 +37,7 @@ delete_script:
 
 install:
 	echo "=================== Running st2 pack install"
-	st2 pack install file:///$$PWD
+	st2 pack install file://$$PWD
 
 reload: 
 	echo "=================== Running st2ctl reload"

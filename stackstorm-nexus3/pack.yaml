@@ -3,11 +3,12 @@ ref: nexus3
 name: Sontatype nexus3
 description: Sontatype nexus3 stackstorm pack
 keywords:
-    - example
-    - test
+    - nexus
+    - nexus3
+    - sonatype
 version: 0.1.0
 python_versions:
   - "2"
   - "3"
-author: Sonu K. Meena
-email: sonu.meena@example.com
+author: Sonu Meena
+email: sonukr666@gmail.com

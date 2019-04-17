@@ -1,0 +1,3 @@
+[submodule "stackstorm-beertab"]
+	path = stackstorm-beertab
+	url = https://github.com/EncoreTechnologies/stackstorm-beertab.git

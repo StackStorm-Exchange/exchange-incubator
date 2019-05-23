@@ -1,0 +1,18 @@
+description: List monitors in NS1
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: monitor.list
+parameters:
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: monitoring
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Monitors
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: list

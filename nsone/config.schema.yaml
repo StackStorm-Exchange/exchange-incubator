@@ -1,0 +1,11 @@
+---
+  api_key:
+    description: The API key for NS1 that has desired permissions
+    type: string
+    secret: true
+    required: true
+  debug:
+    description: "Set to True to enable additional logging"
+    type: "boolean"
+    secret: false
+    default: false

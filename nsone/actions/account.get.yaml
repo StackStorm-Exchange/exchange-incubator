@@ -1,0 +1,18 @@
+description: Retrieve account details from NS1
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: account.get
+parameters:
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: account
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Plan
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: retrieve

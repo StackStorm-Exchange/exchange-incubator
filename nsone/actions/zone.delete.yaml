@@ -1,0 +1,22 @@
+description: Delete a zone in NS1 (Completely deletes the entire zone and all its records, no take-backs.)
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: zone.delete
+parameters:
+  zone:
+    description: The name of the zone (domain.tld) *WARNING* Completely deletes the entire zone and all its records, no take-backs.
+    required: true
+    type: string
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: zones
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Zones
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: delete

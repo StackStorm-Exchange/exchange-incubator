@@ -1,0 +1,26 @@
+description: Retrieve a feed for a data source in NS1
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: feed.get
+parameters:
+  sourceid:
+    description: The alpha numeric id of the Source.
+    required: true
+    type: string
+  feedid:
+    description: The alpha numeric id of the Feed.
+    required: true
+    type: string
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: data
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Feed
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: retrieve

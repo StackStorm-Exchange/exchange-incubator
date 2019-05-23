@@ -1,0 +1,57 @@
+description: Get usage stats for Global, a Zone, or a Domain
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: stats.usage
+parameters:
+  zone:
+    description: If no domain is defined, returns Zone's usage. If left empty, returns global usage
+    required: false
+    type: string
+    position: 1
+  domain:
+    description: Returns the usage for this domain. Requires Zone and Type to be defined.
+    required: false
+    type: string
+    position: 2
+  type:
+    description: The record type of the domain
+    required: false
+    type: string
+    position: 3
+  period:
+    description: Time period for statistics
+    required: false
+    type: string
+    default: 24h
+    enum:
+      - 1h
+      - 24h
+      - 30d
+  expand:
+    description: if True, breaks down stats by zone, and if False, shows aggregate stats for the entire account.
+    required: false
+    type: boolean
+    default: false
+  aggregate:
+    description: if True, returns aggregated stats across all zones and billing tiers (even if expand and by_tier are true)
+    required: false
+    type: boolean
+    default: true
+  by_tier:
+    description: if True, returns stats and graphs for each billing tier 
+    required: false
+    type: boolean
+    default: true  
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: stats
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Stats
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: usage

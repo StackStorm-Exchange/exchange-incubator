@@ -1,0 +1,15 @@
+---
+ref: nsone
+name: nsone
+description: Integration to NS1 using ns1-python rest endpoints
+keywords:
+  - nsone
+  - ns1
+  - ns-one
+  - dns
+version: 0.1.0
+author: Ian Price
+email: ianmprice@gmail.com
+contributors:
+  - Ian Price <ianmprice@gmail.com>
+  - Matt Miller <mattmiller87@gmail.com>

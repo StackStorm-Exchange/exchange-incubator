@@ -1,0 +1,48 @@
+description: Retrieve a Record in NS1
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: record.get
+parameters:
+  zone:
+    description: The name of the zone the record resides in.
+    type: string
+    required: true
+  domain:
+    description: The FQDN (full hostname and domain name) of the record
+    type: string
+    required: true
+  type:
+    description: type of record you want to add
+    type: string
+    required: true
+    default: CNAME
+    enum:
+      - A
+      - CNAME
+      - NS
+      - PTR
+      - TXT
+      - SRV
+      - MX
+      - SPF
+      - AAAA
+      - ALIAS
+      - AFSDB
+      - CERT
+      - DNAME
+      - HINFO
+      - NAPTR
+      - RP
+  module:
+    description: The 'ns1-python' rest module name (ns1.rest.<module>)
+    immutable: true
+    default: records
+  package:
+    description: The name of the class in the module to load
+    immutable: true
+    default: Records
+  method:
+    description: The method to be called within the package
+    immutable: true
+    default: retrieve

@@ -1,0 +1,3 @@
+[submodule "thehive"]
+	path = thehive
+	url = https://github.com/agix/stackstorm-thehive

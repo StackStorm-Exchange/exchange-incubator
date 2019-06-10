@@ -1,0 +1,19 @@
+---
+hostname:
+  description: "Hostname or IP address of the Cohesity Cluster."
+  type: "string"
+  required: true
+username:
+  description: "The username to login to the Cohesity Cluster."
+  type: "string"
+  required: true
+password:
+  description: "The password to login to the Cohesity Cluster."
+  type: "string"
+  secret: true
+  required: true
+domain:
+  description: "The domain to login to the Cohesity Cluster."
+  type: "string"
+  required: false
+  default: 'LOCAL'

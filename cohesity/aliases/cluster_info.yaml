@@ -1,0 +1,24 @@
+---
+name: "cluster_info"
+pack: "cohesity"
+description: "Fetch Cohesity Cluster information"
+action_ref: "cohesity.cluster_info"
+formats:
+  - "cohesity cluster info"
+ack:
+  enabled: false
+  append_url: true
+result:
+  extra:
+    slack:
+      title: "{% if execution.result.result.error is not defined %}Cohesity Cluster Information{% else %}Error!{% endif %}"
+      fallback: "Fetched Cohesity Cluster Info"
+      footer: "Cohesity"
+      footer_icon: "https://i.imgur.com/ZbvCiaC.png"
+      color: "{% if execution.result.result.error is not defined%}good{% else %}danger{% endif %}"
+  format: |
+    {% if execution.result.result.error is not defined %}
+    ```{{execution.result.result | to_yaml_string }}```
+    {% else %}
+    Failed to fetch Cohesity Cluster information
+    {% endif %}

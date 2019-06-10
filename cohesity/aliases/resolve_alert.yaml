@@ -1,0 +1,24 @@
+---
+name: "resolve_alert"
+pack: "cohesity"
+description: "Resolve a Cohesity alert"
+action_ref: "cohesity.resolve_alert"
+formats:
+  - "cohesity resolve alert {{ alert_id }} {{ summary }} {{description}}"
+ack:
+  enabled: false
+  append_url: true
+result:
+  extra:
+    slack:
+      title: "{% if execution.result.result.error is not defined %}Cohesity alert {{execution.parameters.alert_id}} has been resolved!{% else %}Error!{% endif %}"
+      fallback: "Resolved Cohesity Alert"
+      footer: "Cohesity"
+      footer_icon: "https://i.imgur.com/ZbvCiaC.png"
+      color: "{% if execution.result.result.error is not defined%}good{% else %}danger{% endif %}"
+  format: |
+    {% if execution.result.result.error is not defined %}
+    The following alert was resolved: ```{{execution.parameters.alert_id}}```
+    {% else %}
+    The following alert was not resolved: ```{{execution.parameters.alert_id}}```
+    {% endif %}

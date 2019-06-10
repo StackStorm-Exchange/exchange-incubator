@@ -1,0 +1,7 @@
+---
+name: cluster_info
+pack: cohesity
+runner_type: "python-script"
+description: Get Cohesity Cluster Info
+enabled: true
+entry_point: cluster_info.py

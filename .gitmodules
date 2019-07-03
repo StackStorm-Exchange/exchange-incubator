@@ -1,0 +1,3 @@
+[submodule "stackstorm-freeipa"]
+	path = stackstorm-freeipa
+	url = https://github.com/EncoreTechnologies/stackstorm-freeipa.git

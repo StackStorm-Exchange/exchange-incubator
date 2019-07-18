@@ -1,0 +1,3 @@
+[submodule "scalyr"]
+	path = scalyr
+	url = git@github.com:scalyr/stackstorm-scalyr.git

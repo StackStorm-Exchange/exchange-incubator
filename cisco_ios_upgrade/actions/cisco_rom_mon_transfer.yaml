@@ -1,0 +1,31 @@
+---
+
+name: "cisco_rom_mon_transfer"
+runner_type: "python-script"
+description: "Transfer ROM MON file to Cisco Router"
+enabled: true
+entry_point: "cisco_rom_mon_transfer.py"
+parameters:
+    timeout:
+      default: 1200
+    IP:
+      type: "string"
+      description: "IP Address of the device:"
+      required: true
+      position: 0
+    USERNAME:
+      type: "string"
+      description: "What is your username?:"
+      required: true
+      position: 1
+    PASSWORD:
+      secret: true
+      type: "string"
+      description: "What is your password?:"
+      required: true
+      position: 2
+    ROM_MON_IMAGE:
+      type: "string"
+      description: "ROM MOn File Name:"
+      required: true
+      position: 3

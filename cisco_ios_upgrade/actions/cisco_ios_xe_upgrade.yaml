@@ -1,0 +1,36 @@
+---
+
+name: "cisco_ios_xe_upgrade"
+runner_type: "python-script"
+description: "Upgrades the IOS version on a Cisco Router running IOS-XE"
+enabled: true
+entry_point: "cisco_ios_xe_upgrade.py"
+parameters:
+    timeout:
+      default: 1200
+    IP:
+      type: "string"
+      description: "IP Address of the device:"
+      required: true
+      position: 0
+    USERNAME:
+      type: "string"
+      description: "What is your username?:"
+      required: true
+      position: 1
+    PASSWORD:
+      secret: true
+      type: "string"
+      description: "What is your password?:"
+      required: true
+      position: 2
+    IOS_IMAGE:
+      type: "string"
+      description: "What is the name of the IOS Image?:"
+      required: true
+      position: 3
+    MD5_CHECKSUM:
+      type: "string"
+      description: "What is the MD5 Checksum of the file?:"
+      required: true
+      position: 4

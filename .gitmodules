@@ -1,3 +1,0 @@
-[submodule "cloudstack"]
-	path = cloudstack
-	url = git@github.com:pepeproject/stackstorm-cloudstack.git

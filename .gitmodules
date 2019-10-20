@@ -1,0 +1,3 @@
+[submodule "stackstorm-packet"]
+	path = stackstorm-packet
+	url = git@github.com:sheshagiri/stackstorm-packet.git

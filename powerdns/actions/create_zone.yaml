@@ -9,27 +9,3 @@
       type: string
       description: "Subject of the appointment."
       required: true
-    nameservers:
-      type: array
-      description: "Date/time period to look for appointments."
-      required: true
-    kind:
-      type: string
-      description: "Native."
-      required: true
-    soa:
-      type: string
-      description: "Start of Authority"
-      required: true
-    rr_name:
-      type: string
-      description: "Resource record name"
-      required: true
-    rtype:
-      type: string
-      description: "Resource record type"
-      required: true
-    ttl:
-      type: string
-      description: "Time-To-Live for resource record"
-      required: true

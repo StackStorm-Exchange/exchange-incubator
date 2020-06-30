@@ -1,7 +1,7 @@
 ---
 name: "with_sample"
 runner_type: "orquesta"
-description: "sample with items workfly"
+description: "sample with items workflow"
 enabled: true
 entry_point: workflows/with_sample.yaml
 parameters:

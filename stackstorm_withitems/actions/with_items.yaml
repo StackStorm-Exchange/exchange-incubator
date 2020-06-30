@@ -1,0 +1,29 @@
+---
+name: "with_items"
+runner_type: "python-script"
+description: "faster with items;"
+enabled: true
+entry_point: "with_items.py"
+parameters:
+  action:
+    type: string
+    required: true
+  parameters:
+    type: array
+    items:
+      type: object
+    description: "list of objects for parameters"
+  paging_limit:
+    type: integer
+    default: 5
+  sleep_time:
+    type: integer
+    default: 25
+  result:
+    type: string
+    description: "jinja string to {_{ _.result.xxx }_} portion of result to return"
+output_schema:
+  results:
+    type: "array"
+    items:
+      type: "object"

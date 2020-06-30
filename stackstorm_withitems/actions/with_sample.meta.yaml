@@ -1,0 +1,12 @@
+---
+name: "with_sample"
+runner_type: "orquesta"
+description: "sample with items workfly"
+enabled: true
+entry_point: workflows/with_sample.yaml
+parameters:
+  list_items:
+    type: array
+    items:
+      type: string 
+    default: ["1","2","3"]

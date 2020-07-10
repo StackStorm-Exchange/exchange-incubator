@@ -11,7 +11,6 @@ from st2client.client import Client
 from st2client.commands import action as st2action
 from st2common.runners.base_action import Action
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 JINJA_REGEXP = '({{(.*?)}})'
 

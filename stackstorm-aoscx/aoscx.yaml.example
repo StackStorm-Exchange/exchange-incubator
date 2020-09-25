@@ -1,0 +1,16 @@
+credentials:
+  admin:
+    username: admin
+    password: admin
+
+device:
+  ip_address: 10.100.206.188
+  hostname: 8320-CX-188
+  credentials: admin
+  interface:
+    - 1/1/1
+    - 1/1/23
+    - 1/1/14
+  proxy:
+    http: None
+    https: None

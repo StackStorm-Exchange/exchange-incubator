@@ -1,0 +1,20 @@
+---
+name: port_sensor_rule
+pack: "aoscx"
+description: Using the AOS-CX Websocket PortSensor, retrieves the admin status of all interfaces on an AOS-CX switch when an interface goes down.
+enabled: true
+
+trigger:
+  type: aoscx.port_status
+
+criteria:
+  trigger.admin:
+     pattern: "down"
+     type: "icontains"
+
+action:
+    ref: "aoscx.get_link_status"
+    parameters:
+        ip: "10.6.7.20"
+        username: "admin"
+        password: "admin"

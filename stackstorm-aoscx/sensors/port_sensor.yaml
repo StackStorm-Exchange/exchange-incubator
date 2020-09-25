@@ -1,0 +1,14 @@
+---
+  class_name: "PortSensor"
+  entry_point: port_sensor.py
+  enabled: true
+  description: "Sensor that monitors the admin status of AOS-CX switch's interfaces using Websocket connection"
+  trigger_types:
+    - name: "port_status"
+      pack: aoscx
+      description: "Trigger which occurs when AOS-CX interface admin status changes"
+      payload_schema:
+        type: "object"
+        properties:
+          admin:
+            type: "string"

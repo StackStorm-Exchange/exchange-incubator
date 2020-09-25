@@ -1,0 +1,43 @@
+---
+name: "get_aoscx_interface_tower_info"
+pack: aoscx
+runner_type: "python-script"
+description: "Gets MAC address and IP address of a newly connected device using AOS-CX and validate device needs to be provisioned using Ansible Tower API."
+enabled: true
+entry_point: "get_aoscx_interface_tower_info.py"
+parameters:
+    line:
+        type: "string"
+        description: "The newly connected port"
+        required: true
+        position: 0
+    hostname:
+        type: "string"
+        description: "The AOS-CX switch name"
+        required: true
+        position: 1
+    tower_ip:
+        type: "string"
+        description: "IP address of Ansible Tower"
+        required: true
+        position: 2
+    tower_user:
+        type: "string"
+        description: "Login username of Ansible Tower"
+        required: true
+        position: 3
+    tower_pass:
+        type: "string"
+        description: "Login password of Ansible Tower"
+        required: true
+        position: 4
+    proxy:
+        type: "object"
+        description: "Proxy dictionary for REST API connections"
+        required: false
+        position: 5
+        properties:
+          http:
+            type: string
+          https:
+            type: string

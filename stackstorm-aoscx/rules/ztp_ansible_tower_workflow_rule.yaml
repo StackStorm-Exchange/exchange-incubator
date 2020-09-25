@@ -1,0 +1,28 @@
+---
+name: ztp_ansible_tower_workflow_rule
+pack: "aoscx"
+description: Starts the ztp_ansible_tower_worfklow when an interface link on AOS-CX comes up.
+enabled: true
+
+trigger:
+  parameters:
+    file_path: /var/log/switch-log.log
+  type: linux.file_watch.line
+
+criteria:
+  trigger.line:
+     pattern: 'intfd.*Link.*interface\s\d+\/\d+\/\d+\sis\sup'
+     type: "iregex"
+
+action:
+    ref: "aoscx.ztp_ansible_tower_workflow"
+    parameters:
+        line: "{{ trigger.line.split('|')[5] }}"
+        hostname: "{{ trigger.line.split()[1] }}"
+        tower_job_template: '"Generate Config and Configure Switch"'
+        tower_ip: 10.100.31.126
+        tower_user: admin
+        tower_pass: password
+        proxy:
+          http: None
+          https: None

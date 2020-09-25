@@ -1,0 +1,32 @@
+version: 1.0
+
+description: A workflow that runs an Ansible Tower Job Template after retrieving device LLDP information on an AOS-CX switch.
+
+input:
+    - line
+    - hostname
+    - tower_job_template
+    - tower_ip
+    - tower_user
+    - tower_pass
+    - proxy
+
+tasks:
+    setup_task:
+        next:
+          - do:
+              - get_device_info_task
+
+    get_device_info_task:
+        action: aoscx.get_aoscx_interface_tower_info line=<% ctx().line %> hostname=<% ctx().hostname %> tower_ip=<% ctx().tower_ip %> tower_user=<% ctx().tower_user %> tower_pass=<% ctx().tower_pass %>
+        next:
+          - when: <% succeeded() %>
+            publish:
+                - lst: <% result()["result"] %>
+            do:
+                - ansible_task
+
+    ansible_task:
+        # SSH INTO ANSIBLE TOWER AND EXECUTE TOWER-CLI COMMAND
+        # LIMIT PLAYBOOK EXECUTION TO DEVICE FOUND IN LLDP
+        action: core.remote cmd='tower-cli job launch -J <% ctx().tower_job_template %> --no-input --monitor --inventory <% ctx().lst[2] %> --limit "<% ctx().lst[1] %>" -e dhcp_switch_ip=<% ctx().lst[0] %>' hosts=<% ctx().tower_ip %> username=<% ctx().tower_user %> password=<% ctx().tower_pass %>

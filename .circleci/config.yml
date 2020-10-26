@@ -3,7 +3,7 @@ version: 2
 jobs:
   build_and_test:
     docker:
-      - image: circleci/python:2.7
+      - image: circleci/python:3.6
       - image: rabbitmq:3
       - image: mongo:3.4
 
@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Download dependencies
           command: |
-            git clone -b ${CI_BRANCH:-master} git@github.com:stackstorm-exchange/ci.git ~/ci
+            git clone -b ${CI_BRANCH:-master} git@github.com:StackStorm-Exchange/ci.git ~/ci
             ~/ci/.circle/dependencies
       - run:
           name: Run tests

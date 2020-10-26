@@ -163,7 +163,7 @@ class Client(object):
 
         params = {'username': username,
                   'password': password}
-        login_url = 'https://'+switch_ip+':443/rest/v1/login'
+        login_url = 'https://' + switch_ip + ':443/rest/v1/login'
         login_header = {'Content-Type': 'application/x-ww-form-urlencoded'}
         for i in range(self.timeout):
             response = post(login_url, verify=False, headers=login_header,

@@ -1,5 +1,5 @@
 from st2reactor.sensor.base import Sensor
-from aoscx_websocket import *  # NOQA
+from aoscx_websocket import Client  # NOQA
 
 
 class PortSensor(Sensor):

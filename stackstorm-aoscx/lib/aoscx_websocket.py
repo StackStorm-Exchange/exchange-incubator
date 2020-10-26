@@ -169,16 +169,16 @@ class Client(object):
             response = post(login_url, verify=False, headers=login_header,
                             params=params, proxies=proxies)
             if response.status_code != 200:
-                    print("failed to connect code {0} - "
-                          "{1}\n retry {2}/10sec"
-                          "".format(response.status_code,
-                                    response.text, i))
-                    self.sensor._logger.warn('[AOSCXPortSensor]: Login '
-                                             'failed...'
-                                             '\nStatus Code{0} - {1}'
-                                             ''.format(response.status_code,
-                                                       response.text))
-                    eventlet.sleep(1.0)
+                print("failed to connect code {0} - "
+                      "{1}\n retry {2}/10sec"
+                      "".format(response.status_code,
+                                response.text, i))
+                self.sensor._logger.warn('[AOSCXPortSensor]: Login '
+                                         'failed...'
+                                         '\nStatus Code{0} - {1}'
+                                         ''.format(response.status_code,
+                                                   response.text))
+                eventlet.sleep(1.0)
             else:
                 print("login successful")
                 self.sensor._logger.debug('[AOSCXPortSensor]: Login '

@@ -5,7 +5,7 @@ from aoscx_websocket import *
 class PortSensor(Sensor):
     def __init__(self, sensor_service, config=None):
         super(PortSensor, self).__init__(sensor_service=sensor_service,
-                                          config=config)
+                                         config=config)
         self._logger = self.sensor_service.get_logger(
             name=self.__class__.__name__)
         self._logger.debug('[AOSCXPortSensor]: Config contents '
@@ -82,12 +82,12 @@ class PortSensor(Sensor):
                 self._logger.debug('[AOSCXPortSensor]: No device found in '
                                    'config aoscx.yaml ...')
                 exit('[AOSCXPortSensor]: No device found in '
-                                   'config aoscx.yaml ...')
+                     'config aoscx.yaml ...')
         except Exception as e:
             error_msg = ('Sensor "{0}" run method raised '
                          'an exception: {1}.'.format(self.__class__.__name__,
                                                      e)
-            )
+                         )
             self._logger.warn(error_msg, exc_info=True)
             exit(error_msg)
 

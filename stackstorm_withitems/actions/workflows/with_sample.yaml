@@ -1,0 +1,19 @@
+version: 1.0
+
+description: A with items example
+
+input:
+  - list_items
+
+tasks:
+  task1:
+    action: withitems.with_items
+    input:
+      action: core.echo
+      parameters: "<% ctx().list_items.select({\"message\"=>concat(\"message \", $)}) %>"
+    next:
+      - when: <% succeeded() %>
+        do: task2
+  task2:
+    action: core.noop
+

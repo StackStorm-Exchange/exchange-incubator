@@ -1,0 +1,9 @@
+---
+ref: withitems 
+name: withitems 
+description: faster with items
+version: 0.1.0
+author: Aaron Jonen, Nick Maludy
+email: aaron.jonen@cypherint.com
+python_versions:
+  - "3"

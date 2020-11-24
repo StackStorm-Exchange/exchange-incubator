@@ -1,0 +1,11 @@
+### Place information about your pack version here.
+---
+ref: st2maximo
+name: st2maximo
+description: IBM MQTT Integration for StackStorm
+version: 0.1.0
+author: IBM
+email: abharast@in.ibm.com
+python_versions:
+  - "2"
+  - "3"

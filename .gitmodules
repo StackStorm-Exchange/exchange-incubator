@@ -1,3 +1,6 @@
 [submodule "errors"]
 	path = errors
 	url = https://github.com/EncoreTechnologies/stackstorm-errors.git
+[submodule "stackstorm-errors"]
+	path = stackstorm-errors
+	url = https://github.com/EncoreTechnologies/stackstorm-errors.git

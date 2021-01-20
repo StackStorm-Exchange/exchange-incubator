@@ -1,0 +1,12 @@
+---
+ref: cisco_ios_upgrade
+name: cisco_ios_upgrade
+description: Pack to upgrade cisco ISR routers.
+version: 1.0.0
+keywords:
+  - Cisco
+  - IOS
+python_versions:
+  - "3"
+author: LazG
+email: kentik.hanzo94@gmail.com

@@ -1,0 +1,151 @@
+-------------------------------------------------
+Checking ROM-MON Version - Please Wait
+-------------------------------------------------
+-------------------------------------------------
+Router Version is lower or equal to ROM-MON Version
+Proceeding with the IOS Upgrade
+-------------------------------------------------
+-------------------------------------------------
+Checking MD5 Checksum - Please Wait
+-------------------------------------------------
+-------------------------------------------------
+MD5 Checksum Matched
+-------------------------------------------------
+Cleaning Boot Configurations
+-------------------------------------------------
+Changing Boot Variable
+-------------------------------------------------
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+FLL1BRT1-LAB(config)#boot system bootflash:/isr4300-universalk9.16.09.03.SPA.bin
+
+FLL1BRT1-LAB(config)#exit
+FLL1BRT1-LAB#wr
+Building configuration...
+
+-------------------------------------------------
+Checking boot varibale once more
+-------------------------------------------------
+-------------------------------------------------
+BOOT variable = bootflash:/isr4300-universalk9.16.09.03.SPA.bin,12;
+CONFIG_FILE variable does not exist
+BOOTLDR variable does not exist
+Configuration register is 0x2102
+
+Standby not ready to show bootvar
+
+-------------------------------------------------
+-------------------------------------------------
+The boot Varibale was changed successfully
+-------------------------------------------------
+-------------------------------------------------
+Rebooting Device Now
+-------------------------------------------------
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+Waitting for Device to Return:
+-------------------------------------------------
+Device is now up
+-------------------------------------------------
+-------------------------------------------------
+Checking if IOS Upgrade was successful
+-------------------------------------------------
+-------------------------------------------------
+IOS UPGRADE WAS SUCCESSFUL - COMPLETE
+-------------------------------------------------

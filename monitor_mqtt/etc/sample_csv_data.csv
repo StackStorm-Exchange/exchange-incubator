@@ -1,0 +1,12 @@
+name,temperature,humidity,objectTemp
+xyz,31,80,20
+xyz,32,81,22
+xyz,33,72,21
+xyz,35,90,29
+xyz,36,89,23
+pqr,29,84,22
+pqr,28,85,21
+pqr,26,87,23
+pqr,29,89,24
+pqr,31,81,25
+pqr,32,88,27

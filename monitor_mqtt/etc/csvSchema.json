@@ -1,0 +1,6 @@
+{
+ "name":["null"],
+ "temperature":["null","int"],
+ "humidity":["null","int"],
+ "objectTemp":["null","int"]
+}

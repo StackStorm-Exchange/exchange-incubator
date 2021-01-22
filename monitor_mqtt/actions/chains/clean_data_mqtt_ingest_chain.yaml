@@ -1,0 +1,12 @@
+---
+  chain:
+      -
+        name: "clean_csv_data"
+        ref: "monitor_mqtt.clean_data"
+        on-success: "mqtt_publish"
+      -
+        name: "mqtt_publish"
+        ref: "monitor_mqtt.publishcsvdata"
+        parameters:
+          topic: "{{topic}}"
+  default: "clean_csv_data"

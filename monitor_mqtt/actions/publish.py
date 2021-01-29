@@ -10,7 +10,7 @@ class PublishAction(Action):
 
         self._client = None
         self._tenant_id = self._config.get('tenant_id', None)
-        self._hostname = self._tenant_id+"."+self._config.get('hostname', None)
+        self._hostname = self._tenant_id + "." + self._config.get('hostname', None)
         self._port = self._config.get('port', 1883)
         self._protocol = self._config.get('protocol', 'MQTTv311')
         self._client_id = self._config.get('client_id', None)

@@ -1,6 +1,3 @@
-import eventlet
-import json
-
 from st2reactor.sensor.base import Sensor
 import paho.mqtt.client as mqtt
 
@@ -14,7 +11,7 @@ class MQTTSensor(Sensor):
         self._logger = self._sensor_service.get_logger(__name__)
         self._client = None
         self._tenant_id = self._config.get('tenant_id', None)
-        self._hostname = self._tenant_id+"."+self._config.get('hostname', None)
+        self._hostname = self._tenant_id + "." + self._config.get('hostname', None)
         self._port = self._config.get('port', 1883)
         self._protocol = self._config.get('protocol', 'MQTTv311')
         self._client_id = self._config.get('client_id', None)
@@ -27,7 +24,7 @@ class MQTTSensor(Sensor):
         self._ssl_cert = self._config.get('ssl_cert', None)
         self._ssl_key = self._config.get('ssl_key', None)
         # Log
-        self._logger.warn("hostname:::"+self._hostname)
+        self._logger.warn("hostname:::" + self._hostname)
 
     def setup(self):
         self._logger.debug('[MQTTSensor]: setting up sensor...')

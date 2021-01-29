@@ -80,7 +80,7 @@ class CleanCsvDataAction(Action):
                 print('5. Cleaning input CSV data ..')
                 data_clean = data.drop(index=errors_index_rows)
                 pathoffile = '/opt/stackstorm/packs/monitor_mqtt/etc/clean_data_output' \
-                          '/errors.csv'
+                             '/errors.csv'
                 message = 'Error Data file: ' + pathoffile
                 print(message)
                 pd.DataFrame({'col': errors}).to_csv(
@@ -89,7 +89,7 @@ class CleanCsvDataAction(Action):
                 print('5. Couldn`t found issue with input CSV ..')
                 data_clean = data
                 cleanpath = '/opt/stackstorm/packs/monitor_mqtt/etc/clean_data_output' \
-                          '/clean_data.csv'
+                            '/clean_data.csv'
                 cleanmessage = 'Clean Data path: ' + cleanpath
             print(cleanmessage)
             data_clean.to_csv(

@@ -25,21 +25,21 @@ class CleanCsvDataAction(Action):
         if not self._json_schema_path:
             raise ValueError('Missing JSON Schema data file path in config file')
 
-    def check_decimal(dec):
+    def check_decimal(self, dec):
         try:
             Decimal(dec)
         except ValueError:
             return False
         return True
 
-    def check_time_stamp(dt):
+    def check_time_stamp(self, dt):
         try:
             pd.to_datetime(dt)
         except ValueError:
             return False
         return True
 
-    def check_int(num):
+    def check_int(self, num):
         try:
             int(num)
         except ValueError:
@@ -52,13 +52,13 @@ class CleanCsvDataAction(Action):
         success = False
         VALIDATORS = {
             'decimal': CustomElementValidation(
-                lambda d: CleanCsvDataAction.check_decimal(d), 'is not decimal'),
-            'int': CustomElementValidation(lambda i: CleanCsvDataAction.check_int(i),
+                lambda d: self.check_decimal(d), 'is not decimal'),
+            'int': CustomElementValidation(lambda i: self.check_int(i),
                                            'is not integer'),
             'null': CustomElementValidation(lambda d: d is not np.nan,
                                             'this field cannot be null'),
             'time_stamp': CustomElementValidation(
-                lambda d: CleanCsvDataAction.check_time_stamp(d),
+                lambda d: self.check_time_stamp(d),
                 'time_stamp format is not valid')
         }
         print('2. Loading Schema ..')

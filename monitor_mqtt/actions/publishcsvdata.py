@@ -5,9 +5,9 @@ import csv
 import json
 
 
-class PublishAction(Action):
+class PublishCsvDataAction(Action):
     def __init__(self, config):
-        super(PublishAction, self).__init__(config)
+        super(PublishCsvDataAction, self).__init__(config)
 
         self._config = self.config
 
@@ -55,19 +55,24 @@ class PublishAction(Action):
                 'certfile': self._ssl_cert,
                 'keyfile': self._ssl_key,
             }
+        self.logger.info('Reading CSV File ..')
+        self.logger.debug(self._csvFilePath)
         List = []
         with open(self._csvFilePath, encoding='utf-8') as csvf:
             csvReader = csv.DictReader(csvf)
             for rows in csvReader:
                 List.append(rows)
-
+        self.logger.info('Publishing data to via Mqtt ..')
+        self.logger.debug("Topic : {}".format(topic))
         msg = {}
         for row in List:
             msg['d'] = row
             json_msg = json.dumps(msg, indent=4)
+            self.logger.debug("Payload : {}".format(json_msg))
             publish.single(topic, payload=json_msg, qos=qos, retain=retain,
                        hostname=self._hostname, port=self._port,
                        client_id=self._client_id, keepalive=120,
                        auth=self._auth_payload, tls=self._ssl_payload,
                        protocol=self._protocol)
             time.sleep(0.1)
+        self.logger.info('Action Completed Successfully')

@@ -18,12 +18,12 @@ Python 3.7
 ## Setup
 
 ### Install Monitor Ingest pack on local StackStorm env
-1. Clone from Github repo [Monitor Ingest_pack](https://github.ibm.com/Watson-IoT/monitor_ingest):
+1. Clone from Github repo [Monitor Ingest_pack](https://github.com/maximo-developer/monitor_ingest):
 
     ```
     # clone Monitor_Ingest code from github repo
     cd /opt/stackstorm/packs/
-    git clone --branch st2 https://github.ibm.com/Watson-IoT/monitor_ingest.git
+    git clone --branch st2 https://github.com/maximo-developer/monitor_ingest.git
     ```
 ## Get credentials
 2. Set credentials to connect Watson Analytics Service:
@@ -148,4 +148,5 @@ The following actions are supported:
 ## Workflow 
 * Action chain workflow added ``clean_data_ingest_chain``
 
+## Maximo Packs [Documents](https://maximo-developer.github.io/monitor-st2-docs/)
 

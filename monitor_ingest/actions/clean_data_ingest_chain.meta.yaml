@@ -1,0 +1,10 @@
+---
+  name: "clean_data_ingest_chain"
+  description: "Action Chain to pre process CSV metrics data and ingest it to monitor."
+  runner_type: "action-chain"
+  pack: monitor_ingest
+  enabled: true
+  entry_point: "chains/clean_data_ingest_chain.yaml"
+  notify:
+    on-complete:
+      message: " Action succeeded."

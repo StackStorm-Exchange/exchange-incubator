@@ -1,0 +1,6 @@
+---
+name: "clean_csv_data"
+runner_type: "python-script"
+description: "Action to Clean CSV data metrics file"
+enabled: true
+entry_point: "data_clean_csv_action.py"

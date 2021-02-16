@@ -1,0 +1,22 @@
+{
+    "entity_type_name": "abhaypack_test_1151_1",
+    "functions": [
+        {
+          "name": "EntityDataGenerator",
+          "parameters":
+          {
+              "ids": [
+                "A01" , "A02" , "A03" , "A04" , "A05" , "B01"
+              ]
+          }
+        },
+      {
+        "name": "PythonExpression",
+        "parameters":
+        {
+            "expression": "df['metric_1']",
+            "output_name" : "metric_1_ex"
+        }
+      }
+    ]
+}

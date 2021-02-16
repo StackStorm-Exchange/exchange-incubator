@@ -1,0 +1,35 @@
+{
+    "entity_type_name": "abhaypack_test_1151_1",
+    "metrics": [
+        {
+            "name":"metric_1",
+            "datatype": "number"
+        }
+    ],
+    "constants": [ 
+        {
+            "name": "1151_constant_1",
+            "datatype": "datetime",
+            "default": "2020-06-25-19.32.00.000000",
+            "description": "optional"
+        }
+    ],
+    "dimensions": [
+        {
+            "name":"dimension_1",
+            "datatype": "int"
+        }
+    ],
+    "functions": [
+        {
+            "name": "RandomUniform",
+            "parameters":
+            {
+                "min_value": 0.1,
+                "max_value": 0.2,
+                "output_item": "discharge_perc"
+            }
+        }
+    ],
+    "metric_timestamp_column_name": "event_timestamp"
+}

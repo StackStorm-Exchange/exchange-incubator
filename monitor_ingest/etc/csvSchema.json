@@ -1,0 +1,6 @@
+{
+ "deviceid":["null"],
+ "metric_1":["null","int"],
+ "evt_timestamp":["null","time_stamp"],
+ "rcv_timestamp_utc":["time_stamp"]
+}

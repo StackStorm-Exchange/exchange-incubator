@@ -1,0 +1,132 @@
+---
+action_type:
+  description: "Action type:  SetupEntityAction | SetupAddConstants | SetupAddDimesions | SetupAddFunctions "
+  type: "string"
+  required: false
+entity_name:
+  description: "Entity Name is must in case of action_type : LoadCsv"
+  type: "string"
+data_file_path:
+  description: "input data file path."
+  type: "string"
+  required: true
+json_schema_path:
+  description: "json Schema is must to validate CSV in case of action_type : DataClean"
+  type: "string"
+  required: false
+credentials:
+  description: "Watson IoT Analytics credentials."
+  type: object
+  required: true
+  properties:
+    _id:
+      description: "Watson IoT Analytics _id to use."
+      type: "string"
+      required: true
+    tenantId:
+      description: "Watson IoT tenant Id to use."
+      type: "string"
+      required: true
+    db2:
+      description: "Watson IoT db2 credentials to use."
+      type: object
+      required: true
+      properties:
+        host:
+          description: "db2 Host url."
+          type: "string"
+        username:
+          description: "db2 username."
+          type: "string"
+        password:
+          description: "db2 password."
+          type: "string"
+          secret: true
+        databaseName:
+          description: "db2 schema/database name."
+          type: "string"
+        port:
+          description: "db2 connection port."
+          type: "integer"
+          default: 50001
+        httpsUrl:
+          description: "HTTPS url from db2 instance."
+          type: "string"
+        security:
+          description: "connection security type."
+          type: "string"
+          default: "SSL"     
+    iotp:
+      description: "Watson IoT iotp cred to use."
+      type: object
+      required: true
+      properties:
+        url:
+          description: "iotp instance HTTPS /api url."
+          type: "string"
+        orgId:
+          description: "iotp org id."
+          type: "string"
+        host:
+          description: "iotp org Host url."
+          type: "string"
+        port:
+          description: "iotp connection port."
+          type: "integer"
+          default: 8883
+        asHost:
+          description: "Tenant asHost url."
+          type: "string"
+        apiKey:
+          description: "iotp apikey."
+          type: "string"
+          secret: true
+        apiToken:
+          description: "iotp apiToken."
+          type: "string"
+          secret: true
+    messageHub:
+      description: "Watson IoT Analytics message hub details."
+      type: object
+      properties:
+        brokers:
+          description: "List of message hub brokers."
+          type: "array"
+          items:
+            type: "string"
+        username:
+          description: "message hub username."
+          type: "string"
+        password:
+          description: "message hub password."
+          type: "string"
+          secret: true
+    objectStorage:
+      description: "Watson IoT Analytics object Storage details."
+      type: object
+      properties:
+        region:
+          description: "object Storage region."
+          type: "string"
+        username:
+          description: "object Storage username."
+          type: "string"
+        password:
+          description: "object Storage password."
+          type: "string"
+          secret: true
+    config:
+      description: "Watson IoT Analytics object Storage config details."
+      type: object
+      properties:
+        objectStorageEndpoint:
+          description: "object Storage Endpoint."
+          type: "string"
+        bos_logs_bucket:
+          description: "object Storage log bucket."
+          type: "string"
+        bos_runtime_bucket:
+          description: "object Storage runtime bucket."
+          type: "string"
+        mh_topic_analytics_alerts:
+          type: "string"

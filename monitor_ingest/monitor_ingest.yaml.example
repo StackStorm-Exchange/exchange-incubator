@@ -1,0 +1,42 @@
+action_type : "SetupEntityAction | SetupAddConstants | SetupAddDimesions | SetupAddFunctions "
+entity_name : ""
+data_file_path : "/opt/stackstorm/packs/maximo/etc/sample_usage_data.json"
+json_schema_path : "/opt/stackstorm/packs/maximo/etc/csvSchema.json"
+credentials:
+    _id: "id*******"
+    tenantId: "tenant Id"
+    db2:
+      username: "username"
+      password: "pwd"
+      databaseName: BLUDB
+      port: 50001
+      httpsUrl: "https://*******.cloud.ibm.com"
+      host: "*******.cloud.ibm.com"
+      security: SSL
+    iotp:
+      url: "https://orgId**.internetofthings.ibmcloud.com/api/v0002"
+      orgId: "org Id"
+      host: "orgId**.messaging.internetofthings.ibmcloud.com"
+      port: 8883
+      asHost: "*********.internetofthings.ibmcloud.com"
+      apiKey: "api_key"
+      apiToken: "api_token"
+    messageHub:
+      brokers:
+      - broker-0-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      - broker-1-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      - broker-5-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      - broker-4-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      - broker-2-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      - broker-3-****************************.us-south.eventstreams.cloud.ibm.com:9093
+      username: "user name"
+      password: "password"
+    objectStorage:
+      region: global
+      username: "user name"
+      password: "password"
+    config:
+      objectStorageEndpoint: https://undefined
+      bos_logs_bucket: "log bucket"
+      bos_runtime_bucket: "runtime bucket"
+      mh_topic_analytics_alerts: ''

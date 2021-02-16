@@ -1,7 +1,7 @@
 ---
 ref: monitor_ingest
-name : monitor_ingest
-description : st2 content pack containing ibm maximo asset life cycle integrations.
+name: monitor_ingest
+description: st2 content pack containing ibm maximo asset life cycle integrations.
 keywords:
   - Maximo Asset Monitor
   - IBM Watson IoT Analytics
@@ -15,5 +15,5 @@ keywords:
 version: 0.0.1
 python_versions:
   - "3"
-author : IBM
-email : anujgu22@in.ibm.com
+author: IBM
+email: anujgu22@in.ibm.com

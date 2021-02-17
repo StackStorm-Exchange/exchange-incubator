@@ -1,3 +1,2 @@
 pandas-schema
 git+https://github.com/ibm-watson-iot/maximo-asset-monitor-sdk.git
-git+https://github.com/ibm-watson-iot/functions.git@production

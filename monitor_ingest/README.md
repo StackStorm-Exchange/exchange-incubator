@@ -13,7 +13,7 @@ This pack uses Maximo Monitor SDK (https://github.com/ibm-watson-iot/maximo-asse
 IBM monitor Ingest pack,
 IBM Cloud Access,
 IBM Maximo Analytics service Access, Stackstorm,
-Python 3.7
+Python 3.7.
 
 ## Setup
 

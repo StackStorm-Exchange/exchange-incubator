@@ -17,10 +17,6 @@ jobs:
       - checkout
       # Download submodules for any PR which might add pack as a submodule
       - run:
-          name: Upgrade pip
-          command: |
-            pip install --upgrade pip
-      - run:
           name: Checkout submodules
           command: |
             git submodule init

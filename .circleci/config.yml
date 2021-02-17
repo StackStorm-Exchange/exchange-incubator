@@ -19,6 +19,10 @@ jobs:
       - run:
           name: Checkout submodules
           command: |
+            pip install --upgrade pip
+      - run:
+          name: Checkout submodules
+          command: |
             git submodule init
             git submodule update --remote
       - run:

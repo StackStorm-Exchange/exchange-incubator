@@ -1,9 +1,12 @@
 import json
 from decimal import Decimal
 
+from oslo_config import cfg
+
 import numpy as np
 import pandas as pd
 import pandas_schema
+import datetime
 from pandas_schema import Column
 from pandas_schema.validation import CustomElementValidation
 from st2common.runners.base_action import Action
@@ -48,7 +51,9 @@ class CleanCsvDataAction(Action):
 
     def run(self):
         # define validation elements
-        print('1. Starting data Clean Action ..')
+        self.logger.info('1. Starting data Clean Action ..')
+        system_packs_base_path = cfg.CONF.content.system_packs_base_path
+        path_of_pack = system_packs_base_path + '/monitor_ingest'
         success = False
         VALIDATORS = {
             'decimal': CustomElementValidation(
@@ -61,42 +66,39 @@ class CleanCsvDataAction(Action):
                 lambda d: self.check_time_stamp(d),
                 'time_stamp format is not valid')
         }
-        print('2. Loading Schema ..')
+        self.logger.info('2. Loading Schema ..')
         with open(self._json_schema_path, 'r') as my_json:
             json_schema = json.load(my_json)
         column_list = [Column(k, [VALIDATORS[v] for v in vals]) for k, vals in
                        json_schema.items()]
         schema = pandas_schema.Schema(column_list)
-        print('3. Loading CSV Data ..')
+        self.logger.info('3. Loading CSV Data ..')
         data = pd.read_csv(self._data_file_path)
-        print(data)
+        self.logger.debug(data)
         try:
-            print('4. Validating input CSV data ..')
+            self.logger.info('4. Validating input CSV data ..')
             errors = schema.validate(data)
             for e in errors:
-                print(e)
+                self.logger.debug(e)
             if errors:
                 errors_index_rows = [e.row for e in errors]
-                print('5. Cleaning input CSV data ..')
+                self.logger.info('5. Cleaning input CSV data ..')
                 data_clean = data.drop(index=errors_index_rows)
-                pathoffile = '/opt/stackstorm/packs/monitor_ingest/etc/clean_data_output' \
-                             '/errors.csv'
+                ct = datetime.datetime.now()
+                filename = '{:%Y_%m_%d_%H_%M_%S_%f}.csv'.format(ct)
+                pathoffile = path_of_pack + '/etc/clean_data_output/errors_' + filename
                 message = 'Error Data file: ' + pathoffile
-                print(message)
-                pd.DataFrame({'col': errors}).to_csv(
-                    '/opt/stackstorm/packs/monitor_ingest/etc/clean_data_output/errors.csv')
+                self.logger.debug(message)
+                pd.DataFrame({'col': errors}).to_csv(pathoffile)
             else:
-                print('5. Couldn`t found issue with input CSV ..')
+                self.logger.info('5. Couldn`t find issue with input CSV ..')
                 data_clean = data
-                cleanpath = '/opt/stackstorm/packs/monitor_ingest/etc/clean_data_output' \
-                            '/clean_data.csv'
+                cleanpath = path_of_pack + '/etc/clean_data_output/clean_data.csv'
                 cleanmessage = 'Clean Data path: ' + cleanpath
-            print(cleanmessage)
-            data_clean.to_csv(
-                '/opt/stackstorm/packs/monitor_ingest/etc/clean_data_output/clean_data.csv')
+            self.logger.debug(cleanmessage)
+            data_clean.to_csv(cleanpath)
             success = True
-            print('Action Completed Successfully')
+            self.logger.info('Action Completed Successfully')
         except Exception as msg:
-            print(f"FAILED STEP: {msg}\n FAILED: Clean Data Action")
+            self.logger.info(f"FAILED STEP: {msg}\n FAILED: Clean Data Action")
         return success
-    

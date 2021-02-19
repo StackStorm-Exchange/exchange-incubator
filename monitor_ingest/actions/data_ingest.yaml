@@ -3,4 +3,4 @@ name: "csv_data_ingest"
 runner_type: "python-script"
 description: "Action to Load metrics data from CSV file in IBM Maximo Asset Monitor"
 enabled: true
-entry_point: "data_ingest_csv_action.py"
+entry_point: "data_ingest.py"

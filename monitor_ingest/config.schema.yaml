@@ -1,7 +1,12 @@
 ---
 action_type:
-  description: "Action type:  SetupEntityAction | SetupAddConstants | SetupAddDimesions | SetupAddFunctions "
+  description: "Action type to be used for the entity"
   type: "string"
+  enum:
+    - SetupEntityAction
+    - SetupAddConstants
+    - SetupAddDimesions
+    - SetupAddFunctions
   required: false
 entity_name:
   description: "Entity Name is must in case of action_type : LoadCsv"

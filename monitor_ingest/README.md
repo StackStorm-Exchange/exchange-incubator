@@ -13,17 +13,19 @@ This pack uses Maximo Monitor SDK (https://github.com/ibm-watson-iot/maximo-asse
 IBM monitor Ingest pack,
 IBM Cloud Access,
 IBM Maximo Analytics service Access, Stackstorm,
-Python 3.7.
+Python 3.7
 
 ## Setup
 
-### Install Monitor Ingest pack on local StackStorm env
-1. Clone from Github repo [Monitor Ingest_pack](https://github.com/maximo-developer/monitor_ingest):
+### Install IBM Maximo Monitor Ingest pack on local StackStorm env
+1. Clone from Github repo [IBM Maximo Monitor Ingest_pack](https://github.com/maximo-developer/monitor_ingest):
 
     ```
     # clone Monitor_Ingest code from github repo
-    cd /opt/stackstorm/packs/
     git clone --branch st2 https://github.com/maximo-developer/monitor_ingest.git
+   
+    # Once pack will be published One can Install from Exchange by pack name:
+    st2 pack install monitor_ingest
     ```
 ## Get credentials
 2. Set credentials to connect Watson Analytics Service:
@@ -90,13 +92,8 @@ credentials:
       mh_topic_analytics_alerts: ''
 ```
 
-**Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
-           remember to tell StackStorm to load these new values by running
-           `sudo st2ctl reload --register-configs`
+## Creating Vitual environment in StackStorm (Required only if testing in St2 env):
 
-## Creating Vitual environment in StackStorm (Required only if testing in St2 env)
-
-    ```
     # 1. Setup monitor_ingest Virtual Env in SackStorm 
     st2 run packs.setup_virtualenv packs=monitor_ingest python3=True
     
@@ -108,7 +105,6 @@ credentials:
     
     # 4. Run an action
     st2 run <pack.action_name>
-    ```
 
 ## Actions
 
@@ -148,5 +144,4 @@ The following actions are supported:
 ## Workflow 
 * Action chain workflow added ``clean_data_ingest_chain``
 
-## Maximo Packs [Documents](https://maximo-developer.github.io/monitor-st2-docs/)
 

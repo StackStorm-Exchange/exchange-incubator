@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Download dependencies
           command: |
-            git clone -b ${CI_BRANCH:-master} git@github.com:Anshika-Gautam/ci.git ~/ci
+            git clone -b ${CI_BRANCH:-master} git@github.com:StackStorm-Exchange/ci.git ~/ci
             ~/ci/.circle/dependencies
       - run:
           name: Run tests

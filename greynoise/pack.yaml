@@ -1,0 +1,18 @@
+---
+
+ref: greynoise
+name: GreyNoise
+description: >-
+    GreyNoise provides information on devices observed mass-scanning the internet.
+    This pack provides a set of actions to lookup IPs or query the GreyNoise API.
+keywords:
+    - threat intelligence
+    - mass-internet scanning
+    - greynoise
+version: 1.0.0
+python_versions:
+    - "3"
+author: GreyNoise
+email: hello@greynoise.io
+contributors:
+    - "Brad C <brad@greynoise.io>"

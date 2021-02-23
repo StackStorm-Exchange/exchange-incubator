@@ -1,0 +1,14 @@
+---
+
+name: context_ip
+pack: greynoise
+runner_type: "python-script"
+description: Perform a Quick IP lookup in GreyNoise
+enabled: true
+entry_point: context_ip.py
+parameters:
+    ip:
+        type: string
+        description: IP Address to Lookup
+        required: true
+        position: 1

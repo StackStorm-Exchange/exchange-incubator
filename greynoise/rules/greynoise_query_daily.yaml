@@ -1,0 +1,20 @@
+---
+
+name: Run GreyNoise Query Daily
+pack: greynoise
+description: Run a GreyNoise Query Daily to retrieve all IPs matching query.
+enabled: true
+
+trigger:
+    type: core.st2.CrontTimer
+    parameters:
+      timezone": "UTC"
+      day_of_week": "*"
+      hour": 0
+      minute": 0
+      second": 0
+
+action:
+    ref: greynoise.query
+    parameters:
+        query: "classification:benign last_seen:1d metadata.country:Netherlands actor:\"BinaryEdge.io\""

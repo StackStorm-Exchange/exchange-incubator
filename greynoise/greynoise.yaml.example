@@ -1,0 +1,3 @@
+---
+
+gn_api_key: "{{ st2kv.system.gn_api_key }}"

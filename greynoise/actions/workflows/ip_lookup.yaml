@@ -1,0 +1,58 @@
+---
+
+version: 1.0
+
+description: >-
+  A multi-lookup workflow to provide RIOT or Context data for known IPs in GreyNoise.
+
+input:
+  - ip
+
+vars:
+  - is_riot: false
+  - is_seen: false
+  - result: ""
+
+output:
+  - is_riot: <% ctx().is_riot %>
+  - is_seen: <% ctx().is_seen %>
+  - result: <% ctx().result %>
+
+tasks:
+  check_riot:
+    action: greynoise.riot_ip
+    input:
+      ip: <% ctx().ip %>
+    next:
+      - when: <% succeeded() and result().result.riot = true %>
+        publish:
+          result=<% result().result %>
+          is_riot=true
+      - when: <% succeeded() and result().result.riot = false %>
+        do: check_quick
+      - when: <% failed() and not result().result %>
+        publish:
+          result=<% result().stderr %>
+      - when: <% failed() and result() %>
+        publish:
+          result=<% result().result %>
+  check_quick:
+    action: greynoise.quick_ip
+    input:
+      ip: <% ctx().ip %>
+    next:
+      - when: <% succeeded() and result().result[0].noise = true %>
+        do: get_context
+      - when: <% succeeded() and result().result[0].noise = false %>
+        publish:
+          result=<% result().result[0] %>
+  get_context:
+    action: greynoise.context_ip
+    input:
+      ip: <% ctx().ip %>
+    next:
+      - when: <% succeeded() %>
+        publish:
+          is_riot=false
+          is_seen=true
+          result=<% result().result %>

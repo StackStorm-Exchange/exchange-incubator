@@ -1,0 +1,13 @@
+---
+
+name: IP Lookup
+pack: greynoise
+description: >-
+    A multi-lookup workflow to provide RIOT or Context data for known IPs in GreyNoise.
+runner_type: orquesta
+entry_point: workflows/ip_lookup.yaml
+enabled: true
+parameters:
+  ip:
+    required: true
+    type: string

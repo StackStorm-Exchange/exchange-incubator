@@ -1,8 +1,8 @@
 from base import GreyNoiseBaseAction
 from requests.exceptions import HTTPError
 
-class QuickIP(GreyNoiseBaseAction):
 
+class QuickIP(GreyNoiseBaseAction):
     def run(self, query):
 
         client = self.instance

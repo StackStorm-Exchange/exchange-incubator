@@ -3,7 +3,6 @@ from requests.exceptions import HTTPError
 
 
 class ContextIP(GreyNoiseBaseAction):
-
     def run(self, ip):
 
         client = self.instance

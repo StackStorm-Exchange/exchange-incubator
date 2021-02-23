@@ -1,3 +1,2 @@
 greynoise
-requests
 netaddr

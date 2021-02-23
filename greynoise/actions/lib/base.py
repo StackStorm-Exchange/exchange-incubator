@@ -1,13 +1,16 @@
+from netaddr import IPAddress
 from st2common.runners.base_action import Action
+
 from greynoise import GreyNoise
-from netaddr import *
+
 
 class GreyNoiseBaseAction(Action):
     def __init__(self, config):
         super(GreyNoiseBaseAction, self).__init__(config=config)
 
         gn_api_key = self.config.get('gn_api_key', None)
-        self.instance = GreyNoise(api_key=gn_api_key, integration_name="greynoise-stackstorm-dev")
+        self.instance = GreyNoise(api_key=gn_api_key,
+                                  integration_name="greynoise-stackstorm-v1.0.0")
 
     def validate_ip(self, ip):
         try:

@@ -1,8 +1,10 @@
 ---
 
-gn_api_key:
-    description: "API Key for authenticating to GreyNoise API"
+greynoise_api_key:
+    description: >-
+        API Key for authenticating to GreyNoise API.
+        By default, reads greynoise_api_key value from key-store
     type: "string"
     secret: true
     required: true
-    default: "{{ st2kv.system.gn_api_key }}"
+    default: "{{ st2kv.system.greynoise_api_key }}"

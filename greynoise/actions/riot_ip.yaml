@@ -11,4 +11,3 @@ parameters:
         type: string
         description: IP Address to Lookup
         required: true
-        position: 1

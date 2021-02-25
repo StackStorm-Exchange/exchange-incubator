@@ -1,6 +1,6 @@
 ---
 
-name: IP Lookup
+name: ip_lookup
 pack: greynoise
 description: >-
     A multi-lookup workflow to provide RIOT or Context data for known IPs in GreyNoise.

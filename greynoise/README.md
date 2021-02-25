@@ -1,7 +1,7 @@
 [![main](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/workflows/Build/badge.svg)](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/actions?query=workflow%3ABuild)
 [![main](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/workflows/YAML%20Lint/badge.svg)](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/actions/workflows/yamllint.yaml?query=workflow%3AYAML+Lint)
 [![main](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/workflows/python_linters/badge.svg)](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/actions?query=workflow%3Apython_linters)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache2](https://img.shields.io/badge/license-Apache%202-blue)](http://www.apache.org/licenses/)
 
 # GreyNoise Stackstorm Pack
 
@@ -11,9 +11,9 @@ The GreyNoise Stackstorm (ST2) Pack provides a set of actions to be run in ST2 t
 This integration reqires and API key for the GreyNoise API.  If you don't have one, sign up for a free trial at
 [https://viz.greynoise.io/signup](https://viz.greynoise.io/signup)
 
-To configure the integration, add your GN API Key to the keystore using:
+To configure the integration, add your GreyNoise API Key to the keystore using:
 
-`st2 key set gn_api_key <api_key> -e`
+`st2 key set greynoise_api_key <api_key> -e`
 
 Then configure the pack using:
 
@@ -31,11 +31,11 @@ Includes the following Orchestra workflows:
 
  ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/GreyNoise-Intelligence/greynoise-stackstorm/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/GreyNoise-Intelligence/os-template/tags).
 
 ## Authors
 

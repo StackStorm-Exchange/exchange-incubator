@@ -11,4 +11,3 @@ parameters:
         type: string
         description: GNQL Query
         required: true
-        position: 1

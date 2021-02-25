@@ -41,9 +41,15 @@ tasks:
     input:
       ip: <% ctx().ip %>
     next:
-      - when: <% succeeded() and result().result[0].noise = true %>
+      - when: >-
+          <% succeeded() and
+          results.len() >=1 and
+          result().result[0].noise = true %>
         do: get_context
-      - when: <% succeeded() and result().result[0].noise = false %>
+      - when: >-
+          <% succeeded() and
+          results.len() >=1 and
+          result().result[0].noise = false %>
         publish:
           result=<% result().result[0] %>
   get_context:

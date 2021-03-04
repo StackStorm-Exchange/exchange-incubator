@@ -5,7 +5,7 @@ action_type:
   enum:
     - SetupEntityAction
     - SetupAddConstants
-    - SetupAddDimesions
+    - SetupAddDimensions
     - SetupAddFunctions
   required: false
 entity_name:

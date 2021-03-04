@@ -1,4 +1,4 @@
-action_type : "SetupEntityAction | SetupAddConstants | SetupAddDimesions | SetupAddFunctions "
+action_type : "SetupEntityAction | SetupAddConstants | SetupAddDimensions | SetupAddFunctions "
 entity_name : ""
 data_file_path : "/opt/stackstorm/packs/maximo/etc/sample_usage_data.json"
 json_schema_path : "/opt/stackstorm/packs/maximo/etc/csvSchema.json"

@@ -2,7 +2,7 @@
 
 This pack uses Maximo Monitor SDK (https://github.com/ibm-watson-iot/maximo-asset-monitor-sdk.git) in StackStorm dynamically. It has following features:
 
-- Create Entities in Maximo Assset Monitor
+- Create Entities in Maximo Asset Monitor
 - Add Constants, Dimensions and Functions
 - Cleaning the CSV data files as per a valid schema
 - Load metrics data from a CSV to Maximo
@@ -49,7 +49,7 @@ To run a specific Actions use `action_type`, `data_file_path` and `credentials` 
 Example configuration:
 
 ```yaml
-action_type : "SetupEntityAction | SetupAddConstants | SetupAddDimesions | SetupAddFunctions "
+action_type : "SetupEntityAction | SetupAddConstants | SetupAddDimensions | SetupAddFunctions "
 entity_name : ""
 data_file_path : "/opt/stackstorm/packs/monitor_ingest/etc/sample_usage_data.json"
 credentials:
@@ -114,13 +114,13 @@ The following actions are supported:
 `[Mandatory]`
 * To Setup Entity Action use action_type - ``SetupEntityAction``
 * To Add Constants to an Entity use action_type - ``SetupAddConstants``
-* To Add Dimesions to an Entity use action_type - ``SetupAddDimesions``
+* To Add Dimensions to an Entity use action_type - ``SetupAddDimensions``
 * To Add Functions to an Entity use action_type - ``SetupAddFunctions``
 * Specify json file path in config -``data_file_path`` 
 #### Check /etc directory for Sample data files for Setup Entity Action
 * for SetupEntityAction sample [data_file_path](./etc/sample_usage_data.json)
 * for SetupAddConstants sample [data_file_path](./etc/sample_constant_data.json)
-* for SetupAddDimesions sample [data_file_path](./etc/sample_dimension_data.json)
+* for SetupAddDimensions sample [data_file_path](./etc/sample_dimension_data.json)
 * for SetupAddFunctions sample [data_file_path](./etc/sample_function_data.json)
 
 ### Clean CSV metrics data from a CSV ``clean_csv_data``

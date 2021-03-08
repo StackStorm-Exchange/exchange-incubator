@@ -1,2 +1,3 @@
+jsonschema==3.0.0
 pandas-schema
 git+https://github.com/ibm-watson-iot/maximo-asset-monitor-sdk.git

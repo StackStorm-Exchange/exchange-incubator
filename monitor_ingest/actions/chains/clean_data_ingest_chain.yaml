@@ -1,0 +1,10 @@
+---
+  chain:
+      -
+        name: "clean_csv_data"
+        ref: "monitor_ingest.clean_csv_data"
+        on-success: "data_ingest"
+      -
+        name: "data_ingest"
+        ref: "monitor_ingest.csv_data_ingest"
+  default: "clean_csv_data"

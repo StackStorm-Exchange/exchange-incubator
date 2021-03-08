@@ -1,0 +1,18 @@
+{
+    "entity_type_name": "abhaypack_test_1151_1",
+    "dimension_data":
+    [
+      {
+        "name": "dimension_2",
+        "entity_id" : "A01",
+        "value": "sample_string_dimension"
+      },
+      {
+        "name": "dimension_2",
+        "entity_id" : "A01",
+        "value": "sample_string_dimension",
+        "datatype": "string"
+
+      }
+    ]
+}

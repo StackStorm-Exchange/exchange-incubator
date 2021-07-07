@@ -1,0 +1,198 @@
+---
+# https://developer.cisco.com/docs/identity-services-engine
+description: Updates action for allowed protocols by id
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: allowed_protocols.update
+parameters:
+  # Base/Well Known Params parsed in lib.base._prepare_kwargs() or modified in action.py
+  http_method:
+    description: the HTTP Method to be used for this action
+    type: string
+    required: true
+    immutable: true
+    default: PUT
+  base_api_resource:
+    description: The base resource used for this API Request (https://ise-pan.domain.com:9060/ers/config/{base_api_resource}/{id})
+    type: string
+    required: true
+    immutable: true
+    default: allowedprotocols
+  resource_id:
+    description: The id of the allowed protocol
+    type: string
+    required: true
+  # Connection Params
+  connection_name:
+    description: The name of the connection in the pack config that should be used. Specifying fields such as 'api_user' or 'api_pass' will override that value in 'config.connections.connection_name' if configured.
+    type: string
+  api_user:
+    description: The purpose created user to interact with the ISE api
+    type: string
+  api_pass:
+    description: The password for the purpose created user
+    type: string
+    secret: true
+  hostname:
+    description: The base fqdn for the Policy Administration Node (PAN)
+    type: string
+  verify_ssl:
+    description: SSL verification for the ISE server, set to 'false' to skip SSL verification
+    type: boolean
+  use_http:
+    description: Connect to ISE using HTTP (Very insecure, should only be used for testing!)
+    type: boolean
+  # Action Params
+  payload:
+    description:  A JSON object with the data that should be used for payload. See action definition for details (JSONSchema). https://developer.cisco.com/docs/identity-services-engine/2.6/#!allowed-protocols/update
+    type: object
+    required: true
+    items:
+      type: object
+      properties:
+        AllowedProtocols:
+          type: object
+          required: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            eapTls:
+              type: object
+              properties:
+                allowEapTlsAuthOfExpiredCerts:
+                  type: boolean
+                eapTlsEnableStatelessSessionResume:
+                  type: boolean
+            peap:
+              type: object
+              properties:
+                allowPeapEapMsChapV2:
+                  type: boolean
+                allowPeapEapMsChapV2PwdChange:
+                  type: boolean
+                allowPeapEapMsChapV2PwdChangeRetries:
+                  type: integer
+                allowPeapEapGtc:
+                  type: boolean
+                allowPeapEapTls:
+                  type: boolean
+                allowPeapEapTlsAuthOfExpiredCerts:
+                  type: boolean
+                requireCryptobinding:
+                  type: boolean
+                allowPeapV0:
+                  type: boolean
+            eapFast:
+              type: object
+              properties:
+                allowEapFastEapMsChapV2:
+                  type: boolean
+                allowEapFastEapMsChapV2PwdChange:
+                  type: boolean
+                allowEapFastEapMsChapV2PwdChangeRetries:
+                  type: integer
+                allowEapFastEapGtc:
+                  type: boolean
+                allowEapFastEapGtcPwdChange:
+                  type: boolean
+                allowEapFastEapGtcPwdChangeRetries:
+                  type: integer
+                allowEapFastEapTls:
+                  type: boolean
+                allowEapFastEapTlsAuthOfExpiredCerts:
+                  type: boolean
+                eapFastUsePacs:
+                  type: boolean
+                eapFastUsePacsTunnelPacTtl:
+                  type: integer
+                eapFastUsePacsTunnelPacTtlUnits:
+                  type: string
+                eapFastUsePacsUseProactivePacUpdatePrecentage:
+                  type: integer
+                eapFastUsePacsAllowAnonymProvisioning:
+                  type: boolean
+                eapFastUsePacsAllowAuthenProvisioning:
+                  type: boolean
+                eapFastUsePacsAllowMachineAuthentication:
+                  type: boolean
+                eapFastUsePacsStatelessSessionResume:
+                  type: boolean
+                eapFastEnableEAPChaining:
+                  type: boolean
+            eapTtls:
+              type: object
+              properties:
+                eapTtlsPapAscii:
+                  type: boolean
+                eapTtlsChap:
+                  type: boolean
+                eapTtlsMsChapV1:
+                  type: boolean
+                eapTtlsMsChapV2:
+                  type: boolean
+                eapTtlsEapMd5:
+                  type: boolean
+                eapTtlsEapMsChapV2:
+                  type: boolean
+                eapTtlsEapMsChapV2PwdChange:
+                  type: boolean
+                eapTtlsEapMsChapV2PwdChangeRetries:
+                  type: integer
+            teap:
+              type: object
+              properties:
+                allowTeapEapMsChapV2:
+                  type: boolean
+                allowTeapEapMsChapV2PwdChange:
+                  type: boolean
+                allowTeapEapMsChapV2PwdChangeRetries:
+                  type: integer
+                allowTeapEapTls:
+                  type: boolean
+                allowTeapEapTlsAuthOfExpiredCerts:
+                  type: boolean
+                acceptClientCertDuringTunnelEst:
+                  type: boolean
+                requestBasicPwdAuth:
+                  type: boolean
+                enableEapChaining:
+                  type: boolean
+            processHostLookup:
+              type: boolean
+            allowPapAscii:
+              type: boolean
+            allowChap:
+              type: boolean
+            allowMsChapV1:
+              type: boolean
+            allowMsChapV2:
+              type: boolean
+            allowEapMd5:
+              type: boolean
+            allowLeap:
+              type: boolean
+            allowEapTls:
+              type: boolean
+            allowEapTtls:
+              type: boolean
+            allowEapFast:
+              type: boolean
+            allowPeap:
+              type: boolean
+            allowTeap:
+              type: boolean
+            allowPreferredEapProtocol:
+              type: boolean
+            preferredEapProtocol:
+              type: string
+            eapTlsLBit:
+              type: boolean
+            allowWeakCiphersForEap:
+              type: boolean
+            requireMessageAuth:
+              type: boolean

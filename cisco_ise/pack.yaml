@@ -1,0 +1,15 @@
+---
+ref: cisco_ise
+name: cisco_ise
+description: Integration to Cisco ISE.
+keywords:
+  - cisco
+  - ise
+  - security
+version: 0.1.0
+author: Ian Price
+email: ianmprice@gmail.com
+contributors:
+  - Matt Miller <https://github.com/mattmiller87>
+python_versions:
+  - "3"

@@ -1,0 +1,30 @@
+---
+connections:
+  type: object
+  required: true
+  patternProperties:
+    "^\\w+":
+      "$ref": "#/properties/connection_name"
+  additionalProperties: false
+
+connection_name:
+  type: object
+  additionalProperties: false
+  properties:
+    api_user:
+      description: The purpose created user to interact with the ISE api
+      type: string
+    api_pass:
+      description: "The password for the purpose created user"
+      type: string
+      secret: true
+    hostname:
+      description: The base fqdn for the Policy Administration Node (PAN)
+      type: string
+      default: "ise-pan.domain.com"
+    verify_ssl:
+      description: SSL verification for the ISE server, set to 'false' to skip SSL verification
+      type: boolean
+    use_http:
+      description: Connect to ISE using HTTP (Very insecure, should only be used for testing!)
+      type: boolean

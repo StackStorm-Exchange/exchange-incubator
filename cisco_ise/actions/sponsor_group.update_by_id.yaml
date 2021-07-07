@@ -1,0 +1,123 @@
+---
+# https://developer.cisco.com/docs/identity-services-engine
+description: Updates Sponsor Groups by id
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: sponsor_group.update_by_id
+parameters:
+  # Base/Well Known Params parsed in lib.base._prepare_kwargs() or modified in action.py
+  http_method:
+    description: the HTTP Method to be used for this action
+    type: string
+    required: true
+    immutable: true
+    default: PUT
+  base_api_resource:
+    description: The base resource used for this API Request (https://ise-pan.domain.com:9060/ers/config/{base_api_resource}/{id})
+    type: string
+    required: true
+    immutable: true
+    default: sponsorgroup
+  resource_id:
+    description: The id of the Sponsor Groups
+    type: string
+    required: true
+  # Connection Params
+  connection_name:
+    description: The name of the connection in the pack config that should be used. Specifying fields such as 'api_user' or 'api_pass' will override that value in 'config.connections.connection_name' if configured.
+    type: string
+  api_user:
+    description: The purpose created user to interact with the ISE api
+    type: string
+  api_pass:
+    description: The password for the purpose created user
+    type: string
+    secret: true
+  hostname:
+    description: The base fqdn for the Policy Administration Node (PAN)
+    type: string
+  verify_ssl:
+    description: SSL verification for the ISE server, set to 'false' to skip SSL verification
+    type: boolean
+  use_http:
+    description: Connect to ISE using HTTP (Very insecure, should only be used for testing!)
+    type: boolean
+  # Action Params
+  payload:
+    description: A JSON object with the data that should be used for payload. See action definition for details (JSONSchema). https://developer.cisco.com/docs/identity-services-engine/#!sponsor-group/updatebyid
+    type: object
+    required: true
+    items:
+      type: object
+      properties:
+        SponsorGroup:
+          type: object
+          required: true
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            isEnabled:
+              type: boolean
+            isDefaultGroup:
+              type: boolean
+            memberGroups:
+              type: array
+            guestTypes:
+              type: array
+            locations:
+              type: array
+            autoNotification:
+              type: boolean
+            createPermissions:
+              type: object
+              properties:
+                canImportMultipleAccounts:
+                  type: boolean
+                importBatchSizeLimit:
+                  type: integer
+                canCreateRandomAccounts:
+                  type: boolean
+                randomBatchSizeLimit:
+                  type: integer
+                defaultUsernamePrefix:
+                  type: string
+                canSpecifyUsernamePrefix:
+                  type: boolean
+                canSetFutureStartDate:
+                  type: boolean
+                startDateFutureLimitDays:
+                  type: integer
+            managePermission:
+              type: string
+            otherPermissions:
+              type: object
+              properties:
+                canUpdateGuestContactInfo:
+                  type: boolean
+                canViewGuestPasswords:
+                  type: boolean
+                canSendSmsNotifications:
+                  type: boolean
+                canResetGuestPasswords:
+                  type: boolean
+                canExtendGuestAccounts:
+                  type: boolean
+                canDeleteGuestAccounts:
+                  type: boolean
+                canSuspendGuestAccounts:
+                  type: boolean
+                requireSuspensionReason:
+                  type: boolean
+                canReinstateSuspendedAccounts:
+                  type: boolean
+                canApproveSelfregGuests:
+                  type: boolean
+                limitApprovalToSponsorsGuests:
+                  type: boolean
+                canAccessViaRest:
+                  type: boolean

@@ -1,0 +1,6 @@
+---
+connections:
+  ise_server:
+    api_user: "username"
+    api_pass: "password"
+    hostname: "ise-pan.domain.com"

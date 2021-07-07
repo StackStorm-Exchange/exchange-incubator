@@ -1,0 +1,152 @@
+---
+# https://developer.cisco.com/docs/identity-services-engine
+description: Create a new Network Device
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: network_device.create
+parameters:
+  # Base/Well Known Params parsed in lib.base._prepare_kwargs() or modified in action.py
+  http_method:
+    description: the HTTP Method to be used for this action
+    type: string
+    required: true
+    immutable: true
+    default: POST
+  base_api_resource:
+    description: The base resource used for this API Request (https://ise-pan.domain.com:9060/ers/config/{base_api_endpoint})
+    type: string
+    required: true
+    immutable: true
+    default: networkdevice
+  # Connection Params
+  connection_name:
+    description: The name of the connection in the pack config that should be used. Specifying fields such as 'api_user' or 'api_pass' will override that value in 'config.connections.connection_name' if configured.
+    type: string
+  api_user:
+    description: The purpose created user to interact with the ISE api
+    type: string
+  api_pass:
+    description: The password for the purpose created user
+    type: string
+    secret: true
+  hostname:
+    description: The base fqdn for the Policy Administration Node (PAN)
+    type: string
+  verify_ssl:
+    description: SSL verification for the ISE server, set to 'false' to skip SSL verification
+    type: boolean
+  use_http:
+    description: Connect to ISE using HTTP (Very insecure, should only be used for testing!)
+    type: boolean
+  # Action Params
+  payload:
+    description: A JSON object with the data that should be used for payload. See action definition for details (JSONSchema). https://developer.cisco.com/docs/identity-services-engine/#!network-device/create
+    type: object
+    required: true
+    items:
+      type: object
+      properties:
+        NetworkDevice:
+          type: object
+          required: true
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            authenticationSettings:
+              type: object
+              properties:
+                radiusSharedSecret:
+                  type: string
+                enableKeyWrap:
+                  type: boolean
+                dtlsRequired:
+                  type: boolean
+                keyEncryptionKey:
+                  type: string
+                messageAuthenticatorCodeKey:
+                  type: string
+                keyInputFormat:
+                  type: string
+            snmpsettings:
+              type: object
+              properties:
+                version:
+                  type: string
+                roCommunity:
+                  type: string
+                pollingInterval:
+                  type: integer
+                linkTrapQuery:
+                  type: boolean
+                macTrapQuery:
+                  type: boolean
+                originatingPolicyServicesNode:
+                  type: string
+            trustsecsettings:
+              type: object
+              properties:
+                deviceAuthenticationSettings:
+                  type: object
+                  properties:
+                    sgaDeviceId:
+                      type: string
+                    sgaDevicePassword:
+                      type: string
+                sgaNotificationAndUpdates:
+                  type: object
+                  properties:
+                    downlaodEnvironmentDataEveryXSeconds:
+                      type: integer
+                    downlaodPeerAuthorizationPolicyEveryXSeconds:
+                      type: integer
+                    reAuthenticationEveryXSeconds:
+                      type: integer
+                    downloadSGACLListsEveryXSeconds:
+                      type: integer
+                    otherSGADevicesToTrustThisDevice:
+                      type: boolean
+                    sendConfigurationToDevice:
+                      type: boolean
+                    sendConfigurationToDeviceUsing:
+                      type: string
+                    coaSourceHost:
+                      type: string
+                deviceConfigurationDeployment:
+                  type: object
+                  properties:
+                    includeWhenDeployingSGTUpdates:
+                      type: boolean
+                    enableModePassword:
+                      type: string
+                    execModePassword:
+                      type: string
+                    execModeUsername:
+                      type: string
+            tacacsSettings:
+              type: object
+              properties:
+                sharedSecret:
+                  type: string
+                connectModeOptions:
+                  type: string
+            profileName:
+              type: string
+            coaPort:
+              type: integer
+            dtlsDnsName:
+              type: string
+            NetworkDeviceIPList:
+              type: array
+              items:
+                - type: object
+                  properties:
+                    ipaddress:
+                      type: string
+                    mask:
+                      type: integer
+            NetworkDeviceGroupList:
+              type: array
+

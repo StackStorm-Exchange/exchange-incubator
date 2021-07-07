@@ -1,0 +1,42 @@
+---
+# https://developer.cisco.com/docs/identity-services-engine
+description: Retrieves the status of the most recent deploy command output for the SGT Mapping group - Deploy Status will show last Deploy command output the information will be saved until the next Deploy command
+enabled: true
+entry_point: action.py
+runner_type: python-script
+name: ip_to_sgt_mapping_group.deploy_status
+parameters:
+  # Base/Well Known Params parsed in lib.base._prepare_kwargs() or modified in action.py
+  http_method:
+    description: the HTTP Method to be used for this action
+    type: string
+    required: true
+    immutable: true
+    default: GET
+  base_api_resource:
+    description: The base resource used for this API Request (https://ise-pan.domain.com:9060/ers/config/{base_api_resource}/deploy/status)
+    type: string
+    required: true
+    immutable: true
+    default: sgmappinggroup/deploy/status
+  # Connection Params
+  connection_name:
+    description: The name of the connection in the pack config that should be used. Specifying fields such as 'api_user' or 'api_pass' will override that value in 'config.connections.connection_name' if configured.
+    type: string
+  api_user:
+    description: The purpose created user to interact with the ISE api
+    type: string
+  api_pass:
+    description: The password for the purpose created user
+    type: string
+    secret: true
+  hostname:
+    description: The base fqdn for the Policy Administration Node (PAN)
+    type: string
+  verify_ssl:
+    description: SSL verification for the ISE server, set to 'false' to skip SSL verification
+    type: boolean
+  use_http:
+    description: Connect to ISE using HTTP (Very insecure, should only be used for testing!)
+    type: boolean
+  # Action Params

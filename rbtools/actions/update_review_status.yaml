@@ -1,0 +1,23 @@
+---
+name: update_review_status
+runner_type: python-script
+description: Update Status on a particular ReviewBoard review .
+enabled: true
+entry_point: update_review_status.py
+parameters:
+  review:
+    type: integer
+    description: The ReviewBoard Review id (e.g. 12345).
+    required: true
+  reason:
+    type: string
+    description: Reason why the Reviewboard Review is being closed.
+    required: true
+  status:
+    type: string
+    description: Status type to which Review should be transitioned to.
+    required: true
+    enum:
+      - pending
+      - submitted
+      - discarded

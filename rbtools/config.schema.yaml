@@ -1,0 +1,52 @@
+---
+  url:
+    description: "URL of the ReviewBoard instance (e.g. ``https://reviewboard.domain.tld``)"
+    type: "string"
+    secret: false
+    required: true
+  verify:
+    description: "Verify SSL certificate. Set to False to disable verification (Default: True)."
+    type: boolean
+    default: true
+  allow_caching:
+    description: "Allow RBClient to do caching of the requests (Default: True)."
+    type: boolean
+    default: true
+  in_memory_cache:
+    description: "Allow the cache to be maintained in memory (Default: False)."
+    type: boolean
+    default: false
+  save_cookies:
+    description: "Save Cookies generated using password and username in a file (Default: True)."
+    type: boolean
+    default: true
+  auth_method:
+    description: "Authentication method to use - token or basic"
+    type: "string"
+    secret: false
+    required: true
+    default: "token"
+    enum:
+      - token
+      - basic
+  username:
+    description: "Username if using the basic auth_method"
+    type: "string"
+    secret: false
+    required: false
+  password:
+    description: "Password if using the basic auth_method"
+    type: "string"
+    secret: true
+    required: false
+  api_token:
+    description: "API token if using the token auth_method"
+    type: "string"
+    secret: true
+    required: false
+  poll_interval:
+    description: "Polling interval - default 30s"
+    type: "integer"
+    secret: false
+    required: false
+    default: 30

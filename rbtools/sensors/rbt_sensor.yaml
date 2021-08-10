@@ -1,0 +1,30 @@
+---
+  class_name: "ReviewboardSensor"
+  entry_point: "rbt_sensor.py"
+  description: "Sensor which monitors Reviewboard for activity"
+  poll_interval: 15
+  trigger_types:
+    -
+      name: "review_tracker"
+      description: "Trigger which indicates a new review has been posted to a reviewboard server"
+      payload_schema:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+          submitter:
+            type: "string"
+          status:
+            type: "string"
+          description:
+            type: "string"
+          summary:
+            type: "string"
+          issue_open_count:
+            type: "integer"
+          ship_it_count:
+            type: "integer"
+          url:
+            type: "string"
+          bugs_closed:
+            type: "array"

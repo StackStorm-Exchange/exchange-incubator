@@ -1,5 +1,4 @@
 import datetime
-import logging
 
 from rbtools.api.client import RBClient
 from st2reactor.sensor.base import PollingSensor
@@ -14,12 +13,12 @@ class ReviewboardSensor(PollingSensor):
     '''
     def __init__(self, sensor_service, config=None, poll_interval=5):
         super(ReviewboardSensor, self).__init__(sensor_service=sensor_service,
-                                         config=config,
-                                         poll_interval=poll_interval)
+                                                config=config,
+                                                poll_interval=poll_interval)
         self._reviewboard_url = None
         self._logger = self._sensor_service.get_logger(__name__)
-        # The Consumer Key created while setting up the "Incoming Authentication" in
-        # JIRA for the Application Link.
+        # The Consumer Key created while setting up the
+        # "Incoming Authentication" in JIRA for the Application Link.
         self._last_message_timestamp = None
         self._poll_interval = 30
         self._rbt_client = None
@@ -30,7 +29,8 @@ class ReviewboardSensor(PollingSensor):
 
     def setup(self):
 
-        self._poll_interval = self._config.get('poll_interval', self._poll_interval)
+        self._poll_interval = self._config.get(
+            'poll_interval', self._poll_interval)
         self._reviewboard_url = self._config['url']
 
         options = {

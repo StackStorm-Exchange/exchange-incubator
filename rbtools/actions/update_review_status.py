@@ -7,7 +7,8 @@ __all__ = [
 
 class UpdateReviewStatus(BaseReviewBoardAction):
     def run(self, review, status, reason):
-        review_request = self._client.get_review_request(review_request_id=review)
+        review_request = self._client.get_review_request(
+            review_request_id=review)
 
         payload = {
             'status': status

@@ -7,7 +7,9 @@ __all__ = [
 
 class UpdateReview(BaseReviewBoardAction):
     def run(self, review, field, value, publish, trivial):
-        review_request = self._client.get_review_request(review_request_id=review)
+        review_request = \
+            self._client.get_review_request(
+                review_request_id=review)
 
         payload = {
             field: value if value != "None" else None,
@@ -20,5 +22,5 @@ class UpdateReview(BaseReviewBoardAction):
                 'trivial': trivial,
             }
             draft.update(**payload)
-        
+
         return self._client.get_review_request(review_request_id=review).id

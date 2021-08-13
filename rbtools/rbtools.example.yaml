@@ -1,0 +1,9 @@
+---
+url: "https://codereviews.example.tld"
+auth_method: "token"
+poll_interval: 30
+username: "usernamee"
+password: "Some$SecureP@$$w0rD"
+api_token: "apitokenfromreviewboard"
+verify: false
+validate: true

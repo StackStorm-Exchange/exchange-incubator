@@ -37,7 +37,7 @@ class ReviewboardSensor(PollingSensor):
             'server': self._config['url'],
             'verify_ssl': self._config['verify'],
             'allow_caching': self._config['allow_caching'],
-            'in_memory_cache':  self._config['in_memory_cache'],
+            'in_memory_cache': self._config['in_memory_cache'],
             'save_cookies': self._config['save_cookies'],
         }
 

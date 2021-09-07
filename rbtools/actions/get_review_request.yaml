@@ -1,0 +1,11 @@
+---
+name: get_review_request
+runner_type: python-script
+description: Get a ReviewBoard review request.
+enabled: true
+entry_point: get_review_request.py
+parameters:
+  review:
+    type: integer
+    description: The ReviewBoard Review id (e.g. 12345).
+    required: true

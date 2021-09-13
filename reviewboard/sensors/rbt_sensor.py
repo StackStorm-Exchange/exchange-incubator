@@ -21,10 +21,10 @@ class ReviewboardSensor(PollingSensor):
         # "Incoming Authentication" in JIRA for the Application Link.
         self._last_message_timestamp = None
         self._poll_interval = 30
-        self._rbt_client = None
-        self._rbtools_root = None
+        self._reviewboard_client = None
+        self._reviewboard_root = None
         self._trigger_name = 'review_tracker'
-        self._trigger_pack = 'rbtools'
+        self._trigger_pack = 'reviewboard'
         self._trigger_ref = '.'.join([self._trigger_pack, self._trigger_name])
 
     def setup(self):
@@ -50,11 +50,11 @@ class ReviewboardSensor(PollingSensor):
             options['password'] = self._config['password']
         else:
             msg = ('You must set auth_method to either "token"',
-                   'or "basic" your rbtools.yaml config file.')
+                   'or "basic" your reviewboard.yaml config file.')
             raise Exception(msg)
 
-        self._rbt_client = RBClient(self._reviewboard_url, **options)
-        self._rbtools_root = self._rbt_client.get_root()
+        self._reviewboard_client = RBClient(self._reviewboard_url, **options)
+        self._reviewboard_root = self._reviewboard_client.get_root()
 
     def poll(self):
         self._detect_new_reviews()
@@ -75,7 +75,7 @@ class ReviewboardSensor(PollingSensor):
         end_date = datetime.datetime.now()
         start_date = end_date - datetime.timedelta(seconds=self._poll_interval)
         self._logger.info(f"Start Date - {start_date}, End Date - {end_date}")
-        new_reviews = self._rbtools_root.get_review_requests(
+        new_reviews = self._reviewboard_root.get_review_requests(
             last_updated_from=start_date.strftime(REVIEWBOARD_DATE_FORMAT),
             last_updated_to=end_date.strftime(REVIEWBOARD_DATE_FORMAT),
             max_results=50, start=0)

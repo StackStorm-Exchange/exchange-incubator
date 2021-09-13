@@ -4,12 +4,12 @@ This is a stackstorm pack for reviewboard tools. This pack consists of a sample 
 
 ## Installation
 
-Then install this pack with: `st2 pack install rbtools`
+Then install this pack with: `st2 pack install reviewboard`
 
 ## Configuration
 
-Copy the example configuration in [rbtools.yaml.example](./rbtools.yaml.example)
-to `/opt/stackstorm/configs/rbtools.yaml` and edit as required.
+Copy the example configuration in [reviewboard.yaml.example](./reviewboard.yaml.example)
+to `/opt/stackstorm/configs/reviewboard.yaml` and edit as required.
 
 * ``url`` - URL of the Reviewboard instance (e.g. ``https://codereviews.example.tld``)
 * ``poll_interval`` - Polling interval - default 30s

@@ -1,0 +1,28 @@
+name: patch_device_group_by_id
+pack: logicmonitor
+runner_type: python-script
+description: Update a device group by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: integer
+    description: The id of the device group to be updated.
+    required: true
+  body:
+    type: object
+    description: The body object with required fields - name.
+    required: true
+    properties:
+      name:
+        type: string
+        description: The name of the device group.
+        required: true
+  method:
+    default: patch_device_group_by_id
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-patchDeviceGroupById

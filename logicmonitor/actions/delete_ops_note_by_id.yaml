@@ -1,0 +1,19 @@
+name: delete_ops_note_by_id
+pack: logicmonitor
+runner_type: python-script
+description: Delete an ops-note by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: string
+    description: The id of the ops-note to be deleted.
+    required: true
+  method:
+    default: delete_ops_note_by_id
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-deleteOpsNoteById

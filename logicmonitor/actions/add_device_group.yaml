@@ -1,0 +1,24 @@
+name: add_device_group
+pack: logicmonitor
+runner_type: python-script
+description: Add a device-group to your LogicMonitor portal.
+enabled: true
+entry_point: run.py
+parameters:
+  body:
+    type: object
+    description: The body object with required fields - name.
+    required: true
+    properties:
+      name:
+        type: string
+        description: The name of the device group.
+        required: true
+  method:
+    default: add_device_group
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-addDeviceGroup

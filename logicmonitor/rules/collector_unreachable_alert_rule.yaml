@@ -1,0 +1,33 @@
+# ENABLE THE RULE TO USE IT
+name: "collector_unreachable_alert_rule"
+pack: "logicmonitor"
+description: "Maps Collector Unreachable Alerts (LMA) to an action"
+enabled: false
+
+trigger:
+  type: "logicmonitor.alert_trigger"
+
+criteria:
+  trigger.type:
+    type: "equals"
+    pattern: "agentDownAlert"
+
+action:
+  ref: "logicmonitor.get_alert_list"
+  parameters:
+    payload: "{{trigger}}"
+
+# Maps Collector Unreachable Alerts (LMA) to an action
+
+# TROUBLESHOOTING
+# On the LogicMonitor side, your Stackstorm Integration’s POST payload should include the appropriate
+# object (key/value pair) for your rule's criteria. Ensure the key/value pair indicated in the Rule's
+# criteria section exists in the payload being sent to the webhook-sensor.
+#
+# The default payload object contains the { ... “type”:”##ALERTTYPE##” ... } key/value pair which will
+# satisfy the above rule's criteria.
+#
+# RELATED DOCUMENTATION
+# https://www.logicmonitor.com/support/alerts/about-alerts/what-does-logicmonitor-alert-on
+# https://www.logicmonitor.com/support/logicmodules/about-logicmodules/tokens-available-in-datasource-alert-messages
+# https://docs.stackstorm.com/rules.html

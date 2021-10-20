@@ -1,0 +1,33 @@
+name: patch_alert_rule_by_id
+pack: logicmonitor
+runner_type: python-script
+description: Update an alert rule by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: integer
+    description: The id of the alert rule to be updated.
+    required: true
+  body:
+    type: object
+    description: The body object with required fields - escalatingChainId, name, priority.
+    required: true
+    properties:
+      escalatingChainId:
+        type: integer
+        required: true
+      name:
+        type: string
+        required: true
+      priority:
+        type: integer
+        required: true
+  method:
+    default: patch_alert_rule_by_id
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-patchAlertRuleById

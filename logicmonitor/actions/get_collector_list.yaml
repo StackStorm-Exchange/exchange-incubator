@@ -1,0 +1,15 @@
+name: get_collector_list
+pack: logicmonitor
+runner_type: python-script
+description: Get the list of collectors. (See documentation for list filtering)
+enabled: true
+entry_point: run.py
+parameters:
+  method:
+    default: get_collector_list
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-getCollectorList

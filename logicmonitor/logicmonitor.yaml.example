@@ -1,0 +1,5 @@
+---
+company: "your-company"
+access_id: "your-api-access-id"
+access_key: "your-api-access-key"
+auth_enabled: true

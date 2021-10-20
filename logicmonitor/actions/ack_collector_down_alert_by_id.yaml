@@ -1,0 +1,28 @@
+name: ack_collector_down_alert_by_id
+pack: logicmonitor
+runner_type: python-script
+description: Acknowledge a collector-down alert by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: integer
+    description: This is the collector down alert id.
+    required: true
+  body:
+    type: object
+    description: The body object that contains important information.
+    required: true
+    properties:
+      comment:
+        type: string
+        description: The acknowledgement comment.
+        required: true
+  method:
+    default: ack_collector_down_alert_by_id
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-ackCollectorDownAlertById

@@ -1,0 +1,28 @@
+name: patch_ops_note_by_id
+pack: logicmonitor
+runner_type: python-script
+description: Update an ops-note by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: string
+    description: The id of the ops-note to be updated.
+    required: true
+  body:
+    type: object
+    description: The body object with required fields - note.
+    required: true
+    properties:
+      note:
+        type: string
+        description: The note message.
+        required: true
+  method:
+    default: patch_ops_note_by_id
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-patchOpsNoteById

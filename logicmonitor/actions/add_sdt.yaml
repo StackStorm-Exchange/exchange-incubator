@@ -1,0 +1,24 @@
+name: add_sdt
+pack: logicmonitor
+runner_type: python-script
+description: Add an SDT (scheduled down time).
+enabled: true
+entry_point: run.py
+parameters:
+  body:
+    type: object
+    description: The body object with required fields - type.
+    required: true
+    properties:
+      type:
+        type: string
+        description: The type of resource the SDT is for - see documentation for  details.
+        required: true
+  method:
+    default: add_sdt
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-addSDT

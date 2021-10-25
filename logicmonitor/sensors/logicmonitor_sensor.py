@@ -1,5 +1,6 @@
 import json
 import requests
+import sensor_constants as C
 from flask import request, Flask
 from st2reactor.sensor.base import Sensor
 
@@ -24,73 +25,62 @@ class LogicMonitorSensor(Sensor):
         @self._app.route('/', methods=['POST'])
         def handle_webhook():
 
-            # Log messages
-            LOG_LOADING_DATA = "PAYLOAD JSON LOADED SUCCESSFULLY!"
-            LOG_FAILED_TO_PARSE_JSON = "DELIVERY NOT ACCEPTED! The webhook-sensor failed to parse the payload's body as JSON."
-            LOG_FAILED_BAD_RESPONSE = 'AUTHENTICATION FAILED! Webhook-sensor received bad response code from StackStorm: '
-            LOG_AUTH_ENABLED = "AUTHENTICATION IS ENABLED."
-            LOG_AUTH_DISABLED = "AUTHENTICATION IS DISABLED! It is strongly recommended to enable authentication in your pack's configuration file!"
-            LOG_TRIGGER_DISPATCHED = 'Trigger/payload dispatched into StackStorm. trigger="logicmonitor.alert_trigger" , payload='
-            LOG_DEFAULT_RESPONSE = 'Unknown error has occurred.'
-
-            # Response messages
-            RES_FAILED_TO_PARSE_JSON = "DELIVERY NOT ACCEPTED! The webhook-sensor failed to parse the payload's body as JSON."
-            RES_FAILED_BAD_RESPONSE = 'AUTHENTICATION FAILED! Webhook-sensor received bad response code from StackStorm: '
-            RES_SUCCESS_AUTH_ENABLED = 'SUCCESS! LogicMonitor has successfully authenticated with StackStorm. Trigger/payload injected into StackStorm.'
-            RES_SUCCESS_AUTH_DISABLED = "SUCCESS! Trigger/payload injected into StackStorm. (AUTHENTICATION IS DISABLED! It is strongly recommended to enable authentication in your pack's configuration file!)"
-            RES_DEFAULT_RESPONSE = 'Unknown error has occurred.'
-
             # Get JSON data from POST request
             try:
                 data = json.loads(request.data)
-                self._log.info(LOG_LOADING_DATA)
+                self._log.info(C.LOG_LOADING_DATA)
             except Exception:
-                self._log.info(LOG_FAILED_TO_PARSE_JSON)
-                return RES_FAILED_TO_PARSE_JSON
+                self._log.info(C.LOG_FAILED_TO_PARSE_JSON)
+                return C.RES_FAILED_TO_PARSE_JSON
+
+            # Get API Key from POST request
+            try:
+                _apiKey = data[C.API_KEY_KEY]
+                self._log.info(C.LOG_API_KEY_EXISTS)
+            except Exception:
+                self._log.info(C.LOG_API_KEY_DOES_NOT_EXIST)
+                return C.RES_API_KEY_DOES_NOT_EXIST
 
             if self._auth_enabled == True:
 
                 # Auth is enabled
-                self._log.info(LOG_AUTH_ENABLED)
-
-                # Get API Key from POST request
-                _apiKey = data['apiKey']
+                self._log.info(C.LOG_AUTH_ENABLED)
 
                 # Create local GET Request to ensure StackStorm API Key exists and is enabled
-                _url = "https://127.0.0.1/api/"
                 _headers = {'St2-Api-Key':_apiKey,'cache-control':'no-store'}
 
                 # Send the GET Request & store response.
-                _response = requests.get(url=_url, headers=_headers, verify=False)
+                _response = requests.get(url=C.AUTH_URL, headers=_headers, verify=False)
 
                 # AUTHENTICATION STEP : Ensure response status-code is OK. Non-existent or disabled API Keys will fail here.
                 _responseStatusCode = _response.status_code
                 if _responseStatusCode != requests.codes.ok:
 
                     # Authentication failed : Bad response code
-                    self._log.info(F'{LOG_FAILED_BAD_RESPONSE}{_response.text}')
-                    return F'{RES_FAILED_BAD_RESPONSE}{_response.text}'
+                    self._log.info(F'{C.LOG_FAILED_BAD_RESPONSE}{_response.text}')
+                    return F'{C.RES_FAILED_BAD_RESPONSE}{_response.text}'
 
                 # SUCCESS : Authentication succeeded. Inject trigger/payload & return response
-                del data['apiKey'] # Remove API Key from payload before it is injected with the trigger
-                self._sensor_service.dispatch('logicmonitor.alert_trigger', data)
-                self._log.info(F'{LOG_TRIGGER_DISPATCHED}"{data}"')
-                return RES_SUCCESS_AUTH_ENABLED
+                self._log.info(C.LOG_AUTH_SUCCEEDED)
+                del data[C.API_KEY_KEY] # Remove API Key from payload before it is injected with the trigger
+                self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
+                self._log.info(F'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
+                return C.RES_SUCCESS_AUTH_ENABLED
 
             elif self._auth_enabled == False:
 
                 # Auth is disabled
-                self._log.info(LOG_AUTH_DISABLED)
+                self._log.info(C.LOG_AUTH_DISABLED)
 
                 # SUCCESS - Authentication disabled. Inject trigger/payload & return response
-                del data['apiKey'] # Remove API Key from payload before it is injected with the trigger
-                self._sensor_service.dispatch('logicmonitor.alert_trigger', data)
-                self._log.info(F'{LOG_TRIGGER_DISPATCHED}"{data}"')
-                return RES_SUCCESS_AUTH_DISABLED
+                del data[C.API_KEY_KEY] # Remove API Key from payload before it is injected with the trigger
+                self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
+                self._log.info(F'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
+                return C.RES_SUCCESS_AUTH_DISABLED
 
             # Default response - this should never occur.
-            self._log.info(LOG_DEFAULT_RESPONSE)
-            return RES_DEFAULT_RESPONSE
+            self._log.info(C.LOG_DEFAULT_RESPONSE)
+            return C.RES_DEFAULT_RESPONSE
 
         self._app.run(host=self._host, port=self._port)
 

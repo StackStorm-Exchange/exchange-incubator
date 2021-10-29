@@ -41,7 +41,7 @@ class LogicMonitorSensor(Sensor):
                 self._log.info(C.LOG_API_KEY_DOES_NOT_EXIST)
                 return C.RES_API_KEY_DOES_NOT_EXIST
 
-            if self._auth_enabled == True:
+            if self._auth_enabled is True:
 
                 # Auth is enabled
                 self._log.info(C.LOG_AUTH_ENABLED)
@@ -67,7 +67,7 @@ class LogicMonitorSensor(Sensor):
                 self._log.info(F'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
                 return C.RES_SUCCESS_AUTH_ENABLED
 
-            elif self._auth_enabled == False:
+            elif self._auth_enabled is False:
 
                 # Auth is disabled
                 self._log.info(C.LOG_AUTH_DISABLED)

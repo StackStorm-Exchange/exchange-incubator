@@ -1,0 +1,36 @@
+name: patch_device
+pack: logicmonitor
+runner_type: python-script
+description: Update a device by it's id.
+enabled: true
+entry_point: run.py
+parameters:
+  id:
+    type: integer
+    description: The id of the device being updated.
+    required: true
+  body:
+    type: object
+    description: The body object with required fields - displayName, name, preferredCollectorId.
+    required: true
+    properties:
+      displayName:
+        type: string
+        description: The display name of the device.
+        required: true
+      name:
+        type: string
+        description: The host name or IP address of the device.
+        required: true
+      preferredCollectorId:
+        type: integer
+        description: The id of the preferred collector assigned to monitor the device.
+        required: true
+  method:
+    default: patch_device
+    description: The name of the method called by the LogicMonitor Python SDK.
+    immutable: true
+    type: string
+
+# Link to related documentation:
+# https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-patchDevice

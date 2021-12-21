@@ -1,0 +1,19 @@
+---
+company:
+  description: "The name of your company (as it exists in the url of your LogicMonitor portal)"
+  type: "string"
+  required: true
+access_id:
+  description: "The access id required to authenticate requests made to your portal's REST API."
+  type: "string"
+  required: true
+access_key:
+  description: "The access key required to authenticate requests made to your portal's REST API."
+  type: "string"
+  secret: true
+  required: true
+auth_enabled:
+  description: "Do you want to authenticate requests? Defaults to true. Set to false to disable authentication for testing and development. It is STRONGLY encouraged to enable authentication for production purposes."
+  type: "boolean"
+  required: true
+  default: true

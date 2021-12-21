@@ -1,0 +1,19 @@
+---
+ref: logicmonitor
+name: logicmonitor
+description: This is the official LogicMonitor pack.
+keywords:
+  - LogicMonitor
+  - monitoring
+  - alerting
+version: 1.0.0
+python_versions:
+  - "3"
+author: LogicMonitor
+email:
+contributors:
+  - "Devansh Goel"
+  - "Jason Fan"
+  - "Yuri Dubler <yuri.dubler@logicmonitor.com>"
+
+# LogicMonitor Support: https://support.logicmonitor.com/hc/en-us/requests/new

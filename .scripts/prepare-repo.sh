@@ -27,5 +27,7 @@ rm -rf ${PACK_DIRECTORY}
 
 ls -la .
 
-echo "export PACK_NAME=$PACK_NAME" >> ~/.circlerc
-echo "export FORCE_CHECK_ALL_FILES=true" >> ~/.circlerc
+if [[ "${CIRCLECI}" == "true" ]]; then
+    echo "export PACK_NAME=$PACK_NAME" >> ~/.circlerc
+    echo "export FORCE_CHECK_ALL_FILES=true" >> ~/.circlerc
+fi

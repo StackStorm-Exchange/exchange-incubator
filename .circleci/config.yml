@@ -1,60 +1,16 @@
 version: 2
 
 jobs:
-  build_and_test:
+  circleci_is_disabled_job:
     docker:
-      - image: circleci/python:3.6
-      - image: rabbitmq:3
-      - image: mongo:3.4
-
-    working_directory: ~/repo
-
-    environment:
-      VIRTUALENV_DIR: "~/virtualenv"
-      FORCE_CHECK_ALL_FILES: "true"
-
+      - image: cimg/base:stable
     steps:
-      - checkout
-      # Download submodules for any PR which might add pack as a submodule
       - run:
-          name: Checkout submodules
-          command: |
-            git submodule init
-            git submodule update --remote
-      - run:
-          name: Prepare repository
-          command: |
-            .scripts/prepare-repo.sh
-      - restore_cache:
-          key: v1-dependency-cache-{{ checksum "requirements.txt" }}
-      - run:
-          name: Download dependencies
-          command: |
-            git clone -b ${CI_BRANCH:-master} git@github.com:StackStorm-Exchange/ci.git ~/ci
-            ~/ci/.circle/dependencies
-      - run:
-          name: Run tests
-          command: ~/ci/.circle/test
-      - save_cache:
-          key: v1-dependency-cache-{{ checksum "requirements.txt" }}
-          paths:
-            - ~/.cache/pip
-            - ~/.apt-cache
-      - persist_to_workspace:
-          root: /
-          paths:
-            - home/circleci/ci
-            - home/circleci/virtualenv
-            - tmp/st2
-            - home/circleci/repo
-            - home/circleci/.gitconfig
+          shell: /bin/bash
+          command: echo CircleCI disabled on StackStorm-Exchange
 
 workflows:
   version: 2
-  build_and_test:
+  circleci_is_disabled:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              ignore:
-                - master
+      - circleci_is_disabled_job

@@ -30,7 +30,7 @@ It must contain:
   > The final command to generate a dynamic configuration value should look something like this:
   > <br/>
   > `st2 key set --scope=user --encrypt -- lm_access_key "{k%J7I(Gkf^5sgH8tdT=85485fX-}V2z4gkCfkPH"`
-  > <br/><br/>Once a dynamic configuration value has been created you must reference it in your configuration file using `"{{st2kv.user.key_name}}"`.
+  > <br/><br/>Once a dynamic configuration value has been created you must reference it in your configuration file using:<br/>`"{{st2kv.user.key_name}}"`.
   > <br/><br/>Read the [documentation](https://docs.stackstorm.com/reference/pack_configs.html#configuring-a-user-scoped-dynamic-configuration-value) to ensure you understand how dynamic configuration values work.
 
   > <b>NOTE</b>: The LogicMonitor Pack includes a set of Actions that make REST requests to your LogicMonitor Portal using the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/). Therefore, it requires a valid [LogicMonitor API Access ID and Access Key](https://www.logicmonitor.com/support/settings/users-and-roles/api-tokens).

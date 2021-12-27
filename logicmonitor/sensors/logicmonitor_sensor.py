@@ -4,16 +4,17 @@ import sensor_constants as C
 from flask import request, Flask
 from st2reactor.sensor.base import Sensor
 
+
 class LogicMonitorSensor(Sensor):
     def __init__(self, sensor_service, config=None):
         self._config = config
         self._sensor_service = sensor_service
 
-        self._host = '0.0.0.0'
-        self._port = '5000'
+        self._host = "0.0.0.0"
+        self._port = "5000"
 
         if config != None:
-            self._auth_enabled = config.get('auth_enabled')
+            self._auth_enabled = config.get("auth_enabled")
 
         self._app = Flask(__name__)
         self._log = self._sensor_service.get_logger(__name__)
@@ -22,7 +23,7 @@ class LogicMonitorSensor(Sensor):
         pass
 
     def run(self):
-        @self._app.route('/', methods=['POST'])
+        @self._app.route("/", methods=["POST"])
         def handle_webhook():
 
             # Get JSON data from POST request
@@ -47,7 +48,7 @@ class LogicMonitorSensor(Sensor):
                 self._log.info(C.LOG_AUTH_ENABLED)
 
                 # Create local GET Request to ensure StackStorm API Key exists and is enabled
-                _headers = {'St2-Api-Key':_apiKey,'cache-control':'no-store'}
+                _headers = {"St2-Api-Key": _apiKey, "cache-control": "no-store"}
 
                 # Send the GET Request & store response.
                 _response = requests.get(url=C.AUTH_URL, headers=_headers, verify=False)
@@ -57,14 +58,16 @@ class LogicMonitorSensor(Sensor):
                 if _responseStatusCode != requests.codes.ok:
 
                     # Authentication failed : Bad response code
-                    self._log.info(F'{C.LOG_FAILED_BAD_RESPONSE}{_response.text}')
-                    return F'{C.RES_FAILED_BAD_RESPONSE}{_response.text}'
+                    self._log.info(f"{C.LOG_FAILED_BAD_RESPONSE}{_response.text}")
+                    return f"{C.RES_FAILED_BAD_RESPONSE}{_response.text}"
 
                 # SUCCESS : Authentication succeeded. Inject trigger/payload & return response
                 self._log.info(C.LOG_AUTH_SUCCEEDED)
-                del data[C.API_KEY_KEY] # Remove API Key from payload before it is injected with the trigger
+                del data[
+                    C.API_KEY_KEY
+                ]  # Remove API Key from payload before it is injected with the trigger
                 self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
-                self._log.info(F'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
+                self._log.info(f'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
                 return C.RES_SUCCESS_AUTH_ENABLED
 
             elif self._auth_enabled is False:
@@ -73,9 +76,11 @@ class LogicMonitorSensor(Sensor):
                 self._log.info(C.LOG_AUTH_DISABLED)
 
                 # SUCCESS - Authentication disabled. Inject trigger/payload & return response
-                del data[C.API_KEY_KEY] # Remove API Key from payload before it is injected with the trigger
+                del data[
+                    C.API_KEY_KEY
+                ]  # Remove API Key from payload before it is injected with the trigger
                 self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
-                self._log.info(F'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
+                self._log.info(f'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
                 return C.RES_SUCCESS_AUTH_DISABLED
 
             # Default response - this should never occur.

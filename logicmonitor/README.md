@@ -7,7 +7,7 @@ Portal.
 
 LogicMonitor now supports StackStorm as an official Integration!
 
-You can now create a StackStorm Integration inside LogicMonitor Portal which can be used to send
+You can now create a StackStorm Integration inside your LogicMonitor Portal which can be used to send
 your LogicMonitor Alerts to your StackStorm environment which provides a way for you to automate
 your response to any type of alert you receive.
 

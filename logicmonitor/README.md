@@ -7,9 +7,13 @@ Portal.
 
 LogicMonitor now supports StackStorm as an official Integration!
 
-You can now create a StackStorm Integration inside your LogicMonitor Portal which can be used to send
-your LogicMonitor Alerts to your StackStorm environment which provides a way for you to automate
-your response to any type of alert you receive.
+You can now create a StackStorm Integration inside your LogicMonitor Portal which can be used to
+send your LogicMonitor Alerts to your StackStorm environment which provides a way for you to
+automate your response to any type of alert you receive.
+
+The LogicMonitor Pack creates a webhook-sensor (a Flask server) that is launched on port 5000 on the
+machine where StackStorm is installed. You must allow internet traffic to reach port 5000 on the
+machine on which StackStorm has been installed.
 
 This LogicMonitor Pack must be used in conjunction with a StackStorm Integration inside your
 LogicMonitor Portal:
@@ -26,10 +30,6 @@ The LogicMonitor Pack includes a set of Rules that can fire an action when an al
 type is sent to StackStorm.
 
 The LogicMonitor Pack includes a set of Actions that make REST Requests to your LogicMonitor Portal.
-
-The LogicMonitor Pack creates a webhook-sensor (a Flask server) that is launched on port 5000 on the
-machine where StackStorm is installed. You must allow internet traffic to reach port 5000 on the
-machine on which StackStorm has been installed.
 
 Everything in this section is described in more detail below.
 
@@ -83,6 +83,9 @@ StackStorm to load these new values by running
 The LogicMonitor Pack launches a sensor (a Flask server) on port 5000. Be sure to modify your
 network settings to allow internet traffic to reach port 5000 on the machine on which StackStorm has
 been installed.
+
+If you need to restart your sensor-webhook on port 5000, use the `st2 pack register logicmonitor`
+command from the terminal. If that fails, try `st2ctl reload`.
 
 ## LogicMonitor REST API Access ID and Key
 

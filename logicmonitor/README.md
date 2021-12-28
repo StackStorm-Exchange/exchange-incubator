@@ -207,7 +207,7 @@ More specifically, the LogicMonitor Pack has provided these Actions:
 * `delete_device_group_by_id`
 * `delete_escalation_chain_by_id`
 * `delete_ops_note_by_id`
-  `delete_sdt_by_id`
+* `delete_sdt_by_id`
 
 ###### GET
 

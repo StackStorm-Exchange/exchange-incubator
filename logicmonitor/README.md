@@ -30,7 +30,7 @@ It must contain:
   > The final command to generate a dynamic configuration value should look something like this:
   > <br/>
   > `st2 key set --scope=user --encrypt -- lm_access_key "{k%J7I(Gkf^5sgH8tdT=85485fX-}V2z4gkCfkPH"`
-  > <br/><br/>Once a dynamic configuration value has been created you must reference it in your configuration file using:<br/>`"{{st2kv.user.key_name}}"`.
+  > <br/><br/>Once a dynamic configuration value has been created you must reference it in your configuration file using `"{{st2kv.user.key_name}}"`.
   > <br/><br/>Read the [documentation](https://docs.stackstorm.com/reference/pack_configs.html#configuring-a-user-scoped-dynamic-configuration-value) to ensure you understand how dynamic configuration values work.
 
   > <b>NOTE</b>: The LogicMonitor Pack includes a set of Actions that make REST requests to your LogicMonitor Portal using the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/). Therefore, it requires a valid [LogicMonitor API Access ID and Access Key](https://www.logicmonitor.com/support/settings/users-and-roles/api-tokens).
@@ -47,10 +47,16 @@ It must contain:
 StackStorm to load these new values by running
 `st2ctl reload --register-configs`
 
+## Sensor & Port 5000 & Networking
+
+The LogicMonitor Pack launches a sensor (a Flask server) on port 5000. Be sure to modify your
+network settings to allow internet traffic to reach port 5000 on the machine on which StackStorm has
+been installed.
+
 ## LogicMonitor REST API Access ID and Key
 
-As mentioned, the LogicMonitor Pack comes with a number of Actions that make REST requests to your
-LogicMonitor Portal using
+As mentioned, the LogicMonitor Pack comes with a number of Actions (listed further below) that make
+REST requests to your LogicMonitor Portal using
 the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/)
 . Therefore, it requires a
 valid [LogicMonitor API Access ID and Access Key](https://www.logicmonitor.com/support/settings/users-and-roles/api-tokens)
@@ -63,12 +69,13 @@ As discussed further above, you must enter a valid LogicMonitor API Access ID an
 into your `/opt/stackstorm/configs/logicmonitor.yaml` configuration file.
 
 * The Access ID is entered into the configuration file's `access_id`field.
-* The Access Key is a secret that is should be entered into the configuration file's `access_key`
+* The Access Key is a <b>SECRET</b> that is should be entered into the configuration
+  file's `access_key`
   field using
   StackStorm's [dynamic configuration values](https://docs.stackstorm.com/reference/pack_configs.html#configuring-a-user-scoped-dynamic-configuration-value)
-  . The access key is secret and should never be exposed.
+  . The access key should never be exposed or visible in any files or logs.
 
-## Sensor & StackStorm API Key
+## Sensor & StackStorm API Key & Payload
 
 The LogicMonitor Pack launches a sensor on port 5000 that authenticates every request with
 StackStorm using a [StackStorm API Key](https://docs.stackstorm.com/authentication.html#api-keys).
@@ -79,13 +86,7 @@ StackStorm Integration's "StackStorm Api Key" field.
 To create a new StackStorm Integration in your LogicMonitor Portal go to <b>Settings -> Integrations
 -> Add -> StackStorm</b>.
 
-> <b>NOTE:</b> The StackStorm API Key is stored in the "apiKey" object in the payload of the POST Request sent out by your LogicMonitor StackStorm Integration. Therefore, <b><u>the "apiKey" object must exist in the payload</u></b>. If you remove the "apiKey" object from the payload authentication with StackStorm will fail.<br/><br/>You can view and modify the POST Request's payload at the bottom of the StackStorm Integration dialog.
-
-## Sensor & Port 5000 & Networking
-
-The LogicMonitor Pack launches a sensor (a Flask server) on port 5000. Be sure to modify your
-network settings to allow internet traffic to reach port 5000 on the machine on which StackStorm has
-been installed.
+> <b>NOTE:</b> The StackStorm API Key is stored in the "apiKey" object in the payload of the POST Request sent out by your LogicMonitor StackStorm Integration. Therefore, <b><u>the "apiKey" object must exist in every POST payload you send to StackStorm</u></b>. Authentication with StackStorm will fail if by default if you remove the "apiKey" object from the payload.<br/><br/>You can view and modify the POST Request's payload sent by your LogicMonitor StackStorm Integration at the bottom of the StackStorm Integration dialog.
 
 ## Sensor -> Trigger -> Rule -> Action
 
@@ -95,6 +96,8 @@ the
 injecting the trigger with the concomitant payload is to fire a custom Action if the conditions in a
 Rule are satisfied. In that regard, the LogicMonitor Pack has provided a number of Rules (disabled
 by default) that fire an Action based on the type of alert being sent:
+
+RULES
 
 * `alert_throttling_alert_rule.yaml` - Maps Alert Throttling Alerts (LMT) to an action
 * `collector_failover_alert_rule.yaml` - Maps Collector Failover Alerts (LMF) to an action
@@ -116,8 +119,8 @@ by default) that fire an Action based on the type of alert being sent:
 ## Available Actions
 
 The LogicMonitor Pack also comes with a large (but not exhaustive) number of Actions that make their
-corresponding REST Requests to your LogicMonitor Portal. On a high level, the list of actions
-currently in the pack are:
+corresponding REST Requests to your LogicMonitor Portal. On a high level, the list of actions the
+currently exist in the pack are:
 
 * `Acknowledge Alert By ID`
 * `Get Alert By ID`

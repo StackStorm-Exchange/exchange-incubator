@@ -3,6 +3,36 @@
 Pack which allows integration with your company's [LogicMonitor](https://www.logicmonitor.com/)
 Portal.
 
+## Overview and Setup
+
+LogicMonitor now supports StackStorm as an official Integration!
+
+You can now create a StackStorm Integration inside LogicMonitor Portal which can be used to send
+your LogicMonitor Alerts to your StackStorm environment which provides a way for you to automate
+your response to any type of alert you receive.
+
+The LogicMonitor Pack creates a webhook-sensor (a Flask server) that is launched on port 5000 on the
+machine where StackStorm is installed. You must allow internet traffic to reach port 5000 on the
+machine on which StackStorm has been installed.
+
+This LogicMonitor Pack must be used in conjunction with a StackStorm Integration inside your
+LogicMonitor Portal:
+
+* Install the LogicMonitor Pack into your StackStorm environment.
+    * Setup the pack's configuration file.
+        * Requires your company name as it exists in your LogicMonitor URL.
+        * Requires a valid LogicMonitor API Access ID and Access Key pair.
+* Create a StackStorm Integration in your LogicMonitor Portal.
+    * Settings -> Integrations -> Add -> StackStorm
+    * Requires a StackStorm API Key and the URL to your StackStorm environment.
+
+The LogicMonitor Pack includes a set of Rules that can fire an action when an alert of a certain
+type is sent to StackStorm.
+
+The LogicMonitor Pack includes a set of Actions that make REST Requests to your LogicMonitor Portal.
+
+Everything in this section is described in more detail below.
+
 ## Configuration File
 
 Copy the example configuration in [logicmonitor.yaml.example](./logicmonitor.yaml.example)
@@ -39,8 +69,9 @@ It must contain:
 * ``auth_enabled`` - True or false, defaults to <b>true</b>.
   <br/><br/>If enabled, this authenticates all requests made to StackStorm using
   the [StackStorm API Key](https://docs.stackstorm.com/authentication.html#api-keys)
-  entered into your StackStorm Integration in your LogicMonitor portal. Set to false to make testing
-  easier.
+  entered into your StackStorm Integration in your LogicMonitor portal. Set this to false to make
+  testing easier. If this is set to false, you can enter a dummy value into your StackStorm
+  Integration's "StackStorm Api Key" field.
   > <b>WARNING:</b> We strongly recommend setting `auth_enabled` to <b>true</b> for production.
 
 **Note** : When modifying the configuration in `/opt/stackstorm/configs/` please remember to tell
@@ -86,7 +117,22 @@ StackStorm Integration's "StackStorm Api Key" field.
 To create a new StackStorm Integration in your LogicMonitor Portal go to <b>Settings -> Integrations
 -> Add -> StackStorm</b>.
 
-> <b>NOTE:</b> The StackStorm API Key is stored in the "apiKey" object in the payload of the POST Request sent out by your LogicMonitor StackStorm Integration. Therefore, <b><u>the "apiKey" object must exist in every POST payload you send to StackStorm</u></b>. Authentication with StackStorm will fail if by default if you remove the "apiKey" object from the payload.<br/><br/>You can view and modify the POST Request's payload sent by your LogicMonitor StackStorm Integration at the bottom of the StackStorm Integration dialog.
+> <b>WARNING:</b> The StackStorm API Key is stored in the "apiKey" object in the payload of the POST Request sent out by your LogicMonitor StackStorm Integration. Therefore, <b><u>the "apiKey" object must exist in every POST payload you send to StackStorm</u></b>. Authentication with StackStorm will fail if by default if you remove the "apiKey" object from the payload.<br/><br/>You can view and modify the POST Request's payload sent by your LogicMonitor StackStorm Integration at the bottom of the StackStorm Integration dialog.
+
+## Create a StackStorm Integration inside your LogicMonitor Portal
+
+As mentioned, you need to create a StackStorm Integration inside your LogicMonitor Portal for this
+pack to work.
+
+To create a new StackStorm Integration in your LogicMonitor Portal go to <b>Settings -> Integrations
+-> Add -> StackStorm</b>. Once the StackStorm Integration has been created, it requires:
+
+* A URL to port 5000 of the machine where you installed StackStorm.
+* A valid [StackStorm API Key](https://docs.stackstorm.com/authentication.html#api-keys) for
+  authentication.
+
+Once the StackStorm Integration has been saved, setup an Escalation Chain and an Alert Rule so that
+alerts can be sent to your StackStorm environment.
 
 ## Sensor -> Trigger -> Rule -> Action
 
@@ -195,10 +241,10 @@ More specifically, the LogicMonitor Pack has provided these Actions:
 
 > <b>NOTE:</b> All of these Actions correspond to REST functions that exist in the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/) of the same name. For example, the `patch_escalation_chain_by_id` Action will fire the [`patchEscalationChainById` function in the LM Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/#api-LM-patchEscalationChainById).
 
-> <b>NOTE:</b> All of these Actions call the same <i>run.py</i> method but with different parameters.
+> <b>NOTE:</b> All of these Actions call the same <i>/opt/stackstorm/packs/logicmonitor/actions/<b>run.py</b></i> method but with different parameters.
 
-> <b>NOTE:</b> This is not an exhaustive list of actions that are available in the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/).
+> <b>NOTE:</b> We did not include every action that exists in the [LogicMonitor Python SDK](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/).
 >
-> If you need to use a function from the LM Python SDK but it hasn't been included in the pack, copy/paste an existing action and modify it to call the corresponding function from the LM Python SDK. Be sure to refer to the [documentation](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/) to see the list of parameters needed for the specific function you intend on adding.
+> If you need to use an action/function from the LM Python SDK but it hasn't been included in the pack, copy/paste an existing action and modify it to call the corresponding function from the LM Python SDK. Be sure to refer to the [documentation](https://www.logicmonitor.com/support-files/rest-api-developers-guide/sdks/docs/) to see the list of parameters needed for the specific function you intend on using.
 
 ## Thank you for downloading the LogicMonitor Pack!

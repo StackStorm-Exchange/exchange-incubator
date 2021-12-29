@@ -43,6 +43,6 @@ RES_SUCCESS_AUTH_ENABLED = (
     "SUCCESS! Authentication with StackStorm succeeded! Trigger/payload injected into StackStorm."
 )
 RES_SUCCESS_AUTH_DISABLED = (
-    "SUCCESS! Trigger/payload injected into StackStorm. AUTH DISABLED! Enable it in your config file!"
+    "SUCCESS! Trigger/payload injected into ST2. AUTH IS DISABLED! Enable it in your config file!"
 )
 RES_DEFAULT_RESPONSE = "Unknown error has occurred."

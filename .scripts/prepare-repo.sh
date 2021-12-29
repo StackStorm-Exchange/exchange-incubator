@@ -20,12 +20,9 @@ echo "Found pack name: ${PACK_NAME}"
 
 
 # Copy pack files in root dir so the checks work
-echo "Exporting PACK_NAME and removing pack directory"
+echo "Removing pack directory"
 
 cp -r ${PACK_DIRECTORY}/* .
 rm -rf ${PACK_DIRECTORY}
 
 ls -la .
-
-echo "export PACK_NAME=$PACK_NAME" >> ~/.circlerc
-echo "export FORCE_CHECK_ALL_FILES=true" >> ~/.circlerc

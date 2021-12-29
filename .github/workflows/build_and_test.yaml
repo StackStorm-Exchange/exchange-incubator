@@ -36,6 +36,13 @@ jobs:
         run: |
           .scripts/prepare-repo.sh
 
+      - name: Check for Apache 2.0 LICENSE file (required for new packs)
+        working-directory: pack
+        shell: bash
+        run: |
+          head -n3 LICENSE
+          grep -e 'Apache License' -e 2.0 LICENSE | grep -v -e APPENDIX -e attach
+
       - name: Install APT Dependencies
         uses: StackStorm-Exchange/ci/.github/actions/apt-dependencies@master
         with:

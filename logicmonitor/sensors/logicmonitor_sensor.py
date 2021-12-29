@@ -56,7 +56,7 @@ class LogicMonitorSensor(Sensor):
                 # AUTHENTICATION STEP : Ensure response status-code is OK.
                 # Non-existent or disabled API Keys will fail here.
                 _responseStatusCode = _response.status_code
-                if _responseStatusCode != requests.codes.ok:
+                if _responseStatusCode != requests.codes['ok']:
 
                     # Authentication failed : Bad response code
                     self._log.info(f"{C.LOG_FAILED_BAD_RESPONSE}{_response.text}")

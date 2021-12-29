@@ -22,7 +22,7 @@ class ActionWrapper(Action):
         api_instance = logicmonitor_sdk.LMApi(logicmonitor_sdk.ApiClient(configuration))
         sdk_method = kwargs.pop("method")
         for key in kwargs.copy():
-            if kwargs[key] == None:
+            if kwargs[key] is None:
                 kwargs.pop(key)
 
         try:

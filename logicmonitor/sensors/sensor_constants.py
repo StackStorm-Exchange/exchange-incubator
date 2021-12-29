@@ -21,7 +21,9 @@ LOG_FAILED_BAD_RESPONSE = (
 )
 LOG_AUTH_ENABLED = "AUTHENTICATION IS ENABLED."
 LOG_AUTH_SUCCEEDED = "AUTHENTICATION SUCCEEDED!"
-LOG_AUTH_DISABLED = "AUTHENTICATION IS DISABLED! It is strongly recommended to enable authentication in your pack's configuration file!"
+LOG_AUTH_DISABLED = (
+    "AUTHENTICATION IS DISABLED! It is strongly recommended to enable authentication in your pack's configuration file!"
+)
 LOG_TRIGGER_DISPATCHED = (
     'Trigger/payload dispatched into StackStorm. trigger="logicmonitor.alert_trigger" , payload='
 )
@@ -37,6 +39,10 @@ RES_API_KEY_DOES_NOT_EXIST = (
 RES_FAILED_BAD_RESPONSE = (
     "AUTHENTICATION FAILED! Webhook-sensor received bad response code from StackStorm: "
 )
-RES_SUCCESS_AUTH_ENABLED = "SUCCESS! LogicMonitor has successfully authenticated with StackStorm. Trigger/payload injected into StackStorm."
-RES_SUCCESS_AUTH_DISABLED = "SUCCESS! Trigger/payload injected into StackStorm. (AUTHENTICATION IS DISABLED! It is strongly recommended to enable authentication in your pack's configuration file!)"
+RES_SUCCESS_AUTH_ENABLED = (
+    "SUCCESS! LogicMonitor has successfully authenticated with StackStorm. Trigger/payload injected into StackStorm."
+)
+RES_SUCCESS_AUTH_DISABLED = (
+    "SUCCESS! Trigger/payload injected into StackStorm. (AUTH IS DISABLED! Enable it in your pack's config file!)"
+)
 RES_DEFAULT_RESPONSE = "Unknown error has occurred."

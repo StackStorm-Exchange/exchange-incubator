@@ -56,7 +56,7 @@ class LogicMonitorSensor(Sensor):
                 # AUTHENTICATION STEP : Ensure response status-code is OK.
                 # Non-existent or disabled API Keys will fail here.
                 _responseStatusCode = _response.status_code
-                if _responseStatusCode != requests.codes['ok']:
+                if _responseStatusCode != requests.codes["ok"]:
 
                     # Authentication failed : Bad response code
                     self._log.info(f"{C.LOG_FAILED_BAD_RESPONSE}{_response.text}")
@@ -64,9 +64,9 @@ class LogicMonitorSensor(Sensor):
 
                 # SUCCESS : Authentication succeeded. Inject trigger/payload & return response
                 self._log.info(C.LOG_AUTH_SUCCEEDED)
-                del data[
-                    C.API_KEY_KEY
-                ]  # Remove API Key from payload before it is injected with the trigger
+
+                # Remove API Key from payload before it is injected with the trigger
+                del data[C.API_KEY_KEY]
                 self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
                 self._log.info(f'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
                 return C.RES_SUCCESS_AUTH_ENABLED

@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  # This is based on this workflow, with an additional test env setup method
+  # StackStorm-Exchange/ci/.github/workflows/pack-build_and_test.yaml@master
+
+  build_and_test:
+    # we only run if this is a pull request from a fork
+    # assuming that any pull requests from the same repo are infra changes.
+    if: github.event.pull_request.head.repo.full_name != github.repository
+
+    runs-on: ubuntu-latest
+    name: 'Build and Test / Python ${{ matrix.python-version-short }}'
+    strategy:
+      matrix:
+        include:
+          - python-version-short: "3.6"
+            python-version: 3.6.13
+    steps:
+      - name: Checkout Pack Repo and CI Repos
+        uses: StackStorm-Exchange/ci/.github/actions/checkout@master
+
+      - name: Checkout submodules (incubator)
+        working-directory: pack
+        shell: bash
+        run: |
+          git submodule init
+          git submodule update --remote
+
+      - name: Prepare repository (incubator)
+        working-directory: pack
+        shell: bash
+        run: |
+          .scripts/prepare-repo.sh
+
+      - name: Check for Apache 2.0 LICENSE file (required for new packs)
+        working-directory: pack
+        shell: bash
+        run: |
+          head -n3 LICENSE
+          grep -e 'Apache License' -e 2.0 LICENSE | grep -v -e APPENDIX -e attach
+
+      - name: Install APT Dependencies
+        uses: StackStorm-Exchange/ci/.github/actions/apt-dependencies@master
+        with:
+          cache-version: v0
+
+      - name: Install Python Dependencies
+        uses: StackStorm-Exchange/ci/.github/actions/py-dependencies@master
+        with:
+          cache-version: v0
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run pack tests
+        uses: StackStorm-Exchange/ci/.github/actions/test@master
+        with:
+          enable-common-libs: true
+          force-check-all-files: true
+
+    services:
+      mongo:
+        image: mongo:3.4
+        ports:
+          - 27017:27017
+      rabbitmq:
+        image: rabbitmq:3
+        ports:
+          - 5672:5672
+      #redis:
+      #  image: redis
+      #  ports:
+      #    - 6379:6379

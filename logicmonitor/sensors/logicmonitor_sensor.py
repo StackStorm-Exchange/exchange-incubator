@@ -13,7 +13,7 @@ class LogicMonitorSensor(Sensor):
         self._host = "0.0.0.0"
         self._port = "5000"
 
-        if config != None:
+        if config is not None:
             self._auth_enabled = config.get("auth_enabled")
 
         self._app = Flask(__name__)
@@ -53,7 +53,8 @@ class LogicMonitorSensor(Sensor):
                 # Send the GET Request & store response.
                 _response = requests.get(url=C.AUTH_URL, headers=_headers, verify=False)
 
-                # AUTHENTICATION STEP : Ensure response status-code is OK. Non-existent or disabled API Keys will fail here.
+                # AUTHENTICATION STEP : Ensure response status-code is OK.
+                # Non-existent or disabled API Keys will fail here.
                 _responseStatusCode = _response.status_code
                 if _responseStatusCode != requests.codes.ok:
 

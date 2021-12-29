@@ -1,0 +1,87 @@
+name: Bootstrack Pack from PR
+
+on:
+#  pull_request_target:
+#    types: [labeled]
+#  pull_request_review:
+#    types: [submitted]
+  issue_comment:
+    types: created
+
+jobs:
+  tsc_membership_check:
+    # "!bootstrap pack" comment on pull requests
+    if: github.event.comment.body == '!bootstrap pack' && github.event.issue.pull_request
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate commentor permissions
+        # must be a TSC member
+
+  ready_to_merge_check:
+    needs: [tsc_membership_check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make sure incubator PR is approved
+      - name: Make sure CI workflow is passing for PR
+
+      - name: Publish status in incubator PR comment # and/or label
+
+  bootstrap_pack_repo:
+    needs: [tsc_membership_check, ready_to_merge_check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Incubator PR
+      - name: Extract Pack Details
+      - name: Check PR type (subdirectory or submodule)
+        # output for use in subsequent job(s)
+
+      - name: Check if pack repo exists
+      - name: Create pack repo alias on Github
+        # include pack description and exchange url
+      - name: Give TSC permissions on repo
+      - name: Rename pack repo on Github
+        # {pack_name} -> stackstorm-{pack_name}
+
+      - name: Create empty pack repo directory
+      - name: Bootstrap pack CI files
+        # minimal set of required files
+      - name: Commit and Push initial commit
+
+      - name: Configure Github to send webhook notifications to Slack
+
+      - name: Publish status in incubator PR comment # and/or label
+
+  create_pack_pr_from_subdirectory:
+    needs: [tsc_membership_check, ready_to_merge_check, bootstrap_pack]
+    if: jobs.bootstrap_pack_repo.? == 'subdirectory'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pack repo
+
+      - name: Add incubator as git remote
+      - name: Checkout Incubator PR
+
+      - name: Create branch for initial pack content
+      - name: Copy Incubator PR contents
+      - name: Commit and Push
+
+      - name: Create initial content PR on pack repo (subdirectory)
+
+      - name: Publish status in incubator PR comment # and/or label
+
+  create_pack_pr_from_subdirectory:
+    needs: [tsc_membership_check, ready_to_merge_check, bootstrap_pack]
+    if: jobs.bootstrap_pack_repo.? == 'submodule'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pack repo
+      - name: Add git remote for source repo in incubator submodule
+      - name: Pull source history into pack repo
+        # --allow-unrelated-histories
+        # fix merge conflicts by preferring exchange-provided files
+        # (which should be a minimal required set of files)
+
+      - name: Create initial content PR on pack repo
+
+      - name: Publish status in incubator PR comment # and/or label

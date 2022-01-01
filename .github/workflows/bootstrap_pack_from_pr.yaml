@@ -37,117 +37,37 @@ jobs:
 
       - name: Publish status in incubator PR comment # and/or label
 
-  bootstrap_pack_repo:
+  extract_pack_details:
     needs: [tsc_membership_check, ready_to_merge_check]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Incubator PR
-
       - name: Extract Pack Details
-        # PACK_NAME
-        # PACK_HOMEPAGE
-        # PACK_DESCRIPTION
+        id: pack-details
+        # TODO: switch from @gha to @master
+        uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta.yaml@gha
+    outputs:
+      pack_name: ${{ steps.pack-details.outputs.pack_name }}
+      pack_ref: ${{ steps.pack-details.outputs.pack_ref }}
+      pack_description: ${{ steps.pack-details.outputs.pack_description }}
+      in_submodule: ${{ steps.pack-details.outputs.in_submodule }}
+      in_subdir: ${{ steps.pack-details.outputs.in_subdir }}
 
-      - name: Check PR type (subdirectory or submodule)
-        # output for use in subsequent job(s)
-
-      - name: Check if pack repo needs to be created
-        id: do-create-repo
-        continue-on-error: true
-        shell: bash
-        # we negate the rc so 1 means repo already exists, 0 means does not exist
-        run: >
-          ! gh repo view
-          ${{ env.PACK_ORG }}/${{ env.PACK_REPO_PREFIX }}-${{ env.PACK_NAME }}
-          --json nameWithOwner -q .nameWithOwner
-
-      - name: Check if pack repo was partially created
-        if: steps.do-create-repo.outcome == 'success'
-        id: do-rename-repo
-        continue-on-error: true
-        shell: bash
-        run: >
-          gh repo view
-          ${{ env.PACK_ORG }}/${{ env.PACK_NAME }}
-          --json nameWithOwner -q .nameWithOwner
-
-      - name: Create pack repo on Github
-        id: created-repo
-        if: >
-          steps.do-create-repo.outcome == 'success'
-          && steps.do-rename-repo.outcome == 'failure'
-        shell: bash
-        # First create repo w/o stackstorm- prefix
-        # Then rename it to add the prefix.
-        # This creates a redirect/alias on github w/o the prefix.
-        run: >
-          gh repo create ${{ env.PACK_ORG }}/${{ env.PACK_NAME }}
-          --public
-          --homepage ${{ env.PACK_HOMEPAGE }}
-          --description ${{ env.PACK_DESCRIPTION }}
-          --template ${{ env.PACK_REPO_TEMPLATE }}
-
-      - name: Rename pack repo on Github
-        if: >
-          steps.do-rename-repo.outcome == 'success'
-          || steps.created-repo.outcome == 'success'
-        shell: bash
-        run: >
-          gh repo rename
-          '${{ env.PACK_REPO_PREFIX }}-${{ env.PACK_NAME }}'
-          -R '${{ env.PACK_ORG }}/${{ env.PACK_NAME }}'
-          --confirm
-
-      - name: Checkout pack repo
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ env.PACK_REPO_PREFIX }}-${{ env.PACK_NAME }}
-          path: pack
-          fetch-depth: 0
-
-      - name: Update pack repo metadata on Github
-        if: steps.do-create-repo.outcome == 'failure'
-        working-directory: pack
-        shell: bash
-        run: >
-          gh api -X PATCH 'repos/{owner}/{repo}'
-          -f "description=${PACK_DESCRIPTION}"
-          -f "homepage=${PACK_HOMEPAGE}"
-
-      # Using `gh repo create ... --team=TSC` only gives read permission, not maintain.
-      - name: Make sure TSC team has maintainer permissions on pack repo
-        working-directory: pack
-        shell: bash
-        run: >
-          gh api -X PUT /orgs/{owner}/teams/${{ env.TSC_TEAM }}/repos/{owner}/{repo}
-          -f permission=maintain
-
-      - name: Configure Github to send webhook notifications to Slack
-        working-directory: pack
-        shell: bash
-        run: |
-          jq -n '{
-            "name": "web",
-            "active": true,
-            "config": {
-              "url": "'"${SLACK_WEBHOOK_URL}"'",
-              "content_type": "application/json"
-            },
-            "events": [
-              "commit_comment",
-              "issue_comment",
-              "issues",
-              "pull_request",
-              "pull_request_review",
-              "pull_request_review_comment"
-            ]
-          }' | gh api repos/{owner}/{repo}/hooks --input -
-
-      - name: Publish status in incubator PR comment # and/or label
+  bootstrap_pack_repo:
+    needs: [extract_pack_details]
+    name: New Pack # / Bootstrap Repo
+    # TODO: switch from @gha to @master
+    uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
+    with:
+      # secrets
+      admin_token: "" # TODO: admin PAT with scopes: public_repo, workflows, org:write
+      slack_webhook_url: "" # TODO
+      # or should this use pack_ref ?
+      pack_name: ${{ jobs.extract_pack_details.outputs.pack_name }}
+      pack_description: ${{ jobs.extract_pack_details.outputs.pack_description }}
 
   create_pack_pr_from_subdirectory:
-    needs: [tsc_membership_check, ready_to_merge_check, bootstrap_pack]
-    if: jobs.bootstrap_pack_repo.? == 'subdirectory'
+    needs: [extract_pack_details, bootstrap_pack]
+    if: jobs.extract_pack_details.outputs.in_submodule == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout pack repo
@@ -169,8 +89,8 @@ jobs:
       - name: Publish status in incubator PR comment # and/or label
 
   create_pack_pr_from_submodule:
-    needs: [tsc_membership_check, ready_to_merge_check, bootstrap_pack]
-    if: jobs.bootstrap_pack_repo.? == 'submodule'
+    needs: [extract_pack_details, bootstrap_pack]
+    if: jobs.extract_pack_details.outputs.in_submodule == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout pack repo

@@ -61,8 +61,8 @@ jobs:
       # secrets
       admin_token: "" # TODO: admin PAT with scopes: public_repo, workflows, org:write
       slack_webhook_url: "" # TODO
-      # or should this use pack_ref ?
-      pack_name: ${{ jobs.extract_pack_details.outputs.pack_name }}
+      # TODO: validate that this || works as expected
+      pack_name: ${{ jobs.extract_pack_details.outputs.pack_ref || jobs.extract_pack_details.outputs.pack_name }}
       pack_description: ${{ jobs.extract_pack_details.outputs.pack_description }}
 
   create_pack_pr_from_subdirectory:

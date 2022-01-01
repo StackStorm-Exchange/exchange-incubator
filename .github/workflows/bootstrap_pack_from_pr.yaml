@@ -65,6 +65,7 @@ jobs:
       pack_name: ${{ jobs.extract_pack_details.outputs.pack_ref || jobs.extract_pack_details.outputs.pack_name }}
       pack_description: ${{ jobs.extract_pack_details.outputs.pack_description }}
 
+  # based on https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-923614663
   create_pack_pr_from_subdirectory:
     needs: [extract_pack_details, bootstrap_pack]
     if: jobs.extract_pack_details.outputs.in_submodule == 'false'
@@ -88,6 +89,7 @@ jobs:
 
       - name: Publish status in incubator PR comment # and/or label
 
+  # based on https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-281247786
   create_pack_pr_from_submodule:
     needs: [extract_pack_details, bootstrap_pack]
     if: jobs.extract_pack_details.outputs.in_submodule == 'true'

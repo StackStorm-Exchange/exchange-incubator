@@ -73,7 +73,7 @@ jobs:
       - name: Checkout pack repo
         uses: actions/checkout@v2
         with:
-          repository: ${{ env.PACK_REPO_PREFIX }}-${{ env.PACK_NAME }}
+          repository: ${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}
           path: pack
           fetch-depth: 0
 
@@ -96,7 +96,7 @@ jobs:
       - name: Checkout pack repo
         uses: actions/checkout@v2
         with:
-          repository: ${{ env.PACK_REPO_PREFIX }}-${{ env.PACK_NAME }}
+          repository: ${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}
           path: pack
           fetch-depth: 0
 

@@ -84,6 +84,7 @@ jobs:
           repository: ${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}
           path: pack
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Checkout incubator
         uses: actions/checkout@v2
@@ -112,9 +113,19 @@ jobs:
           git checkout -b transfer
 
       - name: Copy Incubator PR contents
-      - name: Commit and Push
+      - name: Commit
 
-      - name: Create initial content PR on pack repo (subdirectory)
+      - name: Create initial content PR on pack repo
+        working-directory: pack
+        shell: bash
+        # gh handles pushing using the token before creating the PR
+        run: |
+          gh pr create \
+          --title "Transfer ${{ jobs.extract_pack_details.outputs.pack_name }} pack from Incubator"
+          --body "\
+          Pack: ${{ jobs.extract_pack_details.outputs.pack_name }}\n\
+          Description: ${{ jobs.extract_pack_details.outputs.pack_description }}\n\
+          Incubator PR: ${{ github.event.issue.html_url }}"
 
       - name: Publish status in incubator PR comment # and/or label
 
@@ -130,6 +141,7 @@ jobs:
           repository: ${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}
           path: pack
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Checkout incubator
         uses: actions/checkout@v2
@@ -169,5 +181,15 @@ jobs:
           git pull source HEAD --allow-unrelated-histories -s ort -X ours
 
       - name: Create initial content PR on pack repo
+        working-directory: pack
+        shell: bash
+        # gh handles pushing using the token before creating the PR
+        run: |
+          gh pr create \
+          --title "Transfer ${{ jobs.extract_pack_details.outputs.pack_name }} pack from Incubator"
+          --body "\
+          Pack: ${{ jobs.extract_pack_details.outputs.pack_name }}\n\
+          Description: ${{ jobs.extract_pack_details.outputs.pack_description }}\n\
+          Incubator PR: ${{ github.event.issue.html_url }}"
 
       - name: Publish status in incubator PR comment # and/or label

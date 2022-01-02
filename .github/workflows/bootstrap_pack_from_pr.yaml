@@ -45,10 +45,17 @@ jobs:
         id: pack-details
         # TODO: switch from @gha to @master
         uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta.yaml@gha
+        with:
+          pack-directory: incubator
+          repository: ${{ github.repository }}
+          # expects an issue_comment event
+          ref: pull/${{ github.event.issue.number }}/head
+          fetch-depth: 0
     outputs:
       pack_name: ${{ steps.pack-details.outputs.pack_name }}
       pack_ref: ${{ steps.pack-details.outputs.pack_ref }}
       pack_description: ${{ steps.pack-details.outputs.pack_description }}
+      pack_path: ${{ steps.pack-details.outputs.pack_path }}
       in_submodule: ${{ steps.pack-details.outputs.in_submodule }}
       in_subdir: ${{ steps.pack-details.outputs.in_subdir }}
 
@@ -78,8 +85,25 @@ jobs:
           path: pack
           fetch-depth: 0
 
-      - name: Add incubator as git remote
+      - name: Checkout incubator
+        uses: actions/checkout@v2
+        with:
+          path: incubator
+          fetch-depth: 0
+
       - name: Checkout Incubator PR
+        working-directory: incubator
+        shell: bash
+        run: |
+          git fetch origin pull/${{ github.event.issue.number }}/head:pr
+          git checkout pr
+
+      - name: Add incubator as git remote
+        working-directory: pack
+        shell: bash
+        run: |
+          git remote add source ../incubator
+          git fetch source
 
       - name: Create branch for initial pack content
       - name: Copy Incubator PR contents
@@ -102,7 +126,27 @@ jobs:
           path: pack
           fetch-depth: 0
 
+      - name: Checkout incubator
+        uses: actions/checkout@v2
+        with:
+          path: incubator
+          fetch-depth: 0
+
+      - name: Checkout Incubator PR and Submodules
+        shell: bash
+        run: |
+          git fetch origin pull/${{ github.event.issue.number }}/head:pr
+          git checkout pr
+          git submodule init
+          git submodule update --remote
+
       - name: Add git remote for source repo in incubator submodule
+        working-directory: pack
+        shell: bash
+        run: |
+          git remote add source ${{ jobs.extract_pack_details.outputs.pack_path }}
+          git fetch source
+
       - name: Pull source history into pack repo
         # --allow-unrelated-histories
         # fix merge conflicts by preferring exchange-provided files

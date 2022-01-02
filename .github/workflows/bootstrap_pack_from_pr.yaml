@@ -159,14 +159,14 @@ jobs:
           git checkout -b transfer
 
       - name: Pull source history into pack repo
-        # --allow-unrelated-histories
-        # fix merge conflicts by preferring exchange-provided files
-        # (which should be a minimal required set of files)
         working-directory: pack
         shell: bash
+        # ort strategy replaces recursive strategy on git 2.33+
+        # ours => Fix merge conflicts by preferring exchange-provided files
+        #         (which should be a minimal required set of files).
+        #         Update the PR before merging if needed.
         run: |
-          # TODO: specify pull/merge strategy
-          git pull source HEAD --allow-unrelated-histories
+          git pull source HEAD --allow-unrelated-histories -s ort -X ours
 
       - name: Create initial content PR on pack repo
 

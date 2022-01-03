@@ -38,7 +38,7 @@ class LogicMonitorSensor(Sensor):
             try:
                 _apiKey = data[C.API_KEY_KEY]
                 self._log.info(C.LOG_API_KEY_EXISTS)
-            except Exception:
+            except KeyError:
                 self._log.info(C.LOG_API_KEY_DOES_NOT_EXIST)
                 return C.RES_API_KEY_DOES_NOT_EXIST
 
@@ -73,13 +73,11 @@ class LogicMonitorSensor(Sensor):
 
             elif self._auth_enabled is False:
 
-                # Auth is disabled
+                # SUCCESS - Authentication disabled. Inject trigger/payload & return response
                 self._log.info(C.LOG_AUTH_DISABLED)
 
-                # SUCCESS - Authentication disabled. Inject trigger/payload & return response
-                del data[
-                    C.API_KEY_KEY
-                ]  # Remove API Key from payload before it is injected with the trigger
+                # Remove API Key from payload before it is injected with the trigger
+                del data[C.API_KEY_KEY]
                 self._sensor_service.dispatch(C.ALERT_TRIGGER, data)
                 self._log.info(f'{C.LOG_TRIGGER_DISPATCHED}"{data}"')
                 return C.RES_SUCCESS_AUTH_DISABLED

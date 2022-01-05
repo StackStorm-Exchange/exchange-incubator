@@ -78,6 +78,19 @@ jobs:
     if: jobs.extract_pack_details.outputs.in_submodule == 'false'
     runs-on: ubuntu-latest
     steps:
+      - name: Setup environment
+        shell: bash
+        run: |
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install git-filter-branch
+        # yes, this is only one python file. instructions say to put it on the PATH.
+        shell: bash
+        run: |
+          mkdir -p ${HOME}/.local/bin
+          curl https://raw.githubusercontent.com/newren/git-filter-repo/v2.34.0/git-filter-repo -o ${HOME}/.local/bin/git-filter-repo
+          chmod +x ${HOME}/.local/bin/git-filter-repo
+
       - name: Checkout pack repo
         uses: actions/checkout@v2
         with:
@@ -99,6 +112,18 @@ jobs:
           git fetch origin pull/${{ github.event.issue.number }}/head:pr
           git checkout pr
 
+      # for git-filter-branch usage see:
+      # https://www.mankier.com/1/git-filter-repo
+
+      - name: Move pack to root of repo
+        working-directory: incubator
+        shell: bash
+        run: |
+          PACK_DIR=$(
+            realpath --relative-to="${PWD}" '${{ jobs.extract_pack_details.outputs.pack_path }}'
+          )
+          git-filter-branch --sudirectory-filter "${PACK_DIR}"
+
       - name: Add incubator as git remote
         working-directory: pack
         shell: bash
@@ -112,8 +137,15 @@ jobs:
         run: |
           git checkout -b transfer
 
-      - name: Copy Incubator PR contents
-      - name: Commit
+      - name: Pull source history into pack repo
+        working-directory: pack
+        shell: bash
+        # ort strategy replaces recursive strategy on git 2.33+
+        # ours => Fix merge conflicts by preferring exchange-provided files
+        #         (which should be a minimal required set of files).
+        #         Update the PR before merging if needed.
+        run: |
+          git pull source HEAD --allow-unrelated-histories -s ort -X ours
 
       - name: Create initial content PR on pack repo
         working-directory: pack

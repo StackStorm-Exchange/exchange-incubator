@@ -19,26 +19,74 @@ on:
 #   env.SLACK_WEBHOOK_URL
 
 jobs:
-  tsc_membership_check:
+  permissions_check:
     # "!bootstrap pack" comment on pull requests
-    if: github.event.comment.body == '!bootstrap pack' && github.event.issue.pull_request
-
+    if: >-
+      github.event.issue.pull_request
+      && contains(
+      ['OWNER', 'MEMBER', 'COLLABORATOR'],
+      github.event.comment.author_association
+      )
+      && github.event.comment.body == '!bootstrap pack'
+    # author_association enum def
+    # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
+      
     runs-on: ubuntu-latest
     steps:
-      - name: Validate commentor permissions
-        # must be a TSC member
+      # the commentator has write access to the incubator
+      # so no more group membership validation required.
+      - name: Add allowed emoji reaction
+        # maybe one of these
+        :unlock: 🔓
+        :key: 🗝️
+        :inbox_tray: 📥
+        :outbox_tray: 📤
+        :heavy_check_mark: ✔️
+        :gear: ⚙️
+        :robot: 🤖
+        :yellow_circle: 🟡
 
   ready_to_merge_check:
-    needs: [tsc_membership_check]
+    needs: [permissions_check]
     runs-on: ubuntu-latest
     steps:
       - name: Make sure incubator PR is approved
+        shell: bash
+        run: >-
+          [[ $(gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews
+          --jq '[.[] |
+          select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
+          select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
+          .state == "APPROVED"] | (.|all) and (.|length>0)'
+          ) == "true" ]]
+
       - name: Make sure CI workflow is passing for PR
+        shell: bash
+        run: |
+          [[ $(gh api graphql \
+          -F owner=${{ github.repository_owner }} \
+          -F repo=${{ github.event.repository.name }} \
+          -F pull_number=${{ github.event.issue.number }} \
+          'query($owner: String!, $repo: String!, $pull_number: Int!) {
+            repository(owner: $owner, name:$repo) {
+              pullRequest(number:$pull_number) {
+                commits(last: 1) {
+                  nodes {
+                    commit {
+                      statusCheckRollup {
+                        state
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }')  == "true" ]]
 
       - name: Publish status in incubator PR comment # and/or label
 
   extract_pack_details:
-    needs: [tsc_membership_check, ready_to_merge_check]
+    needs: [permissions_check, ready_to_merge_check]
     runs-on: ubuntu-latest
     steps:
       - name: Extract Pack Details
@@ -64,6 +112,7 @@ jobs:
     name: New Pack # / Bootstrap Repo
     # TODO: switch from @gha to @master
     uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
+    # TODO: setup protected branch with required pr review and checks
     with:
       # secrets
       admin_token: "" # TODO: admin PAT with scopes: public_repo, workflows, org:write

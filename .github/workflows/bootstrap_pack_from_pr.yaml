@@ -35,16 +35,10 @@ jobs:
     steps:
       # the commentator has write access to the incubator
       # so no more group membership validation required.
-      - name: Add allowed emoji reaction
-        # maybe one of these
-        :unlock: 🔓
-        :key: 🗝️
-        :inbox_tray: 📥
-        :outbox_tray: 📤
-        :heavy_check_mark: ✔️
-        :gear: ⚙️
-        :robot: 🤖
-        :yellow_circle: 🟡
+      - name: Add eyes emoji reaction to say inspecting PR
+        shell: bash
+        run: |
+          gh api -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
 
   ready_to_merge_check:
     needs: [permissions_check]
@@ -82,6 +76,12 @@ jobs:
               }
             }
           }')  == "true" ]]
+
+      - name: Mark running with rocket reaction and label
+        shell: bash
+        run: |
+          gh api -X POST -f content=rocket /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
 
       - name: Publish status in incubator PR comment # and/or label
 
@@ -222,4 +222,9 @@ jobs:
           Description: ${{ jobs.extract_pack_details.outputs.pack_description }}\n\
           Incubator PR: ${{ github.event.issue.html_url }}"
 
-      - name: Publish status in incubator PR comment # and/or label
+      - name: Mark running with hooray reaction and label
+        shell: bash
+        run: |
+          gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
+          gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress

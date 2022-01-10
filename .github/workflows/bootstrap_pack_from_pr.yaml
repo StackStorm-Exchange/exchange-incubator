@@ -165,7 +165,7 @@ jobs:
           git submodule init
           git submodule update --remote
 
-      # for git-filter-branch usage see:
+      # for git-filter-repo usage see:
       # https://www.mankier.com/1/git-filter-repo
 
       - name: Move pack to root of repo
@@ -176,7 +176,7 @@ jobs:
           PACK_DIR=$(
             realpath --relative-to="${PWD}" '${{ jobs.extract_pack_details.outputs.pack_path }}'
           )
-          git-filter-branch --sudirectory-filter "${PACK_DIR}"
+          git-filter-repo --sudirectory-filter "${PACK_DIR}" --force
 
       - name: Add incubator as git remote
         if: jobs.extract_pack_details.outputs.in_submodule == 'false'

@@ -208,7 +208,8 @@ jobs:
         #         (which should be a minimal required set of files).
         #         Update the PR before merging if needed.
         run: |
-          git pull source HEAD --allow-unrelated-histories -s ort -X ours
+          git merge source/pr --allow-unrelated-histories -s ort -X ours \
+          -m 'Merge ${{ github.event.issue.html_url }}'
 
       - name: Create initial content PR on pack repo
         working-directory: pack

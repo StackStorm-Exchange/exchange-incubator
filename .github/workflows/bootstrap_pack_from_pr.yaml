@@ -216,6 +216,7 @@ jobs:
         shell: bash
         # gh handles pushing using the token before creating the PR
         run: |
+          git config set remote.origin.gh-resolved base
           gh pr create \
           --title "Transfer ${{ jobs.extract_pack_details.outputs.pack_name }} pack from Incubator"
           --body "\

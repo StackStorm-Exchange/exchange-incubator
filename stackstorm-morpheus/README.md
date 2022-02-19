@@ -54,7 +54,7 @@ you will need to log into the StackStorm mongo DB as a StackStorm admin and crea
 You can ignore this section when using StackStorm in docker containers. There is
 no username and password associated with the database running in the mongo container.
 Use at your own discretion.
- 
+
 ```
 docker pull stackstorm/stackstorm
 ```
@@ -68,9 +68,3 @@ db.createUser({user: "appUser",pwd: "passwordForAppUser",roles: [ { role: "readW
 
 # Then if necessary you can check the mongo database records by
 mongo -u appUser -p passwordForAppUser admin
-
-# Servicenow Tables
-
-![Logs - Event information](/img/morpheus-logs-table.png)
-Event fields in service now:
-u_category, u_id, u_severity, u_time, u_summary

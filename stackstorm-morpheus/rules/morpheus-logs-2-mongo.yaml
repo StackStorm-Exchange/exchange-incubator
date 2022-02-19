@@ -1,0 +1,13 @@
+---
+name: "morpheus-logs-2-mongo"
+description: "Get morpheus logs and send to mongo."
+enabled: false
+
+trigger:
+  type: "core.st2.IntervalTimer"
+  parameters:
+    delta: 5
+    unit: minutes
+
+action:
+  ref: "morpheus.morpheus-logs-2-mongo"

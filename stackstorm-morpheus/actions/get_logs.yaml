@@ -1,0 +1,7 @@
+---
+name: get_logs
+pack: morpheus
+description: Get an array of all logs from Morpheus
+runner_type: python-script
+entry_point: get_logs.py
+enabled: true

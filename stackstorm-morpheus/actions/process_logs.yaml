@@ -1,0 +1,11 @@
+---
+name: process_logs
+pack: morpheus
+description: Set the process flag in the mongo database for logs to yes
+runner_type: python-script
+entry_point: process_logs.py
+enabled: true
+parameters:
+  logs:
+    required: true
+    type: array

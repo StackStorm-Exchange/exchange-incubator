@@ -1,0 +1,15 @@
+version: 1.0
+
+description: A workflow to copy hpe nimble alarms into a mongo database.
+
+tasks:
+  getalarms:
+    action: morpheus.get_logs
+    next:
+      - when: <% succeeded() %>
+        publish:
+          - logs: <% result().result %>
+        do: sendmongo
+
+  sendmongo:
+    action: morpheus.load-morpheus-logs logs=<% ctx().logs %>

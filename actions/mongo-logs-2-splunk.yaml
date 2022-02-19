@@ -1,0 +1,6 @@
+---
+name: mongo-logs-2-splunk
+description: A workflow for sending morpheus logs from mongo to splunk.
+runner_type: orquesta
+entry_point: workflows/mongo-logs-2-splunk.yaml
+enabled: true

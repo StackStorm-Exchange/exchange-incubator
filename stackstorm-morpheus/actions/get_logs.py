@@ -36,19 +36,18 @@ class LogData(MorpheusBaseAction):
 
         for i in log_data['data']:
             info = [
-                    i['typeCode'],
-                    i['ts'],
-                    i['level'],
-                    i['sourceType'],
-                    i['message'],
-                    i['hostname'],
-                    i['title'],
-                    i['logSignature'],
-                    i['objectId'],
-                    i['seq'],
-                    i['_id'],
-                    i['signatureVerified']
-                    ]
+                i['typeCode'],
+                i['ts'],
+                i['level'],
+                i['sourceType'],
+                i['message'],
+                i['hostname'],
+                i['title'],
+                i['logSignature'],
+                i['objectId'],
+                i['seq'],
+                i['_id'],
+                i['signatureVerified']]
 
             log_list.append(info)
             info = []

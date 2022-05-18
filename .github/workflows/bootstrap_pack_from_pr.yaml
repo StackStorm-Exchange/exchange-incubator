@@ -136,7 +136,7 @@ jobs:
     uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
     # TODO: setup protected branch with required pr review and checks
     secrets:
-      admin_token: ${{ github.token }} # TODO: admin PAT with scopes: public_repo, workflows, org:write
+      #admin_token: ${{ github.token }} # TODO: admin PAT with scopes: public_repo, workflows, org:write
       slack_webhook_url: "" # TODO
     with:
 

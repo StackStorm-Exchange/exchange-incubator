@@ -31,7 +31,7 @@ jobs:
       - name: Add eyes emoji reaction to say inspecting PR
         shell: bash
         run: |
-          gh api -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          gh api -X POST -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
 
   ready_to_merge_check:
     needs: [permissions_check]

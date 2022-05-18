@@ -138,7 +138,7 @@ jobs:
         run: |
           echo 'pack_ref=${{ needs.extract_pack_details.outputs.pack_ref }}'
           echo 'pack_name=${{ needs.extract_pack_details.outputs.pack_name }}'
-          echo 'pack_ref||pack_name=${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}"
+          echo 'pack_ref||pack_name=${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}'
           echo 'pack_description=${{ needs.extract_pack_details.outputs.pack_description }}'
           echo 'pack_path=${{ needs.extract_pack_details.outputs.pack_path }}'
           echo 'in_submodule=${{ needs.extract_pack_details.outputs.in_submodule }}'

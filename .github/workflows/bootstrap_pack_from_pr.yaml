@@ -129,6 +129,21 @@ jobs:
       in_submodule: ${{ steps.pack-details.outputs.in_submodule }}
       in_subdir: ${{ steps.pack-details.outputs.in_subdir }}
 
+  print_pack_details:
+    needs: [extract_pack_details]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print pack details
+        shell: bash
+        run: |
+          echo 'pack_ref=${{ needs.extract_pack_details.outputs.pack_ref }}'
+          echo 'pack_name=${{ needs.extract_pack_details.outputs.pack_name }}'
+          echo 'pack_ref||pack_name=${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}"
+          echo 'pack_description=${{ needs.extract_pack_details.outputs.pack_description }}'
+          echo 'pack_path=${{ needs.extract_pack_details.outputs.pack_path }}'
+          echo 'in_submodule=${{ needs.extract_pack_details.outputs.in_submodule }}'
+          echo 'in_subdir=${{ needs.extract_pack_details.outputs.in_subdir }}'
+
   bootstrap_pack_repo:
     needs: [extract_pack_details]
     name: New Pack # / Bootstrap Repo

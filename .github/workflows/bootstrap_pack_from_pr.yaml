@@ -114,7 +114,7 @@ jobs:
       - name: Extract Pack Details
         id: pack-details
         # TODO: switch from @gha to @master
-        uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta.yaml@gha
+        uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta@gha
         with:
           pack-directory: incubator
           repository: ${{ github.repository }}

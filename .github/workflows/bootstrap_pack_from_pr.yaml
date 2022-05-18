@@ -121,8 +121,8 @@ jobs:
       slack_webhook_url: "" # TODO
 
       # TODO: validate that this || works as expected
-      pack_name: ${{ jobs.extract_pack_details.outputs.pack_ref || jobs.extract_pack_details.outputs.pack_name }}
-      pack_description: ${{ jobs.extract_pack_details.outputs.pack_description }}
+      pack_name: ${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}
+      pack_description: ${{ needs.extract_pack_details.outputs.pack_description }}
 
       # we are using defaults for these.
       #homepage: "https://exchange.stackstorm.com/#${PACK_NAME}"
@@ -145,7 +145,7 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Install git-filter-branch
-        if: jobs.extract_pack_details.outputs.in_submodule == 'false'
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
         # yes, this is only one python file. instructions say to put it on the PATH.
         shell: bash
         run: |
@@ -155,7 +155,7 @@ jobs:
       - name: Checkout pack repo
         uses: actions/checkout@v2
         with:
-          repository: ${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}
+          repository: ${{ needs.bootstrap_pack_repo.outputs.pack_repo }}
           path: pack
           fetch-depth: 0
           persist-credentials: false
@@ -179,17 +179,17 @@ jobs:
       # https://www.mankier.com/1/git-filter-repo
 
       - name: Move pack to root of repo
-        if: jobs.extract_pack_details.outputs.in_submodule == 'false'
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
         working-directory: incubator
         shell: bash
         run: |
           PACK_DIR=$(
-            realpath --relative-to="${PWD}" '${{ jobs.extract_pack_details.outputs.pack_path }}'
+            realpath --relative-to="${PWD}" '${{ needs.extract_pack_details.outputs.pack_path }}'
           )
           git-filter-repo --sudirectory-filter "${PACK_DIR}" --force
 
       - name: Add incubator as git remote
-        if: jobs.extract_pack_details.outputs.in_submodule == 'false'
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
         working-directory: pack
         shell: bash
         run: |
@@ -197,11 +197,11 @@ jobs:
           git fetch source
 
       - name: Add git remote for source repo in incubator submodule
-        if: jobs.extract_pack_details.outputs.in_submodule == 'true'
+        if: needs.extract_pack_details.outputs.in_submodule == 'true'
         working-directory: pack
         shell: bash
         run: |
-          git remote add source ${{ jobs.extract_pack_details.outputs.pack_path }}
+          git remote add source ${{ needs.extract_pack_details.outputs.pack_path }}
           git fetch source
 
       - name: Create branch for initial pack content
@@ -228,10 +228,10 @@ jobs:
         run: |
           git config set remote.origin.gh-resolved base
           gh pr create \
-          --title "Transfer ${{ jobs.extract_pack_details.outputs.pack_name }} pack from Incubator"
+          --title "Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator"
           --body "\
-          Pack: ${{ jobs.extract_pack_details.outputs.pack_name }}\n\
-          Description: ${{ jobs.extract_pack_details.outputs.pack_description }}\n\
+          Pack: ${{ needs.extract_pack_details.outputs.pack_name }}\n\
+          Description: ${{ needs.extract_pack_details.outputs.pack_description }}\n\
           Incubator PR: ${{ github.event.issue.html_url }}"
 
       - name: Mark running with hooray reaction and label
@@ -246,7 +246,7 @@ jobs:
         run: >
           gh pr comment "{{ github.event.issue.html_url }}"
           -b ":tada: Hoooray, the initial content PR (
-          https://github.com/${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
+          https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
           ) is ready for review!\n\n
           Please do the following:\n
           (1) make sure everything looks correct in the PR;\n
@@ -255,4 +255,4 @@ jobs:
           (4) wait for the next exchange index update (monitor updates
           [here](https://github.com/StackStorm-Exchange/index/actions))\n
           (5) once the index has updated, check out
-          https://exchange.stackstorm.org/#${{ jobs.extract_pack_details.outputs.pack_name }}"
+          https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}"

@@ -12,7 +12,12 @@ on:
 #   admin_token: admin bot PAT w/ scopes public_repo, workflow, write:org
 #   slack_webhook_url
 
-#permissions:
+permissions:
+  issues: write # comments, reactions
+  pull-requests: read
+  contents: read
+  checks: read
+  statuses: read
 env:
   GH_TOKEN: ${{ github.token }}
 
@@ -45,12 +50,15 @@ jobs:
       - name: Make sure incubator PR is approved
         shell: bash
         run: >-
-          [[ $(gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews
+          export APPROVED=$(
+          gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews
           --jq '[.[] |
           select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
           select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
           .state == "APPROVED"] | (.|all) and (.|length>0)'
-          ) == "true" ]]
+          )
+          && echo "APPROVED=${APPROVED}"
+          && [[ "${APPROVED}" == "true" ]]
 
       - name: Make sure CI workflow is passing for PR
         shell: bash

@@ -13,8 +13,8 @@ on:
 #   slack_webhook_url
 
 permissions:
-  issues: write # comments, reactions
-  pull-requests: read
+  #issues: write # comments
+  pull-requests: write # comments, reactions
   contents: read
   checks: read
   statuses: read

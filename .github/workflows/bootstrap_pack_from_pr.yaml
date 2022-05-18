@@ -17,9 +17,10 @@ jobs:
     # "!bootstrap pack" comment on pull requests
     if: >-
       github.event.issue.pull_request
-      && contains(
-      ['OWNER', 'MEMBER', 'COLLABORATOR'],
-      github.event.comment.author_association
+      && (
+      github.event.comment.author_association == 'OWNER'
+      || github.event.comment.author_association == 'MEMBER'
+      || github.event.comment.author_association == 'COLLABORATOR'
       )
       && github.event.comment.body == '!bootstrap pack'
     # author_association enum def

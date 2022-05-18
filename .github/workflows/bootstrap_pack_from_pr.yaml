@@ -119,7 +119,7 @@ jobs:
           pack-directory: incubator
           repository: ${{ github.repository }}
           # expects an issue_comment event
-          ref: pull/${{ github.event.issue.number }}/head
+          ref: refs/pull/${{ github.event.issue.number }}/head
           fetch-depth: 0
     outputs:
       pack_name: ${{ steps.pack-details.outputs.pack_name }}

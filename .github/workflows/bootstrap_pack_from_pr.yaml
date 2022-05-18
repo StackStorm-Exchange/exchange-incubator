@@ -103,7 +103,7 @@ jobs:
           (1) extract details about the new pack;\n
           (2) create the pack repo and repo metadata;\n
           (3) copy this PR into the `transfer` branch in the new repo;\n
-          (4) use `transfer` branch for the pack's first PR.'
+          (4) use `transfer` branch for the pack'"'"'s first PR.'
 
   extract_pack_details:
     needs: [permissions_check, ready_to_merge_check]

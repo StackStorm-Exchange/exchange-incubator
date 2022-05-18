@@ -30,7 +30,6 @@ jobs:
       && github.event.comment.body == '!bootstrap pack'
     # author_association enum def
     # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
-      
     runs-on: ubuntu-latest
     steps:
       # the commentator has write access to the incubator
@@ -83,7 +82,16 @@ jobs:
           gh api -X POST -f content=rocket /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
           jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
 
-      - name: Publish status in incubator PR comment # and/or label
+      - name: Publish status in incubator PR comment
+        shell: bash
+        run: >
+          gh pr comment "{{ github.event.issue.html_url }}"
+          --body ":rocket: Hold onto your hats! Now bootstrapping a new pack repo...\n\n
+          Bootstrapping will:\n
+          (1) extract details about the new pack;\n
+          (2) create the pack repo and repo metadata;\n
+          (3) copy this PR into the `transfer` branch in the new repo;\n
+          (4) use `transfer` branch for the pack's first PR."
 
   extract_pack_details:
     needs: [permissions_check, ready_to_merge_check]
@@ -230,3 +238,19 @@ jobs:
           gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
           jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
           gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
+
+      - name: Publish status in incubator PR comment
+        shell: bash
+        run: >
+          gh pr comment "{{ github.event.issue.html_url }}"
+          -b ":tada: Hoooray, the initial content PR (
+          https://github.com/${{ jobs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
+          ) is ready for review!\n\n
+          Please do the following:\n
+          (1) make sure everything looks correct in the PR;\n
+          (2) merge it!\n
+          (3) make sure a TSC Senior Maintainer has setup group and user access;\n
+          (4) wait for the next exchange index update (monitor updates
+          [here](https://github.com/StackStorm-Exchange/index/actions))\n
+          (5) once the index has updated, check out
+          https://exchange.stackstorm.org/#${{ jobs.extract_pack_details.outputs.pack_name }}"

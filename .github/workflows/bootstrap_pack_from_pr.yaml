@@ -96,13 +96,13 @@ jobs:
 
       - name: Publish status in incubator PR comment
         shell: bash
-        run: |
-          gh pr comment "{{ github.event.issue.html_url }}"\
-          --body ':rocket: Hold onto your hats! Now bootstrapping a new pack repo...\n\n\
-          Bootstrapping will:\n\
-          (1) extract details about the new pack;\n\
-          (2) create the pack repo and repo metadata;\n\
-          (3) copy this PR into the `transfer` branch in the new repo;\n\
+        run: >-
+          gh pr comment '${{ github.event.issue.html_url }}'
+          --body ':rocket: Hold onto your hats! Now bootstrapping a new pack repo...\n\n
+          Bootstrapping will:\n
+          (1) extract details about the new pack;\n
+          (2) create the pack repo and repo metadata;\n
+          (3) copy this PR into the `transfer` branch in the new repo;\n
           (4) use `transfer` branch for the pack's first PR.'
 
   extract_pack_details:
@@ -246,11 +246,11 @@ jobs:
         run: |
           git config set remote.origin.gh-resolved base
           gh pr create \
-          --title "Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator"
-          --body "\
+          --title 'Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator'
+          --body '\
           Pack: ${{ needs.extract_pack_details.outputs.pack_name }}\n\
           Description: ${{ needs.extract_pack_details.outputs.pack_description }}\n\
-          Incubator PR: ${{ github.event.issue.html_url }}"
+          Incubator PR: ${{ github.event.issue.html_url }}'
 
       - name: Mark running with hooray reaction and label
         shell: bash
@@ -261,9 +261,9 @@ jobs:
 
       - name: Publish status in incubator PR comment
         shell: bash
-        run: >
-          gh pr comment "{{ github.event.issue.html_url }}"
-          -b ":tada: Hoooray, the initial content PR (
+        run: >-
+          gh pr comment '${{ github.event.issue.html_url }}'
+          -b ':tada: Hoooray, the initial content PR (
           https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
           ) is ready for review!\n\n
           Please do the following:\n
@@ -273,4 +273,4 @@ jobs:
           (4) wait for the next exchange index update (monitor updates
           [here](https://github.com/StackStorm-Exchange/index/actions))\n
           (5) once the index has updated, check out
-          https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}"
+          https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}'

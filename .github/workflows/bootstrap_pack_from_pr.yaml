@@ -63,7 +63,8 @@ jobs:
       - name: Make sure CI workflow is passing for PR
         shell: bash
         run: |
-          [[ $(gh api graphql \
+          export CIPASSING=$(\
+          gh api graphql \
           -F owner=${{ github.repository_owner }} \
           -F repo=${{ github.event.repository.name }} \
           -F pull_number=${{ github.event.issue.number }} \
@@ -81,7 +82,9 @@ jobs:
                 }
               }
             }
-          }')  == "true" ]]
+          }') \
+          && echo "CIPASSING=${CIPASSING}" \
+          && [[ "${CIPASSING}" == "true" ]]
 
       - name: Mark running with rocket reaction and label
         shell: bash

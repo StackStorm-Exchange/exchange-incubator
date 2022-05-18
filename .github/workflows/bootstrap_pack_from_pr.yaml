@@ -8,15 +8,9 @@ on:
   issue_comment:
     types: created
 
-# need vars:
-#   env.PACK_ORG: StackStorm-Exchange
-#   env.PACK_REPO_PREFIX: stackstorm
-#   env.PACK_REPO_TEMPLATE: StackStorm-Exchange/exchange-template
-#   env.TSC_TEAM: TSC
-#
-# need secrets:
-#   env.GH_TOKEN: admin bot PAT w/ scopes public_repo, workflow, write:org
-#   env.SLACK_WEBHOOK_URL
+# need secrets for bootstrap_pack_repo job:
+#   admin_token: admin bot PAT w/ scopes public_repo, workflow, write:org
+#   slack_webhook_url
 
 jobs:
   permissions_check:
@@ -125,9 +119,17 @@ jobs:
       # secrets
       admin_token: "" # TODO: admin PAT with scopes: public_repo, workflows, org:write
       slack_webhook_url: "" # TODO
+
       # TODO: validate that this || works as expected
       pack_name: ${{ jobs.extract_pack_details.outputs.pack_ref || jobs.extract_pack_details.outputs.pack_name }}
       pack_description: ${{ jobs.extract_pack_details.outputs.pack_description }}
+
+      # we are using defaults for these.
+      #homepage: "https://exchange.stackstorm.com/#${PACK_NAME}"
+      #pack_org: StackStorm-Exchange
+      #pack_repo_prefix: stackstorm
+      #pack_repo_template: StackStorm-Exchange/ci-pack-template
+      #tsc_team: TSC
 
   # based on
   # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-923614663

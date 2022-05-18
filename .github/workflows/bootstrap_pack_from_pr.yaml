@@ -13,11 +13,10 @@ on:
 #   slack_webhook_url
 
 permissions:
-  #issues: write # comments
   pull-requests: write # comments, reactions
   contents: read
-  checks: read
-  statuses: read
+  #checks: read
+  #statuses: read
 env:
   GH_TOKEN: ${{ github.token }}
 
@@ -58,7 +57,8 @@ jobs:
           .state == "APPROVED"] | (.|all) and (.|length>0)'
           )
           && echo "APPROVED=${APPROVED}"
-          && [[ "${APPROVED}" == "true" ]]
+# TODO: uncomment
+#          && [[ "${APPROVED}" == "true" ]]
 
       - name: Make sure CI workflow is passing for PR
         shell: bash

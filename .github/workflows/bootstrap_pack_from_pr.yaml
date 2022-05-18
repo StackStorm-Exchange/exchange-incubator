@@ -82,9 +82,11 @@ jobs:
                 }
               }
             }
-          }') \
+          }' \
+          --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state' \
+          ) \
           && echo "CIPASSING=${CIPASSING}" \
-          && [[ "${CIPASSING}" == "true" ]]
+          && [[ "${CIPASSING}" == "SUCCESS" ]]
 
       - name: Mark running with rocket reaction and label
         shell: bash

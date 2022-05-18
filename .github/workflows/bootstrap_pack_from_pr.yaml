@@ -68,7 +68,7 @@ jobs:
           -F owner=${{ github.repository_owner }} \
           -F repo=${{ github.event.repository.name }} \
           -F pull_number=${{ github.event.issue.number }} \
-          'query($owner: String!, $repo: String!, $pull_number: Int!) {
+          -f query='query($owner: String!, $repo: String!, $pull_number: Int!) {
             repository(owner: $owner, name:$repo) {
               pullRequest(number:$pull_number) {
                 commits(last: 1) {

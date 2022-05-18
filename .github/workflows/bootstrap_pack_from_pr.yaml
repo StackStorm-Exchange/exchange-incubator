@@ -86,7 +86,7 @@ jobs:
           --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state' \
           ) \
           && echo "CIRESULT=${CIRESULT}" \
-          && [[ "${CIPASSING}" == "SUCCESS" ]]
+          && [[ "${CIRESULT}" == "SUCCESS" ]]
 
       - name: Mark running with rocket reaction and label
         shell: bash

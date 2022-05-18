@@ -63,7 +63,7 @@ jobs:
       - name: Make sure CI workflow is passing for PR
         shell: bash
         run: |
-          export CIPASSING=$(\
+          export CIRESULT=$(\
           gh api graphql \
           -F owner=${{ github.repository_owner }} \
           -F repo=${{ github.event.repository.name }} \
@@ -85,14 +85,14 @@ jobs:
           }' \
           --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state' \
           ) \
-          && echo "CIPASSING=${CIPASSING}" \
+          && echo "CIRESULT=${CIRESULT}" \
           && [[ "${CIPASSING}" == "SUCCESS" ]]
 
       - name: Mark running with rocket reaction and label
         shell: bash
         run: |
           gh api -X POST -f content=rocket /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
-          jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
+          jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
 
       - name: Publish status in incubator PR comment
         shell: bash
@@ -256,7 +256,7 @@ jobs:
         shell: bash
         run: |
           gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
-          jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels -- -
+          jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
           gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
 
       - name: Publish status in incubator PR comment

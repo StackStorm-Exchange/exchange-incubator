@@ -12,6 +12,10 @@ on:
 #   admin_token: admin bot PAT w/ scopes public_repo, workflow, write:org
 #   slack_webhook_url
 
+#permissions:
+env:
+  GH_TOKEN: ${{ github.token }}
+
 jobs:
   permissions_check:
     # "!bootstrap pack" comment on pull requests

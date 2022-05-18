@@ -127,8 +127,8 @@ jobs:
 
       # we are using defaults for these.
       #homepage: "https://exchange.stackstorm.com/#${PACK_NAME}"
-      #pack_org: StackStorm-Exchange
-      #pack_repo_prefix: stackstorm
+      pack_org: st2sandbox
+      pack_repo_prefix: pack
       #pack_repo_template: StackStorm-Exchange/ci-pack-template
       #tsc_team: TSC
 

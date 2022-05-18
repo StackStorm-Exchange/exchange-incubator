@@ -41,6 +41,7 @@ jobs:
         shell: bash
         run: |
           gh api -X POST -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          gh repo view st2sandbox/pack-reviewboard
 
   ready_to_merge_check:
     needs: [permissions_check]

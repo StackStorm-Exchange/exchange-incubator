@@ -96,17 +96,16 @@ jobs:
 
       - name: Publish status in incubator PR comment
         shell: bash
+        env:
+          COMMENT: |
+            :rocket: Hold onto your hats! Now bootstrapping a new pack repo...
+            Bootstrapping will:
+            (1) extract details about the new pack;
+            (2) create the pack repo and repo metadata;
+            (3) copy this PR into the `transfer` branch in the new repo;
+            (4) use `transfer` branch for the pack's first PR.
         run: |
-          gh pr comment '${{ github.event.issue.html_url }}'\
-          --body "$(cat <<EOF
-          :rocket: Hold onto your hats! Now bootstrapping a new pack repo...
-          Bootstrapping will:
-          (1) extract details about the new pack;
-          (2) create the pack repo and repo metadata;
-          (3) copy this PR into the `transfer` branch in the new repo;
-          (4) use `transfer` branch for the pack's first PR.
-          EOF
-          )"
+          gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"
 
   extract_pack_details:
     needs: [permissions_check, ready_to_merge_check]
@@ -264,20 +263,19 @@ jobs:
 
       - name: Publish status in incubator PR comment
         shell: bash
+        env:
+          COMMENT: |
+            :tada: Hoooray, the initial content PR (\
+            https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1\
+            ) is ready for review!
+            Please do the following:
+            (1) make sure everything looks correct in the PR;
+            (2) merge it!
+            (3) make sure a TSC Senior Maintainer has setup group and user access;
+            (4) wait for the next exchange index update (monitor updates\
+            [here](https://github.com/StackStorm-Exchange/index/actions)\
+            )
+            (5) once the index has updated, check out\
+            https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}'
         run: |
-          gh pr comment '${{ github.event.issue.html_url }}' \
-          --body "$(cat <<EOF
-          ':tada: Hoooray, the initial content PR (\
-          https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1\
-          ) is ready for review!
-          Please do the following:
-          (1) make sure everything looks correct in the PR;
-          (2) merge it!
-          (3) make sure a TSC Senior Maintainer has setup group and user access;
-          (4) wait for the next exchange index update (monitor updates\
-          [here](https://github.com/StackStorm-Exchange/index/actions)\
-          )
-          (5) once the index has updated, check out\
-          https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}'
-          EOF
-          )"
+          gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"

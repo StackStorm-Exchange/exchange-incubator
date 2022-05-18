@@ -136,7 +136,7 @@ jobs:
   # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-923614663
   # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-281247786
   create_pack_pr:
-    needs: [extract_pack_details, bootstrap_pack]
+    needs: [extract_pack_details, bootstrap_pack_repo]
     runs-on: ubuntu-latest
     steps:
       - name: Setup environment

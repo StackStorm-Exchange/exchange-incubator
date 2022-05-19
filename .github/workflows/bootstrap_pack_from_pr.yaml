@@ -138,12 +138,17 @@ jobs:
     # TODO: switch from @gha to @master
     uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
     # TODO: setup protected branch with required pr review and checks
+
+    # use inherit instead of dict to pass all secrets to the subworkflow
+    #secrets: inherit
     secrets:
-      admin_token: ${{ github.token }} # TODO: admin PAT with scopes: public_repo, workflows, org:write
+      # TODO: admin PAT with scopes: public_repo, workflows, org:write
+      admin_token: ${{ github.token }}
       slack_webhook_url: "" # TODO
     with:
+      test_thing: ${{ github.token }}
 
-      # TODO: validate that this || works as expected
+      # TODO: validate that this || works if pack_ref is empty
       pack_name: ${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}
       pack_description: ${{ needs.extract_pack_details.outputs.pack_description }}
 

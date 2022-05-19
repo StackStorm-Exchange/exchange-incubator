@@ -99,11 +99,14 @@ jobs:
         env:
           COMMENT: |
             :rocket: Hold onto your hats! Now bootstrapping a new pack repo...
+
             Bootstrapping will:
             (1) extract details about the new pack;
             (2) create the pack repo and repo metadata;
             (3) copy this PR into the `transfer` branch in the new repo;
             (4) use `transfer` branch for the pack's first PR.
+
+            Details: ${{ github.server_url }}/${{ github.repository }}/runs/${{ github.run_id }}
         run: |
           gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"
 
@@ -273,25 +276,22 @@ jobs:
       - name: Mark running with hooray reaction and label
         shell: bash
         run: |
+          gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
           gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
           jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
-          gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
 
       - name: Publish status in incubator PR comment
         shell: bash
         env:
           COMMENT: |
-            :tada: Hoooray, the initial content PR (\
-            https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1\
-            ) is ready for review!
+            :tada: Hoooray! Here is the pack's first PR: https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
+
             Please do the following:
             (1) make sure everything looks correct in the PR;
             (2) merge it!
             (3) make sure a TSC Senior Maintainer has setup group and user access;
-            (4) wait for the next exchange index update (monitor updates\
-            [here](https://github.com/StackStorm-Exchange/index/actions)\
-            )
-            (5) once the index has updated, check out\
-            https://exchange.stackstorm.org/#${{ needs.extract_pack_details.outputs.pack_name }}'
+            (4) wait for the next exchange index update (monitor updates [here](https://github.com/StackStorm-Exchange/index/actions))
+            (5) once the index has updated, check out:
+            ${{ needs.bootstrap_pack_repo.outputs.homepage }}
         run: |
           gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"

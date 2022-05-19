@@ -266,6 +266,7 @@ jobs:
             Incubator PR: ${{ github.event.issue.html_url }}
         run: |
           git config remote.origin.gh-resolved base
+          git config remote.origin.pushurl "https://${GH_TOKEN}@github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}.git"
           git push -u origin transfer
           gh pr create --title "${PR_TITLE}" --body "${PR_BODY}"
 

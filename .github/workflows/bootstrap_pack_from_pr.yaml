@@ -213,7 +213,7 @@ jobs:
           PACK_DIR=$(
             realpath --relative-to="${PWD}" '${{ needs.extract_pack_details.outputs.pack_path }}'
           )
-          git-filter-repo --sudirectory-filter "${PACK_DIR}" --force
+          git-filter-repo --subdirectory-filter "${PACK_DIR}" --force
 
       - name: Add incubator as git remote
         if: needs.extract_pack_details.outputs.in_submodule == 'false'

@@ -266,6 +266,9 @@ jobs:
         # gh handles pushing using the token before creating the PR
         run: |
           git config remote.origin.gh-resolved base
+          git status
+          git branch
+          cat .git/config
           gh pr create --title "${PR_TITLE}" --body "${PR_BODY}"
 
       - name: Mark running with hooray reaction and label

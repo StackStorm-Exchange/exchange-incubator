@@ -167,9 +167,15 @@ jobs:
     steps:
       - name: Setup environment
         shell: bash
+        env:
+          # Should we make this configurable somehow? (repository secrets, ...)
+          BOT_USER: stackstorm-neptr
+          BOT_EMAIL: info@stackstorm.com
         run: |
           mkdir -p ${HOME}/.local/bin
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+          git config --global user.name "${BOT_USER}"
+          git config --global user.email "${BOT_EMAIL}"
 
       - name: Install git-filter-branch
         if: needs.extract_pack_details.outputs.in_submodule == 'false'

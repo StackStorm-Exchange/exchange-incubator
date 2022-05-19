@@ -144,11 +144,14 @@ jobs:
     # use inherit instead of dict to pass all secrets to the subworkflow
     #secrets: inherit
     secrets:
+      # context: github, needs, secrets
       # TODO: admin PAT with scopes: public_repo, workflows, org:write
-      admin_token: ${{ github.token }}
+      #admin_token: ${{ github.token }}
+      admin_token: ${{ secrets.GITHUB_TOKEN }}
       slack_webhook_url: "" # TODO
     with:
-      test_thing: ${{ secrets.GITHUB_TOKEN }}
+      # context: github, needs
+      #test_thing: ${{ secrets.GITHUB_TOKEN }}
 
       # TODO: validate that this || works if pack_ref is empty
       pack_name: ${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}

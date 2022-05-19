@@ -257,15 +257,16 @@ jobs:
       - name: Create initial content PR on pack repo
         working-directory: pack
         shell: bash
+        env:
+          PR_TITLE: 'Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator'
+          PR_BODY: |
+            Pack: ${{ needs.extract_pack_details.outputs.pack_name }}
+            Description: ${{ needs.extract_pack_details.outputs.pack_description }}
+            Incubator PR: ${{ github.event.issue.html_url }}
         # gh handles pushing using the token before creating the PR
         run: |
-          git config set remote.origin.gh-resolved base
-          gh pr create \
-          --title 'Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator'
-          --body '\
-          Pack: ${{ needs.extract_pack_details.outputs.pack_name }}\n\
-          Description: ${{ needs.extract_pack_details.outputs.pack_description }}\n\
-          Incubator PR: ${{ github.event.issue.html_url }}'
+          git config remote.origin.gh-resolved base
+          gh pr create --title "${PR_TITLE}" --body "${PR_BODY}"
 
       - name: Mark running with hooray reaction and label
         shell: bash

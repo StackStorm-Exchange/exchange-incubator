@@ -117,7 +117,8 @@ jobs:
       - name: Extract Pack Details
         id: pack-details
         # TODO: switch from @gha to @master
-        uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta@gha
+        #uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta@gha
+        uses: st2sandbox/exchange-ci/.github/actions/extract-pack-meta@gha
         with:
           pack-directory: incubator
           repository: ${{ github.repository }}
@@ -136,7 +137,8 @@ jobs:
     needs: [extract_pack_details]
     name: New Pack # / Bootstrap Repo
     # TODO: switch from @gha to @master
-    uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
+    #uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@gha
+    uses: st2sandbox/exchange-ci/.github/workflows/pack-bootstrap_repo.yaml@gha
     # TODO: setup protected branch with required pr review and checks
 
     # use inherit instead of dict to pass all secrets to the subworkflow

@@ -9,7 +9,7 @@ on:
     types: created
 
 # need secrets for bootstrap_pack_repo job:
-#   admin_token: admin bot PAT w/ scopes public_repo, admin:org
+#   admin_token: admin bot PAT w/ scopes repo, admin:org
 #   slack_webhook_url
 
 permissions:
@@ -145,9 +145,8 @@ jobs:
       # context: github, needs, secrets
       # (github.token is not available, but secrets.GITHUB_TOKEN is)
 
-      # TODO: admin PAT with scopes: public_repo, admin:org
       #admin_token: ${{ secrets.GITHUB_TOKEN }}
-      admin_token: ${{ secrets.NEW_PACK_REPOS_TOKEN }} # scopes: public_repo, admin:org
+      admin_token: ${{ secrets.NEW_PACK_REPOS_TOKEN }} # scopes: admin:org, repo
       slack_webhook_url: "" # TODO
     with:
       # context: github, needs

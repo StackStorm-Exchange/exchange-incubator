@@ -22,6 +22,7 @@ env:
 
 jobs:
   permissions_check:
+    name: Check Comment Author Permissions
     # "!bootstrap pack" comment on pull requests
     if: >-
       github.event.issue.pull_request
@@ -43,6 +44,7 @@ jobs:
           gh api -X POST -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
 
   ready_to_merge_check:
+    name: Check for Merge Readiness
     needs: [permissions_check]
     runs-on: ubuntu-latest
     steps:
@@ -108,6 +110,7 @@ jobs:
           gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"
 
   extract_pack_details:
+    name: New Pack / Extract Details
     needs: [permissions_check, ready_to_merge_check]
     runs-on: ubuntu-latest
     steps:
@@ -155,6 +158,7 @@ jobs:
   # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-923614663
   # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-281247786
   create_pack_pr:
+    name: New Pack / Create First PR
     needs: [extract_pack_details, bootstrap_pack_repo]
     runs-on: ubuntu-latest
     steps:

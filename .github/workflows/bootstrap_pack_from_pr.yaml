@@ -148,7 +148,7 @@ jobs:
       admin_token: ${{ github.token }}
       slack_webhook_url: "" # TODO
     with:
-      test_thing: test
+      test_thing: ${{ github.token }}
 
       # TODO: validate that this || works if pack_ref is empty
       pack_name: ${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}

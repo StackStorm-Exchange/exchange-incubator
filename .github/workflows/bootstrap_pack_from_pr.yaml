@@ -1,0 +1,287 @@
+name: Bootstrack Pack from PR
+
+on:
+  issue_comment:
+    types: created
+
+# make sure these secrets are defined:
+#   NEW_PACK_REPOS_TOKEN: bot PAT w/ scopes: repo, admin:org
+#   PACK_SLACK_WEBHOOK_URL
+
+permissions:
+  pull-requests: write # comments, reactions
+  contents: read
+env:
+  GH_TOKEN: ${{ github.token }}
+
+jobs:
+  permissions_check:
+    name: Check Comment Author Permissions
+    # "!bootstrap pack" comment on pull requests
+    if: >-
+      github.event.issue.pull_request
+      && (
+      github.event.comment.author_association == 'OWNER'
+      || github.event.comment.author_association == 'MEMBER'
+      || github.event.comment.author_association == 'COLLABORATOR'
+      )
+      && github.event.comment.body == '!bootstrap pack'
+    # author_association enum def
+    # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
+    runs-on: ubuntu-latest
+    steps:
+      # the commentator has write access to the incubator
+      # so no more group membership validation required.
+      - name: Add eyes emoji reaction to say inspecting PR
+        shell: bash
+        run: |
+          gh api -X POST -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+
+  ready_to_merge_check:
+    name: Check for Merge Readiness
+    needs: [permissions_check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make sure incubator PR is approved
+        shell: bash
+        run: >-
+          export APPROVED=$(
+          gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews
+          --jq '[.[] |
+          select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
+          select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
+          .state == "APPROVED"] | (.|all) and (.|length>0)'
+          )
+          && echo "APPROVED=${APPROVED}"
+          && [[ "${APPROVED}" == "true" ]]
+
+      - name: Make sure CI workflow is passing for PR
+        shell: bash
+        run: |
+          export CIRESULT=$(\
+          gh api graphql \
+          -F owner=${{ github.repository_owner }} \
+          -F repo=${{ github.event.repository.name }} \
+          -F pull_number=${{ github.event.issue.number }} \
+          -f query='query($owner: String!, $repo: String!, $pull_number: Int!) {
+            repository(owner: $owner, name:$repo) {
+              pullRequest(number:$pull_number) {
+                commits(last: 1) {
+                  nodes {
+                    commit {
+                      statusCheckRollup {
+                        state
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }' \
+          --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state' \
+          ) \
+          && echo "CIRESULT=${CIRESULT}" \
+          && [[ "${CIRESULT}" == "SUCCESS" ]]
+
+      - name: Mark running with rocket reaction and label
+        shell: bash
+        run: |
+          gh api -X POST -f content=rocket /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
+
+      - name: Publish status in incubator PR comment
+        shell: bash
+        env:
+          COMMENT: |
+            :rocket: Hold onto your hats! Now bootstrapping a new pack repo...
+
+            Bootstrapping will:
+            (1) extract details about the new pack;
+            (2) create the pack repo and repo metadata;
+            (3) copy this PR into the `transfer` branch in the new repo;
+            (4) use `transfer` branch for the pack's first PR.
+
+            Details: ${{ github.server_url }}/${{ github.repository }}/runs/${{ github.run_id }}
+        run: |
+          gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"
+
+  extract_pack_details:
+    name: New Pack / Extract Details
+    needs: [permissions_check, ready_to_merge_check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Pack Details
+        id: pack-details
+        uses: StackStorm-Exchange/ci/.github/actions/extract-pack-meta@master
+        with:
+          pack-directory: incubator
+          repository: ${{ github.repository }}
+          # expects an issue_comment event
+          ref: refs/pull/${{ github.event.issue.number }}/head
+          fetch-depth: 0
+    outputs:
+      pack_name: ${{ steps.pack-details.outputs.pack_name }}
+      pack_ref: ${{ steps.pack-details.outputs.pack_ref }}
+      pack_description: ${{ steps.pack-details.outputs.pack_description }}
+      pack_path: ${{ steps.pack-details.outputs.pack_path }}
+      in_submodule: ${{ steps.pack-details.outputs.in_submodule }}
+      in_subdir: ${{ steps.pack-details.outputs.in_subdir }}
+
+  bootstrap_pack_repo:
+    needs: [extract_pack_details]
+    name: New Pack # / Bootstrap Repo
+    uses: StackStorm-Exchange/ci/.github/workflows/pack-bootstrap_repo.yaml@master
+
+    secrets: # available contexts: github, needs, secrets
+
+      admin_token: ${{ secrets.NEW_PACK_REPOS_TOKEN }} # min scopes: admin:org, repo
+      slack_webhook_url: ${{ secrets.PACK_SLACK_WEBHOOK_URL }}
+
+    with: # available contexts: github, needs
+
+      # TODO: validate that this || works if pack_ref is empty
+      pack_name: ${{ needs.extract_pack_details.outputs.pack_ref || needs.extract_pack_details.outputs.pack_name }}
+      pack_description: ${{ needs.extract_pack_details.outputs.pack_description }}
+
+      # we are using defaults for these.
+      #homepage: "https://exchange.stackstorm.com/#${PACK_NAME}"
+      #pack_org: StackStorm-Exchange
+      #pack_repo_prefix: stackstorm
+      #pack_repo_template: StackStorm-Exchange/ci-pack-template
+      #tsc_team: TSC
+
+  # based on
+  # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-923614663
+  # https://github.com/StackStorm-Exchange/exchange-incubator/issues/7#issuecomment-281247786
+  create_pack_pr:
+    name: New Pack / Create First PR
+    needs: [extract_pack_details, bootstrap_pack_repo]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup environment
+        shell: bash
+        env:
+          # Should we make this configurable somehow? (repository secrets, ...)
+          BOT_USER: stackstorm-neptr
+          BOT_EMAIL: info@stackstorm.com
+        run: |
+          mkdir -p ${HOME}/.local/bin
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          git config --global user.name "${BOT_USER}"
+          git config --global user.email "${BOT_EMAIL}"
+
+      - name: Install git-filter-branch
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
+        # yes, this is only one python file. instructions say to put it on the PATH.
+        shell: bash
+        run: |
+          curl https://raw.githubusercontent.com/newren/git-filter-repo/v2.34.0/git-filter-repo -o ${HOME}/.local/bin/git-filter-repo
+          chmod +x ${HOME}/.local/bin/git-filter-repo
+
+      - name: Checkout pack repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ needs.bootstrap_pack_repo.outputs.pack_repo }}
+          path: pack
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Checkout incubator
+        uses: actions/checkout@v2
+        with:
+          path: incubator
+          fetch-depth: 0
+
+      - name: Checkout Incubator PR
+        working-directory: incubator
+        shell: bash
+        run: |
+          git fetch origin pull/${{ github.event.issue.number }}/head:pr
+          git checkout pr
+          git submodule init
+          git submodule update --remote
+
+      # for git-filter-repo usage see:
+      # https://www.mankier.com/1/git-filter-repo
+
+      - name: Move pack to root of repo
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
+        working-directory: incubator
+        shell: bash
+        run: |
+          PACK_DIR=$(
+            realpath --relative-to="${PWD}" '${{ needs.extract_pack_details.outputs.pack_path }}'
+          )
+          git-filter-repo --subdirectory-filter "${PACK_DIR}" --force
+
+      - name: Add incubator as git remote
+        if: needs.extract_pack_details.outputs.in_submodule == 'false'
+        working-directory: pack
+        shell: bash
+        run: |
+          git remote add source ../incubator
+          git fetch source
+
+      - name: Add git remote for source repo in incubator submodule
+        if: needs.extract_pack_details.outputs.in_submodule == 'true'
+        working-directory: pack
+        shell: bash
+        run: |
+          git remote add source ${{ needs.extract_pack_details.outputs.pack_path }}
+          git fetch source
+
+      - name: Create branch for initial pack content
+        working-directory: pack
+        shell: bash
+        run: |
+          git checkout -b transfer
+
+      - name: Pull source history into pack repo
+        working-directory: pack
+        shell: bash
+        # ort strategy replaces recursive strategy on git 2.33+
+        # ours => Fix merge conflicts by preferring exchange-provided files
+        #         (which should be a minimal required set of files).
+        #         Update the PR before merging if needed.
+        run: |
+          git merge source/pr --allow-unrelated-histories -s ort -X ours \
+          -m 'Merge ${{ github.event.issue.html_url }}'
+
+      - name: Create initial content PR on pack repo
+        working-directory: pack
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.NEW_PACK_REPOS_TOKEN }} # min scopes: public_repo (included in repo)
+          PR_TITLE: 'Transfer ${{ needs.extract_pack_details.outputs.pack_name }} pack from Incubator'
+          PR_BODY: |
+            Pack: ${{ needs.extract_pack_details.outputs.pack_name }}
+            Description: ${{ needs.extract_pack_details.outputs.pack_description }}
+            Incubator PR: ${{ github.event.issue.html_url }}
+        run: |
+          git config remote.origin.gh-resolved base
+          git config remote.origin.pushurl "https://${GH_TOKEN}@github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}.git"
+          git push -u origin transfer
+          gh pr create --title "${PR_TITLE}" --body "${PR_BODY}"
+
+      - name: Mark running with hooray reaction and label
+        shell: bash
+        run: |
+          gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
+          gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
+
+      - name: Publish status in incubator PR comment
+        shell: bash
+        env:
+          COMMENT: |
+            :tada: Hoooray! Here is the pack's first PR: https://github.com/${{ needs.bootstrap_pack_repo.outputs.pack_repo }}/pull/1
+
+            Please do the following:
+            (1) make sure everything looks correct in the PR;
+            (2) merge it!
+            (3) make sure a TSC Senior Maintainer has setup group and user access;
+            (4) wait for the next exchange index update (monitor updates [here](https://github.com/StackStorm-Exchange/index/actions))
+            (5) once the index has updated, check out:
+            ${{ needs.bootstrap_pack_repo.outputs.homepage }}
+        run: |
+          gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"

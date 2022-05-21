@@ -35,7 +35,7 @@ jobs:
     if: >-
       github.event.issue.pull_request
       && github.event.comment.body == '!bootstrap pack'
-    # Warning: using github.event.comment.author_association
+    # Warning: github.event.comment.author_association
     # cannot be used to check permissions
     # because it is NONE for some TSC members.
     runs-on: ubuntu-latest

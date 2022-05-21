@@ -15,16 +15,19 @@ env:
   GH_TOKEN: ${{ github.token }}
 
 jobs:
-  debug:
-    name: Debug event
-    runs-on: ubuntu-latest
-    steps:
-      - name: print github.event
-        shell: bash
-        env:
-          GITHUB_EVENT: ${{ toJSON(github.event) }}
-        run: |
-          echo "${GITHUB_EVENT}"
+
+  # This job is very helpful in debugging why conditions don't match.
+  # To debug, uncomment this to inspect the event payload.
+  #debug:
+  #  name: Debug event
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: print github.event
+  #      shell: bash
+  #      env:
+  #        GITHUB_EVENT: ${{ toJSON(github.event) }}
+  #      run: |
+  #        echo "${GITHUB_EVENT}"
 
   permissions_check:
     name: Check Comment Author Permissions
@@ -35,14 +38,30 @@ jobs:
       github.event.comment.author_association == 'OWNER'
       || github.event.comment.author_association == 'MEMBER'
       || github.event.comment.author_association == 'COLLABORATOR'
+      || github.event.comment.author_association == 'CONTRIBUTOR'
       )
       && github.event.comment.body == '!bootstrap pack'
     # author_association enum def
     # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
     runs-on: ubuntu-latest
     steps:
-      # the commentator has write access to the incubator
-      # so no more group membership validation required.
+      # TSC members can show up as "CONTRIBUTOR" which does not say
+      # that the commentor is an active TSC member, so double check.
+      - name: Validate commentor can commit to incubator
+        shell: bash
+        env:
+          COMMENT_USER: ${{ github.comment.user.login }}
+          COMMENT_SENDER: ${{ github.sender.login }}
+          VALID_ROLES: "admin maintain write"
+        # the space before/after ROLE ensures we match the whole word
+        run: >-
+          export ROLE=$(
+          gh api '/repos/${{ github.repository }}/collaborators/${{ github.event.comment.user.login }}/permission'
+          --jq '.role_name'
+          )
+          && echo "ROLE=${ROLE}"
+          && [[ " ${VALID_ROLES} " =~ " ${ROLE} " ]]
+
       - name: Add eyes emoji reaction to say inspecting PR
         shell: bash
         run: |

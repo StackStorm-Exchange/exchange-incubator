@@ -34,20 +34,14 @@ jobs:
     # "!bootstrap pack" comment on pull requests
     if: >-
       github.event.issue.pull_request
-      && (
-      github.event.comment.author_association == 'OWNER'
-      || github.event.comment.author_association == 'MEMBER'
-      || github.event.comment.author_association == 'COLLABORATOR'
-      || github.event.comment.author_association == 'CONTRIBUTOR'
-      )
       && github.event.comment.body == '!bootstrap pack'
-    # author_association enum def
-    # https://docs.github.com/en/graphql/reference/enums#commentauthorassociation
+    # Warning: using github.event.comment.author_association
+    # cannot be used to check permissions
+    # because it is NONE for some TSC members.
     runs-on: ubuntu-latest
     steps:
-      # TSC members can show up as "CONTRIBUTOR" which does not say
-      # that the commentor is an active TSC member, so double check.
-      - name: Validate commentor can commit to incubator
+      - name: Ensure the commentor is an active TSC member
+        # ie: Validate commentor can commit to incubator
         shell: bash
         env:
           VALID_ROLES: "admin maintain write"

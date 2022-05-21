@@ -19,7 +19,7 @@ jobs:
     name: Debug event
     runs-on: ubuntu-latest
     steps:
-    - name: print github.event
+      - name: print github.event
         shell: bash
         env:
           GITHUB_EVENT: ${{ toJSON(github.event) }}

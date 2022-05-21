@@ -50,8 +50,6 @@ jobs:
       - name: Validate commentor can commit to incubator
         shell: bash
         env:
-          COMMENT_USER: ${{ github.comment.user.login }}
-          COMMENT_SENDER: ${{ github.sender.login }}
           VALID_ROLES: "admin maintain write"
         # the space before/after ROLE ensures we match the whole word
         run: >-

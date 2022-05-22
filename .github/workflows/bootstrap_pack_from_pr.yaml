@@ -155,7 +155,7 @@ jobs:
             (3) copy this PR into the `transfer` branch in the new repo;
             (4) use `transfer` branch for the pack's first PR.
 
-            Details: ${{ github.server_url }}/${{ github.repository }}/runs/${{ github.run_id }}
+            Details: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"
 

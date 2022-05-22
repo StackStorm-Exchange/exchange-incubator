@@ -54,7 +54,7 @@ jobs:
           )
           echo "COMMENTOR_ROLE=${COMMENTOR_ROLE}"
           if [[ " ${VALID_ROLES} " =~ " ${COMMENTOR_ROLE} " ]]; then
-            echo "Commentor bootstrap packs."
+            echo "Commentor may bootstrap packs."
           else
             echo "Commentor may NOT bootstrap packs. '${COMMENTOR_ROLE}' is not one of: ${VALID_ROLES}"
             echo "(ie the Commentor must have write access to ${{ github.repository }})."

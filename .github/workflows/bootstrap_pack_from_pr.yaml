@@ -74,17 +74,25 @@ jobs:
     steps:
       - name: Make sure incubator PR is approved
         shell: bash
+        # reviewDecision is a PullRequestReviewDecision enum: APPROVED, CHANGES_REQUESTED, REVIEW_REQUIRED
+        # see https://docs.github.com/en/graphql/reference/enums#pullrequestreviewdecision
         run: |
-          export APPROVED=$(
-            gh api -X GET \
-            '/repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews' \
-            --jq '[.[] |
-            select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
-            select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
-            .state == "APPROVED"] | (.|all) and (.|length>0)'
+          export REVIEW_DECISION=$(
+            gh api graphql \
+            -F owner=${{ github.repository_owner }} \
+            -F repo=${{ github.event.repository.name }} \
+            -F pull_number=${{ github.event.issue.number }} \
+            -f query='query($owner: String!, $repo: String!, $pull_number: Int!) {
+              repository(owner: $owner, name:$repo) {
+                pullRequest(number:$pull_number) {
+                  reviewDecision
+                }
+              }
+            }' \
+            --jq '.data.repository.pullRequest.reviewDecision'
           )
-          echo "APPROVED=${APPROVED}"
-          if [[ "${APPROVED}" == "true" ]]; then
+          echo "REVIEW_DECISION=${REVIEW_DECISION}"
+          if [[ "${REVIEW_DECISION}" == "APPROVED" ]]; then
             echo "Pack PR has been approved. Bootstrapping may continue."
           else
             echo "Pack PR has NOT been approved. Halting pack bootstrap!"

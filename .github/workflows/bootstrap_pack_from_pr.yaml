@@ -78,9 +78,9 @@ jobs:
           export APPROVED=$(
             gh api -X GET \
             '/repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews' \
-            --jq '[.[] | \
-            select(.author_association=="OWNER" or .author_association=="COLLABORATOR") | \
-            select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") | \
+            --jq '[.[] |
+            select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
+            select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
             .state == "APPROVED"] | (.|all) and (.|length>0)'
           )
           echo "APPROVED=${APPROVED}"

@@ -64,7 +64,8 @@ jobs:
       - name: Add eyes emoji reaction to say inspecting PR
         shell: bash
         run: |
-          gh api -X POST -f content=eyes /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+          gh api -X POST -f content=eyes \
+          '/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions'
 
   ready_to_merge_check:
     name: Check for Merge Readiness
@@ -126,8 +127,13 @@ jobs:
       - name: Mark running with rocket reaction and label
         shell: bash
         run: |
-          gh api -X POST -f content=rocket /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
-          jq -n '{"labels": ["bootstrap:in-progress"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
+          gh api -X POST -f content=rocket \
+          '/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions'
+
+          jq -n '{"labels": ["bootstrap:in-progress"]}' | \
+          gh api -X POST \
+          '/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels' \
+          --input -
 
       - name: Publish status in incubator PR comment
         shell: bash
@@ -306,9 +312,16 @@ jobs:
       - name: Mark running with hooray reaction and label
         shell: bash
         run: |
-          gh api -X DELETE /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress
-          gh api -X POST -f content=hooray /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
-          jq -n '{"labels": ["bootstrap:complete"]}' | gh api -X POST /repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels --input -
+          gh api -X DELETE \
+          '/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels/bootstrap:in-progress'
+
+          gh api -X POST -f content=hooray \
+          '/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions'
+
+          jq -n '{"labels": ["bootstrap:complete"]}' |\
+          gh api -X POST \
+          '/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels' \
+          --input -
 
       - name: Publish status in incubator PR comment
         shell: bash

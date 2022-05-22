@@ -46,13 +46,20 @@ jobs:
         env:
           VALID_ROLES: "admin maintain write"
         # the space before/after ROLE ensures we match the whole word
-        run: >-
-          export ROLE=$(
-          gh api '/repos/${{ github.repository }}/collaborators/${{ github.event.comment.user.login }}/permission'
-          --jq '.role_name'
+        run: |
+          export COMMENTOR_ROLE=$(
+            gh api -X GET \
+            '/repos/${{ github.repository }}/collaborators/${{ github.event.comment.user.login }}/permission' \
+            --jq '.role_name'
           )
-          && echo "ROLE=${ROLE}"
-          && [[ " ${VALID_ROLES} " =~ " ${ROLE} " ]]
+          echo "COMMENTOR_ROLE=${COMMENTOR_ROLE}"
+          if [[ " ${VALID_ROLES} " =~ " ${COMMENTOR_ROLE} " ]]; then
+            echo "Commentor bootstrap packs."
+          else
+            echo "Commentor may NOT bootstrap packs. '${COMMENTOR_ROLE}' is not one of: ${VALID_ROLES}"
+            echo "(ie the Commentor must have write access to ${{ github.repository }})."
+            exit 2
+          fi
 
       - name: Add eyes emoji reaction to say inspecting PR
         shell: bash
@@ -66,44 +73,55 @@ jobs:
     steps:
       - name: Make sure incubator PR is approved
         shell: bash
-        run: >-
+        run: |
           export APPROVED=$(
-          gh api /repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews
-          --jq '[.[] |
-          select(.author_association=="OWNER" or .author_association=="COLLABORATOR") |
-          select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") |
-          .state == "APPROVED"] | (.|all) and (.|length>0)'
+            gh api -X GET \
+            '/repos/${{ github.repository }}/pulls/${{ github.event.issue.number }}/reviews' \
+            --jq '[.[] | \
+            select(.author_association=="OWNER" or .author_association=="COLLABORATOR") | \
+            select(.state=="APPROVED" or .state=="CHANGES_REQUESTED") | \
+            .state == "APPROVED"] | (.|all) and (.|length>0)'
           )
-          && echo "APPROVED=${APPROVED}"
-          && [[ "${APPROVED}" == "true" ]]
+          echo "APPROVED=${APPROVED}"
+          if [[ "${APPROVED}" == "true" ]]; then
+            echo "Pack PR has been approved. Bootstrapping may continue."
+          else
+            echo "Pack PR has NOT been approved. Halting pack bootstrap!"
+            exit 3
+          fi
 
       - name: Make sure CI workflow is passing for PR
         shell: bash
         run: |
-          export CIRESULT=$(\
-          gh api graphql \
-          -F owner=${{ github.repository_owner }} \
-          -F repo=${{ github.event.repository.name }} \
-          -F pull_number=${{ github.event.issue.number }} \
-          -f query='query($owner: String!, $repo: String!, $pull_number: Int!) {
-            repository(owner: $owner, name:$repo) {
-              pullRequest(number:$pull_number) {
-                commits(last: 1) {
-                  nodes {
-                    commit {
-                      statusCheckRollup {
-                        state
+          export CIRESULT=$(
+            gh api graphql \
+            -F owner=${{ github.repository_owner }} \
+            -F repo=${{ github.event.repository.name }} \
+            -F pull_number=${{ github.event.issue.number }} \
+            -f query='query($owner: String!, $repo: String!, $pull_number: Int!) {
+              repository(owner: $owner, name:$repo) {
+                pullRequest(number:$pull_number) {
+                  commits(last: 1) {
+                    nodes {
+                      commit {
+                        statusCheckRollup {
+                          state
+                        }
                       }
                     }
                   }
                 }
               }
-            }
-          }' \
-          --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state' \
-          ) \
-          && echo "CIRESULT=${CIRESULT}" \
-          && [[ "${CIRESULT}" == "SUCCESS" ]]
+            }' \
+            --jq '.data.repository.pullRequest.commits.nodes.[].commit.statusCheckRollup.state'
+          )
+          echo "CIRESULT=${CIRESULT}"
+          if [[ "${CIRESULT}" == "SUCCESS" ]]; then
+            echo "Pack CI has succeeded. Bootstrapping may continue."
+          else
+            echo "Pack CI has NOT succeeded. Halting pack bootstrap!"
+            exit 4
+          fi
 
       - name: Mark running with rocket reaction and label
         shell: bash

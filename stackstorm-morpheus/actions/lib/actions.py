@@ -46,15 +46,11 @@ class MongoBaseAction(Action):
         self.dbclient = self._get_db_client()
 
     def _get_db_client(self):
-        # Uncomment dbuser & dbpass if using password protected mongo database
-        # dbuser = self.config['dbuser']
-        # dbpass = self.config['dbpass']
-
-        # If running stackstorm in a singlehost deployment use this command
-        # dbclient =
-        # MongoClient('mongodb://%s:%s@localhost:27017/' % (dbuser,dbpass))
-
-        # If youing stackstorm in multiple docker containers use this command
-        dbclient = MongoClient('mongodb://mongo:27017/')
-
+        if self.config['dbuser']:
+            dbuser = self.config['dbuser']
+            dbpass = self.config['dbpass']
+            dbclient = MongoClient('mongodb://%s:%s@localhost:27017/' %
+            (dbuser,dbpass))
+        else:
+            dbclient = MongoClient('mongodb://mongo:27017/')
         return dbclient

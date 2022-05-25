@@ -37,34 +37,30 @@ You can also run `st2 pack config morpheus` and answer the prompts
 
 ## Actions
 
-Actions are defined in two groups:
+###Action naming conventions:
 
-### Individual actions: GET, POST, PUT with under bar will precede each individual action
+Individual actions: Action names will have an underscore after the HTTP method
 * ``get_volumes``
 * ``get_logs``
 * ``get_networks``
 * ``get_alerts``
 
-### Orquestra Workflows: will not
+Orquestra Workflows: will have a dash.
 
-This application uses the mongo db installed by StackStorm. Since the DB is secured
-you will need to log into the StackStorm mongo DB as a StackStorm admin and create a separate DB
+## Mongo considerations
 
-# To get this pack to work with A SINGLE HOST DEPLOYMENT StackStorm mongo DB
-You can ignore this section when using StackStorm in docker containers. There is
-no username and password associated with the database running in the mongo container.
-Use at your own discretion.
+If your mongo instance does not have auth enabled, then you don't need to
+provide a dbuser and dbpass
 
-```
-docker pull stackstorm/stackstorm
-```
+If the default mongoDB is used and it has authentication enabled, you will
+need to create a new user and a database.
 
-log in with admin first
---------------------------------------------------------------------------------------
-mongo -u admin -p UkIbDILcNbMhkh3KtN6xfr9h admin  (passwd in /etc/st2/st2.config)
+This can be done by logging in as admin using the following example.
 
-# Then create a new user
+mongo -u admin -p <st2 config password> admin 
+
+### Then create a new user
 db.createUser({user: "appUser",pwd: "passwordForAppUser",roles: [ { role: "readWrite", db: "app_db" } ]})
 
-# Then if necessary you can check the mongo database records by
+### Then if necessary you can check the mongo database records by
 mongo -u appUser -p passwordForAppUser admin

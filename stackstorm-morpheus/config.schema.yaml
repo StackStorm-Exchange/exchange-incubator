@@ -13,3 +13,13 @@ password:
   type: "string"
   secret: true
   required: true
+dbuser:
+  description: "Username for user database"
+  type: "string"
+  secret: false
+  required: false
+dbpass:
+  description: "Password for user database"
+  type: "string"
+  secret: true
+  required: false

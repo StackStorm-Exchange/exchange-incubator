@@ -50,14 +50,15 @@ Orquestra Workflows: will have a dash.
 ## Mongo considerations
 
 If your mongo instance does not have auth enabled, then you don't need to
-provide a dbuser and dbpass
+provide a dbuser and dbpass. If it is you can set the dbuser and dbpass
+in the StackStorm GUI by navigating to the packs management page.
 
 If the default mongoDB is used and it has authentication enabled, you will
 need to create a new user and a database.
 
 This can be done by logging in as admin using the following example.
 
-mongo -u admin -p <st2 config password> admin 
+mongo -u admin -p <st2 config password> admin
 
 ### Then create a new user
 db.createUser({user: "appUser",pwd: "passwordForAppUser",roles: [ { role: "readWrite", db: "app_db" } ]})

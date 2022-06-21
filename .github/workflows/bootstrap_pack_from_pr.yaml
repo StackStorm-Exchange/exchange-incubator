@@ -344,5 +344,6 @@ jobs:
             (4) wait for the next exchange index update (monitor updates [here](https://github.com/StackStorm-Exchange/index/actions))
             (5) once the index has updated, check out:
             ${{ needs.bootstrap_pack_repo.outputs.homepage }}
+            (6) Close WITHOUT merging this PR. DO NOT MERGE THIS PR.
         run: |
           gh pr comment '${{ github.event.issue.html_url }}' --body "${COMMENT}"

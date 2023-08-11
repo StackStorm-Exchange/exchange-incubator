@@ -1,0 +1,12 @@
+---
+
+openai_token:
+  description: "Authentication token for OpenAI API"
+  type: string
+  required: false
+  secret: true
+openai_org:
+  description: "Organization identifier for OpenAI API auth token"
+  type: string
+  required: false
+  secret: false

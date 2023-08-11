@@ -1,0 +1,16 @@
+name: image_generation
+pack: openai
+description: Action to query the OpenAI image API.
+runner_type: "python-script"
+entry_point: image_generation.py
+enabled: true
+parameters:
+ query:
+  required: true
+  type: string
+  secret: false
+ size:
+  required: false
+  type: string
+  default: "512x512"
+  secret: false

@@ -1,0 +1,12 @@
+---
+ref: openai
+name: OpenAI Query Pack
+description: Pack to query OpenAI API
+keywords:
+  - openai
+  - ai
+version: 0.1.0
+python_versions:
+  - "3"
+author: David Larsen
+email: dalarsen@expediagroup.com

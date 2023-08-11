@@ -1,0 +1,16 @@
+name: chat_completion
+pack: openai
+description: Action to query the OpenAI chat completion API.
+runner_type: "python-script"
+entry_point: chat_completion.py
+enabled: true
+parameters:
+ query:
+  required: true
+  type: string
+  secret: false
+ model:
+  required: false
+  type: string
+  default: "gpt-4"
+  secret: false

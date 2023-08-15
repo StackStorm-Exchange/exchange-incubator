@@ -10,8 +10,7 @@ jobs:
   build_and_test:
     # we only run if this is a pull request from a fork
     # assuming that any pull requests from the same repo are infra changes.
-    # Debug the build
-    #if: github.event.pull_request.head.repo.full_name != github.repository
+    if: github.event.pull_request.head.repo.full_name != github.repository
 
     # As long as we need Python 3.8 here in the test, we can only use up to Ubuntu 20
     # See https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
@@ -33,18 +32,18 @@ jobs:
           git submodule init
           git submodule update --remote
 
-      # - name: Prepare repository (incubator)
-      #   working-directory: pack
-      #   shell: bash
-      #   run: |
-      #     .scripts/prepare-repo.sh
+      - name: Prepare repository (incubator)
+        working-directory: pack
+        shell: bash
+        run: |
+          .scripts/prepare-repo.sh
 
-      # - name: Check for Apache 2.0 LICENSE file (required for new packs)
-      #   working-directory: pack
-      #   shell: bash
-      #   run: |
-      #     head -n3 LICENSE
-      #     grep -e 'Apache License' -e 2.0 LICENSE | grep -v -e APPENDIX -e attach
+      - name: Check for Apache 2.0 LICENSE file (required for new packs)
+        working-directory: pack
+        shell: bash
+        run: |
+          head -n3 LICENSE
+          grep -e 'Apache License' -e 2.0 LICENSE | grep -v -e APPENDIX -e attach
 
       - name: Install APT Dependencies
         uses: StackStorm-Exchange/ci/.github/actions/apt-dependencies@master

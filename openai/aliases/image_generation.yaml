@@ -1,0 +1,18 @@
+---
+name: openai_image_generation
+action_ref: openai.image_generation
+description: Make an image generation query to the OpenAI API
+formats:
+  - "ask dall-e {{query}}"
+ack:
+  format: "Sending your DALL-E image generation query now, please wait..."
+enabled: true
+result:
+  format: |       
+    Response from OpenAI for the DALL-E image generation query {{execution.parameters.question}}:
+    
+    {% if execution.status == 'succeeded' %}
+      {{ execution.result.result.data }}              
+    {% else %}
+    Query to OpenAI failed: {{execution}}
+    {% endif %}

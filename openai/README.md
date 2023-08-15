@@ -13,3 +13,7 @@ The configuration schema contains two attributes:
 
 * `chat_completion` - Perform a chat completion query (text-based "chat" query)
 * `image_generation` - Request a OpenAI generative graphical image
+
+## Maintainers
+Active pack maintainers with review & write repository access:
+* Dave Larsen ([@dalarsen](https://github.com/dalarsen))

@@ -1,0 +1,21 @@
+---
+name: openai_chat_completion
+action_ref: openai.chat_completion
+description: Make a chat completion query to the OpenAI API
+formats:
+  - "ask chatgpt {{query}}"
+ack:
+  format: "Sending your ChatGPT chat completion query now, please wait..."
+enabled: true
+result:
+  format: |       
+    Response from OpenAI for the ChatGPT chat completion query {{execution.parameters.question}}:
+    
+    {% if execution.status == 'succeeded' %}
+      {% for choice in execution.result.result.choices %}
+        -----
+        {{ choice.message.content }}
+      {% endfor %}        
+    {% else %}
+    Query to OpenAI failed: {{execution}}
+    {% endif %}

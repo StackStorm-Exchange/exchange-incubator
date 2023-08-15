@@ -12,13 +12,15 @@ jobs:
     # assuming that any pull requests from the same repo are infra changes.
     if: github.event.pull_request.head.repo.full_name != github.repository
 
-    runs-on: ubuntu-latest
+    # As long as we need Python 3.8 here in the test, we can only use up to Ubuntu 20
+    # See https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json
+    runs-on: ubuntu-20.04
     name: 'Build and Test / Python ${{ matrix.python-version-short }}'
     strategy:
       matrix:
         include:
           - python-version-short: "3.6"
-            python-version: 3.6.13
+            python-version: 3.6.15
     steps:
       - name: Checkout Pack Repo and CI Repos
         uses: StackStorm-Exchange/ci/.github/actions/checkout@master

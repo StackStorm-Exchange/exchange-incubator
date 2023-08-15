@@ -33,11 +33,11 @@ jobs:
           git submodule init
           git submodule update --remote
 
-      - name: Prepare repository (incubator)
-        working-directory: pack
-        shell: bash
-        run: |
-          .scripts/prepare-repo.sh
+      # - name: Prepare repository (incubator)
+      #   working-directory: pack
+      #   shell: bash
+      #   run: |
+      #     .scripts/prepare-repo.sh
 
       # - name: Check for Apache 2.0 LICENSE file (required for new packs)
       #   working-directory: pack

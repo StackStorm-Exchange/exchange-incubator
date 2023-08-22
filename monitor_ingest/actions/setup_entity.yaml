@@ -1,0 +1,6 @@
+---
+name: "setup_entity"
+runner_type: "python-script"
+description: "Setting up Entity Types, Dimensions, Functions, Constants in IBM Maximo Asset Monitor"
+enabled: true
+entry_point: "setup_entity.py"

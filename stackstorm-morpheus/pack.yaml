@@ -1,0 +1,12 @@
+---
+ref: morpheus
+name: morpheus
+description: Morpheus Integration Pack
+keywords:
+  - Morpheus
+  - Automation
+version: 0.1.0
+python_versions:
+  - "3"
+author: Rick Kauffman
+email: rick@rickkauffman.com

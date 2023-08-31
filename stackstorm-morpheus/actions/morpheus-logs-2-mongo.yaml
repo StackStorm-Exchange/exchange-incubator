@@ -1,0 +1,6 @@
+---
+name: morpheus-logs-2-mongo
+description: A workflow for getting morpheus logs into a mongo database.
+runner_type: orquesta
+entry_point: workflows/morpheus-logs-2-mongo.yaml
+enabled: true

@@ -1,0 +1,11 @@
+---
+name: load-morpheus-logs
+pack: morpheus
+description: load Morpheus logs into the mongo db
+runner_type: python-script
+entry_point: load-morpheus-logs.py
+enabled: true
+parameters:
+  logs:
+    required: true
+    type: array

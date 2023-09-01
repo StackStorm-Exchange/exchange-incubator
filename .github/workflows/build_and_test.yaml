@@ -19,8 +19,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python-version-short: "3.6"
-            python-version: 3.6.15
+          - python-version-short: "3.8"
+            python-version: 3.8.18
     steps:
       - name: Checkout Pack Repo and CI Repos
         uses: StackStorm-Exchange/ci/.github/actions/checkout@master

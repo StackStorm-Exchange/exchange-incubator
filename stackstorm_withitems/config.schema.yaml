@@ -1,0 +1,18 @@
+---
+  st2baseurl:
+    description: "base host url for st2 api"
+    type: "string"
+    default: "http://localhost"
+  st2authurl:
+    description: "auth url for st2 api"
+    type: "string"
+    default: "http://localhost/auth"
+  st2apiurl:
+    description: "api url for st2 api"
+    type: "string"
+    default: "http://localhost/api"
+  st2api_key:
+    description: "api key used by stackstorm actions create with_items"
+    type: string
+    secret: true
+    required: false

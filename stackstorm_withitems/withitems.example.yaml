@@ -1,0 +1,4 @@
+st2api_key: null
+st2apiurl: https://localhost:443/api
+st2authurl: https://localhost:443/auth
+st2baseurl: https://localhost:443

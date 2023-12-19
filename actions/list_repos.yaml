@@ -1,0 +1,21 @@
+---
+name: "list_repos"
+pack: azuredevops
+runner_type: "python-script"
+description: "List all available Repositories in an Azure DevOps project."
+enabled: true
+entry_point: "list_repos.py"
+parameters:
+  org:
+    description: Azure DevOps Organisation
+    type: string
+    default: schwarzit
+  project:
+    description: Azure DevOps Projectname
+    type: string
+    default: none
+  accesstoken:
+    description: Personal Access Token
+    type: string
+    secret: true
+    default: none

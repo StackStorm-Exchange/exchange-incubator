@@ -1,0 +1,21 @@
+---
+name: listPipelines
+pack: azuredevops
+runner_type: "python-script"
+description: List AzureDevops Pipeline.
+enabled: true
+entry_point: listPipelines.py
+parameters:
+    org:
+      description: AzureDevops ORG
+      type: string
+      default: none
+    project:
+      description: AzureDevops projectname
+      type: string
+      default: none
+    accesstoken:
+      description: Acces Token Azure Devops
+      type: string
+      secret: true
+      default: none

@@ -1,0 +1,33 @@
+---
+name: runPipeline
+pack: azuredevops
+runner_type: "python-script"
+description: Run AzureDevops Pipeline.
+enabled: true
+entry_point: runPipeline.py
+parameters:
+    pipelineId:
+      description: AzureDevops Pipeline ID
+      type: integer
+      default: none
+    org:
+      description: AzureDevops ORG
+      type: string
+      default: none
+    project:
+      description: AzureDevops projectname
+      type: string
+      default: none
+    accesstoken:
+      description: Acces Token Azure Devops
+      type: string
+      secret: true
+      default: none
+    refName:
+      description: RefName
+      type: string
+      default: "refs/heads/main"
+    templateParameters:
+      description: ADO Parameters
+      type: object
+      default: none

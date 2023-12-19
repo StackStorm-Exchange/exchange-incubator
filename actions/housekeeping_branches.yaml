@@ -1,0 +1,33 @@
+---
+name: "housekeeping_repo_branches"
+pack: azuredevops
+runner_type: "python-script"
+description: "Removing branches according to retention."
+enabled: true
+entry_point: "housekeeping_branches.py"
+parameters:
+  org:
+    description: Azure DevOps Organisation
+    type: string
+    default: schwarzit
+  project:
+    description: Azure DevOps Projectname
+    type: string
+    default: none
+  repository:
+    description: Azure DevOps repository name
+    type: string
+    default: none
+  accesstoken:
+    description: Personal Access Token
+    type: string
+    secret: true
+    default: none
+  filter:
+    description: Branches to be excluded from housekeeping
+    type: string
+    default: "main|tags"
+  retention:
+    description: Maximum days to retain the branches
+    type: number
+    default: 30

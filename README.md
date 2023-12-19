@@ -1,30 +1,68 @@
-# StackStorm Exchange Incubator
+# stackstorm-azuredevops
+This Package allow to List and Run Ado Pipelines.
 
-### What is this?
+# Introduction
+This Plugin allow to interact with Azure Devops.
+You can
+  - list Pipelines
+  - run Pipelines
+  - Remove branches
+  - list Repositories
 
-This repository is a very special place where user-submitted packs get reviewed, perfected, approved, and finally transferred to the Exchange.
 
-If you want to submit your pack, it's simple!
+# Auth
+You can using 1 Auth Mode.
+1) Personal Acces Token (Pat)
+   https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=Windows#create-a-pat
 
-1. **Fork this repo,**
-2. **create a subdirectory with your pack,**
-3. **and open a Pull Request.**
+# listPipeline:
+List all Pipeline in a Project.
+So you can get here the Pipeline ID for the runPipeline action.
 
-We'll take it from here. Even if your pack is work-in-progress, you can still submit it to get advice and early feedback from our engineers! Or ping us [on Slack](https://stackstorm.com/community-signup), which is generally the best place to get advice from the StackStorm Community.
+## Parameter Explanation:
 
-Before you submit a pack, make sure to read the [Create and Contribute a Pack](https://docs.stackstorm.com/reference/packs.html) section of our documentation.
+| Parameter        | Description  | Example  |
+| ------------- |:-------------:| -----:|
+| org      | AzureDevops ORG   |   schwarzit/schwarzit-wiking |
+| project | AzureDevops projectname |  schwarzit.groot-exchange  |
+| accesstoken | Access Token Azure Devops |    ********** |
 
-Here's N.E.P.T.R. the StackStorm Exchange Governor, giving you a thumbs-up:
 
-![](http://i.imgur.com/3bqVAh0.gif)
+# runPipeline:
+Run a Ado Pipeline. You can select your Branche/Tag and your Parameters as JSON string.
 
-## Contributors License Agreement
+## Parameter Explanation:
 
-By contributing you agree that these contributions are your own (or approved by your employer) and
-you grant a full, complete, irrevocable copyright license to all users and developers of the
-project, present and future, pursuant to the license of the project.
+| Parameter        | Description  | Example  |
+| ------------- |:-------------:| -----:|
+| pipelineId      | AzureDevops Pipeline ID (You can use the ListPipeline Action to get your Pipeline ID) | 12345678 |
+| org      | AzureDevops ORG   |   schwarzit/schwarzit-wiking |
+| project | AzureDevops projectname |   schwarzit.groot-exchange |
+| accesstoken | Access Token Azure Devops |    ********** |
+| refName | RefName of Branche or Tag |  refs/heads/main |
+| templateParameters | Parameter Array |  {"key1": "value2", "key2": "value2"} |
 
-## License
+# housekeeping_repo_branches:
+Removing Branches in your Azure DevOps Repository.
 
-All packs must be licensed under the Apache 2.0 license. We will not accept your new pack
-until we see a LICENSE file in your pull request with the Apache 2.0 license in it.
+## Parameter Explanation:
+
+| Parameter        | Description  | Example  |
+| ------------- |:-------------:| -----:|
+| org      | Azure DevOps Organisation   |   schwarzit/schwarzit-wiking |
+| project | Azure DevOps Projectname |   schwarzit.groot-exchange |
+| repository | Azure DevOps repository name |    st2_aap |
+| accesstoken | Personal Access Token |  ************************** |
+| filter | Branches to be excluded from housekeeping |  main|tags|dev |
+| retention | Maximum days to retain the branches |  30 |
+
+# list_repos:
+Get all Repositories in an Azure DevOps project as JSON
+
+## Parameter Explanation:
+
+| Parameter        | Description  | Example  |
+| ------------- |:-------------:| -----:|
+| org      | Azure DevOps Organisation   |   schwarzit/schwarzit-wiking |
+| project | Azure DevOps Projectname |   schwarzit.groot-exchange |
+| accesstoken | Personal Access Token |  ************************** |

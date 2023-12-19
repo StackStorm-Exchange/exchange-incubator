@@ -1,0 +1,12 @@
+---
+  org:
+    description: AzureDevops ORG
+    type: string
+  project:
+    description: AzureDevops projectname
+    type: string
+  accesstoken:
+    description: Acces Token Azure Devops
+    type: string
+    default: "**************************"
+    secret: true

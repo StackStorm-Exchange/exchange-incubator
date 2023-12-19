@@ -1,0 +1,11 @@
+---
+name: azuredevops
+description: Azure Devops Actions
+version: 1.0.0
+author: Operations Automation @ SchwarzITKG
+email: groot@mail.schwarz
+contributors:
+  - "philipp.homberger@mail.schwarz"
+  - "younes.el_fahmi@mail.schwarz"
+  - "julius.bauer1@mail.schwarz"
+  - "tobias.ramm@mail.schwarz"

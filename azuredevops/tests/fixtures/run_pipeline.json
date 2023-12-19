@@ -1,0 +1,41 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_apis/pipelines/12345678/runs/5377370"
+    },
+    "web": {
+      "href": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_build/results?buildId=5377370"
+    },
+    "pipeline.web": {
+      "href": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_build/definition?definitionId=12345678"
+    },
+    "pipeline": {
+      "href": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_apis/pipelines/12345678?revision=2"
+    }
+  },
+  "templateParameters": {},
+  "pipeline": {
+    "url": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_apis/pipelines/12345678?revision=2",
+    "id": 12345678,
+    "revision": 2,
+    "name": "test-pipeline",
+    "folder": "\\test"
+  },
+  "state": "inProgress",
+  "createdDate": "2023-11-02T10:16:26.1792335Z",
+  "url": "https://dev.azure.com/testorg/195587f7-70bf-9cbe-9b80-9385875cd841/_apis/pipelines/12345678/runs/5377370",
+  "resources": {
+    "repositories": {
+      "self": {
+        "repository": {
+          "id": "32afdf43-e5f7-4b4e-b7a3-c9848158c9b5",
+          "type": "azureReposGit"
+        },
+        "refName": "refs/heads/initial",
+        "version": "b86fafaa70e928339b0ebff0c4a754c9446ca14a"
+      }
+    }
+  },
+  "id": 12345678,
+  "name": "20231102.6"
+}

@@ -1,0 +1,25 @@
+---
+name: "convert_userstorys"
+pack: azuredevops
+runner_type: "python-script"
+description: "Add a copy of the User Story as Task as Child ITEM to the User Story."
+enabled: true
+entry_point: "convert_userstorys.py"
+parameters:
+  org:
+    description: Azure DevOps Organisation
+    type: string
+    default: schwarzit
+  project:
+    description: Azure DevOps Projectname
+    type: string
+    default: none
+  ado_team:
+    description: Azure DevOps Tean
+    type: string
+    default: none
+  ado_accesstoken:
+    description: Personal Access Token
+    type: string
+    secret: true
+    default: none

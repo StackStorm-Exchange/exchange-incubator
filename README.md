@@ -51,7 +51,7 @@ Removing Branches in your Azure DevOps Repository.
 | ------------- |:-------------:| -----:|
 | org      | Azure DevOps Organisation   |   example |
 | project | Azure DevOps Projectname |   example.stackstorm-exchange |
-| repository | Azure DevOps repository name |    st2_aap |
+| repository | Azure DevOps repository name |    stackstorm-azuredevops |
 | accesstoken | Personal Access Token |  ************************** |
 | filter | Branches to be excluded from housekeeping |  main|tags|dev |
 | retention | Maximum days to retain the branches |  30 |

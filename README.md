@@ -23,8 +23,8 @@ So you can get here the Pipeline ID for the runPipeline action.
 
 | Parameter        | Description  | Example  |
 | ------------- |:-------------:| -----:|
-| org      | AzureDevops ORG   |   schwarzit/schwarzit-wiking |
-| project | AzureDevops projectname |  schwarzit.groot-exchange  |
+| org      | Azure DevOps Organisation   |   example |
+| project | Azure DevOps Projectname |   example.stackstorm-exchange |
 | accesstoken | Access Token Azure Devops |    ********** |
 
 
@@ -36,8 +36,8 @@ Run a Ado Pipeline. You can select your Branche/Tag and your Parameters as JSON 
 | Parameter        | Description  | Example  |
 | ------------- |:-------------:| -----:|
 | pipelineId      | AzureDevops Pipeline ID (You can use the ListPipeline Action to get your Pipeline ID) | 12345678 |
-| org      | AzureDevops ORG   |   schwarzit/schwarzit-wiking |
-| project | AzureDevops projectname |   schwarzit.groot-exchange |
+| org      | Azure DevOps Organisation   |   example |
+| project | Azure DevOps Projectname |   example.stackstorm-exchange |
 | accesstoken | Access Token Azure Devops |    ********** |
 | refName | RefName of Branche or Tag |  refs/heads/main |
 | templateParameters | Parameter Array |  {"key1": "value2", "key2": "value2"} |
@@ -49,8 +49,8 @@ Removing Branches in your Azure DevOps Repository.
 
 | Parameter        | Description  | Example  |
 | ------------- |:-------------:| -----:|
-| org      | Azure DevOps Organisation   |   schwarzit/schwarzit-wiking |
-| project | Azure DevOps Projectname |   schwarzit.groot-exchange |
+| org      | Azure DevOps Organisation   |   example |
+| project | Azure DevOps Projectname |   example.stackstorm-exchange |
 | repository | Azure DevOps repository name |    st2_aap |
 | accesstoken | Personal Access Token |  ************************** |
 | filter | Branches to be excluded from housekeeping |  main|tags|dev |
@@ -63,6 +63,6 @@ Get all Repositories in an Azure DevOps project as JSON
 
 | Parameter        | Description  | Example  |
 | ------------- |:-------------:| -----:|
-| org      | Azure DevOps Organisation   |   schwarzit/schwarzit-wiking |
-| project | Azure DevOps Projectname |   schwarzit.groot-exchange |
+| org      | Azure DevOps Organisation   |   example |
+| project | Azure DevOps Projectname |   example.stackstorm-exchange |
 | accesstoken | Personal Access Token |  ************************** |
